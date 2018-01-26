@@ -1,0 +1,13 @@
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/demo_text"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:background="?attr/selectableItemBackground"
+  android:gravity="start|center_vertical"
+  android:minHeight="?attr/listPreferredItemHeightSmall"
+  android:paddingEnd="?attr/listPreferredItemPaddingRight"
+  android:paddingLeft="?attr/listPreferredItemPaddingLeft"
+  android:paddingRight="?attr/listPreferredItemPaddingRight"
+  android:paddingStart="?attr/listPreferredItemPaddingLeft"
+  android:textAppearance="?attr/textAppearanceListItemSmall" />
+
