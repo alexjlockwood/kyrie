@@ -64,8 +64,7 @@ abstract class KeyframeSet<V> {
     private final Animation.ValueEvaluator<V> evaluator;
 
     public ObjectKeyframeSet(
-        @NonNull Animation.ValueEvaluator<V> evaluator,
-        @NonNull List<Keyframe<V>> keyframes) {
+        @NonNull Animation.ValueEvaluator<V> evaluator, @NonNull List<Keyframe<V>> keyframes) {
       this.evaluator = evaluator;
       this.numKeyframes = keyframes.size();
       this.keyframes = keyframes;

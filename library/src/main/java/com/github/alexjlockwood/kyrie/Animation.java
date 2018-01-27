@@ -43,8 +43,7 @@ public final class Animation<T, V> {
 
   @NonNull
   @SafeVarargs
-  public static Animation<float[], float[]> ofFloatArray(
-      @NonNull Keyframe<float[]>... keyframes) {
+  public static Animation<float[], float[]> ofFloatArray(@NonNull Keyframe<float[]>... keyframes) {
     return ofKeyframes(new FloatArrayValueEvaluator(), keyframes);
   }
 
@@ -63,10 +62,8 @@ public final class Animation<T, V> {
 
   @NonNull
   @SafeVarargs
-  private static <V> Animation<V, V> ofObject(
-      @NonNull ValueEvaluator<V> evaluator, V... values) {
-    return new Animation<>(
-        KeyframeSet.ofObject(evaluator, values), new NoopValueTransformer<V>());
+  private static <V> Animation<V, V> ofObject(@NonNull ValueEvaluator<V> evaluator, V... values) {
+    return new Animation<>(KeyframeSet.ofObject(evaluator, values), new NoopValueTransformer<V>());
   }
 
   @NonNull
@@ -222,33 +219,31 @@ public final class Animation<T, V> {
     @Override
     public Integer evaluate(
         float fraction, @NonNull Integer startValue, @NonNull Integer endValue) {
-      int startInt = startValue;
-      float startA = ((startInt >> 24) & 0xff) / 255.0f;
-      float startR = ((startInt >> 16) & 0xff) / 255.0f;
-      float startG = ((startInt >> 8) & 0xff) / 255.0f;
-      float startB = (startInt & 0xff) / 255.0f;
-      int endInt = endValue;
-      float endA = ((endInt >> 24) & 0xff) / 255.0f;
-      float endR = ((endInt >> 16) & 0xff) / 255.0f;
-      float endG = ((endInt >> 8) & 0xff) / 255.0f;
-      float endB = (endInt & 0xff) / 255.0f;
-      // transform from sRGB to linear
+      final float startA = ((startValue >> 24) & 0xff) / 255f;
+      float startR = ((startValue >> 16) & 0xff) / 255f;
+      float startG = ((startValue >> 8) & 0xff) / 255f;
+      float startB = (startValue & 0xff) / 255f;
+      float endA = ((endValue >> 24) & 0xff) / 255f;
+      float endR = ((endValue >> 16) & 0xff) / 255f;
+      float endG = ((endValue >> 8) & 0xff) / 255f;
+      float endB = (endValue & 0xff) / 255f;
+      // Transform from sRGB to linear.
       startR = (float) Math.pow(startR, 2.2);
       startG = (float) Math.pow(startG, 2.2);
       startB = (float) Math.pow(startB, 2.2);
       endR = (float) Math.pow(endR, 2.2);
       endG = (float) Math.pow(endG, 2.2);
       endB = (float) Math.pow(endB, 2.2);
-      // compute the interpolated color in linear space
+      // Compute the interpolated color in linear space.
       float a = startA + fraction * (endA - startA);
       float r = startR + fraction * (endR - startR);
       float g = startG + fraction * (endG - startG);
       float b = startB + fraction * (endB - startB);
-      // transform back to sRGB in the [0..255] range
-      a = a * 255.0f;
-      r = (float) Math.pow(r, 1.0 / 2.2) * 255.0f;
-      g = (float) Math.pow(g, 1.0 / 2.2) * 255.0f;
-      b = (float) Math.pow(b, 1.0 / 2.2) * 255.0f;
+      // Transform back to sRGB in the [0..255] range.
+      a = a * 255f;
+      r = (float) Math.pow(r, 1.0 / 2.2) * 255f;
+      g = (float) Math.pow(g, 1.0 / 2.2) * 255f;
+      b = (float) Math.pow(b, 1.0 / 2.2) * 255f;
       return Math.round(a) << 24 | Math.round(r) << 16 | Math.round(g) << 8 | Math.round(b);
     }
   }

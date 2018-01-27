@@ -94,8 +94,7 @@ public final class PathNode extends RenderNode {
   }
 
   public static final class Builder extends RenderNode.Builder<PathNode, Builder> {
-    @NonNull
-    private final List<Animation<?, PathData>> pathData = asAnimations(new PathData());
+    @NonNull private final List<Animation<?, PathData>> pathData = asAnimations(new PathData());
 
     private Builder() {}
 

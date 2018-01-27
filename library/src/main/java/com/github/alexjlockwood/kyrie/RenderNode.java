@@ -364,8 +364,7 @@ abstract class RenderNode extends BaseNode {
     @NonNull final List<Animation<?, Integer>> fillColor = asAnimations(Color.TRANSPARENT);
     @NonNull final List<Animation<?, Float>> fillAlpha = asAnimations(1f);
 
-    @NonNull
-    final List<Animation<?, Integer>> strokeColor = asAnimations(Color.TRANSPARENT);
+    @NonNull final List<Animation<?, Integer>> strokeColor = asAnimations(Color.TRANSPARENT);
 
     @NonNull final List<Animation<?, Float>> strokeAlpha = asAnimations(1f);
     @NonNull final List<Animation<?, Float>> strokeWidth = asAnimations(0f);

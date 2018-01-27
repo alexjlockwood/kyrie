@@ -15,8 +15,7 @@ final class Property<V> {
   private static final Comparator<Animation<?, ?>> ANIMATION_COMPARATOR =
       new Comparator<Animation<?, ?>>() {
         @Override
-        public int compare(
-            @NonNull Animation<?, ?> a1, @NonNull Animation<?, ?> a2) {
+        public int compare(@NonNull Animation<?, ?> a1, @NonNull Animation<?, ?> a2) {
           // Animations with smaller start times are sorted first.
           final long s1 = a1.getStartDelay();
           final long s2 = a2.getStartDelay();

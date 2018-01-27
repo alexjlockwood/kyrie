@@ -25,8 +25,7 @@ final class Timeline {
   }
 
   @NonNull
-  public <V> Property<V> registerAnimatableProperty(
-      @NonNull List<Animation<?, V>> animations) {
+  public <V> Property<V> registerAnimatableProperty(@NonNull List<Animation<?, V>> animations) {
     final Property<V> property = new Property<>(animations);
     properties.add(property);
     property.addListener(listener);

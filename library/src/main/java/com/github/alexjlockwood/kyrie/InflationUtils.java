@@ -124,8 +124,7 @@ public final class InflationUtils {
             if (targetMap.containsKey(targetName)) {
               final Map<String, List<Animation<?, ?>>> existingAnimationMap =
                   targetMap.get(targetName);
-              for (Map.Entry<String, List<Animation<?, ?>>> entry :
-                  animationMap.entrySet()) {
+              for (Map.Entry<String, List<Animation<?, ?>>> entry : animationMap.entrySet()) {
                 final String key = entry.getKey();
                 final List<Animation<?, ?>> value = entry.getValue();
                 if (existingAnimationMap.containsKey(key)) {
@@ -146,8 +145,7 @@ public final class InflationUtils {
 
     if (drawableResId != 0) {
       final Map<String, Map<String, Animation[]>> arrayTargetMap = new ArrayMap<>();
-      for (Map.Entry<String, Map<String, List<Animation<?, ?>>>> entry :
-          targetMap.entrySet()) {
+      for (Map.Entry<String, Map<String, List<Animation<?, ?>>>> entry : targetMap.entrySet()) {
         final Map<String, List<Animation<?, ?>>> value = entry.getValue();
         final Map<String, Animation[]> arrayValue = new ArrayMap<>();
         for (Map.Entry<String, List<Animation<?, ?>>> e : value.entrySet()) {
@@ -423,8 +421,7 @@ public final class InflationUtils {
         TypedArrayUtils.getNamedFloat(
             a, parser, "strokeMiterLimit", Styleable.Path.STROKE_MITER_LIMIT, 4));
     if (animationMap != null && animationMap.containsKey("strokeMiterLimit")) {
-      builder.strokeMiterLimit(
-          (Animation<?, Float>[]) animationMap.get("strokeMiterLimit"));
+      builder.strokeMiterLimit((Animation<?, Float>[]) animationMap.get("strokeMiterLimit"));
     }
     @FillType
     final int fillType =
@@ -1082,8 +1079,7 @@ public final class InflationUtils {
     @NonNull
     @Override
     public Map<String, List<Animation<?, ?>>> toMap(long extraStartDelay) {
-      final List<Map<String, List<Animation<?, ?>>>> maps =
-          new ArrayList<>(animators.length);
+      final List<Map<String, List<Animation<?, ?>>>> maps = new ArrayList<>(animators.length);
       for (MyAnimator animator : animators) {
         maps.add(animator.toMap(extraStartDelay));
         if (isOrderingSequential) {
@@ -1296,22 +1292,14 @@ public final class InflationUtils {
       Animation<?, ?> anim;
       switch (valueType) {
         case VALUE_TYPE_FLOAT:
-          anim =
-              Animation.ofFloat(keyframes)
-                  .startDelay(startTime)
-                  .duration(endTime - startTime);
+          anim = Animation.ofFloat(keyframes).startDelay(startTime).duration(endTime - startTime);
           break;
         case VALUE_TYPE_COLOR:
-          anim =
-              Animation.ofArgb(keyframes)
-                  .startDelay(startTime)
-                  .duration(endTime - startTime);
+          anim = Animation.ofArgb(keyframes).startDelay(startTime).duration(endTime - startTime);
           break;
         case VALUE_TYPE_PATH:
           anim =
-              Animation.ofPathMorph(keyframes)
-                  .startDelay(startTime)
-                  .duration(endTime - startTime);
+              Animation.ofPathMorph(keyframes).startDelay(startTime).duration(endTime - startTime);
           break;
         default:
           throw new IllegalStateException("Invalid value type: " + valueType);

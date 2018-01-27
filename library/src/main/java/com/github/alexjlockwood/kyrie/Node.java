@@ -34,23 +34,20 @@ abstract class Node {
     public abstract N build();
 
     final <T> B replaceFirstAnimation(
-        @NonNull List<Animation<?, T>> animations,
-        @NonNull Animation<?, T> animation) {
+        @NonNull List<Animation<?, T>> animations, @NonNull Animation<?, T> animation) {
       Node.replaceFirstAnimation(animations, animation);
       return self;
     }
 
     @SafeVarargs
     final <T> B replaceAnimations(
-        @NonNull List<Animation<?, T>> animations,
-        @NonNull Animation<?, T>... newAnimations) {
+        @NonNull List<Animation<?, T>> animations, @NonNull Animation<?, T>... newAnimations) {
       Node.replaceAnimations(animations, newAnimations);
       return self;
     }
 
     final <T> B replaceAnimations(
-        @NonNull List<Animation<?, T>> animations,
-        @NonNull List<Animation<?, T>> newAnimations) {
+        @NonNull List<Animation<?, T>> animations, @NonNull List<Animation<?, T>> newAnimations) {
       Node.replaceAnimations(animations, newAnimations);
       return self;
     }
@@ -97,23 +94,20 @@ abstract class Node {
   }
 
   @NonNull
-  private static <T> List<Animation<?, T>> asList(
-      @NonNull Animation<?, T> animation) {
+  private static <T> List<Animation<?, T>> asList(@NonNull Animation<?, T> animation) {
     final List<Animation<?, T>> animations = new ArrayList<>(1);
     animations.add(animation);
     return animations;
   }
 
   static <T> void replaceFirstAnimation(
-      @NonNull List<Animation<?, T>> animations,
-      @NonNull Animation<?, T> animation) {
+      @NonNull List<Animation<?, T>> animations, @NonNull Animation<?, T> animation) {
     animations.set(0, animation);
   }
 
   @SafeVarargs
   static <T> void replaceAnimations(
-      @NonNull List<Animation<?, T>> animations,
-      @NonNull Animation<?, T>... newAnimations) {
+      @NonNull List<Animation<?, T>> animations, @NonNull Animation<?, T>... newAnimations) {
     for (int i = animations.size() - 1; i > 0; i--) {
       animations.remove(i);
     }
@@ -121,8 +115,7 @@ abstract class Node {
   }
 
   static <T> void replaceAnimations(
-      @NonNull List<Animation<?, T>> animations,
-      @NonNull List<Animation<?, T>> newAnimations) {
+      @NonNull List<Animation<?, T>> animations, @NonNull List<Animation<?, T>> newAnimations) {
     for (int i = animations.size() - 1; i > 0; i--) {
       animations.remove(i);
     }
