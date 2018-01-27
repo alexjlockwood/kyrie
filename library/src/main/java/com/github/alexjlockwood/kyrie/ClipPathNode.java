@@ -9,23 +9,23 @@ import android.support.annotation.NonNull;
 import java.util.List;
 
 public final class ClipPathNode extends BaseNode {
-  @NonNull private final List<PropertyAnimation<?, PathData>> pathData;
+  @NonNull private final List<Animation<?, PathData>> pathData;
 
   private ClipPathNode(
-      @NonNull List<PropertyAnimation<?, Float>> rotation,
-      @NonNull List<PropertyAnimation<?, Float>> pivotX,
-      @NonNull List<PropertyAnimation<?, Float>> pivotY,
-      @NonNull List<PropertyAnimation<?, Float>> scaleX,
-      @NonNull List<PropertyAnimation<?, Float>> scaleY,
-      @NonNull List<PropertyAnimation<?, Float>> translateX,
-      @NonNull List<PropertyAnimation<?, Float>> translateY,
-      @NonNull List<PropertyAnimation<?, PathData>> pathData) {
+      @NonNull List<Animation<?, Float>> rotation,
+      @NonNull List<Animation<?, Float>> pivotX,
+      @NonNull List<Animation<?, Float>> pivotY,
+      @NonNull List<Animation<?, Float>> scaleX,
+      @NonNull List<Animation<?, Float>> scaleY,
+      @NonNull List<Animation<?, Float>> translateX,
+      @NonNull List<Animation<?, Float>> translateY,
+      @NonNull List<Animation<?, PathData>> pathData) {
     super(rotation, pivotX, pivotY, scaleX, scaleY, translateX, translateY);
     this.pathData = pathData;
   }
 
   @NonNull
-  public List<PropertyAnimation<?, PathData>> getPathData() {
+  public List<Animation<?, PathData>> getPathData() {
     return pathData;
   }
 
@@ -33,18 +33,18 @@ public final class ClipPathNode extends BaseNode {
 
   @NonNull
   @Override
-  ClipPathLayer toLayer(@NonNull PropertyTimeline timeline) {
+  ClipPathLayer toLayer(@NonNull Timeline timeline) {
     return new ClipPathLayer(timeline, this);
   }
 
   private static final class ClipPathLayer extends BaseLayer {
-    @NonNull private final AnimatableProperty<PathData> pathData;
+    @NonNull private final Property<PathData> pathData;
 
     private final Matrix tempMatrix = new Matrix();
     private final Path tempPath = new Path();
     private final Path tempRenderPath = new Path();
 
-    public ClipPathLayer(@NonNull PropertyTimeline timeline, @NonNull ClipPathNode node) {
+    public ClipPathLayer(@NonNull Timeline timeline, @NonNull ClipPathNode node) {
       super(timeline, node);
       pathData = registerAnimatableProperty(node.getPathData());
     }
@@ -81,7 +81,7 @@ public final class ClipPathNode extends BaseNode {
   }
 
   public static final class Builder extends BaseNode.Builder<ClipPathNode, Builder> {
-    @NonNull private List<PropertyAnimation<?, PathData>> pathData = asAnimations(new PathData());
+    @NonNull private List<Animation<?, PathData>> pathData = asAnimations(new PathData());
 
     private Builder() {}
 
@@ -96,11 +96,11 @@ public final class ClipPathNode extends BaseNode {
     }
 
     @SafeVarargs
-    public final Builder pathData(@NonNull PropertyAnimation<?, PathData>... keyframes) {
+    public final Builder pathData(@NonNull Animation<?, PathData>... keyframes) {
       return replaceAnimations(pathData, keyframes);
     }
 
-    public final Builder pathData(@NonNull List<PropertyAnimation<?, PathData>> keyframes) {
+    public final Builder pathData(@NonNull List<Animation<?, PathData>> keyframes) {
       return replaceAnimations(pathData, keyframes);
     }
 

@@ -13,7 +13,7 @@ import java.util.List;
 abstract class Node {
 
   @NonNull
-  abstract Layer toLayer(@NonNull PropertyTimeline timeline);
+  abstract Layer toLayer(@NonNull Timeline timeline);
 
   interface Layer {
     void draw(@NonNull Canvas canvas, @NonNull Matrix parentMatrix, @NonNull PointF viewportScale);
@@ -31,87 +31,89 @@ abstract class Node {
 
     abstract B self();
 
+    public abstract N build();
+
     final <T> B replaceFirstAnimation(
-        @NonNull List<PropertyAnimation<?, T>> animations,
-        @NonNull PropertyAnimation<?, T> animation) {
+        @NonNull List<Animation<?, T>> animations,
+        @NonNull Animation<?, T> animation) {
       Node.replaceFirstAnimation(animations, animation);
       return self;
     }
 
     @SafeVarargs
     final <T> B replaceAnimations(
-        @NonNull List<PropertyAnimation<?, T>> animations,
-        @NonNull PropertyAnimation<?, T>... newAnimations) {
+        @NonNull List<Animation<?, T>> animations,
+        @NonNull Animation<?, T>... newAnimations) {
       Node.replaceAnimations(animations, newAnimations);
       return self;
     }
 
     final <T> B replaceAnimations(
-        @NonNull List<PropertyAnimation<?, T>> animations,
-        @NonNull List<PropertyAnimation<?, T>> newAnimations) {
+        @NonNull List<Animation<?, T>> animations,
+        @NonNull List<Animation<?, T>> newAnimations) {
       Node.replaceAnimations(animations, newAnimations);
       return self;
     }
   }
 
   @NonNull
-  static PropertyAnimation<?, Float> asAnimation(float initialValue) {
-    return PropertyAnimation.ofFloat(initialValue, initialValue).duration(0);
+  static Animation<?, Float> asAnimation(float initialValue) {
+    return Animation.ofFloat(initialValue, initialValue).duration(0);
   }
 
   @NonNull
-  static PropertyAnimation<?, Integer> asAnimation(@ColorInt int initialValue) {
-    return PropertyAnimation.ofArgb(initialValue, initialValue).duration(0);
+  static Animation<?, Integer> asAnimation(@ColorInt int initialValue) {
+    return Animation.ofArgb(initialValue, initialValue).duration(0);
   }
 
   @NonNull
-  static PropertyAnimation<?, float[]> asAnimation(@NonNull float[] initialValue) {
-    return PropertyAnimation.ofFloatArray(initialValue, initialValue).duration(0);
+  static Animation<?, float[]> asAnimation(@NonNull float[] initialValue) {
+    return Animation.ofFloatArray(initialValue, initialValue).duration(0);
   }
 
   @NonNull
-  static PropertyAnimation<?, PathData> asAnimation(@NonNull PathData initialValue) {
-    return PropertyAnimation.ofPathMorph(initialValue, initialValue).duration(0);
+  static Animation<?, PathData> asAnimation(@NonNull PathData initialValue) {
+    return Animation.ofPathMorph(initialValue, initialValue).duration(0);
   }
 
   @NonNull
-  static List<PropertyAnimation<?, Float>> asAnimations(float initialValue) {
+  static List<Animation<?, Float>> asAnimations(float initialValue) {
     return asList(asAnimation(initialValue));
   }
 
   @NonNull
-  static List<PropertyAnimation<?, Integer>> asAnimations(int initialValue) {
+  static List<Animation<?, Integer>> asAnimations(int initialValue) {
     return asList(asAnimation(initialValue));
   }
 
   @NonNull
-  static List<PropertyAnimation<?, float[]>> asAnimations(@NonNull float[] initialValue) {
+  static List<Animation<?, float[]>> asAnimations(@NonNull float[] initialValue) {
     return asList(asAnimation(initialValue));
   }
 
   @NonNull
-  static List<PropertyAnimation<?, PathData>> asAnimations(@NonNull PathData initialValue) {
+  static List<Animation<?, PathData>> asAnimations(@NonNull PathData initialValue) {
     return asList(asAnimation(initialValue));
   }
 
   @NonNull
-  private static <T> List<PropertyAnimation<?, T>> asList(
-      @NonNull PropertyAnimation<?, T> animation) {
-    final List<PropertyAnimation<?, T>> animations = new ArrayList<>(1);
+  private static <T> List<Animation<?, T>> asList(
+      @NonNull Animation<?, T> animation) {
+    final List<Animation<?, T>> animations = new ArrayList<>(1);
     animations.add(animation);
     return animations;
   }
 
   static <T> void replaceFirstAnimation(
-      @NonNull List<PropertyAnimation<?, T>> animations,
-      @NonNull PropertyAnimation<?, T> animation) {
+      @NonNull List<Animation<?, T>> animations,
+      @NonNull Animation<?, T> animation) {
     animations.set(0, animation);
   }
 
   @SafeVarargs
   static <T> void replaceAnimations(
-      @NonNull List<PropertyAnimation<?, T>> animations,
-      @NonNull PropertyAnimation<?, T>... newAnimations) {
+      @NonNull List<Animation<?, T>> animations,
+      @NonNull Animation<?, T>... newAnimations) {
     for (int i = animations.size() - 1; i > 0; i--) {
       animations.remove(i);
     }
@@ -119,8 +121,8 @@ abstract class Node {
   }
 
   static <T> void replaceAnimations(
-      @NonNull List<PropertyAnimation<?, T>> animations,
-      @NonNull List<PropertyAnimation<?, T>> newAnimations) {
+      @NonNull List<Animation<?, T>> animations,
+      @NonNull List<Animation<?, T>> newAnimations) {
     for (int i = animations.size() - 1; i > 0; i--) {
       animations.remove(i);
     }

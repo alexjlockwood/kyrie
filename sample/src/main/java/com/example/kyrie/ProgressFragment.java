@@ -12,12 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.github.alexjlockwood.kyrie.KyrieDrawable;
-import com.github.alexjlockwood.kyrie.PropertyAnimation;
+import com.github.alexjlockwood.kyrie.Animation;
 import com.github.alexjlockwood.kyrie.GroupNode;
+import com.github.alexjlockwood.kyrie.KyrieDrawable;
+import com.github.alexjlockwood.kyrie.PathData;
 import com.github.alexjlockwood.kyrie.PathNode;
 import com.github.alexjlockwood.kyrie.StrokeLineCap;
-import com.github.alexjlockwood.kyrie.PathData;
 
 public class ProgressFragment extends Fragment {
   @ColorInt private static final int TINT_COLOR = 0xffff4081;
@@ -66,22 +66,22 @@ public class ProgressFragment extends Fragment {
                 .child(
                     GroupNode.builder()
                         .scaleX(
-                            PropertyAnimation.ofPathMotion(
+                            Animation.ofPathMotion(
                                     PathData.toPath("M 0 0.1 L 1 0.571 L 2 0.91 L 3 0.1"))
                                 .transform(p -> p.y)
                                 .duration(2000)
-                                .repeatCount(PropertyAnimation.INFINITE)
+                                .repeatCount(Animation.INFINITE)
                                 .interpolator(
                                     PathInterpolatorCompat.create(
                                         PathData.toPath(
                                             "M 0 0 C 0.068 0.02 0.192 0.159 0.333 0.349 C 0.384 0.415 0.549 0.681 0.667 0.683 C 0.753 0.682 0.737 0.879 1 1"))))
                         .translateX(
-                            PropertyAnimation.ofPathMotion(
+                            Animation.ofPathMotion(
                                     PathData.toPath(
                                         "M -197.6 0 C -183.318 0 -112.522 0 -62.053 0 C -7.791 0 28.371 0 106.19 0 C 250.912 0 422.6 0 422.6 0"))
                                 .transform(p -> p.x)
                                 .duration(2000)
-                                .repeatCount(PropertyAnimation.INFINITE)
+                                .repeatCount(Animation.INFINITE)
                                 .interpolator(
                                     PathInterpolatorCompat.create(
                                         PathData.toPath(
@@ -93,22 +93,21 @@ public class ProgressFragment extends Fragment {
                 .child(
                     GroupNode.builder()
                         .scaleX(
-                            PropertyAnimation.ofPathMotion(
-                                    PathData.toPath("M 0 0.1 L 1 0.826 L 2 0.1"))
+                            Animation.ofPathMotion(PathData.toPath("M 0 0.1 L 1 0.826 L 2 0.1"))
                                 .transform(p -> p.y)
                                 .duration(2000)
-                                .repeatCount(PropertyAnimation.INFINITE)
+                                .repeatCount(Animation.INFINITE)
                                 .interpolator(
                                     PathInterpolatorCompat.create(
                                         PathData.toPath(
                                             "M 0 0 L 0.366 0 C 0.473 0.062 0.615 0.5 0.683 0.5 C 0.755 0.5 0.757 0.815 1 1"))))
                         .translateX(
-                            PropertyAnimation.ofPathMotion(
+                            Animation.ofPathMotion(
                                     PathData.toPath(
                                         "M -522.6 0 C -473.7 0 -356.573 0 -221.383 0 C -23.801 0 199.6 0 199.6 0"))
                                 .transform(p -> p.x)
                                 .duration(2000)
-                                .repeatCount(PropertyAnimation.INFINITE)
+                                .repeatCount(Animation.INFINITE)
                                 .interpolator(
                                     PathInterpolatorCompat.create(
                                         PathData.toPath(
@@ -129,32 +128,30 @@ public class ProgressFragment extends Fragment {
                 .translateX(24f)
                 .translateY(24f)
                 .rotation(
-                    PropertyAnimation.ofFloat(0f, 720f)
-                        .duration(4444)
-                        .repeatCount(PropertyAnimation.INFINITE))
+                    Animation.ofFloat(0f, 720f).duration(4444).repeatCount(Animation.INFINITE))
                 .child(
                     PathNode.builder()
                         .strokeColor(Color.WHITE)
                         .strokeWidth(4f)
                         .trimPathStart(
-                            PropertyAnimation.ofFloat(0f, 0.75f)
+                            Animation.ofFloat(0f, 0.75f)
                                 .duration(1333)
-                                .repeatCount(PropertyAnimation.INFINITE)
+                                .repeatCount(Animation.INFINITE)
                                 .interpolator(
                                     PathInterpolatorCompat.create(
                                         PathData.toPath("M 0 0 L 0.5 0 C 0.7 0 0.6 1 1 1"))))
                         .trimPathEnd(
-                            PropertyAnimation.ofFloat(0.03f, 0.78f)
+                            Animation.ofFloat(0.03f, 0.78f)
                                 .duration(1333)
-                                .repeatCount(PropertyAnimation.INFINITE)
+                                .repeatCount(Animation.INFINITE)
                                 .interpolator(
                                     PathInterpolatorCompat.create(
                                         PathData.toPath(
                                             "M 0 0 C 0.2 0 0.1 1 0.5 0.96 C 0.966 0.96 0.993 1 1 1"))))
                         .trimPathOffset(
-                            PropertyAnimation.ofFloat(0f, 0.25f)
+                            Animation.ofFloat(0f, 0.25f)
                                 .duration(1333)
-                                .repeatCount(PropertyAnimation.INFINITE))
+                                .repeatCount(Animation.INFINITE))
                         .strokeLineCap(StrokeLineCap.SQUARE)
                         .pathData("M 0 0 m 0 -18 a 18 18 0 1 1 0 36 a 18 18 0 1 1 0 -36")))
         .build();

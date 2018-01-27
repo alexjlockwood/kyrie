@@ -8,36 +8,36 @@ import android.support.annotation.NonNull;
 import java.util.List;
 
 public final class CircleNode extends RenderNode {
-  @NonNull private final List<PropertyAnimation<?, Float>> centerX;
-  @NonNull private final List<PropertyAnimation<?, Float>> centerY;
-  @NonNull private final List<PropertyAnimation<?, Float>> radius;
+  @NonNull private final List<Animation<?, Float>> centerX;
+  @NonNull private final List<Animation<?, Float>> centerY;
+  @NonNull private final List<Animation<?, Float>> radius;
 
   private CircleNode(
-      @NonNull List<PropertyAnimation<?, Float>> rotation,
-      @NonNull List<PropertyAnimation<?, Float>> pivotX,
-      @NonNull List<PropertyAnimation<?, Float>> pivotY,
-      @NonNull List<PropertyAnimation<?, Float>> scaleX,
-      @NonNull List<PropertyAnimation<?, Float>> scaleY,
-      @NonNull List<PropertyAnimation<?, Float>> translateX,
-      @NonNull List<PropertyAnimation<?, Float>> translateY,
-      @NonNull List<PropertyAnimation<?, Integer>> fillColor,
-      @NonNull List<PropertyAnimation<?, Float>> fillAlpha,
-      @NonNull List<PropertyAnimation<?, Integer>> strokeColor,
-      @NonNull List<PropertyAnimation<?, Float>> strokeAlpha,
-      @NonNull List<PropertyAnimation<?, Float>> strokeWidth,
-      @NonNull List<PropertyAnimation<?, Float>> trimPathStart,
-      @NonNull List<PropertyAnimation<?, Float>> trimPathEnd,
-      @NonNull List<PropertyAnimation<?, Float>> trimPathOffset,
+      @NonNull List<Animation<?, Float>> rotation,
+      @NonNull List<Animation<?, Float>> pivotX,
+      @NonNull List<Animation<?, Float>> pivotY,
+      @NonNull List<Animation<?, Float>> scaleX,
+      @NonNull List<Animation<?, Float>> scaleY,
+      @NonNull List<Animation<?, Float>> translateX,
+      @NonNull List<Animation<?, Float>> translateY,
+      @NonNull List<Animation<?, Integer>> fillColor,
+      @NonNull List<Animation<?, Float>> fillAlpha,
+      @NonNull List<Animation<?, Integer>> strokeColor,
+      @NonNull List<Animation<?, Float>> strokeAlpha,
+      @NonNull List<Animation<?, Float>> strokeWidth,
+      @NonNull List<Animation<?, Float>> trimPathStart,
+      @NonNull List<Animation<?, Float>> trimPathEnd,
+      @NonNull List<Animation<?, Float>> trimPathOffset,
       @StrokeLineCap int strokeLineCap,
       @StrokeLineJoin int strokeLineJoin,
-      @NonNull List<PropertyAnimation<?, Float>> strokeMiterLimit,
-      @NonNull List<PropertyAnimation<?, float[]>> strokeDashArray,
-      @NonNull List<PropertyAnimation<?, Float>> strokeDashOffset,
+      @NonNull List<Animation<?, Float>> strokeMiterLimit,
+      @NonNull List<Animation<?, float[]>> strokeDashArray,
+      @NonNull List<Animation<?, Float>> strokeDashOffset,
       @FillType int fillType,
       boolean isStrokeScaling,
-      @NonNull List<PropertyAnimation<?, Float>> centerX,
-      @NonNull List<PropertyAnimation<?, Float>> centerY,
-      @NonNull List<PropertyAnimation<?, Float>> radius) {
+      @NonNull List<Animation<?, Float>> centerX,
+      @NonNull List<Animation<?, Float>> centerY,
+      @NonNull List<Animation<?, Float>> radius) {
     super(
         rotation,
         pivotX,
@@ -67,17 +67,17 @@ public final class CircleNode extends RenderNode {
   }
 
   @NonNull
-  public List<PropertyAnimation<?, Float>> getCenterX() {
+  public List<Animation<?, Float>> getCenterX() {
     return centerX;
   }
 
   @NonNull
-  public List<PropertyAnimation<?, Float>> getCenterY() {
+  public List<Animation<?, Float>> getCenterY() {
     return centerY;
   }
 
   @NonNull
-  public List<PropertyAnimation<?, Float>> getRadius() {
+  public List<Animation<?, Float>> getRadius() {
     return radius;
   }
 
@@ -85,18 +85,18 @@ public final class CircleNode extends RenderNode {
 
   @NonNull
   @Override
-  CircleLayer toLayer(@NonNull PropertyTimeline timeline) {
+  CircleLayer toLayer(@NonNull Timeline timeline) {
     return new CircleLayer(timeline, this);
   }
 
   private static final class CircleLayer extends RenderLayer {
-    @NonNull private final AnimatableProperty<Float> centerX;
-    @NonNull private final AnimatableProperty<Float> centerY;
-    @NonNull private final AnimatableProperty<Float> radius;
+    @NonNull private final Property<Float> centerX;
+    @NonNull private final Property<Float> centerY;
+    @NonNull private final Property<Float> radius;
 
     private final RectF tempRect = new RectF();
 
-    public CircleLayer(@NonNull PropertyTimeline timeline, @NonNull CircleNode node) {
+    public CircleLayer(@NonNull Timeline timeline, @NonNull CircleNode node) {
       super(timeline, node);
       centerX = registerAnimatableProperty(node.getCenterX());
       centerY = registerAnimatableProperty(node.getCenterY());
@@ -122,11 +122,11 @@ public final class CircleNode extends RenderNode {
   }
 
   public static final class Builder extends RenderNode.Builder<CircleNode, Builder> {
-    @NonNull private final List<PropertyAnimation<?, Float>> centerX = Node.asAnimations(0f);
+    @NonNull private final List<Animation<?, Float>> centerX = Node.asAnimations(0f);
 
-    @NonNull private final List<PropertyAnimation<?, Float>> centerY = Node.asAnimations(0f);
+    @NonNull private final List<Animation<?, Float>> centerY = Node.asAnimations(0f);
 
-    @NonNull private final List<PropertyAnimation<?, Float>> radius = Node.asAnimations(0f);
+    @NonNull private final List<Animation<?, Float>> radius = Node.asAnimations(0f);
 
     private Builder() {}
 
@@ -137,11 +137,11 @@ public final class CircleNode extends RenderNode {
     }
 
     @SafeVarargs
-    public final Builder centerX(@NonNull PropertyAnimation<?, Float>... animations) {
+    public final Builder centerX(@NonNull Animation<?, Float>... animations) {
       return replaceAnimations(centerX, animations);
     }
 
-    public final Builder centerX(@NonNull List<PropertyAnimation<?, Float>> animations) {
+    public final Builder centerX(@NonNull List<Animation<?, Float>> animations) {
       return replaceAnimations(centerX, animations);
     }
 
@@ -152,11 +152,11 @@ public final class CircleNode extends RenderNode {
     }
 
     @SafeVarargs
-    public final Builder centerY(@NonNull PropertyAnimation<?, Float>... animations) {
+    public final Builder centerY(@NonNull Animation<?, Float>... animations) {
       return replaceAnimations(centerY, animations);
     }
 
-    public final Builder centerY(@NonNull List<PropertyAnimation<?, Float>> animations) {
+    public final Builder centerY(@NonNull List<Animation<?, Float>> animations) {
       return replaceAnimations(centerY, animations);
     }
 
@@ -167,11 +167,11 @@ public final class CircleNode extends RenderNode {
     }
 
     @SafeVarargs
-    public final Builder radius(@NonNull PropertyAnimation<?, Float>... animations) {
+    public final Builder radius(@NonNull Animation<?, Float>... animations) {
       return replaceAnimations(radius, animations);
     }
 
-    public final Builder radius(@NonNull List<PropertyAnimation<?, Float>> animations) {
+    public final Builder radius(@NonNull List<Animation<?, Float>> animations) {
       return replaceAnimations(radius, animations);
     }
 

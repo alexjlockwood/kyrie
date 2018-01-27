@@ -29,10 +29,9 @@ public class InflationFragment extends Fragment {
   public void onActivityCreated(@Nullable Bundle savedInstanceState) {
     super.onActivityCreated(savedInstanceState);
 
-    final KyrieDrawable drawable =
-        KyrieDrawable.create(getContext(), R.drawable.avd);
-//    final AnimatedVectorDrawableCompat drawable =
-//        AnimatedVectorDrawableCompat.create(getContext(), R.drawable.avd);
+    final KyrieDrawable drawable = KyrieDrawable.create(getContext(), R.drawable.avd);
+    //    final AnimatedVectorDrawableCompat drawable =
+    //        AnimatedVectorDrawableCompat.create(getContext(), R.drawable.avd);
     imageView.setImageDrawable(drawable);
     imageView.setOnClickListener(v -> drawable.start());
   }

@@ -16,43 +16,43 @@ import android.support.annotation.Nullable;
 import java.util.List;
 
 abstract class RenderNode extends BaseNode {
-  @NonNull private final List<PropertyAnimation<?, Integer>> fillColor;
-  @NonNull private final List<PropertyAnimation<?, Float>> fillAlpha;
-  @NonNull private final List<PropertyAnimation<?, Integer>> strokeColor;
-  @NonNull private final List<PropertyAnimation<?, Float>> strokeAlpha;
-  @NonNull private final List<PropertyAnimation<?, Float>> strokeWidth;
-  @NonNull private final List<PropertyAnimation<?, Float>> trimPathStart;
-  @NonNull private final List<PropertyAnimation<?, Float>> trimPathEnd;
-  @NonNull private final List<PropertyAnimation<?, Float>> trimPathOffset;
+  @NonNull private final List<Animation<?, Integer>> fillColor;
+  @NonNull private final List<Animation<?, Float>> fillAlpha;
+  @NonNull private final List<Animation<?, Integer>> strokeColor;
+  @NonNull private final List<Animation<?, Float>> strokeAlpha;
+  @NonNull private final List<Animation<?, Float>> strokeWidth;
+  @NonNull private final List<Animation<?, Float>> trimPathStart;
+  @NonNull private final List<Animation<?, Float>> trimPathEnd;
+  @NonNull private final List<Animation<?, Float>> trimPathOffset;
   @StrokeLineCap private final int strokeLineCap;
   @StrokeLineJoin private final int strokeLineJoin;
-  @NonNull private final List<PropertyAnimation<?, Float>> strokeMiterLimit;
-  @NonNull private final List<PropertyAnimation<?, float[]>> strokeDashArray;
-  @NonNull private final List<PropertyAnimation<?, Float>> strokeDashOffset;
+  @NonNull private final List<Animation<?, Float>> strokeMiterLimit;
+  @NonNull private final List<Animation<?, float[]>> strokeDashArray;
+  @NonNull private final List<Animation<?, Float>> strokeDashOffset;
   @FillType private final int fillType;
   private final boolean isStrokeScaling;
 
   RenderNode(
-      @NonNull List<PropertyAnimation<?, Float>> rotation,
-      @NonNull List<PropertyAnimation<?, Float>> pivotX,
-      @NonNull List<PropertyAnimation<?, Float>> pivotY,
-      @NonNull List<PropertyAnimation<?, Float>> scaleX,
-      @NonNull List<PropertyAnimation<?, Float>> scaleY,
-      @NonNull List<PropertyAnimation<?, Float>> translateX,
-      @NonNull List<PropertyAnimation<?, Float>> translateY,
-      @NonNull List<PropertyAnimation<?, Integer>> fillColor,
-      @NonNull List<PropertyAnimation<?, Float>> fillAlpha,
-      @NonNull List<PropertyAnimation<?, Integer>> strokeColor,
-      @NonNull List<PropertyAnimation<?, Float>> strokeAlpha,
-      @NonNull List<PropertyAnimation<?, Float>> strokeWidth,
-      @NonNull List<PropertyAnimation<?, Float>> trimPathStart,
-      @NonNull List<PropertyAnimation<?, Float>> trimPathEnd,
-      @NonNull List<PropertyAnimation<?, Float>> trimPathOffset,
+      @NonNull List<Animation<?, Float>> rotation,
+      @NonNull List<Animation<?, Float>> pivotX,
+      @NonNull List<Animation<?, Float>> pivotY,
+      @NonNull List<Animation<?, Float>> scaleX,
+      @NonNull List<Animation<?, Float>> scaleY,
+      @NonNull List<Animation<?, Float>> translateX,
+      @NonNull List<Animation<?, Float>> translateY,
+      @NonNull List<Animation<?, Integer>> fillColor,
+      @NonNull List<Animation<?, Float>> fillAlpha,
+      @NonNull List<Animation<?, Integer>> strokeColor,
+      @NonNull List<Animation<?, Float>> strokeAlpha,
+      @NonNull List<Animation<?, Float>> strokeWidth,
+      @NonNull List<Animation<?, Float>> trimPathStart,
+      @NonNull List<Animation<?, Float>> trimPathEnd,
+      @NonNull List<Animation<?, Float>> trimPathOffset,
       @StrokeLineCap int strokeLineCap,
       @StrokeLineJoin int strokeLineJoin,
-      @NonNull List<PropertyAnimation<?, Float>> strokeMiterLimit,
-      @NonNull List<PropertyAnimation<?, float[]>> strokeDashArray,
-      @NonNull List<PropertyAnimation<?, Float>> strokeDashOffset,
+      @NonNull List<Animation<?, Float>> strokeMiterLimit,
+      @NonNull List<Animation<?, float[]>> strokeDashArray,
+      @NonNull List<Animation<?, Float>> strokeDashOffset,
       @FillType int fillType,
       boolean isStrokeScaling) {
     super(rotation, pivotX, pivotY, scaleX, scaleY, translateX, translateY);
@@ -74,42 +74,42 @@ abstract class RenderNode extends BaseNode {
   }
 
   @NonNull
-  public final List<PropertyAnimation<?, Integer>> getFillColor() {
+  public final List<Animation<?, Integer>> getFillColor() {
     return fillColor;
   }
 
   @NonNull
-  public final List<PropertyAnimation<?, Float>> getFillAlpha() {
+  public final List<Animation<?, Float>> getFillAlpha() {
     return fillAlpha;
   }
 
   @NonNull
-  public final List<PropertyAnimation<?, Integer>> getStrokeColor() {
+  public final List<Animation<?, Integer>> getStrokeColor() {
     return strokeColor;
   }
 
   @NonNull
-  public final List<PropertyAnimation<?, Float>> getStrokeAlpha() {
+  public final List<Animation<?, Float>> getStrokeAlpha() {
     return strokeAlpha;
   }
 
   @NonNull
-  public final List<PropertyAnimation<?, Float>> getStrokeWidth() {
+  public final List<Animation<?, Float>> getStrokeWidth() {
     return strokeWidth;
   }
 
   @NonNull
-  public final List<PropertyAnimation<?, Float>> getTrimPathStart() {
+  public final List<Animation<?, Float>> getTrimPathStart() {
     return trimPathStart;
   }
 
   @NonNull
-  public final List<PropertyAnimation<?, Float>> getTrimPathEnd() {
+  public final List<Animation<?, Float>> getTrimPathEnd() {
     return trimPathEnd;
   }
 
   @NonNull
-  public final List<PropertyAnimation<?, Float>> getTrimPathOffset() {
+  public final List<Animation<?, Float>> getTrimPathOffset() {
     return trimPathOffset;
   }
 
@@ -124,17 +124,17 @@ abstract class RenderNode extends BaseNode {
   }
 
   @NonNull
-  public final List<PropertyAnimation<?, Float>> getStrokeMiterLimit() {
+  public final List<Animation<?, Float>> getStrokeMiterLimit() {
     return strokeMiterLimit;
   }
 
   @NonNull
-  public final List<PropertyAnimation<?, float[]>> getStrokeDashArray() {
+  public final List<Animation<?, float[]>> getStrokeDashArray() {
     return strokeDashArray;
   }
 
   @NonNull
-  public final List<PropertyAnimation<?, Float>> getStrokeDashOffset() {
+  public final List<Animation<?, Float>> getStrokeDashOffset() {
     return strokeDashOffset;
   }
 
@@ -151,22 +151,22 @@ abstract class RenderNode extends BaseNode {
 
   @NonNull
   @Override
-  abstract RenderLayer toLayer(@NonNull PropertyTimeline timeline);
+  abstract RenderLayer toLayer(@NonNull Timeline timeline);
 
   abstract static class RenderLayer extends BaseLayer {
-    @NonNull private final AnimatableProperty<Integer> fillColor;
-    @NonNull private final AnimatableProperty<Float> fillAlpha;
-    @NonNull private final AnimatableProperty<Integer> strokeColor;
-    @NonNull private final AnimatableProperty<Float> strokeAlpha;
-    @NonNull private final AnimatableProperty<Float> strokeWidth;
-    @NonNull private final AnimatableProperty<Float> trimPathStart;
-    @NonNull private final AnimatableProperty<Float> trimPathEnd;
-    @NonNull private final AnimatableProperty<Float> trimPathOffset;
+    @NonNull private final Property<Integer> fillColor;
+    @NonNull private final Property<Float> fillAlpha;
+    @NonNull private final Property<Integer> strokeColor;
+    @NonNull private final Property<Float> strokeAlpha;
+    @NonNull private final Property<Float> strokeWidth;
+    @NonNull private final Property<Float> trimPathStart;
+    @NonNull private final Property<Float> trimPathEnd;
+    @NonNull private final Property<Float> trimPathOffset;
     @StrokeLineCap private final int strokeLineCap;
     @StrokeLineJoin private final int strokeLineJoin;
-    @NonNull private final AnimatableProperty<Float> strokeMiterLimit;
-    @NonNull private final AnimatableProperty<float[]> strokeDashArray;
-    @NonNull private final AnimatableProperty<Float> strokeDashOffset;
+    @NonNull private final Property<Float> strokeMiterLimit;
+    @NonNull private final Property<float[]> strokeDashArray;
+    @NonNull private final Property<Float> strokeDashOffset;
     @FillType private final int fillType;
     private boolean isStrokeScaling;
 
@@ -178,7 +178,7 @@ abstract class RenderNode extends BaseNode {
     @Nullable private PathMeasure tempPathMeasure;
     @Nullable private float[] tempStrokeDashArray;
 
-    public RenderLayer(@NonNull PropertyTimeline timeline, @NonNull RenderNode node) {
+    public RenderLayer(@NonNull Timeline timeline, @NonNull RenderNode node) {
       super(timeline, node);
       fillColor = registerAnimatableProperty(node.getFillColor());
       fillAlpha = registerAnimatableProperty(node.getFillAlpha());
@@ -361,22 +361,22 @@ abstract class RenderNode extends BaseNode {
 
   abstract static class Builder<N extends RenderNode, B extends Builder<N, B>>
       extends BaseNode.Builder<N, B> {
-    @NonNull final List<PropertyAnimation<?, Integer>> fillColor = asAnimations(Color.TRANSPARENT);
-    @NonNull final List<PropertyAnimation<?, Float>> fillAlpha = asAnimations(1f);
+    @NonNull final List<Animation<?, Integer>> fillColor = asAnimations(Color.TRANSPARENT);
+    @NonNull final List<Animation<?, Float>> fillAlpha = asAnimations(1f);
 
     @NonNull
-    final List<PropertyAnimation<?, Integer>> strokeColor = asAnimations(Color.TRANSPARENT);
+    final List<Animation<?, Integer>> strokeColor = asAnimations(Color.TRANSPARENT);
 
-    @NonNull final List<PropertyAnimation<?, Float>> strokeAlpha = asAnimations(1f);
-    @NonNull final List<PropertyAnimation<?, Float>> strokeWidth = asAnimations(0f);
-    @NonNull final List<PropertyAnimation<?, Float>> trimPathStart = asAnimations(0f);
-    @NonNull final List<PropertyAnimation<?, Float>> trimPathEnd = asAnimations(1f);
-    @NonNull final List<PropertyAnimation<?, Float>> trimPathOffset = asAnimations(0f);
+    @NonNull final List<Animation<?, Float>> strokeAlpha = asAnimations(1f);
+    @NonNull final List<Animation<?, Float>> strokeWidth = asAnimations(0f);
+    @NonNull final List<Animation<?, Float>> trimPathStart = asAnimations(0f);
+    @NonNull final List<Animation<?, Float>> trimPathEnd = asAnimations(1f);
+    @NonNull final List<Animation<?, Float>> trimPathOffset = asAnimations(0f);
     @StrokeLineCap int strokeLineCap = StrokeLineCap.BUTT;
     @StrokeLineJoin int strokeLineJoin = StrokeLineJoin.MITER;
-    @NonNull final List<PropertyAnimation<?, Float>> strokeMiterLimit = asAnimations(4f);
-    @NonNull final List<PropertyAnimation<?, float[]>> strokeDashArray = asAnimations(new float[0]);
-    @NonNull final List<PropertyAnimation<?, Float>> strokeDashOffset = asAnimations(0f);
+    @NonNull final List<Animation<?, Float>> strokeMiterLimit = asAnimations(4f);
+    @NonNull final List<Animation<?, float[]>> strokeDashArray = asAnimations(new float[0]);
+    @NonNull final List<Animation<?, Float>> strokeDashOffset = asAnimations(0f);
     @FillType int fillType = FillType.NON_ZERO;
     boolean isStrokeScaling = true;
 
@@ -389,11 +389,11 @@ abstract class RenderNode extends BaseNode {
     }
 
     @SafeVarargs
-    public final B fillColor(@NonNull PropertyAnimation<?, Integer>... animations) {
+    public final B fillColor(@NonNull Animation<?, Integer>... animations) {
       return replaceAnimations(fillColor, animations);
     }
 
-    public final B fillColor(@NonNull List<PropertyAnimation<?, Integer>> animations) {
+    public final B fillColor(@NonNull List<Animation<?, Integer>> animations) {
       return replaceAnimations(fillColor, animations);
     }
 
@@ -404,11 +404,11 @@ abstract class RenderNode extends BaseNode {
     }
 
     @SafeVarargs
-    public final B fillAlpha(@NonNull PropertyAnimation<?, Float>... animations) {
+    public final B fillAlpha(@NonNull Animation<?, Float>... animations) {
       return replaceAnimations(fillAlpha, animations);
     }
 
-    public final B fillAlpha(@NonNull List<PropertyAnimation<?, Float>> animations) {
+    public final B fillAlpha(@NonNull List<Animation<?, Float>> animations) {
       return replaceAnimations(fillAlpha, animations);
     }
 
@@ -419,11 +419,11 @@ abstract class RenderNode extends BaseNode {
     }
 
     @SafeVarargs
-    public final B strokeColor(@NonNull PropertyAnimation<?, Integer>... animations) {
+    public final B strokeColor(@NonNull Animation<?, Integer>... animations) {
       return replaceAnimations(strokeColor, animations);
     }
 
-    public final B strokeColor(@NonNull List<PropertyAnimation<?, Integer>> animations) {
+    public final B strokeColor(@NonNull List<Animation<?, Integer>> animations) {
       return replaceAnimations(strokeColor, animations);
     }
 
@@ -434,11 +434,11 @@ abstract class RenderNode extends BaseNode {
     }
 
     @SafeVarargs
-    public final B strokeAlpha(@NonNull PropertyAnimation<?, Float>... animations) {
+    public final B strokeAlpha(@NonNull Animation<?, Float>... animations) {
       return replaceAnimations(strokeAlpha, animations);
     }
 
-    public final B strokeAlpha(@NonNull List<PropertyAnimation<?, Float>> animations) {
+    public final B strokeAlpha(@NonNull List<Animation<?, Float>> animations) {
       return replaceAnimations(strokeAlpha, animations);
     }
 
@@ -449,11 +449,11 @@ abstract class RenderNode extends BaseNode {
     }
 
     @SafeVarargs
-    public final B strokeWidth(@NonNull PropertyAnimation<?, Float>... animations) {
+    public final B strokeWidth(@NonNull Animation<?, Float>... animations) {
       return replaceAnimations(strokeWidth, animations);
     }
 
-    public final B strokeWidth(@NonNull List<PropertyAnimation<?, Float>> animations) {
+    public final B strokeWidth(@NonNull List<Animation<?, Float>> animations) {
       return replaceAnimations(strokeWidth, animations);
     }
 
@@ -464,11 +464,11 @@ abstract class RenderNode extends BaseNode {
     }
 
     @SafeVarargs
-    public final B trimPathStart(@NonNull PropertyAnimation<?, Float>... keyframes) {
+    public final B trimPathStart(@NonNull Animation<?, Float>... keyframes) {
       return replaceAnimations(trimPathStart, keyframes);
     }
 
-    public final B trimPathStart(@NonNull List<PropertyAnimation<?, Float>> keyframes) {
+    public final B trimPathStart(@NonNull List<Animation<?, Float>> keyframes) {
       return replaceAnimations(trimPathStart, keyframes);
     }
 
@@ -479,11 +479,11 @@ abstract class RenderNode extends BaseNode {
     }
 
     @SafeVarargs
-    public final B trimPathEnd(@NonNull PropertyAnimation<?, Float>... keyframes) {
+    public final B trimPathEnd(@NonNull Animation<?, Float>... keyframes) {
       return replaceAnimations(trimPathEnd, keyframes);
     }
 
-    public final B trimPathEnd(@NonNull List<PropertyAnimation<?, Float>> keyframes) {
+    public final B trimPathEnd(@NonNull List<Animation<?, Float>> keyframes) {
       return replaceAnimations(trimPathEnd, keyframes);
     }
 
@@ -494,11 +494,11 @@ abstract class RenderNode extends BaseNode {
     }
 
     @SafeVarargs
-    public final B trimPathOffset(@NonNull PropertyAnimation<?, Float>... animations) {
+    public final B trimPathOffset(@NonNull Animation<?, Float>... animations) {
       return replaceAnimations(trimPathOffset, animations);
     }
 
-    public final B trimPathOffset(@NonNull List<PropertyAnimation<?, Float>> animations) {
+    public final B trimPathOffset(@NonNull List<Animation<?, Float>> animations) {
       return replaceAnimations(trimPathOffset, animations);
     }
 
@@ -523,11 +523,11 @@ abstract class RenderNode extends BaseNode {
     }
 
     @SafeVarargs
-    public final B strokeMiterLimit(@NonNull PropertyAnimation<?, Float>... animations) {
+    public final B strokeMiterLimit(@NonNull Animation<?, Float>... animations) {
       return replaceAnimations(strokeMiterLimit, animations);
     }
 
-    public final B strokeMiterLimit(@NonNull List<PropertyAnimation<?, Float>> animations) {
+    public final B strokeMiterLimit(@NonNull List<Animation<?, Float>> animations) {
       return replaceAnimations(strokeMiterLimit, animations);
     }
 
@@ -539,11 +539,11 @@ abstract class RenderNode extends BaseNode {
     }
 
     @SafeVarargs
-    public final B strokeDashArray(@NonNull PropertyAnimation<?, float[]>... animations) {
+    public final B strokeDashArray(@NonNull Animation<?, float[]>... animations) {
       return replaceAnimations(strokeDashArray, animations);
     }
 
-    public final B strokeDashArray(@NonNull List<PropertyAnimation<?, float[]>> animations) {
+    public final B strokeDashArray(@NonNull List<Animation<?, float[]>> animations) {
       return replaceAnimations(strokeDashArray, animations);
     }
 
@@ -554,11 +554,11 @@ abstract class RenderNode extends BaseNode {
     }
 
     @SafeVarargs
-    public final B strokeDashOffset(@NonNull PropertyAnimation<?, Float>... animations) {
+    public final B strokeDashOffset(@NonNull Animation<?, Float>... animations) {
       return replaceAnimations(strokeDashOffset, animations);
     }
 
-    public final B strokeDashOffset(@NonNull List<PropertyAnimation<?, Float>> animations) {
+    public final B strokeDashOffset(@NonNull List<Animation<?, Float>> animations) {
       return replaceAnimations(strokeDashOffset, animations);
     }
 

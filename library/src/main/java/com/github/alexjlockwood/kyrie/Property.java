@@ -10,13 +10,13 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-final class AnimatableProperty<V> {
+final class Property<V> {
   private static final TimeInterpolator DEFAULT_INTERPOLATOR = new LinearInterpolator();
-  private static final Comparator<PropertyAnimation<?, ?>> ANIMATION_COMPARATOR =
-      new Comparator<PropertyAnimation<?, ?>>() {
+  private static final Comparator<Animation<?, ?>> ANIMATION_COMPARATOR =
+      new Comparator<Animation<?, ?>>() {
         @Override
         public int compare(
-            @NonNull PropertyAnimation<?, ?> a1, @NonNull PropertyAnimation<?, ?> a2) {
+            @NonNull Animation<?, ?> a1, @NonNull Animation<?, ?> a2) {
           // Animations with smaller start times are sorted first.
           final long s1 = a1.getStartDelay();
           final long s2 = a2.getStartDelay();
@@ -25,9 +25,9 @@ final class AnimatableProperty<V> {
           }
           final long d1 = a1.getTotalDuration();
           final long d2 = a2.getTotalDuration();
-          if (d1 == PropertyAnimation.INFINITE || d2 == PropertyAnimation.INFINITE) {
+          if (d1 == Animation.INFINITE || d2 == Animation.INFINITE) {
             // Infinite animations are sorted last.
-            return d1 == d2 ? 0 : d1 == PropertyAnimation.INFINITE ? 1 : -1;
+            return d1 == d2 ? 0 : d1 == Animation.INFINITE ? 1 : -1;
           }
           // Animations with smaller end times are sorted first.
           final long e1 = s1 + d1;
@@ -36,19 +36,19 @@ final class AnimatableProperty<V> {
         }
       };
 
-  @NonNull private final List<PropertyAnimation<?, V>> animations;
+  @NonNull private final List<Animation<?, V>> animations;
   private final List<Listener> listeners = new ArrayList<>();
   private final long totalDuration;
   private long currentPlayTime;
 
-  public AnimatableProperty(@NonNull List<PropertyAnimation<?, V>> animations) {
+  public Property(@NonNull List<Animation<?, V>> animations) {
     this.animations = new ArrayList<>(animations);
     Collections.sort(this.animations, ANIMATION_COMPARATOR);
     long totalDuration = 0;
     for (int i = 0, size = this.animations.size(); i < size; i++) {
       final long currTotalDuration = this.animations.get(i).getTotalDuration();
-      if (currTotalDuration == PropertyAnimation.INFINITE) {
-        totalDuration = PropertyAnimation.INFINITE;
+      if (currTotalDuration == Animation.INFINITE) {
+        totalDuration = Animation.INFINITE;
         break;
       }
       totalDuration = Math.max(currTotalDuration, totalDuration);
@@ -63,13 +63,13 @@ final class AnimatableProperty<V> {
   public void setCurrentPlayTime(@IntRange(from = 0L) long currentPlayTime) {
     if (currentPlayTime < 0) {
       currentPlayTime = 0;
-    } else if (totalDuration != PropertyAnimation.INFINITE && totalDuration < currentPlayTime) {
+    } else if (totalDuration != Animation.INFINITE && totalDuration < currentPlayTime) {
       currentPlayTime = totalDuration;
     }
     if (this.currentPlayTime != currentPlayTime) {
       this.currentPlayTime = currentPlayTime;
       // TODO: optimize this by notifying only when we know the computed value has changed
-      // TODO: add a computeValue() method or something on PropertyAnimation?
+      // TODO: add a computeValue() method or something on Animation?
       notifyListeners();
     }
   }
@@ -85,20 +85,20 @@ final class AnimatableProperty<V> {
   }
 
   @NonNull
-  private PropertyAnimation<?, V> getCurrentAnimation() {
+  private Animation<?, V> getCurrentAnimation() {
     // TODO: can this search be faster?
     final int size = animations.size();
-    final PropertyAnimation<?, V> lastAnimation = animations.get(size - 1);
+    final Animation<?, V> lastAnimation = animations.get(size - 1);
     if (lastAnimation.getStartDelay() <= currentPlayTime) {
       return lastAnimation;
     }
-    PropertyAnimation<?, V> animation = lastAnimation;
+    Animation<?, V> animation = lastAnimation;
     for (int i = size - 1; i >= 0; i--) {
       animation = animations.get(i);
       final long startTime = animation.getStartDelay();
       final long totalDuration = animation.getTotalDuration();
       if (startTime <= currentPlayTime
-          && (totalDuration == PropertyAnimation.INFINITE
+          && (totalDuration == Animation.INFINITE
               || currentPlayTime <= startTime + totalDuration)) {
         break;
       }
@@ -122,7 +122,7 @@ final class AnimatableProperty<V> {
    * account any interpolation that the animation may have.
    */
   private float getLinearCurrentAnimationFraction() {
-    final PropertyAnimation<?, V> animation = getCurrentAnimation();
+    final Animation<?, V> animation = getCurrentAnimation();
     final float startTime = animation.getStartDelay();
     final float duration = animation.getDuration();
     if (duration == 0) {
@@ -135,7 +135,7 @@ final class AnimatableProperty<V> {
     float currentFraction = fraction - currentIteration;
     if (0 < currentIteration
         && repeatMode == RepeatMode.REVERSE
-        && (currentIteration < repeatCount + 1 || repeatCount == PropertyAnimation.INFINITE)) {
+        && (currentIteration < repeatCount + 1 || repeatCount == Animation.INFINITE)) {
       // TODO: when reversing, check if currentIteration % 2 == 0 instead
       if (currentIteration % 2 != 0) {
         currentFraction = 1 - currentFraction;
@@ -149,7 +149,7 @@ final class AnimatableProperty<V> {
    * current animation's getInterpolator.
    */
   private float getInterpolatedCurrentAnimationFraction() {
-    final PropertyAnimation<?, V> animation = getCurrentAnimation();
+    final Animation<?, V> animation = getCurrentAnimation();
     TimeInterpolator interpolator = animation.getInterpolator();
     if (interpolator == null) {
       interpolator = DEFAULT_INTERPOLATOR;
@@ -163,6 +163,6 @@ final class AnimatableProperty<V> {
   }
 
   public interface Listener {
-    void onCurrentPlayTimeChanged(@NonNull AnimatableProperty<?> property);
+    void onCurrentPlayTimeChanged(@NonNull Property<?> property);
   }
 }

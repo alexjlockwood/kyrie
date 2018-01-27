@@ -1,8 +1,8 @@
 package com.github.alexjlockwood.kyrie;
 
 import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
-import android.animation.ValueAnimator.AnimatorUpdateListener;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
@@ -41,64 +41,42 @@ import static com.github.alexjlockwood.kyrie.Node.asAnimations;
 import static com.github.alexjlockwood.kyrie.Node.replaceAnimations;
 import static com.github.alexjlockwood.kyrie.Node.replaceFirstAnimation;
 
-// TODO: auto resize width/height to match viewport aspect ratio?
-// TODO: support gradients?
-// TODO: support animatable gradients?
-// TODO: support pathData dash effects?
+// TODO: support gradients and/or animatable gradients?
 // TODO: support text layers?
 // TODO: support image layers?
 // TODO: avoid using canvas.clipPath (no anti-alias support)?
 // TODO: support color state lists for pathData fill/stroke colors
 // TODO: don't bother starting the animator if there are no keyframes
-// TODO: support looping individual keyframes indefinitely
 // TODO: allow clients to pass in string paths to keyframes (instead of PathData objects)
 // TODO: possibly change PathMorphKeyframeAnimation to take strings instead of PathData objects
-// TODO: figure out how to set the animation duration
 // TODO: support odd length stroke dash array
 // TODO: add convenience methods to builders (i.e. cornerRadius, bounds, viewport etc.)
-// TODO: rework the path motion API?
 // TODO: auto-make paths morphable
-// TODO: avoid calculating duration on each frame
-// TODO: add corner radius path effect (consider whether it should be affected by parent transforms)
-// TODO: add discrete path effect?
-// TODO: add path dash path effect?
+// TODO: add more path effects (i.e. path dash path effect)?
 // TODO: make it possible for PathData to take a standard Path as a constructor argument?
 // TODO: set the default pivot x/y values to be the center of the node?
 // TODO: add color getInterpolator helpers (similar to d3?)
 // TODO: add 'children' methods to the node builders
-// TODO: allow null start values for keyframe (and then infer their values)
-// TODO: use an Evaluator instead of the Keyframe#getAnimatedValue() method?
-// TODO: wrap keyframes in an immutable collection?
+// TODO: allow null start values for PVH and Keyframe (and then infer their values)
 // TODO: rename 'x/y' property to 'left/top' in RectangleNode?
-// TODO: remove the Node#toLayer() method and/or hide it from clients?
 // TODO: double check for copy/paste errors in the builders/nodes/layers
-// TODO: use type evaluator for keyframes (ie path motion keyframe which has no start/end values)
-// TODO: make use of PathMotion/PatternPathMotion/ArcMotion?
-// TODO: change keyframe class so it only takes a single value (similar to the framework)?
-// TODO: use progress fraction for keyframes instead of long millis?
 // TODO: reuse paint/other objects more diligently across layers?
 // TODO: make it impossible to add 'transform' wrappers to keyframes over and over and over
-// TODO: rename the 'isStrokeScaling' variable to 'disableStrokeScaling? or something like that?
 // TODO: make all strings/pathdata args non null?
 // TODO: make it possible to pass Keyframe<PointF> to translate(), scale(), etc.
 // TODO: create more examples, add documentation, add README.md (explain minSdkVersion 14)
 // TODO: make it possible to specify resource IDs etc. inside the builders?
-// TODO: figure out most popular way to publish libs? (jitpack, maven, etc?)
 // TODO: add support for SVG's preserveAspectRatio attribute
-// TODO: make sure it isn't possible to create a ridiculously large internal bitmap...
 // TODO: make API as small as possible
 // TODO: create cache for frequently used objs (paths, paints, etc.)
 // TODO: support trimming clip paths?
 // TODO: support stroked clip paths?
-// TODO: add path dash path effect support?
-// TODO: properly set animator duration before it is started and/or scrubbed
-// TODO: add examples showing how to use update listeners, play/stop/pause/resume, etc.
-// TODO: new interfaces for update listeners? (pass kyrie drawable as arg instead of animator)
 // TODO: think more about how each node builder has two overloaded methods per property
 // TODO: allow user to inflate from xml resource as well as drawable resource?
 // TODO: support setting playback speed?
 // TODO: support playing animation in reverse?
 // TODO: avoid using bitmap internally (encourage view software rendering instead)
+// TODO: test inflating multi-file AVDs
 public final class KyrieDrawable extends Drawable implements Animatable {
   private static final String TAG = "KyrieDrawable";
 
@@ -109,6 +87,19 @@ public final class KyrieDrawable extends Drawable implements Animatable {
   // The drawable will look blurry above this size.
   private static final int MAX_CACHED_BITMAP_SIZE = 2048;
 
+  @Nullable
+  public static KyrieDrawable create(@NonNull Context context, @DrawableRes int resId) {
+    try {
+      final KyrieDrawable.Builder builder = KyrieDrawable.builder();
+      InflationUtils.inflate(builder, context, resId);
+      return builder.build();
+    } catch (XmlPullParserException | IOException e) {
+      e.printStackTrace();
+      Log.e(TAG, "Error parsing drawable", e);
+      return null;
+    }
+  }
+
   @Px private final int width;
   @Px private final int height;
 
@@ -118,9 +109,10 @@ public final class KyrieDrawable extends Drawable implements Animatable {
   @FloatRange(from = 0f)
   private final float viewportHeight;
 
-  @NonNull private final AnimatableProperty<Float> alphaAnimatableProperty;
+  @NonNull private final Property<Float> alphaProperty;
 
-  @NonNull private final PropertyTimeline timeline;
+  @NonNull private final Timeline timeline;
+  @NonNull private final KyrieValueAnimator animator;
   private final List<Node.Layer> childrenLayers = new ArrayList<>();
 
   @IntRange(from = 0, to = 0xff)
@@ -139,18 +131,16 @@ public final class KyrieDrawable extends Drawable implements Animatable {
   @Nullable private Bitmap offscreenBitmap;
   @Nullable private Paint offscreenPaint;
 
-  private final KyrieValueAnimator animator = new KyrieValueAnimator();
-
   private KyrieDrawable(
       @Px int width,
       @Px int height,
       @FloatRange(from = 0f) float viewportWidth,
       @FloatRange(from = 0f) float viewportHeight,
-      @NonNull List<PropertyAnimation<?, Float>> alphaAnimations,
+      @NonNull List<Animation<?, Float>> alphaAnimations,
       @NonNull List<Node> childrenNodes,
-      boolean isAutoMirrored,
       @Nullable ColorStateList tintList,
-      @NonNull Mode tintMode) {
+      @NonNull Mode tintMode,
+      boolean isAutoMirrored) {
     this.width = width;
     this.height = height;
     this.viewportWidth = viewportWidth;
@@ -159,21 +149,12 @@ public final class KyrieDrawable extends Drawable implements Animatable {
     this.tintList = tintList;
     this.tintMode = tintMode;
     this.tintFilter = createTintFilter();
-    timeline = new PropertyTimeline(this);
-    alphaAnimatableProperty = timeline.registerAnimatableProperty(alphaAnimations);
+    timeline = new Timeline(this);
+    alphaProperty = timeline.registerAnimatableProperty(alphaAnimations);
     for (int i = 0, size = childrenNodes.size(); i < size; i++) {
       childrenLayers.add(childrenNodes.get(i).toLayer(timeline));
     }
-    final long totalDuration = timeline.getTotalDuration();
-    animator.setDuration(
-        totalDuration == PropertyAnimation.INFINITE ? Long.MAX_VALUE : totalDuration);
-    animator.addUpdateListener(
-        new AnimatorUpdateListener() {
-          @Override
-          public void onAnimationUpdate(ValueAnimator animation) {
-            timeline.setCurrentPlayTime(animator.getCurrentPlayTime());
-          }
-        });
+    animator = new KyrieValueAnimator(this);
   }
 
   @Px
@@ -316,8 +297,6 @@ public final class KyrieDrawable extends Drawable implements Animatable {
     final int saveCount = canvas.save();
     canvas.translate(bounds.left, bounds.top);
 
-    Log.i(TAG, "left=" + bounds.left + ", top=" + bounds.top);
-
     // Handle RTL mirroring.
     final boolean shouldAutoMirror =
         isAutoMirrored
@@ -349,7 +328,7 @@ public final class KyrieDrawable extends Drawable implements Animatable {
 
     // Draw the offscreen bitmap.
     Paint paint = null;
-    final float alphaFloat = (this.alpha / 255f) * alphaAnimatableProperty.getAnimatedValue();
+    final float alphaFloat = (this.alpha / 255f) * alphaProperty.getAnimatedValue();
     final int alphaInt = Math.round(alphaFloat * 255f);
     if (alphaInt < 0xff || cf != null) {
       if (offscreenPaint == null) {
@@ -364,10 +343,8 @@ public final class KyrieDrawable extends Drawable implements Animatable {
     canvas.restoreToCount(saveCount);
   }
 
-  /**
-   * Plays the animation from the beginning. If speed is < 0, it will start at the end and play
-   * towards the beginning
-   */
+  // <editor-fold desc="Animation">
+
   @Override
   public void start() {
     animator.start();
@@ -386,41 +363,210 @@ public final class KyrieDrawable extends Drawable implements Animatable {
     animator.resume();
   }
 
+  public boolean isStarted() {
+    return animator.isStarted();
+  }
+
+  public boolean isPaused() {
+    return animator.isPaused();
+  }
+
   @Override
   public boolean isRunning() {
     return animator.isRunning();
+  }
+
+  public void addListener(@NonNull Listener listener) {
+    animator.addListener(listener);
+  }
+
+  public void removeListener(@NonNull Listener listener) {
+    animator.removeListener(listener);
+  }
+
+  public void clearListeners() {
+    animator.clearListeners();
   }
 
   public long getTotalDuration() {
     return timeline.getTotalDuration();
   }
 
+  @IntRange(from = 0L)
+  public long getCurrentPlayTime() {
+    return animator.getCurrentPlayTime();
+  }
+
   public void setCurrentPlayTime(@IntRange(from = 0L) long currentPlayTime) {
     currentPlayTime = Math.max(0, currentPlayTime);
     final long totalDuration = getTotalDuration();
-    if (totalDuration != PropertyAnimation.INFINITE) {
+    if (totalDuration != Animation.INFINITE) {
       currentPlayTime = Math.min(totalDuration, currentPlayTime);
     }
     animator.setCurrentPlayTime(currentPlayTime);
   }
 
-  public void addAnimatorUpdateListener(
-      @NonNull ValueAnimator.AnimatorUpdateListener updateListener) {
-    animator.addUpdateListener(updateListener);
+  /**
+   * A listener that receives notifications from an animation. Notifications indicate animation
+   * related events, such as the start or end of the animation.
+   */
+  public abstract static class Listener {
+    /**
+     * Notifies the start of the animation.
+     *
+     * @param drawable The KyrieDrawable instance being started.
+     */
+    public void onAnimationStart(@NonNull KyrieDrawable drawable) {}
+
+    /**
+     * Notifies the occurrence of another frame of the animation.
+     *
+     * @param drawable The KyrieDrawable instance being updated.
+     */
+    public void onAnimationUpdate(@NonNull KyrieDrawable drawable) {}
+
+    /**
+     * Notifies that the animation was paused.
+     *
+     * @param drawable The KyrieDrawable instance being paused.
+     * @see #pause()
+     */
+    public void onAnimationPause(@NonNull KyrieDrawable drawable) {}
+
+    /**
+     * Notifies that the animation was resumed, after being previously paused.
+     *
+     * @param drawable The KyrieDrawable instance being resumed.
+     * @see #resume()
+     */
+    public void onAnimationResume(@NonNull KyrieDrawable drawable) {}
+
+    /**
+     * Notifies the cancellation of the animation.
+     *
+     * @param drawable The KyrieDrawable instance being canceled.
+     */
+    public void onAnimationCancel(@NonNull KyrieDrawable drawable) {}
+
+    /**
+     * Notifies the end of the animation. This callback is not invoked for animations with repeat
+     * count set to INFINITE.
+     *
+     * @param drawable The KyrieDrawable instance being ended.
+     */
+    public void onAnimationEnd(@NonNull KyrieDrawable drawable) {}
   }
 
-  public void removeAnimatorUpdateListener(
-      @NonNull ValueAnimator.AnimatorUpdateListener updateListener) {
-    animator.removeUpdateListener(updateListener);
+  private static class KyrieValueAnimator extends ValueAnimator {
+    private final KyrieDrawable drawable;
+    private final List<Listener> listeners = new ArrayList<>();
+    private boolean isPaused;
+
+    @IntRange(from = 0L)
+    private long currentPlayTime;
+
+    private final AnimatorListenerAdapter listenerAdapter =
+        new AnimatorListenerAdapter() {
+          @Override
+          public void onAnimationStart(Animator animation) {
+            for (int i = 0, size = listeners.size(); i < size; i++) {
+              listeners.get(i).onAnimationStart(drawable);
+            }
+          }
+
+          @Override
+          public void onAnimationCancel(Animator animation) {
+            for (int i = 0, size = listeners.size(); i < size; i++) {
+              listeners.get(i).onAnimationCancel(drawable);
+            }
+          }
+
+          @Override
+          public void onAnimationEnd(Animator animation) {
+            for (int i = 0, size = listeners.size(); i < size; i++) {
+              listeners.get(i).onAnimationEnd(drawable);
+            }
+          }
+        };
+
+    public KyrieValueAnimator(@NonNull KyrieDrawable d) {
+      drawable = d;
+      setFloatValues(0f, 1f);
+      setInterpolator(new LinearInterpolator());
+      final Timeline timeline = drawable.timeline;
+      addUpdateListener(
+          new AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+              currentPlayTime = animation.getCurrentPlayTime();
+              timeline.setCurrentPlayTime(currentPlayTime);
+              for (int i = 0, size = listeners.size(); i < size; i++) {
+                listeners.get(i).onAnimationUpdate(drawable);
+              }
+            }
+          });
+      final long totalDuration = timeline.getTotalDuration();
+      setDuration(totalDuration == Animation.INFINITE ? Long.MAX_VALUE : totalDuration);
+    }
+
+    @Override
+    public void pause() {
+      if (isStarted() && !isPaused) {
+        isPaused = true;
+        final long currentPlayTime = this.currentPlayTime;
+        cancelWithoutNotify();
+        setCurrentPlayTime(currentPlayTime);
+        for (int i = 0, size = listeners.size(); i < size; i++) {
+          listeners.get(i).onAnimationPause(drawable);
+        }
+      }
+    }
+
+    private void cancelWithoutNotify() {
+      removeListener(listenerAdapter);
+      cancel();
+      addListener(listenerAdapter);
+    }
+
+    @Override
+    public void resume() {
+      if (isPaused) {
+        isPaused = false;
+        final long currentPlayTime = this.currentPlayTime;
+        startWithoutNotify();
+        setCurrentPlayTime(currentPlayTime);
+        for (int i = 0, size = listeners.size(); i < size; i++) {
+          listeners.get(i).onAnimationResume(drawable);
+        }
+      }
+    }
+
+    private void startWithoutNotify() {
+      removeListener(listenerAdapter);
+      start();
+      addListener(listenerAdapter);
+    }
+
+    public boolean isPaused() {
+      return isPaused;
+    }
+
+    public void addListener(@NonNull Listener listener) {
+      listeners.add(listener);
+    }
+
+    public void removeListener(@NonNull Listener listener) {
+      listeners.remove(listener);
+    }
+
+    public void clearListeners() {
+      listeners.clear();
+    }
   }
 
-  public void addAnimatorListener(@NonNull Animator.AnimatorListener listener) {
-    animator.addListener(listener);
-  }
+  // </editor-fold>
 
-  public void removeAnimatorListener(@NonNull Animator.AnimatorListener listener) {
-    animator.removeListener(listener);
-  }
+  // <editor-fold desc="Builder">
 
   public static Builder builder() {
     return new Builder();
@@ -433,7 +579,7 @@ public final class KyrieDrawable extends Drawable implements Animatable {
     private int height = -1;
     private float viewportWidth = -1;
     private float viewportHeight = -1;
-    @NonNull private final List<PropertyAnimation<?, Float>> alpha = asAnimations(1f);
+    @NonNull private final List<Animation<?, Float>> alpha = asAnimations(1f);
     private final List<Node> children = new ArrayList<>();
     private boolean isAutoMirrored;
     @Nullable private ColorStateList tintList;
@@ -486,12 +632,12 @@ public final class KyrieDrawable extends Drawable implements Animatable {
     }
 
     @SafeVarargs
-    public final Builder alpha(@NonNull PropertyAnimation<?, Float>... animations) {
+    public final Builder alpha(@NonNull Animation<?, Float>... animations) {
       replaceAnimations(alpha, animations);
       return this;
     }
 
-    public final Builder alpha(@NonNull List<PropertyAnimation<?, Float>> animations) {
+    public final Builder alpha(@NonNull List<Animation<?, Float>> animations) {
       replaceAnimations(alpha, animations);
       return this;
     }
@@ -521,57 +667,13 @@ public final class KyrieDrawable extends Drawable implements Animatable {
 
     // Children.
 
-    public final Builder child(@NonNull GroupNode node) {
-      return addChild(node);
-    }
-
-    public final Builder child(@NonNull GroupNode.Builder builder) {
-      return child(builder.build());
-    }
-
-    public final Builder child(@NonNull ClipPathNode node) {
-      return addChild(node);
-    }
-
-    public final Builder child(@NonNull ClipPathNode.Builder builder) {
-      return child(builder.build());
-    }
-
-    public final Builder child(@NonNull PathNode node) {
-      return addChild(node);
-    }
-
-    public final Builder child(@NonNull PathNode.Builder builder) {
-      return child(builder.build());
-    }
-
-    public final Builder child(@NonNull RectangleNode node) {
-      return addChild(node);
-    }
-
-    public final Builder child(@NonNull RectangleNode.Builder builder) {
-      return child(builder.build());
-    }
-
-    public final Builder child(@NonNull EllipseNode node) {
-      return addChild(node);
-    }
-
-    public final Builder child(@NonNull EllipseNode.Builder builder) {
-      return child(builder.build());
-    }
-
-    public final Builder child(@NonNull CircleNode node) {
-      return addChild(node);
-    }
-
-    public final Builder child(@NonNull CircleNode.Builder builder) {
-      return child(builder.build());
-    }
-
-    private Builder addChild(@NonNull Node node) {
+    public final Builder child(@NonNull Node node) {
       children.add(node);
       return this;
+    }
+
+    public final Builder child(@NonNull Node.Builder builder) {
+      return child(builder.build());
     }
 
     public final KyrieDrawable build() {
@@ -599,53 +701,11 @@ public final class KyrieDrawable extends Drawable implements Animatable {
           viewportHeight,
           alpha,
           children,
-          isAutoMirrored,
           tintList,
-          tintMode);
+          tintMode,
+          isAutoMirrored);
     }
   }
 
-  @Nullable
-  public static KyrieDrawable create(@NonNull Context context, @DrawableRes int resId) {
-    try {
-      final KyrieDrawable.Builder builder = KyrieDrawable.builder();
-      InflationUtils.inflate(builder, context, resId);
-      return builder.build();
-    } catch (XmlPullParserException | IOException e) {
-      e.printStackTrace();
-      Log.e(TAG, "Error parsing drawable", e);
-      return null;
-    }
-  }
-
-  private static class KyrieValueAnimator extends ValueAnimator {
-    @IntRange(from = 0L)
-    private long currentPlayTime;
-
-    public KyrieValueAnimator() {
-      setFloatValues(0f, 1f);
-      setInterpolator(new LinearInterpolator());
-      addUpdateListener(
-          new AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-              currentPlayTime = animation.getCurrentPlayTime();
-            }
-          });
-    }
-
-    @Override
-    public void pause() {
-      final long currentPlayTime = this.currentPlayTime;
-      cancel();
-      setCurrentPlayTime(currentPlayTime);
-    }
-
-    @Override
-    public void resume() {
-      final long currentPlayTime = this.currentPlayTime;
-      start();
-      setCurrentPlayTime(currentPlayTime);
-    }
-  }
+  // </editor-fold>
 }

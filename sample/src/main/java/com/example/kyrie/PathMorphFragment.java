@@ -12,11 +12,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 
-import com.github.alexjlockwood.kyrie.KyrieDrawable;
-import com.github.alexjlockwood.kyrie.PropertyAnimation;
+import com.github.alexjlockwood.kyrie.Animation;
 import com.github.alexjlockwood.kyrie.GroupNode;
-import com.github.alexjlockwood.kyrie.PathNode;
+import com.github.alexjlockwood.kyrie.KyrieDrawable;
 import com.github.alexjlockwood.kyrie.PathData;
+import com.github.alexjlockwood.kyrie.PathNode;
 
 public class PathMorphFragment extends Fragment {
   private static final int TINT_COLOR = 0xff757575;
@@ -45,10 +45,14 @@ public class PathMorphFragment extends Fragment {
     imageView.setImageDrawable(drawable);
     imageView.setOnClickListener(
         v -> {
-          if (drawable.isRunning()) {
-            drawable.pause();
-          } else {
+          if (drawable.isPaused()) {
             drawable.resume();
+          } else {
+            if (drawable.isStarted()) {
+              drawable.pause();
+            } else {
+              drawable.start();
+            }
           }
         });
 
@@ -82,28 +86,33 @@ public class PathMorphFragment extends Fragment {
                     .pivotX(9)
                     .pivotY(9)
                     .rotation(
-                        PropertyAnimation.ofFloat(90f, 180f)
+                        Animation.ofFloat(90f, 180f)
                             .duration(DURATION)
                             .interpolator(new FastOutSlowInInterpolator()))
                     .translateX(
-                        PropertyAnimation.ofFloat(0.75f, 0f)
+                        Animation.ofFloat(0.75f, 0f)
                             .duration(DURATION)
                             .interpolator(new FastOutSlowInInterpolator()))
                     .child(
                         PathNode.builder()
                             .fillColor(Color.WHITE)
                             .pathData(
-                                PropertyAnimation.ofPathMorph(
+                                Animation.ofPathMorph(
                                         PathData.parse(
                                             "M9,5 L9,5 L9,13 L4,13 L9,5 M9,5 L9,5 L14,13 L9,13 L9,5"),
                                         PathData.parse(
                                             "M6,5 L8,5 L8,13 L6,13 L6,5 M10,5 L12,5 L12,13 L10,13 L10,5"))
                                     .duration(DURATION))))
             .build();
-    kyrieDrawable.addAnimatorUpdateListener(
-        animation -> {
-          final float fraction = animation.getAnimatedFraction();
-          seekBar.setProgress(Math.round(fraction * seekBar.getMax()));
+    kyrieDrawable.addListener(
+        new KyrieDrawable.Listener() {
+          @Override
+          public void onAnimationUpdate(@NonNull KyrieDrawable drawable) {
+            final float playTime = drawable.getCurrentPlayTime();
+            final float totalDuration = drawable.getTotalDuration();
+            final float fraction = playTime / totalDuration;
+            seekBar.setProgress(Math.round(fraction * seekBar.getMax()));
+          }
         });
     return kyrieDrawable;
   }

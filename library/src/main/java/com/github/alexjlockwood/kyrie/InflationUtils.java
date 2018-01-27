@@ -69,7 +69,7 @@ public final class InflationUtils {
       @NonNull KyrieDrawable.Builder builder,
       @NonNull Context context,
       @DrawableRes int resId,
-      @Nullable Map<String, Map<String, PropertyAnimation[]>> targetMap)
+      @Nullable Map<String, Map<String, Animation[]>> targetMap)
       throws XmlPullParserException, IOException {
     final Resources res = context.getResources();
     @SuppressLint("ResourceType")
@@ -102,7 +102,7 @@ public final class InflationUtils {
     final int innerDepth = parser.getDepth() + 1;
 
     int drawableResId = 0;
-    final Map<String, Map<String, List<PropertyAnimation<?, ?>>>> targetMap = new ArrayMap<>();
+    final Map<String, Map<String, List<Animation<?, ?>>>> targetMap = new ArrayMap<>();
 
     // Parse everything until the end of the root element.
     while (eventType != XmlPullParser.END_DOCUMENT
@@ -119,15 +119,15 @@ public final class InflationUtils {
           final String targetName = a.getString(Styleable.Target.NAME);
           final int animatorResId = a.getResourceId(Styleable.Target.ANIMATION, 0);
           if (animatorResId != 0) {
-            final Map<String, List<PropertyAnimation<?, ?>>> animationMap =
+            final Map<String, List<Animation<?, ?>>> animationMap =
                 loadAnimationMap(context, animatorResId);
             if (targetMap.containsKey(targetName)) {
-              final Map<String, List<PropertyAnimation<?, ?>>> existingAnimationMap =
+              final Map<String, List<Animation<?, ?>>> existingAnimationMap =
                   targetMap.get(targetName);
-              for (Map.Entry<String, List<PropertyAnimation<?, ?>>> entry :
+              for (Map.Entry<String, List<Animation<?, ?>>> entry :
                   animationMap.entrySet()) {
                 final String key = entry.getKey();
-                final List<PropertyAnimation<?, ?>> value = entry.getValue();
+                final List<Animation<?, ?>> value = entry.getValue();
                 if (existingAnimationMap.containsKey(key)) {
                   existingAnimationMap.get(key).addAll(value);
                 } else {
@@ -145,14 +145,14 @@ public final class InflationUtils {
     }
 
     if (drawableResId != 0) {
-      final Map<String, Map<String, PropertyAnimation[]>> arrayTargetMap = new ArrayMap<>();
-      for (Map.Entry<String, Map<String, List<PropertyAnimation<?, ?>>>> entry :
+      final Map<String, Map<String, Animation[]>> arrayTargetMap = new ArrayMap<>();
+      for (Map.Entry<String, Map<String, List<Animation<?, ?>>>> entry :
           targetMap.entrySet()) {
-        final Map<String, List<PropertyAnimation<?, ?>>> value = entry.getValue();
-        final Map<String, PropertyAnimation[]> arrayValue = new ArrayMap<>();
-        for (Map.Entry<String, List<PropertyAnimation<?, ?>>> e : value.entrySet()) {
-          final List<PropertyAnimation<?, ?>> v = e.getValue();
-          final PropertyAnimation[] arrayV = new PropertyAnimation[v.size()];
+        final Map<String, List<Animation<?, ?>>> value = entry.getValue();
+        final Map<String, Animation[]> arrayValue = new ArrayMap<>();
+        for (Map.Entry<String, List<Animation<?, ?>>> e : value.entrySet()) {
+          final List<Animation<?, ?>> v = e.getValue();
+          final Animation[] arrayV = new Animation[v.size()];
           for (int i = 0, size = arrayV.length; i < size; i++) {
             arrayV[i] = v.get(i);
           }
@@ -169,10 +169,10 @@ public final class InflationUtils {
       @NonNull Context context,
       @NonNull XmlPullParser parser,
       @NonNull AttributeSet attrs,
-      @Nullable Map<String, Map<String, PropertyAnimation[]>> targetMap)
+      @Nullable Map<String, Map<String, Animation[]>> targetMap)
       throws XmlPullParserException, IOException {
     final TypedArray a = TypedArrayUtils.obtainAttributes(context, attrs, Styleable.VECTOR);
-    Map<String, PropertyAnimation[]> animationMap = null;
+    Map<String, Animation[]> animationMap = null;
     if (targetMap != null) {
       final String groupName = a.getString(Styleable.Vector.NAME);
       if (groupName != null) {
@@ -232,7 +232,7 @@ public final class InflationUtils {
       @NonNull KyrieDrawable.Builder builder,
       @NonNull TypedArray a,
       @NonNull XmlPullParser parser,
-      @Nullable Map<String, PropertyAnimation[]> animationMap) {
+      @Nullable Map<String, Animation[]> animationMap) {
     builder.tintList(a.getColorStateList(Styleable.Vector.TINT));
     final int tintMode =
         TypedArrayUtils.getNamedInt(a, parser, "tintMode", Styleable.Vector.TINT_MODE, -1);
@@ -250,7 +250,7 @@ public final class InflationUtils {
     builder.height((int) a.getDimension(Styleable.Vector.HEIGHT, -1));
     builder.alpha(TypedArrayUtils.getNamedFloat(a, parser, "alpha", Styleable.Vector.ALPHA, 1));
     if (animationMap != null && animationMap.containsKey("alpha")) {
-      builder.alpha((PropertyAnimation<?, Float>[]) animationMap.get("alpha"));
+      builder.alpha((Animation<?, Float>[]) animationMap.get("alpha"));
     }
   }
 
@@ -279,9 +279,9 @@ public final class InflationUtils {
       @NonNull Context context,
       @NonNull XmlPullParser parser,
       @NonNull AttributeSet attrs,
-      @Nullable Map<String, Map<String, PropertyAnimation[]>> targetMap) {
+      @Nullable Map<String, Map<String, Animation[]>> targetMap) {
     final TypedArray a = TypedArrayUtils.obtainAttributes(context, attrs, Styleable.GROUP);
-    Map<String, PropertyAnimation[]> animationMap = null;
+    Map<String, Animation[]> animationMap = null;
     if (targetMap != null) {
       final String groupName = a.getString(Styleable.Group.NAME);
       if (groupName != null) {
@@ -296,37 +296,37 @@ public final class InflationUtils {
       @NonNull GroupNode.Builder builder,
       @NonNull TypedArray a,
       @NonNull XmlPullParser parser,
-      @Nullable Map<String, PropertyAnimation[]> animationMap) {
+      @Nullable Map<String, Animation[]> animationMap) {
     builder.pivotX(a.getFloat(Styleable.Group.PIVOT_X, 0));
     if (animationMap != null && animationMap.containsKey("pivotX")) {
-      builder.pivotX((PropertyAnimation<?, Float>[]) animationMap.get("pivotX"));
+      builder.pivotX((Animation<?, Float>[]) animationMap.get("pivotX"));
     }
     builder.pivotY(a.getFloat(Styleable.Group.PIVOT_Y, 0));
     if (animationMap != null && animationMap.containsKey("pivotY")) {
-      builder.pivotY((PropertyAnimation<?, Float>[]) animationMap.get("pivotY"));
+      builder.pivotY((Animation<?, Float>[]) animationMap.get("pivotY"));
     }
     builder.rotation(
         TypedArrayUtils.getNamedFloat(a, parser, "rotation", Styleable.Group.ROTATION, 0));
     if (animationMap != null && animationMap.containsKey("rotation")) {
-      builder.rotation((PropertyAnimation<?, Float>[]) animationMap.get("rotation"));
+      builder.rotation((Animation<?, Float>[]) animationMap.get("rotation"));
     }
     builder.scaleX(TypedArrayUtils.getNamedFloat(a, parser, "scaleX", Styleable.Group.SCALE_X, 1));
     if (animationMap != null && animationMap.containsKey("scaleX")) {
-      builder.scaleX((PropertyAnimation<?, Float>[]) animationMap.get("scaleX"));
+      builder.scaleX((Animation<?, Float>[]) animationMap.get("scaleX"));
     }
     builder.scaleY(TypedArrayUtils.getNamedFloat(a, parser, "scaleY", Styleable.Group.SCALE_Y, 1));
     if (animationMap != null && animationMap.containsKey("scaleY")) {
-      builder.scaleY((PropertyAnimation<?, Float>[]) animationMap.get("scaleY"));
+      builder.scaleY((Animation<?, Float>[]) animationMap.get("scaleY"));
     }
     builder.translateX(
         TypedArrayUtils.getNamedFloat(a, parser, "translateX", Styleable.Group.TRANSLATE_X, 0));
     if (animationMap != null && animationMap.containsKey("translateX")) {
-      builder.translateX((PropertyAnimation<?, Float>[]) animationMap.get("translateX"));
+      builder.translateX((Animation<?, Float>[]) animationMap.get("translateX"));
     }
     builder.translateY(
         TypedArrayUtils.getNamedFloat(a, parser, "translateY", Styleable.Group.TRANSLATE_Y, 0));
     if (animationMap != null && animationMap.containsKey("translateY")) {
-      builder.translateY((PropertyAnimation<?, Float>[]) animationMap.get("translateY"));
+      builder.translateY((Animation<?, Float>[]) animationMap.get("translateY"));
     }
   }
 
@@ -335,9 +335,9 @@ public final class InflationUtils {
       @NonNull Context context,
       @NonNull XmlPullParser parser,
       @NonNull AttributeSet attrs,
-      @Nullable Map<String, Map<String, PropertyAnimation[]>> targetMap) {
+      @Nullable Map<String, Map<String, Animation[]>> targetMap) {
     final TypedArray a = TypedArrayUtils.obtainAttributes(context, attrs, Styleable.PATH);
-    Map<String, PropertyAnimation[]> animationMap = null;
+    Map<String, Animation[]> animationMap = null;
     if (targetMap != null) {
       final String pathName = a.getString(Styleable.Path.NAME);
       if (pathName != null) {
@@ -353,7 +353,7 @@ public final class InflationUtils {
       @NonNull PathNode.Builder builder,
       @NonNull TypedArray a,
       @NonNull XmlPullParser parser,
-      @Nullable Map<String, PropertyAnimation[]> animationMap) {
+      @Nullable Map<String, Animation[]> animationMap) {
     final boolean hasPathData = TypedArrayUtils.hasAttribute(parser, "pathData");
     if (!hasPathData) {
       return;
@@ -362,52 +362,52 @@ public final class InflationUtils {
     if (pathData != null) {
       builder.pathData(pathData);
       if (animationMap != null && animationMap.containsKey("pathData")) {
-        builder.pathData((PropertyAnimation<?, PathData>[]) animationMap.get("pathData"));
+        builder.pathData((Animation<?, PathData>[]) animationMap.get("pathData"));
       }
     }
     builder.fillColor(
         TypedArrayUtils.getNamedColor(
             a, parser, "fillColor", Styleable.Path.FILL_COLOR, Color.TRANSPARENT));
     if (animationMap != null && animationMap.containsKey("fillColor")) {
-      builder.fillColor((PropertyAnimation<?, Integer>[]) animationMap.get("fillColor"));
+      builder.fillColor((Animation<?, Integer>[]) animationMap.get("fillColor"));
     }
     builder.fillAlpha(
         TypedArrayUtils.getNamedFloat(a, parser, "fillAlpha", Styleable.Path.FILL_ALPHA, 1));
     if (animationMap != null && animationMap.containsKey("fillAlpha")) {
-      builder.fillAlpha((PropertyAnimation<?, Float>[]) animationMap.get("fillAlpha"));
+      builder.fillAlpha((Animation<?, Float>[]) animationMap.get("fillAlpha"));
     }
     builder.strokeColor(
         TypedArrayUtils.getNamedColor(
             a, parser, "strokeColor", Styleable.Path.STROKE_COLOR, Color.TRANSPARENT));
     if (animationMap != null && animationMap.containsKey("strokeColor")) {
-      builder.strokeColor((PropertyAnimation<?, Integer>[]) animationMap.get("strokeColor"));
+      builder.strokeColor((Animation<?, Integer>[]) animationMap.get("strokeColor"));
     }
     builder.strokeAlpha(
         TypedArrayUtils.getNamedFloat(a, parser, "strokeAlpha", Styleable.Path.STROKE_ALPHA, 1));
     if (animationMap != null && animationMap.containsKey("strokeAlpha")) {
-      builder.strokeAlpha((PropertyAnimation<?, Float>[]) animationMap.get("strokeAlpha"));
+      builder.strokeAlpha((Animation<?, Float>[]) animationMap.get("strokeAlpha"));
     }
     builder.strokeWidth(
         TypedArrayUtils.getNamedFloat(a, parser, "strokeWidth", Styleable.Path.STROKE_WIDTH, 0));
     if (animationMap != null && animationMap.containsKey("strokeWidth")) {
-      builder.strokeWidth((PropertyAnimation<?, Float>[]) animationMap.get("strokeWidth"));
+      builder.strokeWidth((Animation<?, Float>[]) animationMap.get("strokeWidth"));
     }
     builder.trimPathStart(
         TypedArrayUtils.getNamedFloat(
             a, parser, "trimPathStart", Styleable.Path.TRIM_PATH_START, 0));
     if (animationMap != null && animationMap.containsKey("trimPathStart")) {
-      builder.trimPathStart((PropertyAnimation<?, Float>[]) animationMap.get("trimPathStart"));
+      builder.trimPathStart((Animation<?, Float>[]) animationMap.get("trimPathStart"));
     }
     builder.trimPathEnd(
         TypedArrayUtils.getNamedFloat(a, parser, "trimPathEnd", Styleable.Path.TRIM_PATH_END, 1));
     if (animationMap != null && animationMap.containsKey("trimPathEnd")) {
-      builder.trimPathEnd((PropertyAnimation<?, Float>[]) animationMap.get("trimPathEnd"));
+      builder.trimPathEnd((Animation<?, Float>[]) animationMap.get("trimPathEnd"));
     }
     builder.trimPathOffset(
         TypedArrayUtils.getNamedFloat(
             a, parser, "trimPathOffset", Styleable.Path.TRIM_PATH_OFFSET, 0));
     if (animationMap != null && animationMap.containsKey("trimPathOffset")) {
-      builder.trimPathOffset((PropertyAnimation<?, Float>[]) animationMap.get("trimPathOffset"));
+      builder.trimPathOffset((Animation<?, Float>[]) animationMap.get("trimPathOffset"));
     }
     @StrokeLineCap
     final int lineCap =
@@ -424,7 +424,7 @@ public final class InflationUtils {
             a, parser, "strokeMiterLimit", Styleable.Path.STROKE_MITER_LIMIT, 4));
     if (animationMap != null && animationMap.containsKey("strokeMiterLimit")) {
       builder.strokeMiterLimit(
-          (PropertyAnimation<?, Float>[]) animationMap.get("strokeMiterLimit"));
+          (Animation<?, Float>[]) animationMap.get("strokeMiterLimit"));
     }
     @FillType
     final int fillType =
@@ -438,9 +438,9 @@ public final class InflationUtils {
       @NonNull Context context,
       @NonNull XmlPullParser parser,
       @NonNull AttributeSet attrs,
-      @Nullable Map<String, Map<String, PropertyAnimation[]>> targetMap) {
+      @Nullable Map<String, Map<String, Animation[]>> targetMap) {
     final TypedArray a = TypedArrayUtils.obtainAttributes(context, attrs, Styleable.CLIP_PATH);
-    Map<String, PropertyAnimation[]> animationMap = null;
+    Map<String, Animation[]> animationMap = null;
     if (targetMap != null) {
       final String pathName = a.getString(Styleable.ClipPath.NAME);
       if (pathName != null) {
@@ -456,7 +456,7 @@ public final class InflationUtils {
       @NonNull ClipPathNode.Builder builder,
       @NonNull TypedArray a,
       @NonNull XmlPullParser parser,
-      @Nullable Map<String, PropertyAnimation[]> animationMap) {
+      @Nullable Map<String, Animation[]> animationMap) {
     final boolean hasPathData = TypedArrayUtils.hasAttribute(parser, "pathData");
     if (!hasPathData) {
       return;
@@ -465,7 +465,7 @@ public final class InflationUtils {
     if (pathData != null) {
       builder.pathData(pathData);
       if (animationMap != null && animationMap.containsKey("pathData")) {
-        builder.pathData((PropertyAnimation<?, PathData>[]) animationMap.get("pathData"));
+        builder.pathData((Animation<?, PathData>[]) animationMap.get("pathData"));
       }
     }
   }
@@ -497,7 +497,7 @@ public final class InflationUtils {
   private static final int VALUE_TYPE_COLOR = 3;
   private static final int VALUE_TYPE_UNDEFINED = 4;
 
-  private static Map<String, List<PropertyAnimation<?, ?>>> loadAnimationMap(
+  private static Map<String, List<Animation<?, ?>>> loadAnimationMap(
       @NonNull Context context, @AnimatorRes @AnimRes int id) throws NotFoundException {
     XmlResourceParser parser = null;
     try {
@@ -1048,7 +1048,7 @@ public final class InflationUtils {
   private abstract static class MyAnimator {
     public abstract long getTotalDuration();
 
-    public abstract Map<String, List<PropertyAnimation<?, ?>>> toMap(long extraStartDelay);
+    public abstract Map<String, List<Animation<?, ?>>> toMap(long extraStartDelay);
   }
 
   private static class MyAnimatorSet extends MyAnimator {
@@ -1081,8 +1081,8 @@ public final class InflationUtils {
 
     @NonNull
     @Override
-    public Map<String, List<PropertyAnimation<?, ?>>> toMap(long extraStartDelay) {
-      final List<Map<String, List<PropertyAnimation<?, ?>>>> maps =
+    public Map<String, List<Animation<?, ?>>> toMap(long extraStartDelay) {
+      final List<Map<String, List<Animation<?, ?>>>> maps =
           new ArrayList<>(animators.length);
       for (MyAnimator animator : animators) {
         maps.add(animator.toMap(extraStartDelay));
@@ -1154,10 +1154,10 @@ public final class InflationUtils {
 
     @NonNull
     @Override
-    public Map<String, List<PropertyAnimation<?, ?>>> toMap(long extraStartDelay) {
+    public Map<String, List<Animation<?, ?>>> toMap(long extraStartDelay) {
       final long startTime = extraStartDelay + startDelay;
       final long endTime = startTime + duration;
-      final List<Map<String, List<PropertyAnimation<?, ?>>>> maps = new ArrayList<>();
+      final List<Map<String, List<Animation<?, ?>>>> maps = new ArrayList<>();
       for (MyPropertyValuesHolder value : values) {
         maps.add(value.toMap(startTime, endTime, repeatCount, repeatMode));
       }
@@ -1167,7 +1167,7 @@ public final class InflationUtils {
 
   private abstract static class MyPropertyValuesHolder {
     @NonNull
-    public abstract Map<String, List<PropertyAnimation<?, ?>>> toMap(
+    public abstract Map<String, List<Animation<?, ?>>> toMap(
         long startTime, long endTime, int repeatCount, @RepeatMode int repeatMode);
   }
 
@@ -1190,34 +1190,34 @@ public final class InflationUtils {
 
     @NonNull
     @Override
-    public Map<String, List<PropertyAnimation<?, ?>>> toMap(
+    public Map<String, List<Animation<?, ?>>> toMap(
         long startTime, long endTime, int repeatCount, @RepeatMode int repeatMode) {
-      PropertyAnimation<?, ?> anim;
+      Animation<?, ?> anim;
       switch (valueType) {
         case VALUE_TYPE_FLOAT:
           anim =
-              PropertyAnimation.ofFloat((Float) fromValue, (Float) toValue)
+              Animation.ofFloat((Float) fromValue, (Float) toValue)
                   .startDelay(startTime)
                   .duration(endTime - startTime);
           break;
         case VALUE_TYPE_COLOR:
           anim =
-              PropertyAnimation.ofArgb((Integer) fromValue, (Integer) toValue)
+              Animation.ofArgb((Integer) fromValue, (Integer) toValue)
                   .startDelay(startTime)
                   .duration(endTime - startTime);
           break;
         case VALUE_TYPE_PATH:
           anim =
-              PropertyAnimation.ofPathMorph((PathData) fromValue, (PathData) toValue)
+              Animation.ofPathMorph((PathData) fromValue, (PathData) toValue)
                   .startDelay(startTime)
                   .duration(endTime - startTime);
           break;
         default:
           throw new IllegalStateException("Invalid value type: " + valueType);
       }
-      final List<PropertyAnimation<?, ?>> anims = new ArrayList<>(1);
+      final List<Animation<?, ?>> anims = new ArrayList<>(1);
       anims.add(anim.repeatCount(repeatCount).repeatMode(repeatMode));
-      final Map<String, List<PropertyAnimation<?, ?>>> map = new ArrayMap<>(1);
+      final Map<String, List<Animation<?, ?>>> map = new ArrayMap<>(1);
       map.put(propertyName, anims);
       return map;
     }
@@ -1237,20 +1237,20 @@ public final class InflationUtils {
 
     @NonNull
     @Override
-    public Map<String, List<PropertyAnimation<?, ?>>> toMap(
+    public Map<String, List<Animation<?, ?>>> toMap(
         long startTime, long endTime, int repeatCount, @RepeatMode int repeatMode) {
-      final Map<String, List<PropertyAnimation<?, ?>>> map = new ArrayMap<>();
-      final PropertyAnimation<PointF, PointF> anim =
-          PropertyAnimation.ofPathMotion(path)
+      final Map<String, List<Animation<?, ?>>> map = new ArrayMap<>();
+      final Animation<PointF, PointF> anim =
+          Animation.ofPathMotion(path)
               .startDelay(startTime)
               .duration(endTime - startTime)
               .repeatCount(repeatCount)
               .repeatMode(repeatMode);
       if (propertyNameX != null) {
-        final List<PropertyAnimation<?, ?>> list = new ArrayList<>(1);
+        final List<Animation<?, ?>> list = new ArrayList<>(1);
         list.add(
             anim.transform(
-                new PropertyAnimation.ValueTransformer<PointF, Float>() {
+                new Animation.ValueTransformer<PointF, Float>() {
                   @NonNull
                   @Override
                   public Float transform(PointF value) {
@@ -1260,10 +1260,10 @@ public final class InflationUtils {
         map.put(propertyNameX, list);
       }
       if (propertyNameY != null) {
-        final List<PropertyAnimation<?, ?>> list = new ArrayList<>(1);
+        final List<Animation<?, ?>> list = new ArrayList<>(1);
         list.add(
             anim.transform(
-                new PropertyAnimation.ValueTransformer<PointF, Float>() {
+                new Animation.ValueTransformer<PointF, Float>() {
                   @NonNull
                   @Override
                   public Float transform(PointF value) {
@@ -1290,33 +1290,33 @@ public final class InflationUtils {
 
     @NonNull
     @Override
-    public Map<String, List<PropertyAnimation<?, ?>>> toMap(
+    public Map<String, List<Animation<?, ?>>> toMap(
         long startTime, long endTime, int repeatCount, @RepeatMode int repeatMode) {
-      final Map<String, List<PropertyAnimation<?, ?>>> map = new ArrayMap<>();
-      PropertyAnimation<?, ?> anim;
+      final Map<String, List<Animation<?, ?>>> map = new ArrayMap<>();
+      Animation<?, ?> anim;
       switch (valueType) {
         case VALUE_TYPE_FLOAT:
           anim =
-              PropertyAnimation.ofFloat(keyframes)
+              Animation.ofFloat(keyframes)
                   .startDelay(startTime)
                   .duration(endTime - startTime);
           break;
         case VALUE_TYPE_COLOR:
           anim =
-              PropertyAnimation.ofArgb(keyframes)
+              Animation.ofArgb(keyframes)
                   .startDelay(startTime)
                   .duration(endTime - startTime);
           break;
         case VALUE_TYPE_PATH:
           anim =
-              PropertyAnimation.ofPathMorph(keyframes)
+              Animation.ofPathMorph(keyframes)
                   .startDelay(startTime)
                   .duration(endTime - startTime);
           break;
         default:
           throw new IllegalStateException("Invalid value type: " + valueType);
       }
-      final List<PropertyAnimation<?, ?>> anims = new ArrayList<>(1);
+      final List<Animation<?, ?>> anims = new ArrayList<>(1);
       anims.add(anim.repeatCount(repeatCount).repeatMode(repeatMode));
       map.put(propertyName, anims);
       return map;
@@ -1324,11 +1324,11 @@ public final class InflationUtils {
   }
 
   @NonNull
-  private static Map<String, List<PropertyAnimation<?, ?>>> mergeMaps(
-      @NonNull List<Map<String, List<PropertyAnimation<?, ?>>>> maps) {
-    final Map<String, List<PropertyAnimation<?, ?>>> outMap = new ArrayMap<>();
-    for (Map<String, List<PropertyAnimation<?, ?>>> map : maps) {
-      for (Map.Entry<String, List<PropertyAnimation<?, ?>>> entry : map.entrySet()) {
+  private static Map<String, List<Animation<?, ?>>> mergeMaps(
+      @NonNull List<Map<String, List<Animation<?, ?>>>> maps) {
+    final Map<String, List<Animation<?, ?>>> outMap = new ArrayMap<>();
+    for (Map<String, List<Animation<?, ?>>> map : maps) {
+      for (Map.Entry<String, List<Animation<?, ?>>> entry : map.entrySet()) {
         if (outMap.containsKey(entry.getKey())) {
           outMap.get(entry.getKey()).addAll(entry.getValue());
         } else {

@@ -14,11 +14,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.github.alexjlockwood.kyrie.Animation;
 import com.github.alexjlockwood.kyrie.CircleNode;
 import com.github.alexjlockwood.kyrie.KyrieDrawable;
 import com.github.alexjlockwood.kyrie.PathData;
 import com.github.alexjlockwood.kyrie.PathNode;
-import com.github.alexjlockwood.kyrie.PropertyAnimation;
 
 import java.util.Collections;
 
@@ -91,9 +91,9 @@ public class PolygonsFragment extends Fragment {
     for (Polygon polygon : polygons) {
       final PathData pathData =
           PathData.parse(TextUtils.join(" ", Collections.nCopies(polygon.laps, polygon.pathData)));
-      final PropertyAnimation<PointF, PointF> pathMotion =
-          PropertyAnimation.ofPathMotion(PathData.toPath(pathData))
-              .repeatCount(PropertyAnimation.INFINITE)
+      final Animation<PointF, PointF> pathMotion =
+          Animation.ofPathMotion(PathData.toPath(pathData))
+              .repeatCount(Animation.INFINITE)
               .duration(DURATION);
       builder.child(
           CircleNode.builder()
@@ -121,12 +121,12 @@ public class PolygonsFragment extends Fragment {
               .strokeWidth(4f)
               .strokeColor(polygon.color)
               .strokeDashArray(
-                  PropertyAnimation.ofFloatArray(new float[] {0, length}, new float[] {length, 0})
-                      .repeatCount(PropertyAnimation.INFINITE)
+                  Animation.ofFloatArray(new float[] {0, length}, new float[] {length, 0})
+                      .repeatCount(Animation.INFINITE)
                       .duration(DURATION))
               .strokeDashOffset(
-                  PropertyAnimation.ofFloat(0, 2 * totalLength)
-                      .repeatCount(PropertyAnimation.INFINITE)
+                  Animation.ofFloat(0, 2 * totalLength)
+                      .repeatCount(Animation.INFINITE)
                       .duration(DURATION)));
     }
 

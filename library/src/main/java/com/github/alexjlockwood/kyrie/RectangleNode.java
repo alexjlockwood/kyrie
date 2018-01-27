@@ -8,42 +8,42 @@ import android.support.annotation.NonNull;
 import java.util.List;
 
 public final class RectangleNode extends RenderNode {
-  @NonNull private final List<PropertyAnimation<?, Float>> x;
-  @NonNull private final List<PropertyAnimation<?, Float>> y;
-  @NonNull private final List<PropertyAnimation<?, Float>> width;
-  @NonNull private final List<PropertyAnimation<?, Float>> height;
-  @NonNull private final List<PropertyAnimation<?, Float>> cornerRadiusX;
-  @NonNull private final List<PropertyAnimation<?, Float>> cornerRadiusY;
+  @NonNull private final List<Animation<?, Float>> x;
+  @NonNull private final List<Animation<?, Float>> y;
+  @NonNull private final List<Animation<?, Float>> width;
+  @NonNull private final List<Animation<?, Float>> height;
+  @NonNull private final List<Animation<?, Float>> cornerRadiusX;
+  @NonNull private final List<Animation<?, Float>> cornerRadiusY;
 
   private RectangleNode(
-      @NonNull List<PropertyAnimation<?, Float>> rotation,
-      @NonNull List<PropertyAnimation<?, Float>> pivotX,
-      @NonNull List<PropertyAnimation<?, Float>> pivotY,
-      @NonNull List<PropertyAnimation<?, Float>> scaleX,
-      @NonNull List<PropertyAnimation<?, Float>> scaleY,
-      @NonNull List<PropertyAnimation<?, Float>> translateX,
-      @NonNull List<PropertyAnimation<?, Float>> translateY,
-      @NonNull List<PropertyAnimation<?, Integer>> fillColor,
-      @NonNull List<PropertyAnimation<?, Float>> fillAlpha,
-      @NonNull List<PropertyAnimation<?, Integer>> strokeColor,
-      @NonNull List<PropertyAnimation<?, Float>> strokeAlpha,
-      @NonNull List<PropertyAnimation<?, Float>> strokeWidth,
-      @NonNull List<PropertyAnimation<?, Float>> trimPathStart,
-      @NonNull List<PropertyAnimation<?, Float>> trimPathEnd,
-      @NonNull List<PropertyAnimation<?, Float>> trimPathOffset,
+      @NonNull List<Animation<?, Float>> rotation,
+      @NonNull List<Animation<?, Float>> pivotX,
+      @NonNull List<Animation<?, Float>> pivotY,
+      @NonNull List<Animation<?, Float>> scaleX,
+      @NonNull List<Animation<?, Float>> scaleY,
+      @NonNull List<Animation<?, Float>> translateX,
+      @NonNull List<Animation<?, Float>> translateY,
+      @NonNull List<Animation<?, Integer>> fillColor,
+      @NonNull List<Animation<?, Float>> fillAlpha,
+      @NonNull List<Animation<?, Integer>> strokeColor,
+      @NonNull List<Animation<?, Float>> strokeAlpha,
+      @NonNull List<Animation<?, Float>> strokeWidth,
+      @NonNull List<Animation<?, Float>> trimPathStart,
+      @NonNull List<Animation<?, Float>> trimPathEnd,
+      @NonNull List<Animation<?, Float>> trimPathOffset,
       @StrokeLineCap int strokeLineCap,
       @StrokeLineJoin int strokeLineJoin,
-      @NonNull List<PropertyAnimation<?, Float>> strokeMiterLimit,
-      @NonNull List<PropertyAnimation<?, float[]>> strokeDashArray,
-      @NonNull List<PropertyAnimation<?, Float>> strokeDashOffset,
+      @NonNull List<Animation<?, Float>> strokeMiterLimit,
+      @NonNull List<Animation<?, float[]>> strokeDashArray,
+      @NonNull List<Animation<?, Float>> strokeDashOffset,
       @FillType int fillType,
       boolean isStrokeScaling,
-      @NonNull List<PropertyAnimation<?, Float>> x,
-      @NonNull List<PropertyAnimation<?, Float>> y,
-      @NonNull List<PropertyAnimation<?, Float>> width,
-      @NonNull List<PropertyAnimation<?, Float>> height,
-      @NonNull List<PropertyAnimation<?, Float>> cornerRadiusX,
-      @NonNull List<PropertyAnimation<?, Float>> cornerRadiusY) {
+      @NonNull List<Animation<?, Float>> x,
+      @NonNull List<Animation<?, Float>> y,
+      @NonNull List<Animation<?, Float>> width,
+      @NonNull List<Animation<?, Float>> height,
+      @NonNull List<Animation<?, Float>> cornerRadiusX,
+      @NonNull List<Animation<?, Float>> cornerRadiusY) {
     super(
         rotation,
         pivotX,
@@ -76,32 +76,32 @@ public final class RectangleNode extends RenderNode {
   }
 
   @NonNull
-  public List<PropertyAnimation<?, Float>> getX() {
+  public List<Animation<?, Float>> getX() {
     return x;
   }
 
   @NonNull
-  public List<PropertyAnimation<?, Float>> getY() {
+  public List<Animation<?, Float>> getY() {
     return y;
   }
 
   @NonNull
-  public List<PropertyAnimation<?, Float>> getWidth() {
+  public List<Animation<?, Float>> getWidth() {
     return width;
   }
 
   @NonNull
-  public List<PropertyAnimation<?, Float>> getHeight() {
+  public List<Animation<?, Float>> getHeight() {
     return height;
   }
 
   @NonNull
-  public List<PropertyAnimation<?, Float>> getCornerRadiusX() {
+  public List<Animation<?, Float>> getCornerRadiusX() {
     return cornerRadiusX;
   }
 
   @NonNull
-  public List<PropertyAnimation<?, Float>> getCornerRadiusY() {
+  public List<Animation<?, Float>> getCornerRadiusY() {
     return cornerRadiusY;
   }
 
@@ -109,21 +109,21 @@ public final class RectangleNode extends RenderNode {
 
   @NonNull
   @Override
-  RectangleLayer toLayer(@NonNull PropertyTimeline timeline) {
+  RectangleLayer toLayer(@NonNull Timeline timeline) {
     return new RectangleLayer(timeline, this);
   }
 
   private static final class RectangleLayer extends RenderLayer {
-    @NonNull private final AnimatableProperty<Float> x;
-    @NonNull private final AnimatableProperty<Float> y;
-    @NonNull private final AnimatableProperty<Float> width;
-    @NonNull private final AnimatableProperty<Float> height;
-    @NonNull private final AnimatableProperty<Float> cornerRadiusX;
-    @NonNull private final AnimatableProperty<Float> cornerRadiusY;
+    @NonNull private final Property<Float> x;
+    @NonNull private final Property<Float> y;
+    @NonNull private final Property<Float> width;
+    @NonNull private final Property<Float> height;
+    @NonNull private final Property<Float> cornerRadiusX;
+    @NonNull private final Property<Float> cornerRadiusY;
 
     private final RectF tempRect = new RectF();
 
-    public RectangleLayer(@NonNull PropertyTimeline timeline, @NonNull RectangleNode node) {
+    public RectangleLayer(@NonNull Timeline timeline, @NonNull RectangleNode node) {
       super(timeline, node);
       x = registerAnimatableProperty(node.getX());
       y = registerAnimatableProperty(node.getY());
@@ -155,16 +155,16 @@ public final class RectangleNode extends RenderNode {
   }
 
   public static final class Builder extends RenderNode.Builder<RectangleNode, Builder> {
-    @NonNull private final List<PropertyAnimation<?, Float>> x = Node.asAnimations(0f);
-    @NonNull private final List<PropertyAnimation<?, Float>> y = Node.asAnimations(0f);
+    @NonNull private final List<Animation<?, Float>> x = Node.asAnimations(0f);
+    @NonNull private final List<Animation<?, Float>> y = Node.asAnimations(0f);
 
-    @NonNull private final List<PropertyAnimation<?, Float>> width = Node.asAnimations(0f);
+    @NonNull private final List<Animation<?, Float>> width = Node.asAnimations(0f);
 
-    @NonNull private final List<PropertyAnimation<?, Float>> height = Node.asAnimations(0f);
+    @NonNull private final List<Animation<?, Float>> height = Node.asAnimations(0f);
 
-    @NonNull private final List<PropertyAnimation<?, Float>> cornerRadiusX = Node.asAnimations(0f);
+    @NonNull private final List<Animation<?, Float>> cornerRadiusX = Node.asAnimations(0f);
 
-    @NonNull private final List<PropertyAnimation<?, Float>> cornerRadiusY = Node.asAnimations(0f);
+    @NonNull private final List<Animation<?, Float>> cornerRadiusY = Node.asAnimations(0f);
 
     private Builder() {}
 
@@ -175,11 +175,11 @@ public final class RectangleNode extends RenderNode {
     }
 
     @SafeVarargs
-    public final Builder x(@NonNull PropertyAnimation<?, Float>... keyframes) {
+    public final Builder x(@NonNull Animation<?, Float>... keyframes) {
       return replaceAnimations(x, keyframes);
     }
 
-    public final Builder x(@NonNull List<PropertyAnimation<?, Float>> keyframes) {
+    public final Builder x(@NonNull List<Animation<?, Float>> keyframes) {
       return replaceAnimations(x, keyframes);
     }
 
@@ -190,11 +190,11 @@ public final class RectangleNode extends RenderNode {
     }
 
     @SafeVarargs
-    public final Builder y(@NonNull PropertyAnimation<?, Float>... keyframes) {
+    public final Builder y(@NonNull Animation<?, Float>... keyframes) {
       return replaceAnimations(y, keyframes);
     }
 
-    public final Builder y(@NonNull List<PropertyAnimation<?, Float>> keyframes) {
+    public final Builder y(@NonNull List<Animation<?, Float>> keyframes) {
       return replaceAnimations(y, keyframes);
     }
 
@@ -205,11 +205,11 @@ public final class RectangleNode extends RenderNode {
     }
 
     @SafeVarargs
-    public final Builder width(@NonNull PropertyAnimation<?, Float>... animations) {
+    public final Builder width(@NonNull Animation<?, Float>... animations) {
       return replaceAnimations(width, animations);
     }
 
-    public final Builder width(@NonNull List<PropertyAnimation<?, Float>> animations) {
+    public final Builder width(@NonNull List<Animation<?, Float>> animations) {
       return replaceAnimations(width, animations);
     }
 
@@ -220,11 +220,11 @@ public final class RectangleNode extends RenderNode {
     }
 
     @SafeVarargs
-    public final Builder height(@NonNull PropertyAnimation<?, Float>... animations) {
+    public final Builder height(@NonNull Animation<?, Float>... animations) {
       return replaceAnimations(height, animations);
     }
 
-    public final Builder height(@NonNull List<PropertyAnimation<?, Float>> keyframes) {
+    public final Builder height(@NonNull List<Animation<?, Float>> keyframes) {
       return replaceAnimations(height, keyframes);
     }
 
@@ -235,11 +235,11 @@ public final class RectangleNode extends RenderNode {
     }
 
     @SafeVarargs
-    public final Builder cornerRadiusX(@NonNull PropertyAnimation<?, Float>... animations) {
+    public final Builder cornerRadiusX(@NonNull Animation<?, Float>... animations) {
       return replaceAnimations(cornerRadiusX, animations);
     }
 
-    public final Builder cornerRadiusX(@NonNull List<PropertyAnimation<?, Float>> animations) {
+    public final Builder cornerRadiusX(@NonNull List<Animation<?, Float>> animations) {
       return replaceAnimations(cornerRadiusX, animations);
     }
 
@@ -250,11 +250,11 @@ public final class RectangleNode extends RenderNode {
     }
 
     @SafeVarargs
-    public final Builder cornerRadiusY(@NonNull PropertyAnimation<?, Float>... animations) {
+    public final Builder cornerRadiusY(@NonNull Animation<?, Float>... animations) {
       return replaceAnimations(cornerRadiusY, animations);
     }
 
-    public final Builder cornerRadiusY(@NonNull List<PropertyAnimation<?, Float>> animations) {
+    public final Builder cornerRadiusY(@NonNull List<Animation<?, Float>> animations) {
       return replaceAnimations(cornerRadiusY, animations);
     }
 

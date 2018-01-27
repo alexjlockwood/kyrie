@@ -10,75 +10,75 @@ import android.support.annotation.Nullable;
 
 // TODO: make sure to cover case where < 2 values/keyframes are provided
 // TODO: pass a spread of values (instead of just 2) and auto-generate evenly spaced keyframes?
-public final class PropertyAnimation<T, V> {
+public final class Animation<T, V> {
 
   @NonNull
-  public static PropertyAnimation<Float, Float> ofFloat(float startValue, float endValue) {
+  public static Animation<Float, Float> ofFloat(float startValue, float endValue) {
     return ofObject(new FloatValueEvaluator(), startValue, endValue);
   }
 
   @NonNull
   @SafeVarargs
-  public static PropertyAnimation<Float, Float> ofFloat(Keyframe<Float>... keyframes) {
+  public static Animation<Float, Float> ofFloat(Keyframe<Float>... keyframes) {
     return ofKeyframes(new FloatValueEvaluator(), keyframes);
   }
 
   @NonNull
-  public static PropertyAnimation<Integer, Integer> ofArgb(
+  public static Animation<Integer, Integer> ofArgb(
       @ColorInt int startValue, @ColorInt int endValue) {
     return ofObject(new ArgbValueEvaluator(), startValue, endValue);
   }
 
   @NonNull
   @SafeVarargs
-  public static PropertyAnimation<Integer, Integer> ofArgb(Keyframe<Integer>... keyframes) {
+  public static Animation<Integer, Integer> ofArgb(Keyframe<Integer>... keyframes) {
     return ofKeyframes(new ArgbValueEvaluator(), keyframes);
   }
 
   @NonNull
-  public static PropertyAnimation<float[], float[]> ofFloatArray(
+  public static Animation<float[], float[]> ofFloatArray(
       @NonNull float[] startValue, @NonNull float[] endValue) {
     return ofObject(new FloatArrayValueEvaluator(), startValue, endValue);
   }
 
   @NonNull
   @SafeVarargs
-  public static PropertyAnimation<float[], float[]> ofFloatArray(
+  public static Animation<float[], float[]> ofFloatArray(
       @NonNull Keyframe<float[]>... keyframes) {
     return ofKeyframes(new FloatArrayValueEvaluator(), keyframes);
   }
 
   @NonNull
-  public static PropertyAnimation<PathData, PathData> ofPathMorph(
+  public static Animation<PathData, PathData> ofPathMorph(
       @NonNull PathData startValue, @NonNull PathData endValue) {
     return ofObject(new PathDataValueEvaluator(), startValue, endValue);
   }
 
   @NonNull
   @SafeVarargs
-  public static PropertyAnimation<PathData, PathData> ofPathMorph(
+  public static Animation<PathData, PathData> ofPathMorph(
       @NonNull Keyframe<PathData>... keyframes) {
     return ofKeyframes(new PathDataValueEvaluator(), keyframes);
   }
 
   @NonNull
   @SafeVarargs
-  private static <V> PropertyAnimation<V, V> ofObject(
+  private static <V> Animation<V, V> ofObject(
       @NonNull ValueEvaluator<V> evaluator, V... values) {
-    return new PropertyAnimation<>(
+    return new Animation<>(
         KeyframeSet.ofObject(evaluator, values), new NoopValueTransformer<V>());
   }
 
   @NonNull
   @SafeVarargs
-  private static <V> PropertyAnimation<V, V> ofKeyframes(
+  private static <V> Animation<V, V> ofKeyframes(
       @NonNull ValueEvaluator<V> evaluator, Keyframe<V>... keyframes) {
-    return new PropertyAnimation<>(
+    return new Animation<>(
         KeyframeSet.ofKeyframes(evaluator, keyframes), new NoopValueTransformer<V>());
   }
 
-  public static PropertyAnimation<PointF, PointF> ofPathMotion(@NonNull Path path) {
-    return new PropertyAnimation<>(KeyframeSet.ofPath(path), new NoopValueTransformer<PointF>());
+  public static Animation<PointF, PointF> ofPathMotion(@NonNull Path path) {
+    return new Animation<>(KeyframeSet.ofPath(path), new NoopValueTransformer<PointF>());
   }
 
   /**
@@ -101,7 +101,7 @@ public final class PropertyAnimation<T, V> {
   private int repeatCount;
   @RepeatMode private int repeatMode = RepeatMode.RESTART;
 
-  private PropertyAnimation(
+  private Animation(
       @NonNull KeyframeSet<T> keyframeSet, @NonNull ValueTransformer<T, V> transformer) {
     this.keyframeSet = keyframeSet;
     this.transformer = transformer;
@@ -112,7 +112,7 @@ public final class PropertyAnimation<T, V> {
   }
 
   @NonNull
-  public PropertyAnimation<T, V> startDelay(@IntRange(from = 0L) long startDelay) {
+  public Animation<T, V> startDelay(@IntRange(from = 0L) long startDelay) {
     this.startDelay = startDelay;
     return this;
   }
@@ -122,7 +122,7 @@ public final class PropertyAnimation<T, V> {
   }
 
   @NonNull
-  public PropertyAnimation<T, V> duration(@IntRange(from = 0L) long duration) {
+  public Animation<T, V> duration(@IntRange(from = 0L) long duration) {
     this.duration = duration;
     return this;
   }
@@ -143,7 +143,7 @@ public final class PropertyAnimation<T, V> {
    *
    * @param repeatCount the number of times the animation should be repeated
    */
-  public PropertyAnimation<T, V> repeatCount(int repeatCount) {
+  public Animation<T, V> repeatCount(int repeatCount) {
     this.repeatCount = repeatCount;
     return this;
   }
@@ -165,7 +165,7 @@ public final class PropertyAnimation<T, V> {
    *
    * @param repeatMode {@link RepeatMode#RESTART} or {@link RepeatMode#REVERSE}
    */
-  public PropertyAnimation<T, V> repeatMode(@RepeatMode int repeatMode) {
+  public Animation<T, V> repeatMode(@RepeatMode int repeatMode) {
     this.repeatMode = repeatMode;
     return this;
   }
@@ -176,7 +176,7 @@ public final class PropertyAnimation<T, V> {
   }
 
   @NonNull
-  public PropertyAnimation<T, V> interpolator(@Nullable TimeInterpolator interpolator) {
+  public Animation<T, V> interpolator(@Nullable TimeInterpolator interpolator) {
     this.interpolator = interpolator;
     return this;
   }
@@ -194,8 +194,8 @@ public final class PropertyAnimation<T, V> {
     return transformer.transform(keyframeSet.getAnimatedValue(fraction));
   }
 
-  public <W> PropertyAnimation<T, W> transform(@NonNull ValueTransformer<T, W> transformer) {
-    return new PropertyAnimation<>(keyframeSet, transformer)
+  public <W> Animation<T, W> transform(@NonNull ValueTransformer<T, W> transformer) {
+    return new Animation<>(keyframeSet, transformer)
         .startDelay(startDelay)
         .duration(duration)
         .repeatCount(repeatCount)

@@ -6,13 +6,13 @@ import android.support.annotation.NonNull;
 import java.util.ArrayList;
 import java.util.List;
 
-final class PropertyTimeline {
+final class Timeline {
 
-  private final List<AnimatableProperty<?>> properties = new ArrayList<>();
-  private final AnimatableProperty.Listener listener =
-      new AnimatableProperty.Listener() {
+  private final List<Property<?>> properties = new ArrayList<>();
+  private final Property.Listener listener =
+      new Property.Listener() {
         @Override
-        public void onCurrentPlayTimeChanged(@NonNull AnimatableProperty<?> property) {
+        public void onCurrentPlayTimeChanged(@NonNull Property<?> property) {
           drawable.invalidateSelf();
         }
       };
@@ -20,20 +20,20 @@ final class PropertyTimeline {
   @NonNull private final KyrieDrawable drawable;
   private long totalDuration;
 
-  public PropertyTimeline(@NonNull KyrieDrawable drawable) {
+  public Timeline(@NonNull KyrieDrawable drawable) {
     this.drawable = drawable;
   }
 
   @NonNull
-  public <V> AnimatableProperty<V> registerAnimatableProperty(
-      @NonNull List<PropertyAnimation<?, V>> animations) {
-    final AnimatableProperty<V> property = new AnimatableProperty<>(animations);
+  public <V> Property<V> registerAnimatableProperty(
+      @NonNull List<Animation<?, V>> animations) {
+    final Property<V> property = new Property<>(animations);
     properties.add(property);
     property.addListener(listener);
-    if (totalDuration != PropertyAnimation.INFINITE) {
+    if (totalDuration != Animation.INFINITE) {
       final long currTotalDuration = property.getTotalDuration();
-      if (currTotalDuration == PropertyAnimation.INFINITE) {
-        totalDuration = PropertyAnimation.INFINITE;
+      if (currTotalDuration == Animation.INFINITE) {
+        totalDuration = Animation.INFINITE;
       } else {
         totalDuration = Math.max(currTotalDuration, totalDuration);
       }

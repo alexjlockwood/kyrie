@@ -6,32 +6,32 @@ import android.support.annotation.NonNull;
 import java.util.List;
 
 public final class PathNode extends RenderNode {
-  @NonNull private final List<PropertyAnimation<?, PathData>> pathData;
+  @NonNull private final List<Animation<?, PathData>> pathData;
 
   private PathNode(
-      @NonNull List<PropertyAnimation<?, Float>> rotation,
-      @NonNull List<PropertyAnimation<?, Float>> pivotX,
-      @NonNull List<PropertyAnimation<?, Float>> pivotY,
-      @NonNull List<PropertyAnimation<?, Float>> scaleX,
-      @NonNull List<PropertyAnimation<?, Float>> scaleY,
-      @NonNull List<PropertyAnimation<?, Float>> translateX,
-      @NonNull List<PropertyAnimation<?, Float>> translateY,
-      @NonNull List<PropertyAnimation<?, Integer>> fillColor,
-      @NonNull List<PropertyAnimation<?, Float>> fillAlpha,
-      @NonNull List<PropertyAnimation<?, Integer>> strokeColor,
-      @NonNull List<PropertyAnimation<?, Float>> strokeAlpha,
-      @NonNull List<PropertyAnimation<?, Float>> strokeWidth,
-      @NonNull List<PropertyAnimation<?, Float>> trimPathStart,
-      @NonNull List<PropertyAnimation<?, Float>> trimPathEnd,
-      @NonNull List<PropertyAnimation<?, Float>> trimPathOffset,
+      @NonNull List<Animation<?, Float>> rotation,
+      @NonNull List<Animation<?, Float>> pivotX,
+      @NonNull List<Animation<?, Float>> pivotY,
+      @NonNull List<Animation<?, Float>> scaleX,
+      @NonNull List<Animation<?, Float>> scaleY,
+      @NonNull List<Animation<?, Float>> translateX,
+      @NonNull List<Animation<?, Float>> translateY,
+      @NonNull List<Animation<?, Integer>> fillColor,
+      @NonNull List<Animation<?, Float>> fillAlpha,
+      @NonNull List<Animation<?, Integer>> strokeColor,
+      @NonNull List<Animation<?, Float>> strokeAlpha,
+      @NonNull List<Animation<?, Float>> strokeWidth,
+      @NonNull List<Animation<?, Float>> trimPathStart,
+      @NonNull List<Animation<?, Float>> trimPathEnd,
+      @NonNull List<Animation<?, Float>> trimPathOffset,
       @StrokeLineCap int strokeLineCap,
       @StrokeLineJoin int strokeLineJoin,
-      @NonNull List<PropertyAnimation<?, Float>> strokeMiterLimit,
-      @NonNull List<PropertyAnimation<?, float[]>> strokeDashArray,
-      @NonNull List<PropertyAnimation<?, Float>> strokeDashOffset,
+      @NonNull List<Animation<?, Float>> strokeMiterLimit,
+      @NonNull List<Animation<?, float[]>> strokeDashArray,
+      @NonNull List<Animation<?, Float>> strokeDashOffset,
       @FillType int fillType,
       boolean isStrokeScaling,
-      @NonNull List<PropertyAnimation<?, PathData>> pathData) {
+      @NonNull List<Animation<?, PathData>> pathData) {
     super(
         rotation,
         pivotX,
@@ -59,7 +59,7 @@ public final class PathNode extends RenderNode {
   }
 
   @NonNull
-  public List<PropertyAnimation<?, PathData>> getPathData() {
+  public List<Animation<?, PathData>> getPathData() {
     return pathData;
   }
 
@@ -67,14 +67,14 @@ public final class PathNode extends RenderNode {
 
   @NonNull
   @Override
-  PathLayer toLayer(@NonNull PropertyTimeline timeline) {
+  PathLayer toLayer(@NonNull Timeline timeline) {
     return new PathLayer(timeline, this);
   }
 
   private static final class PathLayer extends RenderLayer {
-    @NonNull private final AnimatableProperty<PathData> pathData;
+    @NonNull private final Property<PathData> pathData;
 
-    public PathLayer(@NonNull PropertyTimeline timeline, @NonNull PathNode node) {
+    public PathLayer(@NonNull Timeline timeline, @NonNull PathNode node) {
       super(timeline, node);
       pathData = registerAnimatableProperty(node.getPathData());
     }
@@ -95,7 +95,7 @@ public final class PathNode extends RenderNode {
 
   public static final class Builder extends RenderNode.Builder<PathNode, Builder> {
     @NonNull
-    private final List<PropertyAnimation<?, PathData>> pathData = asAnimations(new PathData());
+    private final List<Animation<?, PathData>> pathData = asAnimations(new PathData());
 
     private Builder() {}
 
@@ -110,11 +110,11 @@ public final class PathNode extends RenderNode {
     }
 
     @SafeVarargs
-    public final Builder pathData(@NonNull PropertyAnimation<?, PathData>... keyframes) {
+    public final Builder pathData(@NonNull Animation<?, PathData>... keyframes) {
       return replaceAnimations(pathData, keyframes);
     }
 
-    public final Builder pathData(@NonNull List<PropertyAnimation<?, PathData>> keyframes) {
+    public final Builder pathData(@NonNull List<Animation<?, PathData>> keyframes) {
       return replaceAnimations(pathData, keyframes);
     }
 
