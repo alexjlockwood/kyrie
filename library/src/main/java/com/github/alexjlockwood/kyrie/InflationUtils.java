@@ -874,7 +874,6 @@ public final class InflationUtils {
       @NonNull Context context, @NonNull AttributeSet attrs, @NonNull XmlPullParser parser) {
     @ValueType int valueType;
     final TypedArray a = TypedArrayUtils.obtainAttributes(context, attrs, Styleable.KEYFRAME);
-
     final TypedValue keyframeValue =
         TypedArrayUtils.peekNamedValue(a, parser, "value", Styleable.Keyframe.VALUE);
     final boolean hasValue = keyframeValue != null;

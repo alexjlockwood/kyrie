@@ -4,7 +4,6 @@ import android.animation.TimeInterpolator;
 import android.support.annotation.FloatRange;
 import android.support.annotation.Nullable;
 
-// TODO: handle 'nullable value' case somehow...
 public final class Keyframe<V> {
   @FloatRange(from = 0f, to = 1f)
   private float fraction;

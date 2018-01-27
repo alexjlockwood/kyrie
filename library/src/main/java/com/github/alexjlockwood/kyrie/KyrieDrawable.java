@@ -77,6 +77,10 @@ import static com.github.alexjlockwood.kyrie.Node.replaceFirstAnimation;
 // TODO: support playing animation in reverse?
 // TODO: avoid using bitmap internally (encourage view software rendering instead)
 // TODO: test inflating multi-file AVDs
+// TODO: (animation) make sure to cover case where < 2 values/keyframes are provided
+// TODO: (animation) pass a spread of values (instead of just 2) & generate evenly spaced keyframes?
+// TODO: update docs/throw exceptions when attempting to pass < 2 values/keyframes?
+// TODO: add @IntRange annotations to places that take varargs range of values
 public final class KyrieDrawable extends Drawable implements Animatable {
   private static final String TAG = "KyrieDrawable";
 

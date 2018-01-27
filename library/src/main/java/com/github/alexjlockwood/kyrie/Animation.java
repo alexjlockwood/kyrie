@@ -8,8 +8,6 @@ import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-// TODO: make sure to cover case where < 2 values/keyframes are provided
-// TODO: pass a spread of values (instead of just 2) and auto-generate evenly spaced keyframes?
 public final class Animation<T, V> {
 
   @NonNull
@@ -43,7 +41,7 @@ public final class Animation<T, V> {
 
   @NonNull
   @SafeVarargs
-  public static Animation<float[], float[]> ofFloatArray(@NonNull Keyframe<float[]>... keyframes) {
+  public static Animation<float[], float[]> ofFloatArray(Keyframe<float[]>... keyframes) {
     return ofKeyframes(new FloatArrayValueEvaluator(), keyframes);
   }
 
@@ -200,6 +198,19 @@ public final class Animation<T, V> {
         .interpolator(interpolator);
   }
 
+  public interface ValueTransformer<T, V> {
+    @NonNull
+    V transform(T value);
+  }
+
+  private static class NoopValueTransformer<V> implements ValueTransformer<V, V> {
+    @NonNull
+    @Override
+    public V transform(V value) {
+      return value;
+    }
+  }
+
   interface ValueEvaluator<V> {
     @NonNull
     V evaluate(float fraction, @NonNull V startValue, @NonNull V endValue);
@@ -279,19 +290,6 @@ public final class Animation<T, V> {
       }
       pathData.interpolate(startValue, endValue, fraction);
       return pathData;
-    }
-  }
-
-  public interface ValueTransformer<T, V> {
-    @NonNull
-    V transform(T value);
-  }
-
-  private static class NoopValueTransformer<V> implements ValueTransformer<V, V> {
-    @NonNull
-    @Override
-    public V transform(V value) {
-      return value;
     }
   }
 }
