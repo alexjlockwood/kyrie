@@ -650,7 +650,9 @@ public final class InflationUtils {
               Styleable.Animator.VALUE_FROM,
               Styleable.Animator.VALUE_TO,
               propertyName);
-      anim.setValues(pvh);
+      if (pvh != null) {
+        anim.setValues(pvh);
+      }
     }
 
     anim.setDuration(duration);
@@ -888,7 +890,7 @@ public final class InflationUtils {
     return valueType;
   }
 
-  @NonNull
+  @Nullable
   private static MyPropertyValuesHolder getPVH(
       @NonNull TypedArray styledAttributes,
       @ValueType int valueType,
@@ -896,18 +898,15 @@ public final class InflationUtils {
       int valueToId,
       @NonNull String propertyName) {
     final TypedValue tvFrom = styledAttributes.peekValue(valueFromId);
+    final boolean hasFrom = tvFrom != null;
+    final int fromType = hasFrom ? tvFrom.type : 0;
     final TypedValue tvTo = styledAttributes.peekValue(valueToId);
-    if (tvFrom == null || tvTo == null) {
-      // TODO: support case where one of the values is empty/null?
-      throw new InflateException("Must specify both a from and to value");
-    }
-
-    final int fromType = tvFrom.type;
-    final int toType = tvTo.type;
+    final boolean hasTo = tvTo != null;
+    final int toType = hasTo ? tvTo.type : 0;
 
     if (valueType == VALUE_TYPE_UNDEFINED) {
       // Check whether it's color type. If not, fall back to default type (i.e. float type)
-      if (isColorType(fromType) || isColorType(toType)) {
+      if ((hasFrom && isColorType(fromType)) || (hasTo && isColorType(toType))) {
         valueType = VALUE_TYPE_COLOR;
       } else {
         valueType = VALUE_TYPE_FLOAT;
@@ -928,36 +927,68 @@ public final class InflationUtils {
     if (valueType == VALUE_TYPE_FLOAT) {
       float valueFrom;
       float valueTo;
-      if (fromType == TypedValue.TYPE_DIMENSION) {
-        valueFrom = styledAttributes.getDimension(valueFromId, 0f);
+      if (hasFrom) {
+        if (fromType == TypedValue.TYPE_DIMENSION) {
+          valueFrom = styledAttributes.getDimension(valueFromId, 0f);
+        } else {
+          valueFrom = styledAttributes.getFloat(valueFromId, 0f);
+        }
+        if (hasTo) {
+          if (toType == TypedValue.TYPE_DIMENSION) {
+            valueTo = styledAttributes.getDimension(valueToId, 0f);
+          } else {
+            valueTo = styledAttributes.getFloat(valueToId, 0f);
+          }
+          return new MySimplePropertyValuesHolder(propertyName, valueFrom, valueTo, valueType);
+        } else {
+          return new MySimplePropertyValuesHolder(propertyName, valueFrom, valueFrom, valueType);
+        }
       } else {
-        valueFrom = styledAttributes.getFloat(valueFromId, 0f);
+        if (toType == TypedValue.TYPE_DIMENSION) {
+          valueTo = styledAttributes.getDimension(valueToId, 0f);
+        } else {
+          valueTo = styledAttributes.getFloat(valueToId, 0f);
+        }
+        return new MySimplePropertyValuesHolder(propertyName, null, valueTo, valueType);
       }
-      if (toType == TypedValue.TYPE_DIMENSION) {
-        valueTo = styledAttributes.getDimension(valueToId, 0f);
-      } else {
-        valueTo = styledAttributes.getFloat(valueToId, 0f);
-      }
-      return new MySimplePropertyValuesHolder(propertyName, valueFrom, valueTo, valueType);
     }
 
     int valueFrom;
     int valueTo;
-    if (fromType == TypedValue.TYPE_DIMENSION) {
-      valueFrom = (int) styledAttributes.getDimension(valueFromId, 0f);
-    } else if (isColorType(fromType)) {
-      valueFrom = styledAttributes.getColor(valueFromId, 0);
+    if (hasFrom) {
+      if (fromType == TypedValue.TYPE_DIMENSION) {
+        valueFrom = (int) styledAttributes.getDimension(valueFromId, 0f);
+      } else if (isColorType(fromType)) {
+        valueFrom = styledAttributes.getColor(valueFromId, 0);
+      } else {
+        valueFrom = styledAttributes.getInt(valueFromId, 0);
+      }
+      if (hasTo) {
+        if (toType == TypedValue.TYPE_DIMENSION) {
+          valueTo = (int) styledAttributes.getDimension(valueToId, 0f);
+        } else if (isColorType(toType)) {
+          valueTo = styledAttributes.getColor(valueToId, 0);
+        } else {
+          valueTo = styledAttributes.getInt(valueToId, 0);
+        }
+        return new MySimplePropertyValuesHolder(propertyName, valueFrom, valueTo, valueType);
+      } else {
+        return new MySimplePropertyValuesHolder(propertyName, valueFrom, valueFrom, valueType);
+      }
     } else {
-      valueFrom = styledAttributes.getInt(valueFromId, 0);
+      if (hasTo) {
+        if (toType == TypedValue.TYPE_DIMENSION) {
+          valueTo = (int) styledAttributes.getDimension(valueToId, 0f);
+        } else if (isColorType(toType)) {
+          valueTo = styledAttributes.getColor(valueToId, 0);
+        } else {
+          valueTo = styledAttributes.getInt(valueToId, 0);
+        }
+        return new MySimplePropertyValuesHolder(propertyName, null, valueTo, valueType);
+      }
     }
-    if (toType == TypedValue.TYPE_DIMENSION) {
-      valueTo = (int) styledAttributes.getDimension(valueToId, 0f);
-    } else if (isColorType(toType)) {
-      valueTo = styledAttributes.getColor(valueToId, 0);
-    } else {
-      valueTo = styledAttributes.getInt(valueToId, 0);
-    }
-    return new MySimplePropertyValuesHolder(propertyName, valueFrom, valueTo, valueType);
+
+    return null;
   }
 
   /**
@@ -1168,13 +1199,13 @@ public final class InflationUtils {
 
   private static class MySimplePropertyValuesHolder extends MyPropertyValuesHolder {
     @NonNull private final String propertyName;
-    @NonNull private final Object fromValue;
+    @Nullable private final Object fromValue;
     @NonNull private final Object toValue;
     @ValueType private final int valueType;
 
     public MySimplePropertyValuesHolder(
         @NonNull String propertyName,
-        @NonNull Object fromValue,
+        @Nullable Object fromValue,
         @NonNull Object toValue,
         @ValueType int valueType) {
       this.propertyName = propertyName;
@@ -1190,22 +1221,44 @@ public final class InflationUtils {
       Animation<?, ?> anim;
       switch (valueType) {
         case VALUE_TYPE_FLOAT:
-          anim =
-              Animation.ofFloat((Float) fromValue, (Float) toValue)
-                  .startDelay(startTime)
-                  .duration(endTime - startTime);
+          if (fromValue == null) {
+            anim =
+                Animation.ofFloat((Float) toValue)
+                    .startDelay(startTime)
+                    .duration(endTime - startTime);
+          } else {
+            anim =
+                Animation.ofFloat((Float) fromValue, (Float) toValue)
+                    .startDelay(startTime)
+                    .duration(endTime - startTime);
+          }
           break;
         case VALUE_TYPE_COLOR:
-          anim =
-              Animation.ofArgb((Integer) fromValue, (Integer) toValue)
-                  .startDelay(startTime)
-                  .duration(endTime - startTime);
+          if (fromValue == null) {
+            anim =
+                Animation.ofArgb((Integer) toValue)
+                    .startDelay(startTime)
+                    .duration(endTime - startTime);
+          } else {
+            anim =
+                Animation.ofArgb((Integer) fromValue, (Integer) toValue)
+                    .startDelay(startTime)
+                    .duration(endTime - startTime);
+          }
           break;
         case VALUE_TYPE_PATH:
-          anim =
-              Animation.ofPathMorph((PathData) fromValue, (PathData) toValue)
-                  .startDelay(startTime)
-                  .duration(endTime - startTime);
+          if (fromValue == null) {
+            anim =
+                Animation.ofPathMorph((PathData) toValue)
+                    .startDelay(startTime)
+                    .duration(endTime - startTime);
+          } else {
+            anim =
+                Animation.ofPathMorph((PathData) fromValue, (PathData) toValue)
+                    .startDelay(startTime)
+                    .duration(endTime - startTime);
+          }
+
           break;
         default:
           throw new IllegalStateException("Invalid value type: " + valueType);

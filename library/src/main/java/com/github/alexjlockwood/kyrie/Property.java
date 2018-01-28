@@ -41,8 +41,21 @@ final class Property<V> {
   private long currentPlayTime;
 
   public Property(@NonNull List<Animation<?, V>> animations) {
+    // Sort the animations.
     this.animations = new ArrayList<>(animations);
     Collections.sort(this.animations, ANIMATION_COMPARATOR);
+
+    // Fill in any missing start values.
+    Animation<?, V> prevAnimation = null;
+    for (int i = 0, size = this.animations.size(); i < size; i++) {
+      final Animation<?, V> currAnimation = this.animations.get(i);
+      if (prevAnimation != null) {
+        currAnimation.setupStartValue(prevAnimation.getAnimatedValue(1f));
+      }
+      prevAnimation = currAnimation;
+    }
+
+    // Compute the total duration.
     long totalDuration = 0;
     for (int i = 0, size = this.animations.size(); i < size; i++) {
       final long currTotalDuration = this.animations.get(i).getTotalDuration();

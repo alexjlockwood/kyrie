@@ -125,7 +125,7 @@ public class PolygonsFragment extends Fragment {
                       .repeatCount(Animation.INFINITE)
                       .duration(DURATION))
               .strokeDashOffset(
-                  Animation.ofFloat(0, 2 * totalLength)
+                  Animation.ofFloat(0f, 2 * totalLength)
                       .repeatCount(Animation.INFINITE)
                       .duration(DURATION)));
     }

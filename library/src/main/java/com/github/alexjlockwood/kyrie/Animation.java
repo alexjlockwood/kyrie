@@ -3,77 +3,75 @@ package com.github.alexjlockwood.kyrie;
 import android.animation.TimeInterpolator;
 import android.graphics.Path;
 import android.graphics.PointF;
-import android.support.annotation.ColorInt;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import java.util.List;
+
 public final class Animation<T, V> {
 
   @NonNull
-  public static Animation<Float, Float> ofFloat(float startValue, float endValue) {
-    return ofObject(new FloatValueEvaluator(), startValue, endValue);
+  public static Animation<Float, Float> ofFloat(@NonNull Float... values) {
+    return ofObject(new FloatValueEvaluator(), values);
   }
 
   @NonNull
   @SafeVarargs
-  public static Animation<Float, Float> ofFloat(Keyframe<Float>... keyframes) {
-    return ofKeyframes(new FloatValueEvaluator(), keyframes);
+  public static Animation<Float, Float> ofFloat(@NonNull Keyframe<Float>... values) {
+    return ofKeyframe(new FloatValueEvaluator(), values);
   }
 
   @NonNull
-  public static Animation<Integer, Integer> ofArgb(
-      @ColorInt int startValue, @ColorInt int endValue) {
-    return ofObject(new ArgbValueEvaluator(), startValue, endValue);
-  }
-
-  @NonNull
-  @SafeVarargs
-  public static Animation<Integer, Integer> ofArgb(Keyframe<Integer>... keyframes) {
-    return ofKeyframes(new ArgbValueEvaluator(), keyframes);
-  }
-
-  @NonNull
-  public static Animation<float[], float[]> ofFloatArray(
-      @NonNull float[] startValue, @NonNull float[] endValue) {
-    return ofObject(new FloatArrayValueEvaluator(), startValue, endValue);
+  public static Animation<Integer, Integer> ofArgb(@NonNull Integer... values) {
+    return ofObject(new ArgbValueEvaluator(), values);
   }
 
   @NonNull
   @SafeVarargs
-  public static Animation<float[], float[]> ofFloatArray(Keyframe<float[]>... keyframes) {
-    return ofKeyframes(new FloatArrayValueEvaluator(), keyframes);
+  public static Animation<Integer, Integer> ofArgb(@NonNull Keyframe<Integer>... values) {
+    return ofKeyframe(new ArgbValueEvaluator(), values);
   }
 
   @NonNull
-  public static Animation<PathData, PathData> ofPathMorph(
-      @NonNull PathData startValue, @NonNull PathData endValue) {
-    return ofObject(new PathDataValueEvaluator(), startValue, endValue);
-  }
-
-  @NonNull
-  @SafeVarargs
-  public static Animation<PathData, PathData> ofPathMorph(
-      @NonNull Keyframe<PathData>... keyframes) {
-    return ofKeyframes(new PathDataValueEvaluator(), keyframes);
+  public static Animation<float[], float[]> ofFloatArray(@NonNull float[]... values) {
+    return ofObject(new FloatArrayValueEvaluator(), values);
   }
 
   @NonNull
   @SafeVarargs
-  private static <V> Animation<V, V> ofObject(@NonNull ValueEvaluator<V> evaluator, V... values) {
-    return new Animation<>(KeyframeSet.ofObject(evaluator, values), new NoopValueTransformer<V>());
+  public static Animation<float[], float[]> ofFloatArray(@NonNull Keyframe<float[]>... values) {
+    return ofKeyframe(new FloatArrayValueEvaluator(), values);
+  }
+
+  @NonNull
+  public static Animation<PathData, PathData> ofPathMorph(@NonNull PathData... values) {
+    return ofObject(new PathDataValueEvaluator(), values);
   }
 
   @NonNull
   @SafeVarargs
-  private static <V> Animation<V, V> ofKeyframes(
-      @NonNull ValueEvaluator<V> evaluator, Keyframe<V>... keyframes) {
+  public static Animation<PathData, PathData> ofPathMorph(@NonNull Keyframe<PathData>... values) {
+    return ofKeyframe(new PathDataValueEvaluator(), values);
+  }
+
+  @NonNull
+  private static <V> Animation<V, V> ofObject(
+      @NonNull ValueEvaluator<V> evaluator, @NonNull V[] values) {
     return new Animation<>(
-        KeyframeSet.ofKeyframes(evaluator, keyframes), new NoopValueTransformer<V>());
+        KeyframeSet.ofObject(evaluator, values), new IdentityValueTransformer<V>());
   }
 
+  @NonNull
+  private static <V> Animation<V, V> ofKeyframe(
+      @NonNull ValueEvaluator<V> evaluator, @NonNull Keyframe<V>[] values) {
+    return new Animation<>(
+        KeyframeSet.ofKeyframe(evaluator, values), new IdentityValueTransformer<V>());
+  }
+
+  @NonNull
   public static Animation<PointF, PointF> ofPathMotion(@NonNull Path path) {
-    return new Animation<>(KeyframeSet.ofPath(path), new NoopValueTransformer<PointF>());
+    return new Animation<>(KeyframeSet.ofPath(path), new IdentityValueTransformer<PointF>());
   }
 
   /**
@@ -177,11 +175,31 @@ public final class Animation<T, V> {
   }
 
   public long getTotalDuration() {
-    if (repeatCount == INFINITE) {
-      return INFINITE;
-    } else {
-      return startDelay + (duration * (repeatCount + 1));
+    return repeatCount == INFINITE ? INFINITE : startDelay + (duration * (repeatCount + 1));
+  }
+
+  /**
+   * Called when the animations are first initialized, so that keyframes can fill in any missing
+   * start values.
+   */
+  void setupStartValue(@NonNull V startValue) {
+    final List<Keyframe<T>> keyframes = keyframeSet.getKeyframes();
+    for (int i = 0, size = keyframes.size(); i < size; i++) {
+      final Keyframe<T> kf = keyframes.get(i);
+      if (kf.getValue() == null) {
+        kf.setValue(transformBack(startValue));
+      }
     }
+  }
+
+  private T transformBack(@NonNull V value) {
+    if (!(transformer instanceof BidirectionalValueTransformer)) {
+      throw new IllegalArgumentException(
+          "Transformer "
+              + transformer.getClass().getName()
+              + " must be a BidirectionalValueTransformer");
+    }
+    return ((BidirectionalValueTransformer<T, V>) transformer).transformBack(value);
   }
 
   @NonNull
@@ -200,13 +218,24 @@ public final class Animation<T, V> {
 
   public interface ValueTransformer<T, V> {
     @NonNull
-    V transform(T value);
+    V transform(@NonNull T value);
   }
 
-  private static class NoopValueTransformer<V> implements ValueTransformer<V, V> {
+  public interface BidirectionalValueTransformer<T, V> extends ValueTransformer<T, V> {
+    @NonNull
+    T transformBack(@NonNull V value);
+  }
+
+  private static class IdentityValueTransformer<V> implements BidirectionalValueTransformer<V, V> {
     @NonNull
     @Override
-    public V transform(V value) {
+    public V transform(@NonNull V value) {
+      return value;
+    }
+
+    @NonNull
+    @Override
+    public V transformBack(@NonNull V value) {
       return value;
     }
   }

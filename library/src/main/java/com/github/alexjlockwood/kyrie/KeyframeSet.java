@@ -7,9 +7,13 @@ import android.graphics.PointF;
 import android.os.Build;
 import android.support.annotation.FloatRange;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.Size;
 
+import com.github.alexjlockwood.kyrie.Animation.ValueEvaluator;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 abstract class KeyframeSet<V> {
@@ -17,7 +21,7 @@ abstract class KeyframeSet<V> {
   @NonNull
   @SafeVarargs
   public static <V> KeyframeSet<V> ofObject(
-      @NonNull Animation.ValueEvaluator<V> evaluator, V... values) {
+      @NonNull ValueEvaluator<V> evaluator, V... values) {
     final int numKeyframes = values.length;
     final List<Keyframe<V>> keyframes = new ArrayList<>(Math.max(numKeyframes, 2));
     if (numKeyframes == 1) {
@@ -34,8 +38,8 @@ abstract class KeyframeSet<V> {
 
   @NonNull
   @SafeVarargs
-  public static <V> KeyframeSet<V> ofKeyframes(
-      @NonNull Animation.ValueEvaluator<V> evaluator, Keyframe<V>... keyframes) {
+  public static <V> KeyframeSet<V> ofKeyframe(
+      @NonNull ValueEvaluator<V> evaluator, Keyframe<V>... keyframes) {
     final List<Keyframe<V>> list = new ArrayList<>(keyframes.length);
     //noinspection ForLoopReplaceableByForEach
     for (int i = 0, size = keyframes.length; i < size; i++) {
@@ -52,19 +56,22 @@ abstract class KeyframeSet<V> {
   @NonNull
   public abstract V getAnimatedValue(float fraction);
 
+  @NonNull
+  public abstract List<Keyframe<V>> getKeyframes();
+
   private static final class ObjectKeyframeSet<V> extends KeyframeSet<V> {
 
     private final int numKeyframes;
-    private final Keyframe<V> firstKeyframe;
-    private final Keyframe<V> lastKeyframe;
+    @NonNull private final Keyframe<V> firstKeyframe;
+    @NonNull private final Keyframe<V> lastKeyframe;
     // Only used in the 2-keyframe case.
-    private final TimeInterpolator interpolator;
-    // Only used when there are not 2 keyframes.
-    private final List<Keyframe<V>> keyframes;
-    private final Animation.ValueEvaluator<V> evaluator;
+    @Nullable private final TimeInterpolator interpolator;
+    // Only used when there are more than 2 keyframes.
+    @NonNull private final List<Keyframe<V>> keyframes;
+    @NonNull private final ValueEvaluator<V> evaluator;
 
     public ObjectKeyframeSet(
-        @NonNull Animation.ValueEvaluator<V> evaluator, @NonNull List<Keyframe<V>> keyframes) {
+        @NonNull ValueEvaluator<V> evaluator, @NonNull List<Keyframe<V>> keyframes) {
       this.evaluator = evaluator;
       this.numKeyframes = keyframes.size();
       this.keyframes = keyframes;
@@ -94,7 +101,8 @@ abstract class KeyframeSet<V> {
             (fraction - prevFraction) / (nextKeyframe.getFraction() - prevFraction);
         return evaluator.evaluate(
             intervalFraction, firstKeyframe.getValue(), nextKeyframe.getValue());
-      } else if (fraction >= 1f) {
+      }
+      if (fraction >= 1f) {
         final Keyframe<V> prevKeyframe = keyframes.get(numKeyframes - 2);
         final TimeInterpolator interpolator = lastKeyframe.getInterpolator();
         if (interpolator != null) {
@@ -125,6 +133,12 @@ abstract class KeyframeSet<V> {
       }
       // Shouldn't reach here.
       return lastKeyframe.getValue();
+    }
+
+    @NonNull
+    @Override
+    public List<Keyframe<V>> getKeyframes() {
+      return keyframes;
     }
   }
 
@@ -175,6 +189,12 @@ abstract class KeyframeSet<V> {
         // Now high is below the fraction and low is above the fraction.
         return interpolateInRange(fraction, high, low);
       }
+    }
+
+    @NonNull
+    @Override
+    public List<Keyframe<PointF>> getKeyframes() {
+      return Collections.emptyList();
     }
 
     @NonNull
