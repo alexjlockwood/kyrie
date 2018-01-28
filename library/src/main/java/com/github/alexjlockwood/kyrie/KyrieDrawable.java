@@ -349,6 +349,24 @@ public final class KyrieDrawable extends Drawable implements Animatable {
 
   // <editor-fold desc="Animation">
 
+  public long getTotalDuration() {
+    return timeline.getTotalDuration();
+  }
+
+  @IntRange(from = 0L)
+  public long getCurrentPlayTime() {
+    return animator.getCurrentPlayTime();
+  }
+
+  public void setCurrentPlayTime(@IntRange(from = 0L) long currentPlayTime) {
+    currentPlayTime = Math.max(0, currentPlayTime);
+    final long totalDuration = getTotalDuration();
+    if (totalDuration != Animation.INFINITE) {
+      currentPlayTime = Math.min(totalDuration, currentPlayTime);
+    }
+    animator.setCurrentPlayTime(currentPlayTime);
+  }
+
   @Override
   public void start() {
     animator.start();
@@ -390,24 +408,6 @@ public final class KyrieDrawable extends Drawable implements Animatable {
 
   public void clearListeners() {
     animator.clearListeners();
-  }
-
-  public long getTotalDuration() {
-    return timeline.getTotalDuration();
-  }
-
-  @IntRange(from = 0L)
-  public long getCurrentPlayTime() {
-    return animator.getCurrentPlayTime();
-  }
-
-  public void setCurrentPlayTime(@IntRange(from = 0L) long currentPlayTime) {
-    currentPlayTime = Math.max(0, currentPlayTime);
-    final long totalDuration = getTotalDuration();
-    if (totalDuration != Animation.INFINITE) {
-      currentPlayTime = Math.min(totalDuration, currentPlayTime);
-    }
-    animator.setCurrentPlayTime(currentPlayTime);
   }
 
   /**
