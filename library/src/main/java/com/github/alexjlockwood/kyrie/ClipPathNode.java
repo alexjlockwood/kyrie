@@ -33,7 +33,7 @@ public final class ClipPathNode extends BaseNode {
 
   @NonNull
   @Override
-  ClipPathLayer toLayer(@NonNull Timeline timeline) {
+  ClipPathLayer toLayer(@NonNull PropertyTimeline timeline) {
     return new ClipPathLayer(timeline, this);
   }
 
@@ -44,7 +44,7 @@ public final class ClipPathNode extends BaseNode {
     private final Path tempPath = new Path();
     private final Path tempRenderPath = new Path();
 
-    public ClipPathLayer(@NonNull Timeline timeline, @NonNull ClipPathNode node) {
+    public ClipPathLayer(@NonNull PropertyTimeline timeline, @NonNull ClipPathNode node) {
       super(timeline, node);
       pathData = registerAnimatableProperty(node.getPathData());
     }

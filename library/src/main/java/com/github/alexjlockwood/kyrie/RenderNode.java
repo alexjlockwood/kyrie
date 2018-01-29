@@ -151,7 +151,7 @@ abstract class RenderNode extends BaseNode {
 
   @NonNull
   @Override
-  abstract RenderLayer toLayer(@NonNull Timeline timeline);
+  abstract RenderLayer toLayer(@NonNull PropertyTimeline timeline);
 
   abstract static class RenderLayer extends BaseLayer {
     @NonNull private final Property<Integer> fillColor;
@@ -178,7 +178,7 @@ abstract class RenderNode extends BaseNode {
     @Nullable private PathMeasure tempPathMeasure;
     @Nullable private float[] tempStrokeDashArray;
 
-    public RenderLayer(@NonNull Timeline timeline, @NonNull RenderNode node) {
+    public RenderLayer(@NonNull PropertyTimeline timeline, @NonNull RenderNode node) {
       super(timeline, node);
       fillColor = registerAnimatableProperty(node.getFillColor());
       fillAlpha = registerAnimatableProperty(node.getFillAlpha());

@@ -13,7 +13,7 @@ import java.util.List;
 abstract class Node {
 
   @NonNull
-  abstract Layer toLayer(@NonNull Timeline timeline);
+  abstract Layer toLayer(@NonNull PropertyTimeline timeline);
 
   interface Layer {
     void draw(@NonNull Canvas canvas, @NonNull Matrix parentMatrix, @NonNull PointF viewportScale);

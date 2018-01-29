@@ -115,7 +115,7 @@ public final class KyrieDrawable extends Drawable implements Animatable {
 
   @NonNull private final Property<Float> alphaProperty;
 
-  @NonNull private final Timeline timeline;
+  @NonNull private final PropertyTimeline timeline;
   @NonNull private final KyrieValueAnimator animator;
   private final List<Node.Layer> childrenLayers = new ArrayList<>();
 
@@ -153,7 +153,7 @@ public final class KyrieDrawable extends Drawable implements Animatable {
     this.tintList = tintList;
     this.tintMode = tintMode;
     this.tintFilter = createTintFilter();
-    timeline = new Timeline(this);
+    timeline = new PropertyTimeline(this);
     alphaProperty = timeline.registerAnimatableProperty(alphaAnimations);
     for (int i = 0, size = childrenNodes.size(); i < size; i++) {
       childrenLayers.add(childrenNodes.get(i).toLayer(timeline));
@@ -497,7 +497,7 @@ public final class KyrieDrawable extends Drawable implements Animatable {
       drawable = d;
       setFloatValues(0f, 1f);
       setInterpolator(new LinearInterpolator());
-      final Timeline timeline = drawable.timeline;
+      final PropertyTimeline timeline = drawable.timeline;
       addUpdateListener(
           new AnimatorUpdateListener() {
             @Override

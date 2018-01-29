@@ -67,14 +67,14 @@ public final class PathNode extends RenderNode {
 
   @NonNull
   @Override
-  PathLayer toLayer(@NonNull Timeline timeline) {
+  PathLayer toLayer(@NonNull PropertyTimeline timeline) {
     return new PathLayer(timeline, this);
   }
 
   private static class PathLayer extends RenderLayer {
     @NonNull private final Property<PathData> pathData;
 
-    public PathLayer(@NonNull Timeline timeline, @NonNull PathNode node) {
+    public PathLayer(@NonNull PropertyTimeline timeline, @NonNull PathNode node) {
       super(timeline, node);
       pathData = registerAnimatableProperty(node.getPathData());
     }

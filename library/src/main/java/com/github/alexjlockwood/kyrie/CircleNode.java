@@ -85,7 +85,7 @@ public final class CircleNode extends RenderNode {
 
   @NonNull
   @Override
-  CircleLayer toLayer(@NonNull Timeline timeline) {
+  CircleLayer toLayer(@NonNull PropertyTimeline timeline) {
     return new CircleLayer(timeline, this);
   }
 
@@ -96,7 +96,7 @@ public final class CircleNode extends RenderNode {
 
     private final RectF tempRect = new RectF();
 
-    public CircleLayer(@NonNull Timeline timeline, @NonNull CircleNode node) {
+    public CircleLayer(@NonNull PropertyTimeline timeline, @NonNull CircleNode node) {
       super(timeline, node);
       centerX = registerAnimatableProperty(node.getCenterX());
       centerY = registerAnimatableProperty(node.getCenterY());

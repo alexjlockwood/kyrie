@@ -33,14 +33,14 @@ public final class GroupNode extends BaseNode {
 
   @NonNull
   @Override
-  GroupLayer toLayer(@NonNull Timeline timeline) {
+  GroupLayer toLayer(@NonNull PropertyTimeline timeline) {
     return new GroupLayer(timeline, this);
   }
 
   private static class GroupLayer extends BaseLayer {
     @NonNull private final List<Layer> children;
 
-    public GroupLayer(@NonNull Timeline timeline, @NonNull GroupNode node) {
+    public GroupLayer(@NonNull PropertyTimeline timeline, @NonNull GroupNode node) {
       super(timeline, node);
       final List<Node> childrenNodes = node.getChildren();
       children = new ArrayList<>(childrenNodes.size());

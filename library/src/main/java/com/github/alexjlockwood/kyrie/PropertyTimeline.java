@@ -6,7 +6,7 @@ import android.support.annotation.NonNull;
 import java.util.ArrayList;
 import java.util.List;
 
-final class Timeline {
+final class PropertyTimeline {
 
   private final List<Property<?>> properties = new ArrayList<>();
   private final Property.Listener listener =
@@ -20,7 +20,7 @@ final class Timeline {
   @NonNull private final KyrieDrawable drawable;
   private long totalDuration;
 
-  public Timeline(@NonNull KyrieDrawable drawable) {
+  public PropertyTimeline(@NonNull KyrieDrawable drawable) {
     this.drawable = drawable;
   }
 

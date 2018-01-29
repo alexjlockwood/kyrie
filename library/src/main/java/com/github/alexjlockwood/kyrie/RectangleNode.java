@@ -109,7 +109,7 @@ public final class RectangleNode extends RenderNode {
 
   @NonNull
   @Override
-  RectangleLayer toLayer(@NonNull Timeline timeline) {
+  RectangleLayer toLayer(@NonNull PropertyTimeline timeline) {
     return new RectangleLayer(timeline, this);
   }
 
@@ -123,7 +123,7 @@ public final class RectangleNode extends RenderNode {
 
     private final RectF tempRect = new RectF();
 
-    public RectangleLayer(@NonNull Timeline timeline, @NonNull RectangleNode node) {
+    public RectangleLayer(@NonNull PropertyTimeline timeline, @NonNull RectangleNode node) {
       super(timeline, node);
       x = registerAnimatableProperty(node.getX());
       y = registerAnimatableProperty(node.getY());

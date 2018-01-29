@@ -93,7 +93,7 @@ public final class EllipseNode extends RenderNode {
 
   @NonNull
   @Override
-  EllipseLayer toLayer(@NonNull Timeline timeline) {
+  EllipseLayer toLayer(@NonNull PropertyTimeline timeline) {
     return new EllipseLayer(timeline, this);
   }
 
@@ -105,7 +105,7 @@ public final class EllipseNode extends RenderNode {
 
     private final RectF tempRect = new RectF();
 
-    public EllipseLayer(@NonNull Timeline timeline, @NonNull EllipseNode node) {
+    public EllipseLayer(@NonNull PropertyTimeline timeline, @NonNull EllipseNode node) {
       super(timeline, node);
       centerX = registerAnimatableProperty(node.getCenterX());
       centerY = registerAnimatableProperty(node.getCenterY());

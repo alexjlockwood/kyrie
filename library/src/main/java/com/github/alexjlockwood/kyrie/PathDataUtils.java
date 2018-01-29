@@ -71,19 +71,6 @@ final class PathDataUtils {
     return true;
   }
 
-  /**
-   * Update the target's data to match the source. Before calling this, make sure canMorph(target,
-   * source) is true.
-   */
-  static void updateCommands(@NonNull PathData targetPathData, @NonNull PathData sourcePathData) {
-    final PathData.PathDatum[] target = targetPathData.pathDatums;
-    final PathData.PathDatum[] source = sourcePathData.pathDatums;
-    for (int i = 0; i < source.length; i++) {
-      target[i].type = source[i].type;
-      System.arraycopy(source[i].params, 0, target[i].params, 0, source[i].params.length);
-    }
-  }
-
   static void toPath(@NonNull PathData pathData, @NonNull Path path) {
     final PathData.PathDatum[] nodes = pathData.pathDatums;
     final float[] current = new float[6];

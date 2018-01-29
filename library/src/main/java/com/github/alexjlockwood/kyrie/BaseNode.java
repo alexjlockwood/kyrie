@@ -73,10 +73,10 @@ abstract class BaseNode extends Node {
 
   @NonNull
   @Override
-  abstract BaseLayer toLayer(@NonNull Timeline timeline);
+  abstract BaseLayer toLayer(@NonNull PropertyTimeline timeline);
 
   abstract static class BaseLayer implements Layer {
-    @NonNull private final Timeline timeline;
+    @NonNull private final PropertyTimeline timeline;
     @NonNull private final Property<Float> rotation;
     @NonNull private final Property<Float> pivotX;
     @NonNull private final Property<Float> pivotY;
@@ -90,7 +90,7 @@ abstract class BaseNode extends Node {
     @Size(value = 4)
     private final float[] tempUnitVectors = new float[4];
 
-    public BaseLayer(@NonNull Timeline timeline, @NonNull BaseNode node) {
+    public BaseLayer(@NonNull PropertyTimeline timeline, @NonNull BaseNode node) {
       this.timeline = timeline;
       rotation = registerAnimatableProperty(node.getRotation());
       pivotX = registerAnimatableProperty(node.getPivotX());
