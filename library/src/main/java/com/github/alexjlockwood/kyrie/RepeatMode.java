@@ -5,6 +5,7 @@ import android.support.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
+/** Repeat mode determines how a repeating animation should behave once it completes. */
 @Retention(RetentionPolicy.SOURCE)
 @IntDef({RepeatMode.RESTART, RepeatMode.REVERSE})
 public @interface RepeatMode {

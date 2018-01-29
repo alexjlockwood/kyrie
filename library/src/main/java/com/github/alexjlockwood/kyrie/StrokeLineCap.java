@@ -5,6 +5,7 @@ import android.support.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
+/** Stroke line cap determines the shape that should be used at the corners of stroked paths. */
 @Retention(RetentionPolicy.SOURCE)
 @IntDef({StrokeLineCap.BUTT, StrokeLineCap.ROUND, StrokeLineCap.SQUARE})
 public @interface StrokeLineCap {

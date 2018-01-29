@@ -5,6 +5,7 @@ import android.support.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
+/** Stroke line join determines the shape that should be used at the ends of a stroked sub-path. */
 @Retention(RetentionPolicy.SOURCE)
 @IntDef({StrokeLineJoin.MITER, StrokeLineJoin.ROUND, StrokeLineJoin.BEVEL})
 public @interface StrokeLineJoin {
