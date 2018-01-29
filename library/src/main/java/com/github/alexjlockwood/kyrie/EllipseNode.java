@@ -142,8 +142,8 @@ public final class EllipseNode extends RenderNode {
 
     // Center X.
 
-    public final Builder centerX(float centerX) {
-      return replaceFirstAnimation(this.centerX, asAnimation(centerX));
+    public Builder centerX(float initialCenterX) {
+      return replaceFirstAnimation(centerX, asAnimation(initialCenterX));
     }
 
     @SafeVarargs
@@ -151,14 +151,14 @@ public final class EllipseNode extends RenderNode {
       return replaceAnimations(centerX, animations);
     }
 
-    public final Builder centerX(@NonNull List<Animation<?, Float>> animations) {
+    public Builder centerX(@NonNull List<Animation<?, Float>> animations) {
       return replaceAnimations(centerX, animations);
     }
 
     // Center Y.
 
-    public final Builder centerY(float centerY) {
-      return replaceFirstAnimation(this.centerY, asAnimation(centerY));
+    public Builder centerY(float initialCenterY) {
+      return replaceFirstAnimation(centerY, asAnimation(initialCenterY));
     }
 
     @SafeVarargs
@@ -166,14 +166,14 @@ public final class EllipseNode extends RenderNode {
       return replaceAnimations(centerY, animations);
     }
 
-    public final Builder centerY(@NonNull List<Animation<?, Float>> animations) {
+    public Builder centerY(@NonNull List<Animation<?, Float>> animations) {
       return replaceAnimations(centerY, animations);
     }
 
     // Radius X.
 
-    public final Builder radiusX(@FloatRange(from = 0f) float radiusX) {
-      return replaceFirstAnimation(this.radiusX, asAnimation(radiusX));
+    public Builder radiusX(@FloatRange(from = 0f) float initialRadiusX) {
+      return replaceFirstAnimation(radiusX, asAnimation(initialRadiusX));
     }
 
     @SafeVarargs
@@ -181,14 +181,14 @@ public final class EllipseNode extends RenderNode {
       return replaceAnimations(radiusX, animations);
     }
 
-    public final Builder radiusX(@NonNull List<Animation<?, Float>> animations) {
+    public Builder radiusX(@NonNull List<Animation<?, Float>> animations) {
       return replaceAnimations(radiusX, animations);
     }
 
     // Radius Y.
 
-    public final Builder radiusY(@FloatRange(from = 0f) float radiusY) {
-      return replaceFirstAnimation(this.radiusY, asAnimation(radiusY));
+    public Builder radiusY(@FloatRange(from = 0f) float initialRadiusY) {
+      return replaceFirstAnimation(radiusY, asAnimation(initialRadiusY));
     }
 
     @SafeVarargs
@@ -196,16 +196,16 @@ public final class EllipseNode extends RenderNode {
       return replaceAnimations(radiusY, animations);
     }
 
-    public final Builder radiusY(@NonNull List<Animation<?, Float>> animations) {
+    public Builder radiusY(@NonNull List<Animation<?, Float>> animations) {
       return replaceAnimations(radiusY, animations);
     }
 
     @Override
-    protected final Builder self() {
+    protected Builder self() {
       return this;
     }
 
-    public final EllipseNode build() {
+    public EllipseNode build() {
       return new EllipseNode(
           rotation,
           pivotX,
@@ -228,7 +228,7 @@ public final class EllipseNode extends RenderNode {
           strokeDashArray,
           strokeDashOffset,
           fillType,
-          isStrokeScaling,
+          isScalingStroke,
           centerX,
           centerY,
           radiusX,

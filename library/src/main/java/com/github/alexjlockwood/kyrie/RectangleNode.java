@@ -157,51 +157,47 @@ public final class RectangleNode extends RenderNode {
   public static final class Builder extends RenderNode.Builder<RectangleNode, Builder> {
     @NonNull private final List<Animation<?, Float>> x = Node.asAnimations(0f);
     @NonNull private final List<Animation<?, Float>> y = Node.asAnimations(0f);
-
     @NonNull private final List<Animation<?, Float>> width = Node.asAnimations(0f);
-
     @NonNull private final List<Animation<?, Float>> height = Node.asAnimations(0f);
-
     @NonNull private final List<Animation<?, Float>> cornerRadiusX = Node.asAnimations(0f);
-
     @NonNull private final List<Animation<?, Float>> cornerRadiusY = Node.asAnimations(0f);
 
     private Builder() {}
 
     // X.
 
-    public final Builder x(float x) {
-      return replaceFirstAnimation(this.x, asAnimation(x));
+    public Builder x(float initialX) {
+      return replaceFirstAnimation(x, asAnimation(initialX));
     }
 
     @SafeVarargs
-    public final Builder x(@NonNull Animation<?, Float>... keyframes) {
-      return replaceAnimations(x, keyframes);
+    public final Builder x(@NonNull Animation<?, Float>... animations) {
+      return replaceAnimations(x, animations);
     }
 
-    public final Builder x(@NonNull List<Animation<?, Float>> keyframes) {
-      return replaceAnimations(x, keyframes);
+    public Builder x(@NonNull List<Animation<?, Float>> animations) {
+      return replaceAnimations(x, animations);
     }
 
     // Y.
 
-    public final Builder y(float y) {
-      return replaceFirstAnimation(this.y, asAnimation(y));
+    public Builder y(float initialY) {
+      return replaceFirstAnimation(y, asAnimation(initialY));
     }
 
     @SafeVarargs
-    public final Builder y(@NonNull Animation<?, Float>... keyframes) {
-      return replaceAnimations(y, keyframes);
+    public final Builder y(@NonNull Animation<?, Float>... animations) {
+      return replaceAnimations(y, animations);
     }
 
-    public final Builder y(@NonNull List<Animation<?, Float>> keyframes) {
-      return replaceAnimations(y, keyframes);
+    public Builder y(@NonNull List<Animation<?, Float>> animations) {
+      return replaceAnimations(y, animations);
     }
 
     // Width.
 
-    public final Builder width(@FloatRange(from = 0f) float width) {
-      return replaceFirstAnimation(this.width, asAnimation(width));
+    public Builder width(@FloatRange(from = 0f) float initialWidth) {
+      return replaceFirstAnimation(width, asAnimation(initialWidth));
     }
 
     @SafeVarargs
@@ -209,14 +205,14 @@ public final class RectangleNode extends RenderNode {
       return replaceAnimations(width, animations);
     }
 
-    public final Builder width(@NonNull List<Animation<?, Float>> animations) {
+    public Builder width(@NonNull List<Animation<?, Float>> animations) {
       return replaceAnimations(width, animations);
     }
 
     // Height.
 
-    public final Builder height(@FloatRange(from = 0f) float height) {
-      return replaceFirstAnimation(this.height, asAnimation(height));
+    public Builder height(@FloatRange(from = 0f) float initialHeight) {
+      return replaceFirstAnimation(height, asAnimation(initialHeight));
     }
 
     @SafeVarargs
@@ -224,14 +220,14 @@ public final class RectangleNode extends RenderNode {
       return replaceAnimations(height, animations);
     }
 
-    public final Builder height(@NonNull List<Animation<?, Float>> keyframes) {
-      return replaceAnimations(height, keyframes);
+    public Builder height(@NonNull List<Animation<?, Float>> animations) {
+      return replaceAnimations(height, animations);
     }
 
     // Corner radius X.
 
-    public final Builder cornerRadiusX(@FloatRange(from = 0f) float cornerRadiusX) {
-      return replaceFirstAnimation(this.cornerRadiusX, asAnimation(cornerRadiusX));
+    public Builder cornerRadiusX(@FloatRange(from = 0f) float initialCornerRadiusX) {
+      return replaceFirstAnimation(cornerRadiusX, asAnimation(initialCornerRadiusX));
     }
 
     @SafeVarargs
@@ -239,14 +235,14 @@ public final class RectangleNode extends RenderNode {
       return replaceAnimations(cornerRadiusX, animations);
     }
 
-    public final Builder cornerRadiusX(@NonNull List<Animation<?, Float>> animations) {
+    public Builder cornerRadiusX(@NonNull List<Animation<?, Float>> animations) {
       return replaceAnimations(cornerRadiusX, animations);
     }
 
     // Corner radius Y.
 
-    public final Builder cornerRadiusY(@FloatRange(from = 0f) float cornerRadiusY) {
-      return replaceFirstAnimation(this.cornerRadiusY, asAnimation(cornerRadiusY));
+    public Builder cornerRadiusY(@FloatRange(from = 0f) float initialCornerRadiusY) {
+      return replaceFirstAnimation(cornerRadiusY, asAnimation(initialCornerRadiusY));
     }
 
     @SafeVarargs
@@ -254,16 +250,16 @@ public final class RectangleNode extends RenderNode {
       return replaceAnimations(cornerRadiusY, animations);
     }
 
-    public final Builder cornerRadiusY(@NonNull List<Animation<?, Float>> animations) {
+    public Builder cornerRadiusY(@NonNull List<Animation<?, Float>> animations) {
       return replaceAnimations(cornerRadiusY, animations);
     }
 
     @Override
-    protected final Builder self() {
+    protected Builder self() {
       return this;
     }
 
-    public final RectangleNode build() {
+    public RectangleNode build() {
       return new RectangleNode(
           rotation,
           pivotX,
@@ -286,7 +282,7 @@ public final class RectangleNode extends RenderNode {
           strokeDashArray,
           strokeDashOffset,
           fillType,
-          isStrokeScaling,
+          isScalingStroke,
           x,
           y,
           width,

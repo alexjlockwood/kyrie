@@ -75,21 +75,21 @@ public final class GroupNode extends BaseNode {
 
     // Children.
 
-    public final Builder child(@NonNull Node node) {
+    public Builder child(@NonNull Node node) {
       children.add(node);
       return this;
     }
 
-    public final Builder child(@NonNull Node.Builder builder) {
+    public Builder child(@NonNull Node.Builder builder) {
       return child(builder.build());
     }
 
     @Override
-    protected final Builder self() {
+    protected Builder self() {
       return this;
     }
 
-    public final GroupNode build() {
+    public GroupNode build() {
       return new GroupNode(
           rotation, pivotX, pivotY, scaleX, scaleY, translateX, translateY, children);
     }

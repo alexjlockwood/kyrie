@@ -180,8 +180,8 @@ abstract class BaseNode extends Node {
 
     // Rotation.
 
-    public final B rotation(float rotation) {
-      return replaceFirstAnimation(this.rotation, Node.asAnimation(rotation));
+    public final B rotation(float initialRotation) {
+      return replaceFirstAnimation(rotation, Node.asAnimation(initialRotation));
     }
 
     @SafeVarargs
@@ -195,8 +195,8 @@ abstract class BaseNode extends Node {
 
     // Pivot X.
 
-    public final B pivotX(float pivotX) {
-      return replaceFirstAnimation(this.pivotX, Node.asAnimation(pivotX));
+    public final B pivotX(float initialPivotX) {
+      return replaceFirstAnimation(pivotX, Node.asAnimation(initialPivotX));
     }
 
     @SafeVarargs
@@ -210,8 +210,8 @@ abstract class BaseNode extends Node {
 
     // Pivot Y.
 
-    public final B pivotY(float pivotY) {
-      return replaceFirstAnimation(this.pivotY, Node.asAnimation(pivotY));
+    public final B pivotY(float initialPivotY) {
+      return replaceFirstAnimation(pivotY, Node.asAnimation(initialPivotY));
     }
 
     @SafeVarargs
@@ -219,44 +219,44 @@ abstract class BaseNode extends Node {
       return replaceAnimations(pivotY, animations);
     }
 
-    public final B pivotY(@NonNull List<Animation<?, Float>> keyframes) {
-      return replaceAnimations(pivotY, keyframes);
+    public final B pivotY(@NonNull List<Animation<?, Float>> animations) {
+      return replaceAnimations(pivotY, animations);
     }
 
     // Scale X.
 
-    public final B scaleX(float scaleX) {
-      return replaceFirstAnimation(this.scaleX, Node.asAnimation(scaleX));
+    public final B scaleX(float initialScaleX) {
+      return replaceFirstAnimation(scaleX, Node.asAnimation(initialScaleX));
     }
 
     @SafeVarargs
-    public final B scaleX(@NonNull Animation<?, Float>... keyframes) {
-      return replaceAnimations(scaleX, keyframes);
+    public final B scaleX(@NonNull Animation<?, Float>... animations) {
+      return replaceAnimations(scaleX, animations);
     }
 
-    public final B scaleX(@NonNull List<Animation<?, Float>> keyframes) {
-      return replaceAnimations(scaleX, keyframes);
+    public final B scaleX(@NonNull List<Animation<?, Float>> animations) {
+      return replaceAnimations(scaleX, animations);
     }
 
     // Scale Y.
 
-    public final B scaleY(float scaleY) {
-      return replaceFirstAnimation(this.scaleY, Node.asAnimation(scaleY));
+    public final B scaleY(float initialScaleY) {
+      return replaceFirstAnimation(scaleY, Node.asAnimation(initialScaleY));
     }
 
     @SafeVarargs
-    public final B scaleY(@NonNull Animation<?, Float>... keyframes) {
-      return replaceAnimations(scaleY, keyframes);
+    public final B scaleY(@NonNull Animation<?, Float>... animations) {
+      return replaceAnimations(scaleY, animations);
     }
 
-    public final B scaleY(@NonNull List<Animation<?, Float>> keyframes) {
-      return replaceAnimations(scaleY, keyframes);
+    public final B scaleY(@NonNull List<Animation<?, Float>> animations) {
+      return replaceAnimations(scaleY, animations);
     }
 
     // Translate X.
 
-    public final B translateX(float translateX) {
-      return replaceFirstAnimation(this.translateX, Node.asAnimation(translateX));
+    public final B translateX(float initialTranslateX) {
+      return replaceFirstAnimation(translateX, Node.asAnimation(initialTranslateX));
     }
 
     @SafeVarargs
@@ -270,8 +270,8 @@ abstract class BaseNode extends Node {
 
     // Translate Y.
 
-    public final B translateY(float translateY) {
-      return replaceFirstAnimation(this.translateY, Node.asAnimation(translateY));
+    public final B translateY(float initialTranslateY) {
+      return replaceFirstAnimation(translateY, Node.asAnimation(initialTranslateY));
     }
 
     @SafeVarargs

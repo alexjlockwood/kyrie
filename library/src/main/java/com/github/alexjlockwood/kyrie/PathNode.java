@@ -100,29 +100,29 @@ public final class PathNode extends RenderNode {
 
     // Path data.
 
-    public final Builder pathData(@NonNull String pathData) {
-      return pathData(PathData.parse(pathData));
+    public Builder pathData(@NonNull String initialPathData) {
+      return pathData(PathData.parse(initialPathData));
     }
 
-    public final Builder pathData(@NonNull PathData pathData) {
-      return replaceFirstAnimation(this.pathData, asAnimation(pathData));
+    public Builder pathData(@NonNull PathData initialPathData) {
+      return replaceFirstAnimation(pathData, asAnimation(initialPathData));
     }
 
     @SafeVarargs
-    public final Builder pathData(@NonNull Animation<?, PathData>... keyframes) {
-      return replaceAnimations(pathData, keyframes);
+    public final Builder pathData(@NonNull Animation<?, PathData>... animations) {
+      return replaceAnimations(pathData, animations);
     }
 
-    public final Builder pathData(@NonNull List<Animation<?, PathData>> keyframes) {
-      return replaceAnimations(pathData, keyframes);
+    public Builder pathData(@NonNull List<Animation<?, PathData>> animations) {
+      return replaceAnimations(pathData, animations);
     }
 
     @Override
-    protected final Builder self() {
+    protected Builder self() {
       return this;
     }
 
-    public final PathNode build() {
+    public PathNode build() {
       return new PathNode(
           rotation,
           pivotX,
@@ -145,7 +145,7 @@ public final class PathNode extends RenderNode {
           strokeDashArray,
           strokeDashOffset,
           fillType,
-          isStrokeScaling,
+          isScalingStroke,
           pathData);
     }
   }

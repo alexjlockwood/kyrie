@@ -30,7 +30,7 @@ abstract class RenderNode extends BaseNode {
   @NonNull private final List<Animation<?, float[]>> strokeDashArray;
   @NonNull private final List<Animation<?, Float>> strokeDashOffset;
   @FillType private final int fillType;
-  private final boolean isStrokeScaling;
+  private final boolean isScalingStroke;
 
   RenderNode(
       @NonNull List<Animation<?, Float>> rotation,
@@ -54,7 +54,7 @@ abstract class RenderNode extends BaseNode {
       @NonNull List<Animation<?, float[]>> strokeDashArray,
       @NonNull List<Animation<?, Float>> strokeDashOffset,
       @FillType int fillType,
-      boolean isStrokeScaling) {
+      boolean isScalingStroke) {
     super(rotation, pivotX, pivotY, scaleX, scaleY, translateX, translateY);
     this.fillColor = fillColor;
     this.fillAlpha = fillAlpha;
@@ -70,7 +70,7 @@ abstract class RenderNode extends BaseNode {
     this.strokeDashArray = strokeDashArray;
     this.strokeDashOffset = strokeDashOffset;
     this.fillType = fillType;
-    this.isStrokeScaling = isStrokeScaling;
+    this.isScalingStroke = isScalingStroke;
   }
 
   @NonNull
@@ -143,8 +143,8 @@ abstract class RenderNode extends BaseNode {
     return fillType;
   }
 
-  public final boolean isStrokeScaling() {
-    return isStrokeScaling;
+  public final boolean isScalingStroke() {
+    return isScalingStroke;
   }
 
   // <editor-fold desc="Layer">
@@ -194,7 +194,7 @@ abstract class RenderNode extends BaseNode {
       strokeDashArray = registerAnimatableProperty(node.getStrokeDashArray());
       strokeDashOffset = registerAnimatableProperty(node.getStrokeDashOffset());
       fillType = node.getFillType();
-      isStrokeScaling = node.isStrokeScaling();
+      isStrokeScaling = node.isScalingStroke();
     }
 
     public abstract void onInitPath(@NonNull Path outPath);
@@ -363,9 +363,7 @@ abstract class RenderNode extends BaseNode {
       extends BaseNode.Builder<N, B> {
     @NonNull final List<Animation<?, Integer>> fillColor = asAnimations(Color.TRANSPARENT);
     @NonNull final List<Animation<?, Float>> fillAlpha = asAnimations(1f);
-
     @NonNull final List<Animation<?, Integer>> strokeColor = asAnimations(Color.TRANSPARENT);
-
     @NonNull final List<Animation<?, Float>> strokeAlpha = asAnimations(1f);
     @NonNull final List<Animation<?, Float>> strokeWidth = asAnimations(0f);
     @NonNull final List<Animation<?, Float>> trimPathStart = asAnimations(0f);
@@ -377,14 +375,14 @@ abstract class RenderNode extends BaseNode {
     @NonNull final List<Animation<?, float[]>> strokeDashArray = asAnimations(new float[0]);
     @NonNull final List<Animation<?, Float>> strokeDashOffset = asAnimations(0f);
     @FillType int fillType = FillType.NON_ZERO;
-    boolean isStrokeScaling = true;
+    boolean isScalingStroke = true;
 
     Builder() {}
 
     // Fill color.
 
-    public final B fillColor(@ColorInt int fillColor) {
-      return replaceFirstAnimation(this.fillColor, asAnimation(fillColor));
+    public final B fillColor(@ColorInt int initialFillColor) {
+      return replaceFirstAnimation(fillColor, asAnimation(initialFillColor));
     }
 
     @SafeVarargs
@@ -398,8 +396,8 @@ abstract class RenderNode extends BaseNode {
 
     // Fill alpha.
 
-    public final B fillAlpha(@FloatRange(from = 0f, to = 1f) float fillAlpha) {
-      return replaceFirstAnimation(this.fillAlpha, asAnimation(fillAlpha));
+    public final B fillAlpha(@FloatRange(from = 0f, to = 1f) float initialFillAlpha) {
+      return replaceFirstAnimation(fillAlpha, asAnimation(initialFillAlpha));
     }
 
     @SafeVarargs
@@ -413,8 +411,8 @@ abstract class RenderNode extends BaseNode {
 
     // Stroke color.
 
-    public final B strokeColor(@ColorInt int strokeColor) {
-      return replaceFirstAnimation(this.strokeColor, asAnimation(strokeColor));
+    public final B strokeColor(@ColorInt int initialStrokeColor) {
+      return replaceFirstAnimation(strokeColor, asAnimation(initialStrokeColor));
     }
 
     @SafeVarargs
@@ -428,8 +426,8 @@ abstract class RenderNode extends BaseNode {
 
     // Stroke alpha.
 
-    public final B strokeAlpha(@FloatRange(from = 0f, to = 1f) float strokeAlpha) {
-      return replaceFirstAnimation(this.strokeAlpha, asAnimation(strokeAlpha));
+    public final B strokeAlpha(@FloatRange(from = 0f, to = 1f) float initialStrokeAlpha) {
+      return replaceFirstAnimation(strokeAlpha, asAnimation(initialStrokeAlpha));
     }
 
     @SafeVarargs
@@ -443,8 +441,8 @@ abstract class RenderNode extends BaseNode {
 
     // Stroke width.
 
-    public final B strokeWidth(@FloatRange(from = 0f) float strokeWidth) {
-      return replaceFirstAnimation(this.strokeWidth, asAnimation(strokeWidth));
+    public final B strokeWidth(@FloatRange(from = 0f) float initialStrokeWidth) {
+      return replaceFirstAnimation(strokeWidth, asAnimation(initialStrokeWidth));
     }
 
     @SafeVarargs
@@ -458,38 +456,38 @@ abstract class RenderNode extends BaseNode {
 
     // Trim path start.
 
-    public final B trimPathStart(@FloatRange(from = 0f, to = 1f) float trimPathStart) {
-      return replaceFirstAnimation(this.trimPathStart, asAnimation(trimPathStart));
+    public final B trimPathStart(@FloatRange(from = 0f, to = 1f) float initialTrimPathStart) {
+      return replaceFirstAnimation(trimPathStart, asAnimation(initialTrimPathStart));
     }
 
     @SafeVarargs
-    public final B trimPathStart(@NonNull Animation<?, Float>... keyframes) {
-      return replaceAnimations(trimPathStart, keyframes);
+    public final B trimPathStart(@NonNull Animation<?, Float>... animations) {
+      return replaceAnimations(trimPathStart, animations);
     }
 
-    public final B trimPathStart(@NonNull List<Animation<?, Float>> keyframes) {
-      return replaceAnimations(trimPathStart, keyframes);
+    public final B trimPathStart(@NonNull List<Animation<?, Float>> animations) {
+      return replaceAnimations(trimPathStart, animations);
     }
 
     // Trim path end.
 
-    public final B trimPathEnd(@FloatRange(from = 0f, to = 1f) float trimPathEnd) {
-      return replaceFirstAnimation(this.trimPathEnd, asAnimation(trimPathEnd));
+    public final B trimPathEnd(@FloatRange(from = 0f, to = 1f) float initialTrimPathEnd) {
+      return replaceFirstAnimation(trimPathEnd, asAnimation(initialTrimPathEnd));
     }
 
     @SafeVarargs
-    public final B trimPathEnd(@NonNull Animation<?, Float>... keyframes) {
-      return replaceAnimations(trimPathEnd, keyframes);
+    public final B trimPathEnd(@NonNull Animation<?, Float>... animations) {
+      return replaceAnimations(trimPathEnd, animations);
     }
 
-    public final B trimPathEnd(@NonNull List<Animation<?, Float>> keyframes) {
-      return replaceAnimations(trimPathEnd, keyframes);
+    public final B trimPathEnd(@NonNull List<Animation<?, Float>> animations) {
+      return replaceAnimations(trimPathEnd, animations);
     }
 
     // Trim path offset.
 
-    public final B trimPathOffset(@FloatRange(from = 0f, to = 1f) float trimPathOffset) {
-      return replaceFirstAnimation(this.trimPathOffset, asAnimation(trimPathOffset));
+    public final B trimPathOffset(@FloatRange(from = 0f, to = 1f) float initialTrimPathOffset) {
+      return replaceFirstAnimation(trimPathOffset, asAnimation(initialTrimPathOffset));
     }
 
     @SafeVarargs
@@ -517,8 +515,8 @@ abstract class RenderNode extends BaseNode {
 
     // Stroke miter limit.
 
-    public final B strokeMiterLimit(@FloatRange(from = 0f, to = 1f) float strokeMiterLimit) {
-      return replaceFirstAnimation(this.strokeMiterLimit, asAnimation(strokeMiterLimit));
+    public final B strokeMiterLimit(@FloatRange(from = 0f, to = 1f) float initialStrokeMiterLimit) {
+      return replaceFirstAnimation(strokeMiterLimit, asAnimation(initialStrokeMiterLimit));
     }
 
     @SafeVarargs
@@ -532,9 +530,11 @@ abstract class RenderNode extends BaseNode {
 
     // Stroke dash array.
 
-    public final B strokeDashArray(@Nullable float[] strokeDashArray) {
-      strokeDashArray = strokeDashArray == null ? new float[0] : strokeDashArray;
-      return replaceFirstAnimation(this.strokeDashArray, asAnimation(strokeDashArray));
+    public final B strokeDashArray(@Nullable float[] initialStrokeDashArray) {
+      if (initialStrokeDashArray == null) {
+        initialStrokeDashArray = new float[0];
+      }
+      return replaceFirstAnimation(strokeDashArray, asAnimation(initialStrokeDashArray));
     }
 
     @SafeVarargs
@@ -548,8 +548,8 @@ abstract class RenderNode extends BaseNode {
 
     // Stroke dash offset.
 
-    public final B strokeDashOffset(@FloatRange(from = 0f, to = 1f) float strokeDashOffset) {
-      return replaceFirstAnimation(this.strokeDashOffset, asAnimation(strokeDashOffset));
+    public final B strokeDashOffset(@FloatRange(from = 0f, to = 1f) float initialStrokeDashOffset) {
+      return replaceFirstAnimation(strokeDashOffset, asAnimation(initialStrokeDashOffset));
     }
 
     @SafeVarargs
@@ -568,10 +568,10 @@ abstract class RenderNode extends BaseNode {
       return self;
     }
 
-    // Stroke scaling.
+    // Scaling stroke.
 
-    public final B strokeScaling(boolean isStrokeScaling) {
-      this.isStrokeScaling = isStrokeScaling;
+    public final B scalingStroke(boolean isScalingStroke) {
+      this.isScalingStroke = isScalingStroke;
       return self;
     }
   }

@@ -123,17 +123,15 @@ public final class CircleNode extends RenderNode {
 
   public static final class Builder extends RenderNode.Builder<CircleNode, Builder> {
     @NonNull private final List<Animation<?, Float>> centerX = Node.asAnimations(0f);
-
     @NonNull private final List<Animation<?, Float>> centerY = Node.asAnimations(0f);
-
     @NonNull private final List<Animation<?, Float>> radius = Node.asAnimations(0f);
 
     private Builder() {}
 
     // Center X.
 
-    public final Builder centerX(float centerX) {
-      return replaceFirstAnimation(this.centerX, Node.asAnimation(centerX));
+    public Builder centerX(float initialCenterX) {
+      return replaceFirstAnimation(centerX, Node.asAnimation(initialCenterX));
     }
 
     @SafeVarargs
@@ -141,14 +139,14 @@ public final class CircleNode extends RenderNode {
       return replaceAnimations(centerX, animations);
     }
 
-    public final Builder centerX(@NonNull List<Animation<?, Float>> animations) {
+    public Builder centerX(@NonNull List<Animation<?, Float>> animations) {
       return replaceAnimations(centerX, animations);
     }
 
     // Center Y.
 
-    public final Builder centerY(float centerY) {
-      return replaceFirstAnimation(this.centerY, Node.asAnimation(centerY));
+    public Builder centerY(float initialCenterY) {
+      return replaceFirstAnimation(centerY, Node.asAnimation(initialCenterY));
     }
 
     @SafeVarargs
@@ -156,14 +154,14 @@ public final class CircleNode extends RenderNode {
       return replaceAnimations(centerY, animations);
     }
 
-    public final Builder centerY(@NonNull List<Animation<?, Float>> animations) {
+    public Builder centerY(@NonNull List<Animation<?, Float>> animations) {
       return replaceAnimations(centerY, animations);
     }
 
     // Radius.
 
-    public final Builder radius(@FloatRange(from = 0f) float radius) {
-      return replaceFirstAnimation(this.radius, Node.asAnimation(radius));
+    public Builder radius(@FloatRange(from = 0f) float initialRadius) {
+      return replaceFirstAnimation(radius, Node.asAnimation(initialRadius));
     }
 
     @SafeVarargs
@@ -171,16 +169,16 @@ public final class CircleNode extends RenderNode {
       return replaceAnimations(radius, animations);
     }
 
-    public final Builder radius(@NonNull List<Animation<?, Float>> animations) {
+    public Builder radius(@NonNull List<Animation<?, Float>> animations) {
       return replaceAnimations(radius, animations);
     }
 
     @Override
-    protected final Builder self() {
+    protected Builder self() {
       return this;
     }
 
-    public final CircleNode build() {
+    public CircleNode build() {
       return new CircleNode(
           rotation,
           pivotX,
@@ -203,7 +201,7 @@ public final class CircleNode extends RenderNode {
           strokeDashArray,
           strokeDashOffset,
           fillType,
-          isStrokeScaling,
+          isScalingStroke,
           centerX,
           centerY,
           radius);
