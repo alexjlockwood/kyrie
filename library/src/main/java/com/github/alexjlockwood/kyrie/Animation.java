@@ -66,7 +66,7 @@ public final class Animation<T, V> {
   private static <V> Animation<V, V> ofKeyframe(
       @NonNull ValueEvaluator<V> evaluator, @NonNull Keyframe<V>[] values) {
     return new Animation<>(
-        KeyframeSet.ofKeyframe(evaluator, values), new IdentityValueTransformer<V>());
+        KeyframeSet.ofObject(evaluator, values), new IdentityValueTransformer<V>());
   }
 
   @NonNull
@@ -240,9 +240,9 @@ public final class Animation<T, V> {
     }
   }
 
-  interface ValueEvaluator<V> {
+  interface ValueEvaluator<T> {
     @NonNull
-    V evaluate(float fraction, @NonNull V startValue, @NonNull V endValue);
+    T evaluate(float fraction, @NonNull T startValue, @NonNull T endValue);
   }
 
   private static final class FloatValueEvaluator implements ValueEvaluator<Float> {
