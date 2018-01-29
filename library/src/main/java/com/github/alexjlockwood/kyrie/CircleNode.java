@@ -89,7 +89,7 @@ public final class CircleNode extends RenderNode {
     return new CircleLayer(timeline, this);
   }
 
-  private static final class CircleLayer extends RenderLayer {
+  private static class CircleLayer extends RenderLayer {
     @NonNull private final Property<Float> centerX;
     @NonNull private final Property<Float> centerY;
     @NonNull private final Property<Float> radius;

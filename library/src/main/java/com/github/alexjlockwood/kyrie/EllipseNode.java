@@ -97,7 +97,7 @@ public final class EllipseNode extends RenderNode {
     return new EllipseLayer(timeline, this);
   }
 
-  private static final class EllipseLayer extends RenderLayer {
+  private static class EllipseLayer extends RenderLayer {
     @NonNull private final Property<Float> centerX;
     @NonNull private final Property<Float> centerY;
     @NonNull private final Property<Float> radiusX;

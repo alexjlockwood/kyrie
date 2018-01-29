@@ -37,7 +37,7 @@ public final class GroupNode extends BaseNode {
     return new GroupLayer(timeline, this);
   }
 
-  private static final class GroupLayer extends BaseLayer {
+  private static class GroupLayer extends BaseLayer {
     @NonNull private final List<Layer> children;
 
     public GroupLayer(@NonNull Timeline timeline, @NonNull GroupNode node) {

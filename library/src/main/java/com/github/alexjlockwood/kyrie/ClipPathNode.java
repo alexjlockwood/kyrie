@@ -37,7 +37,7 @@ public final class ClipPathNode extends BaseNode {
     return new ClipPathLayer(timeline, this);
   }
 
-  private static final class ClipPathLayer extends BaseLayer {
+  private static class ClipPathLayer extends BaseLayer {
     @NonNull private final Property<PathData> pathData;
 
     private final Matrix tempMatrix = new Matrix();

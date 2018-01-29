@@ -113,7 +113,7 @@ public final class RectangleNode extends RenderNode {
     return new RectangleLayer(timeline, this);
   }
 
-  private static final class RectangleLayer extends RenderLayer {
+  private static class RectangleLayer extends RenderLayer {
     @NonNull private final Property<Float> x;
     @NonNull private final Property<Float> y;
     @NonNull private final Property<Float> width;

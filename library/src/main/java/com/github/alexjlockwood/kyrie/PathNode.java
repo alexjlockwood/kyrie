@@ -71,7 +71,7 @@ public final class PathNode extends RenderNode {
     return new PathLayer(timeline, this);
   }
 
-  private static final class PathLayer extends RenderLayer {
+  private static class PathLayer extends RenderLayer {
     @NonNull private final Property<PathData> pathData;
 
     public PathLayer(@NonNull Timeline timeline, @NonNull PathNode node) {
