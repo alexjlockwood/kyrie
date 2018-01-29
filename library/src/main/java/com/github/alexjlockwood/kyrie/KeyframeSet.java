@@ -13,11 +13,11 @@ import java.util.List;
  * Abstracts a collection of {@link Keyframe} objects and is used to calculate values between those
  * keyframes for a given {@link Animation}.
  *
- * @param <T> the input value used by each keyframe
+ * @param <T> The keyframe value type.
  */
 abstract class KeyframeSet<T> {
 
-  /** Constructs an {@link ObjectKeyframeSet} with evenly distributed keyframe values. */
+  /** @return An {@link ObjectKeyframeSet} with evenly distributed keyframe values. */
   @NonNull
   public static <T> KeyframeSet<T> ofObject(
       @NonNull ValueEvaluator<T> evaluator, @NonNull T[] values) {
@@ -35,7 +35,7 @@ abstract class KeyframeSet<T> {
     return new ObjectKeyframeSet<>(evaluator, keyframes);
   }
 
-  /** Constructs an {@link ObjectKeyframeSet} with the given keyframe values. */
+  /** @return An {@link ObjectKeyframeSet} with the given keyframe values. */
   @NonNull
   public static <T> KeyframeSet<T> ofObject(
       @NonNull ValueEvaluator<T> evaluator, @NonNull Keyframe<T>[] values) {
@@ -47,7 +47,7 @@ abstract class KeyframeSet<T> {
     return new ObjectKeyframeSet<>(evaluator, list);
   }
 
-  /** Constructs a {@link PathKeyframeSet} that estimates motion along the given path. */
+  /** @return A {@link PathKeyframeSet} that estimates motion along the given path. */
   @NonNull
   public static KeyframeSet<PointF> ofPath(@NonNull Path path) {
     return new PathKeyframeSet(path);

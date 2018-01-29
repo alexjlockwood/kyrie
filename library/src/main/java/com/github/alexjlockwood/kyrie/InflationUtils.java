@@ -810,7 +810,7 @@ public final class InflationUtils {
       float endFraction = lastKeyframe.getFraction();
       if (endFraction < 1) {
         if (endFraction < 0) {
-          lastKeyframe.setFraction(1);
+          lastKeyframe.fraction(1);
         } else {
           keyframes.add(keyframes.size(), Keyframe.of(1));
           count++;
@@ -819,7 +819,7 @@ public final class InflationUtils {
       float startFraction = firstKeyframe.getFraction();
       if (startFraction != 0) {
         if (startFraction < 0) {
-          firstKeyframe.setFraction(0);
+          firstKeyframe.fraction(0);
         } else {
           keyframes.add(0, Keyframe.of(0));
           count++;
@@ -831,9 +831,9 @@ public final class InflationUtils {
         Keyframe keyframe = keyframeArray[i];
         if (keyframe.getFraction() < 0) {
           if (i == 0) {
-            keyframe.setFraction(0);
+            keyframe.fraction(0);
           } else if (i == count - 1) {
-            keyframe.setFraction(1);
+            keyframe.fraction(1);
           } else {
             // figure out the start/end parameters of the current gap
             // in fractions and distribute the gap among those keyframes
@@ -1002,7 +1002,7 @@ public final class InflationUtils {
     int count = endIndex - startIndex + 2;
     float increment = gap / count;
     for (int i = startIndex; i <= endIndex; ++i) {
-      keyframes[i].setFraction(keyframes[i - 1].getFraction() + increment);
+      keyframes[i].fraction(keyframes[i - 1].getFraction() + increment);
     }
   }
 
@@ -1050,7 +1050,7 @@ public final class InflationUtils {
         TypedArrayUtils.getNamedResourceId(
             a, parser, "interpolator", Styleable.Keyframe.INTERPOLATOR, 0);
     if (resId > 0) {
-      keyframe.setInterpolator(loadInterpolator(context, resId));
+      keyframe.interpolator(loadInterpolator(context, resId));
     }
     a.recycle();
 

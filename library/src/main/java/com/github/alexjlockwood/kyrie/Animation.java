@@ -199,7 +199,7 @@ public final class Animation<T, V> {
     for (int i = 0, size = keyframes.size(); i < size; i++) {
       final Keyframe<T> kf = keyframes.get(i);
       if (kf.getValue() == null) {
-        kf.setValue(transformBack(startValue));
+        kf.value(transformBack(startValue));
       }
     }
   }

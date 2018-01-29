@@ -77,6 +77,7 @@ import static com.github.alexjlockwood.kyrie.Node.replaceFirstAnimation;
 // TODO: avoid using bitmap internally (encourage view software rendering instead)
 // TODO: test inflating multi-file AVDs
 // TODO: create kyrie view?
+// TODO: make it clear what stuff shouldn't change after the kyrie drawable has been created!!!!!!!!
 public final class KyrieDrawable extends Drawable implements Animatable {
   private static final String TAG = "KyrieDrawable";
 

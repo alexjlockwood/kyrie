@@ -25,7 +25,7 @@ final class TypedArrayUtils {
   private static final String NAMESPACE = "http://schemas.android.com/apk/res/android";
 
   /**
-   * @return Whether the current node ofthe {@link XmlPullParser} has an attribute with the
+   * @return Whether the current node of the {@link XmlPullParser} has an attribute with the
    *     specified {@code attrName}.
    */
   public static boolean hasAttribute(XmlPullParser parser, String attrName) {
