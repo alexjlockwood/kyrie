@@ -177,7 +177,7 @@ public class HeartbreakFragment extends Fragment {
                             .fillColor(Color.WHITE)))
             .build();
     kyrieDrawable.addListener(
-        new KyrieDrawable.Listener() {
+        new KyrieDrawable.ListenerAdapter() {
           @Override
           public void onAnimationUpdate(@NonNull KyrieDrawable drawable) {
             final float playTime = drawable.getCurrentPlayTime();

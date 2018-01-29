@@ -6,10 +6,10 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 /**
- * This class holds a time/value pair for an animation. The Keyframe class is used to define the
- * values that the animation target will have over the course of the animation. As the time proceeds
- * from one keyframe to the other, the value of the target will animate between the value at the
- * previous keyframe and the value at the next keyframe. Each keyframe also holds an optional {@link
+ * This class holds a time/value pair for an animation. A keyframe is used to define the values that
+ * the animation target will have over the course of the animation. As the time proceeds from one
+ * keyframe to the other, the value of the target will animate between the value at the previous
+ * keyframe and the value at the next keyframe. Each keyframe also holds an optional {@link
  * TimeInterpolator} object, which defines the time interpolation over the inter-value preceding the
  * keyframe.
  *

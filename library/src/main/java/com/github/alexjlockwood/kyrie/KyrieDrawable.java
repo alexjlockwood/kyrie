@@ -13,7 +13,7 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.PointF;
-import android.graphics.PorterDuff.Mode;
+import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.Rect;
 import android.graphics.drawable.Animatable;
@@ -41,43 +41,6 @@ import static com.github.alexjlockwood.kyrie.Node.asAnimations;
 import static com.github.alexjlockwood.kyrie.Node.replaceAnimations;
 import static com.github.alexjlockwood.kyrie.Node.replaceFirstAnimation;
 
-// TODO: support gradients and/or animatable gradients?
-// TODO: support text layers?
-// TODO: support image layers?
-// TODO: avoid using canvas.clipPath (no anti-alias support)?
-// TODO: support color state lists for pathData fill/stroke colors
-// TODO: don't bother starting the animator if there are no keyframes
-// TODO: allow clients to pass in string paths to keyframes (instead of PathData objects)
-// TODO: possibly change PathMorphKeyframeAnimation to take strings instead of PathData objects
-// TODO: support odd length stroke dash array
-// TODO: add convenience methods to builders (i.e. cornerRadius, bounds, viewport etc.)
-// TODO: auto-make paths morphable
-// TODO: add more path effects (i.e. path dash path effect)?
-// TODO: set the default pivot x/y values to be the center of the node?
-// TODO: add color getInterpolator helpers (similar to d3?)
-// TODO: add 'children' methods to the node builders
-// TODO: allow null start values for PVH and Keyframe (and then infer their values)
-// TODO: rename 'x/y' property to 'left/top' in RectangleNode?
-// TODO: double check for copy/paste errors in the builders/nodes/layers
-// TODO: reuse paint/other objects more diligently across layers?
-// TODO: make it impossible to add 'transform' wrappers to keyframes over and over and over
-// TODO: make all strings/pathdata args non null?
-// TODO: make it possible to pass Keyframe<PointF> to translate(), scale(), etc.
-// TODO: create more examples, add documentation, add README.md (explain minSdkVersion 14)
-// TODO: make it possible to specify resource IDs etc. inside the builders?
-// TODO: add support for SVG's preserveAspectRatio attribute
-// TODO: make API as small as possible
-// TODO: create cache for frequently used objs (paths, paints, etc.)
-// TODO: support trimming clip paths?
-// TODO: support stroked clip paths?
-// TODO: think more about how each node builder has two overloaded methods per property
-// TODO: allow user to inflate from xml resource as well as drawable resource?
-// TODO: support setting playback speed?
-// TODO: support playing animation in reverse?
-// TODO: avoid using bitmap internally (encourage view software rendering instead)
-// TODO: test inflating multi-file AVDs
-// TODO: create kyrie view?
-// TODO: make it clear what stuff shouldn't change after the kyrie drawable has been created!!!!!!!!
 public final class KyrieDrawable extends Drawable implements Animatable {
   private static final String TAG = "KyrieDrawable";
 
@@ -120,7 +83,7 @@ public final class KyrieDrawable extends Drawable implements Animatable {
   private int alpha = 0xff;
 
   @Nullable private ColorStateList tintList;
-  @NonNull private Mode tintMode;
+  @NonNull private PorterDuff.Mode tintMode;
   @Nullable private PorterDuffColorFilter tintFilter;
   @Nullable private ColorFilter colorFilter;
   private boolean isAutoMirrored;
@@ -140,7 +103,7 @@ public final class KyrieDrawable extends Drawable implements Animatable {
       List<Animation<?, Float>> alphaAnimations,
       List<Node> childrenNodes,
       @Nullable ColorStateList tintList,
-      Mode tintMode,
+      PorterDuff.Mode tintMode,
       boolean isAutoMirrored) {
     this.width = width;
     this.height = height;
@@ -200,7 +163,7 @@ public final class KyrieDrawable extends Drawable implements Animatable {
   }
 
   @Override
-  public void setTintMode(Mode tintMode) {
+  public void setTintMode(PorterDuff.Mode tintMode) {
     if (this.tintMode != tintMode) {
       this.tintMode = tintMode;
       tintFilter = createTintFilter();
@@ -411,20 +374,20 @@ public final class KyrieDrawable extends Drawable implements Animatable {
    * A listener that receives notifications from an animation. Notifications indicate animation
    * related events, such as the start or end of the animation.
    */
-  public abstract static class Listener {
+  public interface Listener {
     /**
      * Notifies the start of the animation.
      *
      * @param drawable The KyrieDrawable instance being started.
      */
-    public void onAnimationStart(KyrieDrawable drawable) {}
+    void onAnimationStart(KyrieDrawable drawable);
 
     /**
      * Notifies the occurrence of another frame of the animation.
      *
      * @param drawable The KyrieDrawable instance being updated.
      */
-    public void onAnimationUpdate(KyrieDrawable drawable) {}
+    void onAnimationUpdate(KyrieDrawable drawable);
 
     /**
      * Notifies that the animation was paused.
@@ -432,7 +395,7 @@ public final class KyrieDrawable extends Drawable implements Animatable {
      * @param drawable The KyrieDrawable instance being paused.
      * @see #pause()
      */
-    public void onAnimationPause(KyrieDrawable drawable) {}
+    void onAnimationPause(KyrieDrawable drawable);
 
     /**
      * Notifies that the animation was resumed, after being previously paused.
@@ -440,14 +403,14 @@ public final class KyrieDrawable extends Drawable implements Animatable {
      * @param drawable The KyrieDrawable instance being resumed.
      * @see #resume()
      */
-    public void onAnimationResume(KyrieDrawable drawable) {}
+    void onAnimationResume(KyrieDrawable drawable);
 
     /**
      * Notifies the cancellation of the animation.
      *
      * @param drawable The KyrieDrawable instance being canceled.
      */
-    public void onAnimationCancel(KyrieDrawable drawable) {}
+    void onAnimationCancel(KyrieDrawable drawable);
 
     /**
      * Notifies the end of the animation. This callback is not invoked for animations with repeat
@@ -455,6 +418,31 @@ public final class KyrieDrawable extends Drawable implements Animatable {
      *
      * @param drawable The KyrieDrawable instance being ended.
      */
+    void onAnimationEnd(KyrieDrawable drawable);
+  }
+
+  /**
+   * This adapter class provides empty implementations of the methods from {@link Listener}. Any
+   * custom listener that cares only about a subset of the methods of this listener can simply
+   * subclass this adapter class instead of implementing the interface directly.
+   */
+  public abstract static class ListenerAdapter implements Listener {
+    @Override
+    public void onAnimationStart(KyrieDrawable drawable) {}
+
+    @Override
+    public void onAnimationUpdate(KyrieDrawable drawable) {}
+
+    @Override
+    public void onAnimationPause(KyrieDrawable drawable) {}
+
+    @Override
+    public void onAnimationResume(KyrieDrawable drawable) {}
+
+    @Override
+    public void onAnimationCancel(KyrieDrawable drawable) {}
+
+    @Override
     public void onAnimationEnd(KyrieDrawable drawable) {}
   }
 
@@ -574,7 +562,7 @@ public final class KyrieDrawable extends Drawable implements Animatable {
   }
 
   public static final class Builder {
-    private static final Mode DEFAULT_TINT_MODE = Mode.SRC_IN;
+    private static final PorterDuff.Mode DEFAULT_TINT_MODE = PorterDuff.Mode.SRC_IN;
 
     private int width = -1;
     private int height = -1;
@@ -584,7 +572,7 @@ public final class KyrieDrawable extends Drawable implements Animatable {
     private final List<Node> children = new ArrayList<>();
     private boolean isAutoMirrored;
     @Nullable private ColorStateList tintList;
-    @NonNull private Mode tintMode = DEFAULT_TINT_MODE;
+    @NonNull private PorterDuff.Mode tintMode = DEFAULT_TINT_MODE;
 
     private Builder() {}
 
@@ -627,8 +615,8 @@ public final class KyrieDrawable extends Drawable implements Animatable {
 
     // Alpha.
 
-    public final Builder alpha(@FloatRange(from = 0f, to = 1f) float alpha) {
-      replaceFirstAnimation(this.alpha, asAnimation(alpha));
+    public final Builder alpha(@FloatRange(from = 0f, to = 1f) float initialAlpha) {
+      replaceFirstAnimation(alpha, asAnimation(initialAlpha));
       return this;
     }
 
@@ -661,7 +649,7 @@ public final class KyrieDrawable extends Drawable implements Animatable {
       return this;
     }
 
-    public final Builder tintMode(Mode tintMode) {
+    public final Builder tintMode(PorterDuff.Mode tintMode) {
       this.tintMode = tintMode;
       return this;
     }

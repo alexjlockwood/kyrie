@@ -6,6 +6,7 @@ import android.graphics.PointF;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.view.animation.LinearInterpolator;
 
 import java.util.List;
 
@@ -97,10 +98,20 @@ public final class Animation<T, V> {
     this.transformer = transformer;
   }
 
+  /**
+   * Gets the start delay of the animation.
+   *
+   * @return The start delay of the animation in milliseconds.
+   */
   public long getStartDelay() {
     return startDelay;
   }
 
+  /**
+   * Gets the start delay of the animation.
+   *
+   * @return The start delay of the animation in milliseconds.
+   */
   @NonNull
   public Animation<T, V> startDelay(@IntRange(from = 0L) long startDelay) {
     this.startDelay = startDelay;
@@ -116,6 +127,11 @@ public final class Animation<T, V> {
     return duration;
   }
 
+  /**
+   * Sets the duration of the animation.
+   *
+   * @param duration The length of the animation in milliseconds.
+   */
   @NonNull
   public Animation<T, V> duration(@IntRange(from = 0L) long duration) {
     this.duration = duration;
@@ -125,7 +141,7 @@ public final class Animation<T, V> {
   /**
    * Defines how many times the animation should repeat. The default value is 0.
    *
-   * @return the number of times the animation should repeat, or {@link #INFINITE}
+   * @return The number of times the animation should repeat, or {@link #INFINITE}.
    */
   public int getRepeatCount() {
     return repeatCount;
@@ -137,7 +153,6 @@ public final class Animation<T, V> {
    * will be taken into account. The repeat count is 0 by default.
    *
    * @param repeatCount the number of times the animation should be repeated
-   * @return this animation
    */
   @NonNull
   public Animation<T, V> repeatCount(int repeatCount) {
@@ -148,7 +163,7 @@ public final class Animation<T, V> {
   /**
    * Defines what this animation should do when it reaches the end.
    *
-   * @return either one of {@link RepeatMode#RESTART} or {@link RepeatMode#REVERSE}
+   * @return Either one of {@link RepeatMode#RESTART} or {@link RepeatMode#REVERSE}.
    */
   @RepeatMode
   public int getRepeatMode() {
@@ -168,11 +183,23 @@ public final class Animation<T, V> {
     return this;
   }
 
+  /**
+   * Returns the timing interpolator that this animation uses. If null, a {@link LinearInterpolator}
+   * will be used by default.
+   *
+   * @return The timing interpolator for this animation.
+   */
   @Nullable
   public TimeInterpolator getInterpolator() {
     return interpolator;
   }
 
+  /**
+   * Sets the timing interpolator that this animation uses. If null, a {@link LinearInterpolator}
+   * will be used by default.
+   *
+   * @param interpolator The timing interpolator that this animation uses.
+   */
   @NonNull
   public Animation<T, V> interpolator(@Nullable TimeInterpolator interpolator) {
     this.interpolator = interpolator;
@@ -215,11 +242,23 @@ public final class Animation<T, V> {
     return ((BidirectionalValueTransformer<T, V>) transformer).transformBack(value);
   }
 
+  /**
+   * Return the animated value of this animation at the given fraction.
+   *
+   * @return The animated value of this animation at the given fraction.
+   */
   @NonNull
   public V getAnimatedValue(float fraction) {
     return transformer.transform(keyframeSet.getAnimatedValue(fraction));
   }
 
+  /**
+   * Creates a new animation with input type T and output type W.
+   *
+   * @param transformer The value transformer to use to transform input type T to output type W.
+   * @param <W> The animation's new output type.
+   * @return A new animation with input type T and output type W.
+   */
   @NonNull
   public <W> Animation<T, W> transform(ValueTransformer<T, W> transformer) {
     return new Animation<>(keyframeSet, transformer)
@@ -230,12 +269,30 @@ public final class Animation<T, V> {
         .interpolator(interpolator);
   }
 
+  /**
+   * Interface that can transform type T to another type V. This is necessary when the input type of
+   * an animation is different than the desired output type.
+   *
+   * @param <T> The animation's input type.
+   * @param <V> The animation's transformed output type.
+   */
   public interface ValueTransformer<T, V> {
+    /** Transforms a value from one type to another. */
     @NonNull
     V transform(T value);
   }
 
+  /**
+   * A {@link ValueTransformer} that can transform type T to another type V and back again. This is
+   * necessary when the value types of in animation are different from the property type. This
+   * interface is only needed when working with an {@link Animation} with no explicitly set start
+   * value and that has been transformed using {@link #transform(Object)}.
+   *
+   * @param <T> The animation's input type.
+   * @param <V> The animation's transformed output type.
+   */
   public interface BidirectionalValueTransformer<T, V> extends ValueTransformer<T, V> {
+    /** Transforms the output type back to the input type. */
     @NonNull
     T transformBack(V value);
   }

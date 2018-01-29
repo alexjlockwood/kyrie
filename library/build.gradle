@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 
-group='com.github.alexjlockwood'
+group = 'com.github.alexjlockwood'
 
 android {
     compileSdkVersion rootProject.ext.targetSdkVersion
@@ -16,7 +16,6 @@ android {
 }
 
 dependencies {
-    implementation "com.android.support:support-annotations:$supportLibVersion"
     implementation "com.android.support:support-compat:$supportLibVersion"
     compileOnly 'com.google.code.findbugs:jsr305:3.0.2'
 }

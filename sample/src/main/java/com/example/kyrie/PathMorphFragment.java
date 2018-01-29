@@ -105,7 +105,7 @@ public class PathMorphFragment extends Fragment {
                                     .duration(DURATION))))
             .build();
     kyrieDrawable.addListener(
-        new KyrieDrawable.Listener() {
+        new KyrieDrawable.ListenerAdapter() {
           @Override
           public void onAnimationUpdate(@NonNull KyrieDrawable drawable) {
             final float playTime = drawable.getCurrentPlayTime();

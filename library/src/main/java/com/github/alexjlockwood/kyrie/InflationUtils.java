@@ -48,7 +48,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
-public final class InflationUtils {
+final class InflationUtils {
 
   // <editor-fold desc="Drawable inflation">
 
