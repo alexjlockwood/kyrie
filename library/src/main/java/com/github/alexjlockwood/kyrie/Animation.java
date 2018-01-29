@@ -179,8 +179,8 @@ public final class Animation<T, V> {
   }
 
   /**
-   * Called when the animations are first initialized, so that keyframes can fill in any missing
-   * start values.
+   * Called when the animations are first initialized, so that the animation's keyframes can fill in
+   * any missing start values.
    */
   void setupStartValue(@NonNull V startValue) {
     final List<Keyframe<T>> keyframes = keyframeSet.getKeyframes();
