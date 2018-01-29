@@ -16,34 +16,34 @@ public final class RectangleNode extends RenderNode {
   @NonNull private final List<Animation<?, Float>> cornerRadiusY;
 
   private RectangleNode(
-      @NonNull List<Animation<?, Float>> rotation,
-      @NonNull List<Animation<?, Float>> pivotX,
-      @NonNull List<Animation<?, Float>> pivotY,
-      @NonNull List<Animation<?, Float>> scaleX,
-      @NonNull List<Animation<?, Float>> scaleY,
-      @NonNull List<Animation<?, Float>> translateX,
-      @NonNull List<Animation<?, Float>> translateY,
-      @NonNull List<Animation<?, Integer>> fillColor,
-      @NonNull List<Animation<?, Float>> fillAlpha,
-      @NonNull List<Animation<?, Integer>> strokeColor,
-      @NonNull List<Animation<?, Float>> strokeAlpha,
-      @NonNull List<Animation<?, Float>> strokeWidth,
-      @NonNull List<Animation<?, Float>> trimPathStart,
-      @NonNull List<Animation<?, Float>> trimPathEnd,
-      @NonNull List<Animation<?, Float>> trimPathOffset,
+      List<Animation<?, Float>> rotation,
+      List<Animation<?, Float>> pivotX,
+      List<Animation<?, Float>> pivotY,
+      List<Animation<?, Float>> scaleX,
+      List<Animation<?, Float>> scaleY,
+      List<Animation<?, Float>> translateX,
+      List<Animation<?, Float>> translateY,
+      List<Animation<?, Integer>> fillColor,
+      List<Animation<?, Float>> fillAlpha,
+      List<Animation<?, Integer>> strokeColor,
+      List<Animation<?, Float>> strokeAlpha,
+      List<Animation<?, Float>> strokeWidth,
+      List<Animation<?, Float>> trimPathStart,
+      List<Animation<?, Float>> trimPathEnd,
+      List<Animation<?, Float>> trimPathOffset,
       @StrokeLineCap int strokeLineCap,
       @StrokeLineJoin int strokeLineJoin,
-      @NonNull List<Animation<?, Float>> strokeMiterLimit,
-      @NonNull List<Animation<?, float[]>> strokeDashArray,
-      @NonNull List<Animation<?, Float>> strokeDashOffset,
+      List<Animation<?, Float>> strokeMiterLimit,
+      List<Animation<?, float[]>> strokeDashArray,
+      List<Animation<?, Float>> strokeDashOffset,
       @FillType int fillType,
       boolean isStrokeScaling,
-      @NonNull List<Animation<?, Float>> x,
-      @NonNull List<Animation<?, Float>> y,
-      @NonNull List<Animation<?, Float>> width,
-      @NonNull List<Animation<?, Float>> height,
-      @NonNull List<Animation<?, Float>> cornerRadiusX,
-      @NonNull List<Animation<?, Float>> cornerRadiusY) {
+      List<Animation<?, Float>> x,
+      List<Animation<?, Float>> y,
+      List<Animation<?, Float>> width,
+      List<Animation<?, Float>> height,
+      List<Animation<?, Float>> cornerRadiusX,
+      List<Animation<?, Float>> cornerRadiusY) {
     super(
         rotation,
         pivotX,
@@ -109,7 +109,7 @@ public final class RectangleNode extends RenderNode {
 
   @NonNull
   @Override
-  RectangleLayer toLayer(@NonNull PropertyTimeline timeline) {
+  RectangleLayer toLayer(PropertyTimeline timeline) {
     return new RectangleLayer(timeline, this);
   }
 
@@ -123,7 +123,7 @@ public final class RectangleNode extends RenderNode {
 
     private final RectF tempRect = new RectF();
 
-    public RectangleLayer(@NonNull PropertyTimeline timeline, @NonNull RectangleNode node) {
+    public RectangleLayer(PropertyTimeline timeline, RectangleNode node) {
       super(timeline, node);
       x = registerAnimatableProperty(node.getX());
       y = registerAnimatableProperty(node.getY());
@@ -134,7 +134,7 @@ public final class RectangleNode extends RenderNode {
     }
 
     @Override
-    public void onInitPath(@NonNull Path outPath) {
+    public void onInitPath(Path outPath) {
       final float l = x.getAnimatedValue();
       final float t = y.getAnimatedValue();
       final float r = l + width.getAnimatedValue();
@@ -171,11 +171,11 @@ public final class RectangleNode extends RenderNode {
     }
 
     @SafeVarargs
-    public final Builder x(@NonNull Animation<?, Float>... animations) {
+    public final Builder x(Animation<?, Float>... animations) {
       return replaceAnimations(x, animations);
     }
 
-    public Builder x(@NonNull List<Animation<?, Float>> animations) {
+    public Builder x(List<Animation<?, Float>> animations) {
       return replaceAnimations(x, animations);
     }
 
@@ -186,11 +186,11 @@ public final class RectangleNode extends RenderNode {
     }
 
     @SafeVarargs
-    public final Builder y(@NonNull Animation<?, Float>... animations) {
+    public final Builder y(Animation<?, Float>... animations) {
       return replaceAnimations(y, animations);
     }
 
-    public Builder y(@NonNull List<Animation<?, Float>> animations) {
+    public Builder y(List<Animation<?, Float>> animations) {
       return replaceAnimations(y, animations);
     }
 
@@ -201,11 +201,11 @@ public final class RectangleNode extends RenderNode {
     }
 
     @SafeVarargs
-    public final Builder width(@NonNull Animation<?, Float>... animations) {
+    public final Builder width(Animation<?, Float>... animations) {
       return replaceAnimations(width, animations);
     }
 
-    public Builder width(@NonNull List<Animation<?, Float>> animations) {
+    public Builder width(List<Animation<?, Float>> animations) {
       return replaceAnimations(width, animations);
     }
 
@@ -216,11 +216,11 @@ public final class RectangleNode extends RenderNode {
     }
 
     @SafeVarargs
-    public final Builder height(@NonNull Animation<?, Float>... animations) {
+    public final Builder height(Animation<?, Float>... animations) {
       return replaceAnimations(height, animations);
     }
 
-    public Builder height(@NonNull List<Animation<?, Float>> animations) {
+    public Builder height(List<Animation<?, Float>> animations) {
       return replaceAnimations(height, animations);
     }
 
@@ -231,11 +231,11 @@ public final class RectangleNode extends RenderNode {
     }
 
     @SafeVarargs
-    public final Builder cornerRadiusX(@NonNull Animation<?, Float>... animations) {
+    public final Builder cornerRadiusX(Animation<?, Float>... animations) {
       return replaceAnimations(cornerRadiusX, animations);
     }
 
-    public Builder cornerRadiusX(@NonNull List<Animation<?, Float>> animations) {
+    public Builder cornerRadiusX(List<Animation<?, Float>> animations) {
       return replaceAnimations(cornerRadiusX, animations);
     }
 
@@ -246,19 +246,21 @@ public final class RectangleNode extends RenderNode {
     }
 
     @SafeVarargs
-    public final Builder cornerRadiusY(@NonNull Animation<?, Float>... animations) {
+    public final Builder cornerRadiusY(Animation<?, Float>... animations) {
       return replaceAnimations(cornerRadiusY, animations);
     }
 
-    public Builder cornerRadiusY(@NonNull List<Animation<?, Float>> animations) {
+    public Builder cornerRadiusY(List<Animation<?, Float>> animations) {
       return replaceAnimations(cornerRadiusY, animations);
     }
 
+    @NonNull
     @Override
     protected Builder self() {
       return this;
     }
 
+    @NonNull
     public RectangleNode build() {
       return new RectangleNode(
           rotation,

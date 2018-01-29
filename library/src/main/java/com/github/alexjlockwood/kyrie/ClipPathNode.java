@@ -33,7 +33,7 @@ public final class ClipPathNode extends BaseNode {
 
   @NonNull
   @Override
-  ClipPathLayer toLayer(@NonNull PropertyTimeline timeline) {
+  ClipPathLayer toLayer(PropertyTimeline timeline) {
     return new ClipPathLayer(timeline, this);
   }
 
@@ -44,14 +44,13 @@ public final class ClipPathNode extends BaseNode {
     private final Path tempPath = new Path();
     private final Path tempRenderPath = new Path();
 
-    public ClipPathLayer(@NonNull PropertyTimeline timeline, @NonNull ClipPathNode node) {
+    public ClipPathLayer(PropertyTimeline timeline, ClipPathNode node) {
       super(timeline, node);
       pathData = registerAnimatableProperty(node.getPathData());
     }
 
     @Override
-    public void onDraw(
-        @NonNull Canvas canvas, @NonNull Matrix parentMatrix, @NonNull PointF viewportScale) {
+    public void onDraw(Canvas canvas, Matrix parentMatrix, PointF viewportScale) {
       final float matrixScale = getMatrixScale(parentMatrix);
       if (matrixScale == 0) {
         return;
@@ -87,28 +86,30 @@ public final class ClipPathNode extends BaseNode {
 
     // Path data.
 
-    public Builder pathData(@NonNull String initialPathData) {
+    public Builder pathData(String initialPathData) {
       return pathData(PathData.parse(initialPathData));
     }
 
-    public Builder pathData(@NonNull PathData initialPathData) {
+    public Builder pathData(PathData initialPathData) {
       return replaceFirstAnimation(pathData, asAnimation(initialPathData));
     }
 
     @SafeVarargs
-    public final Builder pathData(@NonNull Animation<?, PathData>... animations) {
+    public final Builder pathData(Animation<?, PathData>... animations) {
       return replaceAnimations(pathData, animations);
     }
 
-    public Builder pathData(@NonNull List<Animation<?, PathData>> animations) {
+    public Builder pathData(List<Animation<?, PathData>> animations) {
       return replaceAnimations(pathData, animations);
     }
 
+    @NonNull
     @Override
     protected Builder self() {
       return this;
     }
 
+    @NonNull
     @Override
     public ClipPathNode build() {
       return new ClipPathNode(

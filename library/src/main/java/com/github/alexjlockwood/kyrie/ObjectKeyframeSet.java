@@ -25,8 +25,7 @@ final class ObjectKeyframeSet<T> extends KeyframeSet<T> {
   @NonNull private final List<Keyframe<T>> keyframes;
   @NonNull private final ValueEvaluator<T> evaluator;
 
-  public ObjectKeyframeSet(
-      @NonNull ValueEvaluator<T> evaluator, @NonNull List<Keyframe<T>> keyframes) {
+  public ObjectKeyframeSet(ValueEvaluator<T> evaluator, List<Keyframe<T>> keyframes) {
     this.evaluator = evaluator;
     this.numKeyframes = keyframes.size();
     this.keyframes = keyframes;

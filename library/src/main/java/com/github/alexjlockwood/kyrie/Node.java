@@ -13,41 +13,44 @@ import java.util.List;
 abstract class Node {
 
   @NonNull
-  abstract Layer toLayer(@NonNull PropertyTimeline timeline);
+  abstract Layer toLayer(PropertyTimeline timeline);
 
   interface Layer {
-    void draw(@NonNull Canvas canvas, @NonNull Matrix parentMatrix, @NonNull PointF viewportScale);
+    void draw(Canvas canvas, Matrix parentMatrix, PointF viewportScale);
 
-    void onDraw(
-        @NonNull Canvas canvas, @NonNull Matrix parentMatrix, @NonNull PointF viewportScale);
+    void onDraw(Canvas canvas, Matrix parentMatrix, PointF viewportScale);
   }
 
   abstract static class Builder<N extends Node, B extends Builder<N, B>> {
-    final B self;
+    @NonNull final B self;
 
     Builder() {
       this.self = self();
     }
 
+    @NonNull
     abstract B self();
 
+    @NonNull
     public abstract N build();
 
-    final <T> B replaceFirstAnimation(
-        @NonNull List<Animation<?, T>> animations, @NonNull Animation<?, T> animation) {
+    @NonNull
+    final <T> B replaceFirstAnimation(List<Animation<?, T>> animations, Animation<?, T> animation) {
       Node.replaceFirstAnimation(animations, animation);
       return self;
     }
 
+    @NonNull
     @SafeVarargs
     final <T> B replaceAnimations(
-        @NonNull List<Animation<?, T>> animations, @NonNull Animation<?, T>... newAnimations) {
+        List<Animation<?, T>> animations, Animation<?, T>... newAnimations) {
       Node.replaceAnimations(animations, newAnimations);
       return self;
     }
 
+    @NonNull
     final <T> B replaceAnimations(
-        @NonNull List<Animation<?, T>> animations, @NonNull List<Animation<?, T>> newAnimations) {
+        List<Animation<?, T>> animations, List<Animation<?, T>> newAnimations) {
       Node.replaceAnimations(animations, newAnimations);
       return self;
     }
@@ -64,12 +67,12 @@ abstract class Node {
   }
 
   @NonNull
-  static Animation<?, float[]> asAnimation(@NonNull float[] initialValue) {
+  static Animation<?, float[]> asAnimation(float[] initialValue) {
     return Animation.ofFloatArray(initialValue, initialValue).duration(0);
   }
 
   @NonNull
-  static Animation<?, PathData> asAnimation(@NonNull PathData initialValue) {
+  static Animation<?, PathData> asAnimation(PathData initialValue) {
     return Animation.ofPathMorph(initialValue, initialValue).duration(0);
   }
 
@@ -84,30 +87,30 @@ abstract class Node {
   }
 
   @NonNull
-  static List<Animation<?, float[]>> asAnimations(@NonNull float[] initialValue) {
+  static List<Animation<?, float[]>> asAnimations(float[] initialValue) {
     return asList(asAnimation(initialValue));
   }
 
   @NonNull
-  static List<Animation<?, PathData>> asAnimations(@NonNull PathData initialValue) {
+  static List<Animation<?, PathData>> asAnimations(PathData initialValue) {
     return asList(asAnimation(initialValue));
   }
 
   @NonNull
-  private static <T> List<Animation<?, T>> asList(@NonNull Animation<?, T> animation) {
+  private static <T> List<Animation<?, T>> asList(Animation<?, T> animation) {
     final List<Animation<?, T>> animations = new ArrayList<>(1);
     animations.add(animation);
     return animations;
   }
 
   static <T> void replaceFirstAnimation(
-      @NonNull List<Animation<?, T>> animations, @NonNull Animation<?, T> animation) {
+      List<Animation<?, T>> animations, Animation<?, T> animation) {
     animations.set(0, animation);
   }
 
   @SafeVarargs
   static <T> void replaceAnimations(
-      @NonNull List<Animation<?, T>> animations, @NonNull Animation<?, T>... newAnimations) {
+      List<Animation<?, T>> animations, Animation<?, T>... newAnimations) {
     for (int i = animations.size() - 1; i > 0; i--) {
       animations.remove(i);
     }
@@ -115,7 +118,7 @@ abstract class Node {
   }
 
   static <T> void replaceAnimations(
-      @NonNull List<Animation<?, T>> animations, @NonNull List<Animation<?, T>> newAnimations) {
+      List<Animation<?, T>> animations, List<Animation<?, T>> newAnimations) {
     for (int i = animations.size() - 1; i > 0; i--) {
       animations.remove(i);
     }

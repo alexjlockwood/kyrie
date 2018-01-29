@@ -9,29 +9,29 @@ public final class PathNode extends RenderNode {
   @NonNull private final List<Animation<?, PathData>> pathData;
 
   private PathNode(
-      @NonNull List<Animation<?, Float>> rotation,
-      @NonNull List<Animation<?, Float>> pivotX,
-      @NonNull List<Animation<?, Float>> pivotY,
-      @NonNull List<Animation<?, Float>> scaleX,
-      @NonNull List<Animation<?, Float>> scaleY,
-      @NonNull List<Animation<?, Float>> translateX,
-      @NonNull List<Animation<?, Float>> translateY,
-      @NonNull List<Animation<?, Integer>> fillColor,
-      @NonNull List<Animation<?, Float>> fillAlpha,
-      @NonNull List<Animation<?, Integer>> strokeColor,
-      @NonNull List<Animation<?, Float>> strokeAlpha,
-      @NonNull List<Animation<?, Float>> strokeWidth,
-      @NonNull List<Animation<?, Float>> trimPathStart,
-      @NonNull List<Animation<?, Float>> trimPathEnd,
-      @NonNull List<Animation<?, Float>> trimPathOffset,
+      List<Animation<?, Float>> rotation,
+      List<Animation<?, Float>> pivotX,
+      List<Animation<?, Float>> pivotY,
+      List<Animation<?, Float>> scaleX,
+      List<Animation<?, Float>> scaleY,
+      List<Animation<?, Float>> translateX,
+      List<Animation<?, Float>> translateY,
+      List<Animation<?, Integer>> fillColor,
+      List<Animation<?, Float>> fillAlpha,
+      List<Animation<?, Integer>> strokeColor,
+      List<Animation<?, Float>> strokeAlpha,
+      List<Animation<?, Float>> strokeWidth,
+      List<Animation<?, Float>> trimPathStart,
+      List<Animation<?, Float>> trimPathEnd,
+      List<Animation<?, Float>> trimPathOffset,
       @StrokeLineCap int strokeLineCap,
       @StrokeLineJoin int strokeLineJoin,
-      @NonNull List<Animation<?, Float>> strokeMiterLimit,
-      @NonNull List<Animation<?, float[]>> strokeDashArray,
-      @NonNull List<Animation<?, Float>> strokeDashOffset,
+      List<Animation<?, Float>> strokeMiterLimit,
+      List<Animation<?, float[]>> strokeDashArray,
+      List<Animation<?, Float>> strokeDashOffset,
       @FillType int fillType,
       boolean isStrokeScaling,
-      @NonNull List<Animation<?, PathData>> pathData) {
+      List<Animation<?, PathData>> pathData) {
     super(
         rotation,
         pivotX,
@@ -67,20 +67,20 @@ public final class PathNode extends RenderNode {
 
   @NonNull
   @Override
-  PathLayer toLayer(@NonNull PropertyTimeline timeline) {
+  PathLayer toLayer(PropertyTimeline timeline) {
     return new PathLayer(timeline, this);
   }
 
   private static class PathLayer extends RenderLayer {
     @NonNull private final Property<PathData> pathData;
 
-    public PathLayer(@NonNull PropertyTimeline timeline, @NonNull PathNode node) {
+    public PathLayer(PropertyTimeline timeline, PathNode node) {
       super(timeline, node);
       pathData = registerAnimatableProperty(node.getPathData());
     }
 
     @Override
-    public void onInitPath(@NonNull Path outPath) {
+    public void onInitPath(Path outPath) {
       PathData.toPath(pathData.getAnimatedValue(), outPath);
     }
   }
@@ -100,28 +100,30 @@ public final class PathNode extends RenderNode {
 
     // Path data.
 
-    public Builder pathData(@NonNull String initialPathData) {
+    public Builder pathData(String initialPathData) {
       return pathData(PathData.parse(initialPathData));
     }
 
-    public Builder pathData(@NonNull PathData initialPathData) {
+    public Builder pathData(PathData initialPathData) {
       return replaceFirstAnimation(pathData, asAnimation(initialPathData));
     }
 
     @SafeVarargs
-    public final Builder pathData(@NonNull Animation<?, PathData>... animations) {
+    public final Builder pathData(Animation<?, PathData>... animations) {
       return replaceAnimations(pathData, animations);
     }
 
-    public Builder pathData(@NonNull List<Animation<?, PathData>> animations) {
+    public Builder pathData(List<Animation<?, PathData>> animations) {
       return replaceAnimations(pathData, animations);
     }
 
+    @NonNull
     @Override
     protected Builder self() {
       return this;
     }
 
+    @NonNull
     public PathNode build() {
       return new PathNode(
           rotation,

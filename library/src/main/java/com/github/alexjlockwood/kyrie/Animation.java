@@ -12,65 +12,63 @@ import java.util.List;
 public final class Animation<T, V> {
 
   @NonNull
-  public static Animation<Float, Float> ofFloat(@NonNull Float... values) {
+  public static Animation<Float, Float> ofFloat(Float... values) {
     return ofObject(new FloatValueEvaluator(), values);
   }
 
   @NonNull
   @SafeVarargs
-  public static Animation<Float, Float> ofFloat(@NonNull Keyframe<Float>... values) {
-    return ofKeyframe(new FloatValueEvaluator(), values);
+  public static Animation<Float, Float> ofFloat(Keyframe<Float>... values) {
+    return ofObject(new FloatValueEvaluator(), values);
   }
 
   @NonNull
-  public static Animation<Integer, Integer> ofArgb(@NonNull Integer... values) {
+  public static Animation<Integer, Integer> ofArgb(Integer... values) {
     return ofObject(new ArgbValueEvaluator(), values);
   }
 
   @NonNull
   @SafeVarargs
-  public static Animation<Integer, Integer> ofArgb(@NonNull Keyframe<Integer>... values) {
-    return ofKeyframe(new ArgbValueEvaluator(), values);
+  public static Animation<Integer, Integer> ofArgb(Keyframe<Integer>... values) {
+    return ofObject(new ArgbValueEvaluator(), values);
   }
 
   @NonNull
-  public static Animation<float[], float[]> ofFloatArray(@NonNull float[]... values) {
+  public static Animation<float[], float[]> ofFloatArray(float[]... values) {
     return ofObject(new FloatArrayValueEvaluator(), values);
   }
 
   @NonNull
   @SafeVarargs
-  public static Animation<float[], float[]> ofFloatArray(@NonNull Keyframe<float[]>... values) {
-    return ofKeyframe(new FloatArrayValueEvaluator(), values);
+  public static Animation<float[], float[]> ofFloatArray(Keyframe<float[]>... values) {
+    return ofObject(new FloatArrayValueEvaluator(), values);
   }
 
   @NonNull
-  public static Animation<PathData, PathData> ofPathMorph(@NonNull PathData... values) {
+  public static Animation<PathData, PathData> ofPathMorph(PathData... values) {
     return ofObject(new PathDataValueEvaluator(), values);
   }
 
   @NonNull
   @SafeVarargs
-  public static Animation<PathData, PathData> ofPathMorph(@NonNull Keyframe<PathData>... values) {
-    return ofKeyframe(new PathDataValueEvaluator(), values);
+  public static Animation<PathData, PathData> ofPathMorph(Keyframe<PathData>... values) {
+    return ofObject(new PathDataValueEvaluator(), values);
   }
 
   @NonNull
-  private static <V> Animation<V, V> ofObject(
-      @NonNull ValueEvaluator<V> evaluator, @NonNull V[] values) {
+  private static <V> Animation<V, V> ofObject(ValueEvaluator<V> evaluator, V[] values) {
     return new Animation<>(
         KeyframeSet.ofObject(evaluator, values), new IdentityValueTransformer<V>());
   }
 
   @NonNull
-  private static <V> Animation<V, V> ofKeyframe(
-      @NonNull ValueEvaluator<V> evaluator, @NonNull Keyframe<V>[] values) {
+  private static <V> Animation<V, V> ofObject(ValueEvaluator<V> evaluator, Keyframe<V>[] values) {
     return new Animation<>(
         KeyframeSet.ofObject(evaluator, values), new IdentityValueTransformer<V>());
   }
 
   @NonNull
-  public static Animation<PointF, PointF> ofPathMotion(@NonNull Path path) {
+  public static Animation<PointF, PointF> ofPathMotion(Path path) {
     return new Animation<>(KeyframeSet.ofPath(path), new IdentityValueTransformer<PointF>());
   }
 
@@ -94,8 +92,7 @@ public final class Animation<T, V> {
   private int repeatCount;
   @RepeatMode private int repeatMode = RepeatMode.RESTART;
 
-  private Animation(
-      @NonNull KeyframeSet<T> keyframeSet, @NonNull ValueTransformer<T, V> transformer) {
+  private Animation(KeyframeSet<T> keyframeSet, ValueTransformer<T, V> transformer) {
     this.keyframeSet = keyframeSet;
     this.transformer = transformer;
   }
@@ -110,6 +107,11 @@ public final class Animation<T, V> {
     return this;
   }
 
+  /**
+   * Gets the duration of the animation.
+   *
+   * @return The length of the animation in milliseconds.
+   */
   public long getDuration() {
     return duration;
   }
@@ -135,7 +137,9 @@ public final class Animation<T, V> {
    * will be taken into account. The repeat count is 0 by default.
    *
    * @param repeatCount the number of times the animation should be repeated
+   * @return this animation
    */
+  @NonNull
   public Animation<T, V> repeatCount(int repeatCount) {
     this.repeatCount = repeatCount;
     return this;
@@ -158,6 +162,7 @@ public final class Animation<T, V> {
    *
    * @param repeatMode {@link RepeatMode#RESTART} or {@link RepeatMode#REVERSE}
    */
+  @NonNull
   public Animation<T, V> repeatMode(@RepeatMode int repeatMode) {
     this.repeatMode = repeatMode;
     return this;
@@ -174,6 +179,13 @@ public final class Animation<T, V> {
     return this;
   }
 
+  /**
+   * Gets the total duration of the animation in milliseconds, accounting for start delay and repeat
+   * count. Returns {@link #INFINITE} if the repeat count is infinite.
+   *
+   * @return Total time an animation takes to finish, starting from the time it is started. {@link
+   *     #INFINITE} will be returned if the animation repeats infinite times.
+   */
   public long getTotalDuration() {
     return repeatCount == INFINITE ? INFINITE : startDelay + (duration * (repeatCount + 1));
   }
@@ -182,7 +194,7 @@ public final class Animation<T, V> {
    * Called when the animations are first initialized, so that the animation's keyframes can fill in
    * any missing start values.
    */
-  void setupStartValue(@NonNull V startValue) {
+  void setupStartValue(V startValue) {
     final List<Keyframe<T>> keyframes = keyframeSet.getKeyframes();
     for (int i = 0, size = keyframes.size(); i < size; i++) {
       final Keyframe<T> kf = keyframes.get(i);
@@ -192,7 +204,8 @@ public final class Animation<T, V> {
     }
   }
 
-  private T transformBack(@NonNull V value) {
+  @NonNull
+  private T transformBack(V value) {
     if (!(transformer instanceof BidirectionalValueTransformer)) {
       throw new IllegalArgumentException(
           "Transformer "
@@ -207,7 +220,8 @@ public final class Animation<T, V> {
     return transformer.transform(keyframeSet.getAnimatedValue(fraction));
   }
 
-  public <W> Animation<T, W> transform(@NonNull ValueTransformer<T, W> transformer) {
+  @NonNull
+  public <W> Animation<T, W> transform(ValueTransformer<T, W> transformer) {
     return new Animation<>(keyframeSet, transformer)
         .startDelay(startDelay)
         .duration(duration)
@@ -218,47 +232,45 @@ public final class Animation<T, V> {
 
   public interface ValueTransformer<T, V> {
     @NonNull
-    V transform(@NonNull T value);
+    V transform(T value);
   }
 
   public interface BidirectionalValueTransformer<T, V> extends ValueTransformer<T, V> {
     @NonNull
-    T transformBack(@NonNull V value);
+    T transformBack(V value);
   }
 
   private static class IdentityValueTransformer<V> implements BidirectionalValueTransformer<V, V> {
     @NonNull
     @Override
-    public V transform(@NonNull V value) {
+    public V transform(V value) {
       return value;
     }
 
     @NonNull
     @Override
-    public V transformBack(@NonNull V value) {
+    public V transformBack(V value) {
       return value;
     }
   }
 
   interface ValueEvaluator<T> {
     @NonNull
-    T evaluate(float fraction, @NonNull T startValue, @NonNull T endValue);
+    T evaluate(float fraction, T startValue, T endValue);
   }
 
   private static final class FloatValueEvaluator implements ValueEvaluator<Float> {
     @NonNull
     @Override
-    public Float evaluate(float fraction, @NonNull Float startValue, @NonNull Float endValue) {
+    public Float evaluate(float fraction, Float startValue, Float endValue) {
       return startValue + (endValue - startValue) * fraction;
     }
   }
 
   private static final class ArgbValueEvaluator implements ValueEvaluator<Integer> {
-
     @NonNull
     @Override
-    public Integer evaluate(
-        float fraction, @NonNull Integer startValue, @NonNull Integer endValue) {
+    public Integer evaluate(float fraction, Integer startValue, Integer endValue) {
       final float startA = ((startValue >> 24) & 0xff) / 255f;
       float startR = ((startValue >> 16) & 0xff) / 255f;
       float startG = ((startValue >> 8) & 0xff) / 255f;
@@ -293,8 +305,7 @@ public final class Animation<T, V> {
 
     @NonNull
     @Override
-    public float[] evaluate(
-        float fraction, @NonNull float[] startValue, @NonNull float[] endValue) {
+    public float[] evaluate(float fraction, float[] startValue, float[] endValue) {
       if (array == null || array.length != startValue.length) {
         array = new float[startValue.length];
       }
@@ -312,8 +323,7 @@ public final class Animation<T, V> {
 
     @NonNull
     @Override
-    public PathData evaluate(
-        float fraction, @NonNull PathData startValue, @NonNull PathData endValue) {
+    public PathData evaluate(float fraction, PathData startValue, PathData endValue) {
       if (pathData == null || !pathData.canMorphWith(startValue)) {
         pathData = new PathData(startValue);
       }

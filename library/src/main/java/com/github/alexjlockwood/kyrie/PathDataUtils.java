@@ -71,7 +71,7 @@ final class PathDataUtils {
     return true;
   }
 
-  static void toPath(@NonNull PathData pathData, @NonNull Path path) {
+  static void toPath(PathData pathData, Path path) {
     final PathData.PathDatum[] nodes = pathData.pathDatums;
     final float[] current = new float[6];
     char previousCommand = 'm';
@@ -82,7 +82,7 @@ final class PathDataUtils {
     }
   }
 
-  private static int nextStart(@NonNull String s, int end) {
+  private static int nextStart(String s, int end) {
     char c;
     while (end < s.length()) {
       c = s.charAt(end);
@@ -98,7 +98,7 @@ final class PathDataUtils {
     return end;
   }
 
-  private static void addNode(@NonNull List<PathData.PathDatum> list, char cmd, float[] val) {
+  private static void addNode(List<PathData.PathDatum> list, char cmd, float[] val) {
     list.add(new PathData.PathDatum(cmd, val));
   }
 
@@ -117,7 +117,7 @@ final class PathDataUtils {
    * @param s the string containing a command and list of floats
    * @return array of floats
    */
-  private static float[] getFloats(@NonNull String s) {
+  private static float[] getFloats(String s) {
     if (s.charAt(0) == 'z' || s.charAt(0) == 'Z') {
       return EMPTY_PARAMS;
     }
@@ -160,7 +160,7 @@ final class PathDataUtils {
    * @param result the result of the extraction, including the position of the the starting position
    *     of next number, whether it is ending with a '-'.
    */
-  private static void extract(@NonNull String s, int start, @NonNull ExtractFloatResult result) {
+  private static void extract(String s, int start, ExtractFloatResult result) {
     // Now looking for ' ', ',', '.' or '-' from the start.
     int currentIndex = start;
     boolean foundSeparator = false;
@@ -206,8 +206,7 @@ final class PathDataUtils {
     result.mEndPosition = currentIndex;
   }
 
-  private static void addCommand(
-      @NonNull Path path, @NonNull float[] current, char prevCmd, char cmd, @NonNull float[] val) {
+  private static void addCommand(Path path, float[] current, char prevCmd, char cmd, float[] val) {
     int increment = 2;
     float currentX = current[0];
     float currentY = current[1];
@@ -459,7 +458,7 @@ final class PathDataUtils {
   }
 
   private static void drawArc(
-      @NonNull Path p,
+      Path p,
       float x0,
       float y0,
       float x1,
@@ -550,7 +549,7 @@ final class PathDataUtils {
    * @param sweep The angle (positive or negative) of the sweep of the arc on the ellipse
    */
   private static void arcToBezier(
-      @NonNull Path p,
+      Path p,
       double cx,
       double cy,
       double a,

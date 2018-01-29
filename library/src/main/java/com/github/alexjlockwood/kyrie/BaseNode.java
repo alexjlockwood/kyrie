@@ -18,13 +18,13 @@ abstract class BaseNode extends Node {
   @NonNull private final List<Animation<?, Float>> translateY;
 
   public BaseNode(
-      @NonNull List<Animation<?, Float>> rotation,
-      @NonNull List<Animation<?, Float>> pivotX,
-      @NonNull List<Animation<?, Float>> pivotY,
-      @NonNull List<Animation<?, Float>> scaleX,
-      @NonNull List<Animation<?, Float>> scaleY,
-      @NonNull List<Animation<?, Float>> translateX,
-      @NonNull List<Animation<?, Float>> translateY) {
+      List<Animation<?, Float>> rotation,
+      List<Animation<?, Float>> pivotX,
+      List<Animation<?, Float>> pivotY,
+      List<Animation<?, Float>> scaleX,
+      List<Animation<?, Float>> scaleY,
+      List<Animation<?, Float>> translateX,
+      List<Animation<?, Float>> translateY) {
     this.rotation = rotation;
     this.pivotX = pivotX;
     this.pivotY = pivotY;
@@ -73,7 +73,7 @@ abstract class BaseNode extends Node {
 
   @NonNull
   @Override
-  abstract BaseLayer toLayer(@NonNull PropertyTimeline timeline);
+  abstract BaseLayer toLayer(PropertyTimeline timeline);
 
   abstract static class BaseLayer implements Layer {
     @NonNull private final PropertyTimeline timeline;
@@ -90,7 +90,7 @@ abstract class BaseNode extends Node {
     @Size(value = 4)
     private final float[] tempUnitVectors = new float[4];
 
-    public BaseLayer(@NonNull PropertyTimeline timeline, @NonNull BaseNode node) {
+    public BaseLayer(PropertyTimeline timeline, BaseNode node) {
       this.timeline = timeline;
       rotation = registerAnimatableProperty(node.getRotation());
       pivotX = registerAnimatableProperty(node.getPivotX());
@@ -102,14 +102,12 @@ abstract class BaseNode extends Node {
     }
 
     @NonNull
-    public final <V> Property<V> registerAnimatableProperty(
-        @NonNull List<Animation<?, V>> animations) {
+    public final <V> Property<V> registerAnimatableProperty(List<Animation<?, V>> animations) {
       return timeline.registerAnimatableProperty(animations);
     }
 
     @Override
-    public final void draw(
-        @NonNull Canvas canvas, @NonNull Matrix parentMatrix, @NonNull PointF viewportScale) {
+    public final void draw(Canvas canvas, Matrix parentMatrix, PointF viewportScale) {
       final float pivotX = this.pivotX.getAnimatedValue();
       final float pivotY = this.pivotY.getAnimatedValue();
       final float rotation = this.rotation.getAnimatedValue();
@@ -133,7 +131,7 @@ abstract class BaseNode extends Node {
       onDraw(canvas, tempMatrix, viewportScale);
     }
 
-    final float getMatrixScale(@NonNull Matrix matrix) {
+    final float getMatrixScale(Matrix matrix) {
       // Given unit vectors A = (0, 1) and B = (1, 0).
       // After matrix mapping, we got A' and B'. Let theta = the angle b/t A' and B'.
       // Therefore, the final scale we want is min(|A'| * sin(theta), |B'| * sin(theta)),
@@ -185,11 +183,11 @@ abstract class BaseNode extends Node {
     }
 
     @SafeVarargs
-    public final B rotation(@NonNull Animation<?, Float>... animations) {
+    public final B rotation(Animation<?, Float>... animations) {
       return replaceAnimations(rotation, animations);
     }
 
-    public final B rotation(@NonNull List<Animation<?, Float>> animations) {
+    public final B rotation(List<Animation<?, Float>> animations) {
       return replaceAnimations(rotation, animations);
     }
 
@@ -200,11 +198,11 @@ abstract class BaseNode extends Node {
     }
 
     @SafeVarargs
-    public final B pivotX(@NonNull Animation<?, Float>... animations) {
+    public final B pivotX(Animation<?, Float>... animations) {
       return replaceAnimations(pivotX, animations);
     }
 
-    public final B pivotX(@NonNull List<Animation<?, Float>> animations) {
+    public final B pivotX(List<Animation<?, Float>> animations) {
       return replaceAnimations(pivotX, animations);
     }
 
@@ -215,11 +213,11 @@ abstract class BaseNode extends Node {
     }
 
     @SafeVarargs
-    public final B pivotY(@NonNull Animation<?, Float>... animations) {
+    public final B pivotY(Animation<?, Float>... animations) {
       return replaceAnimations(pivotY, animations);
     }
 
-    public final B pivotY(@NonNull List<Animation<?, Float>> animations) {
+    public final B pivotY(List<Animation<?, Float>> animations) {
       return replaceAnimations(pivotY, animations);
     }
 
@@ -230,11 +228,11 @@ abstract class BaseNode extends Node {
     }
 
     @SafeVarargs
-    public final B scaleX(@NonNull Animation<?, Float>... animations) {
+    public final B scaleX(Animation<?, Float>... animations) {
       return replaceAnimations(scaleX, animations);
     }
 
-    public final B scaleX(@NonNull List<Animation<?, Float>> animations) {
+    public final B scaleX(List<Animation<?, Float>> animations) {
       return replaceAnimations(scaleX, animations);
     }
 
@@ -245,11 +243,11 @@ abstract class BaseNode extends Node {
     }
 
     @SafeVarargs
-    public final B scaleY(@NonNull Animation<?, Float>... animations) {
+    public final B scaleY(Animation<?, Float>... animations) {
       return replaceAnimations(scaleY, animations);
     }
 
-    public final B scaleY(@NonNull List<Animation<?, Float>> animations) {
+    public final B scaleY(List<Animation<?, Float>> animations) {
       return replaceAnimations(scaleY, animations);
     }
 
@@ -260,11 +258,11 @@ abstract class BaseNode extends Node {
     }
 
     @SafeVarargs
-    public final B translateX(@NonNull Animation<?, Float>... animations) {
+    public final B translateX(Animation<?, Float>... animations) {
       return replaceAnimations(translateX, animations);
     }
 
-    public final B translateX(@NonNull List<Animation<?, Float>> animations) {
+    public final B translateX(List<Animation<?, Float>> animations) {
       return replaceAnimations(translateX, animations);
     }
 
@@ -275,11 +273,11 @@ abstract class BaseNode extends Node {
     }
 
     @SafeVarargs
-    public final B translateY(@NonNull Animation<?, Float>... animations) {
+    public final B translateY(Animation<?, Float>... animations) {
       return replaceAnimations(translateY, animations);
     }
 
-    public final B translateY(@NonNull List<Animation<?, Float>> animations) {
+    public final B translateY(List<Animation<?, Float>> animations) {
       return replaceAnimations(translateY, animations);
     }
   }

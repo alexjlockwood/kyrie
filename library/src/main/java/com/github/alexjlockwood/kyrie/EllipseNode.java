@@ -14,32 +14,32 @@ public final class EllipseNode extends RenderNode {
   @NonNull private final List<Animation<?, Float>> radiusY;
 
   private EllipseNode(
-      @NonNull List<Animation<?, Float>> rotation,
-      @NonNull List<Animation<?, Float>> pivotX,
-      @NonNull List<Animation<?, Float>> pivotY,
-      @NonNull List<Animation<?, Float>> scaleX,
-      @NonNull List<Animation<?, Float>> scaleY,
-      @NonNull List<Animation<?, Float>> translateX,
-      @NonNull List<Animation<?, Float>> translateY,
-      @NonNull List<Animation<?, Integer>> fillColor,
-      @NonNull List<Animation<?, Float>> fillAlpha,
-      @NonNull List<Animation<?, Integer>> strokeColor,
-      @NonNull List<Animation<?, Float>> strokeAlpha,
-      @NonNull List<Animation<?, Float>> strokeWidth,
-      @NonNull List<Animation<?, Float>> trimPathStart,
-      @NonNull List<Animation<?, Float>> trimPathEnd,
-      @NonNull List<Animation<?, Float>> trimPathOffset,
+      List<Animation<?, Float>> rotation,
+      List<Animation<?, Float>> pivotX,
+      List<Animation<?, Float>> pivotY,
+      List<Animation<?, Float>> scaleX,
+      List<Animation<?, Float>> scaleY,
+      List<Animation<?, Float>> translateX,
+      List<Animation<?, Float>> translateY,
+      List<Animation<?, Integer>> fillColor,
+      List<Animation<?, Float>> fillAlpha,
+      List<Animation<?, Integer>> strokeColor,
+      List<Animation<?, Float>> strokeAlpha,
+      List<Animation<?, Float>> strokeWidth,
+      List<Animation<?, Float>> trimPathStart,
+      List<Animation<?, Float>> trimPathEnd,
+      List<Animation<?, Float>> trimPathOffset,
       @StrokeLineCap int strokeLineCap,
       @StrokeLineJoin int strokeLineJoin,
-      @NonNull List<Animation<?, Float>> strokeMiterLimit,
-      @NonNull List<Animation<?, float[]>> strokeDashArray,
-      @NonNull List<Animation<?, Float>> strokeDashOffset,
+      List<Animation<?, Float>> strokeMiterLimit,
+      List<Animation<?, float[]>> strokeDashArray,
+      List<Animation<?, Float>> strokeDashOffset,
       @FillType int fillType,
       boolean isStrokeScaling,
-      @NonNull List<Animation<?, Float>> centerX,
-      @NonNull List<Animation<?, Float>> centerY,
-      @NonNull List<Animation<?, Float>> radiusX,
-      @NonNull List<Animation<?, Float>> radiusY) {
+      List<Animation<?, Float>> centerX,
+      List<Animation<?, Float>> centerY,
+      List<Animation<?, Float>> radiusX,
+      List<Animation<?, Float>> radiusY) {
     super(
         rotation,
         pivotX,
@@ -93,7 +93,7 @@ public final class EllipseNode extends RenderNode {
 
   @NonNull
   @Override
-  EllipseLayer toLayer(@NonNull PropertyTimeline timeline) {
+  EllipseLayer toLayer(PropertyTimeline timeline) {
     return new EllipseLayer(timeline, this);
   }
 
@@ -105,7 +105,7 @@ public final class EllipseNode extends RenderNode {
 
     private final RectF tempRect = new RectF();
 
-    public EllipseLayer(@NonNull PropertyTimeline timeline, @NonNull EllipseNode node) {
+    public EllipseLayer(PropertyTimeline timeline, EllipseNode node) {
       super(timeline, node);
       centerX = registerAnimatableProperty(node.getCenterX());
       centerY = registerAnimatableProperty(node.getCenterY());
@@ -114,7 +114,7 @@ public final class EllipseNode extends RenderNode {
     }
 
     @Override
-    public void onInitPath(@NonNull Path outPath) {
+    public void onInitPath(Path outPath) {
       final float cx = centerX.getAnimatedValue();
       final float cy = centerY.getAnimatedValue();
       final float rx = radiusX.getAnimatedValue();
@@ -147,11 +147,11 @@ public final class EllipseNode extends RenderNode {
     }
 
     @SafeVarargs
-    public final Builder centerX(@NonNull Animation<?, Float>... animations) {
+    public final Builder centerX(Animation<?, Float>... animations) {
       return replaceAnimations(centerX, animations);
     }
 
-    public Builder centerX(@NonNull List<Animation<?, Float>> animations) {
+    public Builder centerX(List<Animation<?, Float>> animations) {
       return replaceAnimations(centerX, animations);
     }
 
@@ -162,11 +162,11 @@ public final class EllipseNode extends RenderNode {
     }
 
     @SafeVarargs
-    public final Builder centerY(@NonNull Animation<?, Float>... animations) {
+    public final Builder centerY(Animation<?, Float>... animations) {
       return replaceAnimations(centerY, animations);
     }
 
-    public Builder centerY(@NonNull List<Animation<?, Float>> animations) {
+    public Builder centerY(List<Animation<?, Float>> animations) {
       return replaceAnimations(centerY, animations);
     }
 
@@ -177,11 +177,11 @@ public final class EllipseNode extends RenderNode {
     }
 
     @SafeVarargs
-    public final Builder radiusX(@NonNull Animation<?, Float>... animations) {
+    public final Builder radiusX(Animation<?, Float>... animations) {
       return replaceAnimations(radiusX, animations);
     }
 
-    public Builder radiusX(@NonNull List<Animation<?, Float>> animations) {
+    public Builder radiusX(List<Animation<?, Float>> animations) {
       return replaceAnimations(radiusX, animations);
     }
 
@@ -192,19 +192,21 @@ public final class EllipseNode extends RenderNode {
     }
 
     @SafeVarargs
-    public final Builder radiusY(@NonNull Animation<?, Float>... animations) {
+    public final Builder radiusY(Animation<?, Float>... animations) {
       return replaceAnimations(radiusY, animations);
     }
 
-    public Builder radiusY(@NonNull List<Animation<?, Float>> animations) {
+    public Builder radiusY(List<Animation<?, Float>> animations) {
       return replaceAnimations(radiusY, animations);
     }
 
+    @NonNull
     @Override
     protected Builder self() {
       return this;
     }
 
+    @NonNull
     public EllipseNode build() {
       return new EllipseNode(
           rotation,

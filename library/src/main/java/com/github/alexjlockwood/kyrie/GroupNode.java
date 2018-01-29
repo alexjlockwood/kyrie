@@ -12,14 +12,14 @@ public final class GroupNode extends BaseNode {
   @NonNull private final List<Node> children;
 
   private GroupNode(
-      @NonNull List<Animation<?, Float>> rotation,
-      @NonNull List<Animation<?, Float>> pivotX,
-      @NonNull List<Animation<?, Float>> pivotY,
-      @NonNull List<Animation<?, Float>> scaleX,
-      @NonNull List<Animation<?, Float>> scaleY,
-      @NonNull List<Animation<?, Float>> translateX,
-      @NonNull List<Animation<?, Float>> translateY,
-      @NonNull List<Node> children) {
+      List<Animation<?, Float>> rotation,
+      List<Animation<?, Float>> pivotX,
+      List<Animation<?, Float>> pivotY,
+      List<Animation<?, Float>> scaleX,
+      List<Animation<?, Float>> scaleY,
+      List<Animation<?, Float>> translateX,
+      List<Animation<?, Float>> translateY,
+      List<Node> children) {
     super(rotation, pivotX, pivotY, scaleX, scaleY, translateX, translateY);
     this.children = children;
   }
@@ -33,14 +33,14 @@ public final class GroupNode extends BaseNode {
 
   @NonNull
   @Override
-  GroupLayer toLayer(@NonNull PropertyTimeline timeline) {
+  GroupLayer toLayer(PropertyTimeline timeline) {
     return new GroupLayer(timeline, this);
   }
 
   private static class GroupLayer extends BaseLayer {
     @NonNull private final List<Layer> children;
 
-    public GroupLayer(@NonNull PropertyTimeline timeline, @NonNull GroupNode node) {
+    public GroupLayer(PropertyTimeline timeline, GroupNode node) {
       super(timeline, node);
       final List<Node> childrenNodes = node.getChildren();
       children = new ArrayList<>(childrenNodes.size());
@@ -50,8 +50,7 @@ public final class GroupNode extends BaseNode {
     }
 
     @Override
-    public void onDraw(
-        @NonNull Canvas canvas, @NonNull Matrix parentMatrix, @NonNull PointF viewportScale) {
+    public void onDraw(Canvas canvas, Matrix parentMatrix, PointF viewportScale) {
       canvas.save();
       for (int i = 0, size = children.size(); i < size; i++) {
         children.get(i).draw(canvas, parentMatrix, viewportScale);
@@ -75,20 +74,22 @@ public final class GroupNode extends BaseNode {
 
     // Children.
 
-    public Builder child(@NonNull Node node) {
+    public Builder child(Node node) {
       children.add(node);
       return this;
     }
 
-    public Builder child(@NonNull Node.Builder builder) {
+    public Builder child(Node.Builder builder) {
       return child(builder.build());
     }
 
+    @NonNull
     @Override
     protected Builder self() {
       return this;
     }
 
+    @NonNull
     public GroupNode build() {
       return new GroupNode(
           rotation, pivotX, pivotY, scaleX, scaleY, translateX, translateY, children);

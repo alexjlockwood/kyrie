@@ -40,7 +40,7 @@ final class Property<V> {
   private final long totalDuration;
   private long currentPlayTime;
 
-  public Property(@NonNull List<Animation<?, V>> animations) {
+  public Property(List<Animation<?, V>> animations) {
     // Sort the animations.
     this.animations = new ArrayList<>(animations);
     Collections.sort(this.animations, ANIMATION_COMPARATOR);
@@ -86,7 +86,7 @@ final class Property<V> {
     }
   }
 
-  public void addListener(@NonNull Listener listener) {
+  public void addListener(Listener listener) {
     listeners.add(listener);
   }
 
@@ -175,6 +175,6 @@ final class Property<V> {
   }
 
   public interface Listener {
-    void onCurrentPlayTimeChanged(@NonNull Property<?> property);
+    void onCurrentPlayTimeChanged(Property<?> property);
   }
 }

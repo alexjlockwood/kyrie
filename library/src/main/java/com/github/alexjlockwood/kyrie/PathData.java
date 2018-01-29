@@ -20,13 +20,13 @@ public final class PathData {
   }
 
   @NonNull
-  public static Path toPath(@NonNull PathData pathData) {
+  public static Path toPath(PathData pathData) {
     final Path path = new Path();
     PathDataUtils.toPath(pathData, path);
     return path;
   }
 
-  public static void toPath(@NonNull PathData pathData, @NonNull Path outPath) {
+  public static void toPath(PathData pathData, Path outPath) {
     PathDataUtils.toPath(pathData, outPath);
   }
 
@@ -36,11 +36,11 @@ public final class PathData {
     this(EMPTY_PATH_DATUMS);
   }
 
-  PathData(@NonNull PathDatum[] pathDatums) {
+  PathData(PathDatum[] pathDatums) {
     this.pathDatums = pathDatums;
   }
 
-  public PathData(@NonNull PathData pathData) {
+  public PathData(PathData pathData) {
     final PathDatum[] source = pathData.pathDatums;
     pathDatums = new PathDatum[source.length];
     for (int i = 0; i < source.length; i++) {
@@ -48,11 +48,11 @@ public final class PathData {
     }
   }
 
-  public boolean canMorphWith(@NonNull PathData pathData) {
+  public boolean canMorphWith(PathData pathData) {
     return PathDataUtils.canMorph(this, pathData);
   }
 
-  public void interpolate(@NonNull PathData from, @NonNull PathData to, float fraction) {
+  public void interpolate(PathData from, PathData to, float fraction) {
     if (!canMorphWith(from) || !canMorphWith(to)) {
       throw new IllegalArgumentException("Can't interpolate between two incompatible paths");
     }
@@ -67,7 +67,7 @@ public final class PathData {
     char type;
     @NonNull float[] params;
 
-    PathDatum(char type, @NonNull float[] params) {
+    PathDatum(char type, float[] params) {
       this.type = type;
       this.params = params;
     }
@@ -85,7 +85,7 @@ public final class PathData {
      * @param to The end value as a PathDatum
      * @param fraction The fraction to interpolate.
      */
-    void interpolate(@NonNull PathDatum from, @NonNull PathDatum to, float fraction) {
+    void interpolate(PathDatum from, PathDatum to, float fraction) {
       for (int i = 0; i < from.params.length; i++) {
         params[i] = from.params[i] * (1 - fraction) + to.params[i] * fraction;
       }

@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 final class PropertyTimeline {
-
   private final List<Property<?>> properties = new ArrayList<>();
   private final Property.Listener listener =
       new Property.Listener() {
@@ -20,12 +19,12 @@ final class PropertyTimeline {
   @NonNull private final KyrieDrawable drawable;
   private long totalDuration;
 
-  public PropertyTimeline(@NonNull KyrieDrawable drawable) {
+  public PropertyTimeline(KyrieDrawable drawable) {
     this.drawable = drawable;
   }
 
   @NonNull
-  public <V> Property<V> registerAnimatableProperty(@NonNull List<Animation<?, V>> animations) {
+  public <V> Property<V> registerAnimatableProperty(List<Animation<?, V>> animations) {
     final Property<V> property = new Property<>(animations);
     properties.add(property);
     property.addListener(listener);

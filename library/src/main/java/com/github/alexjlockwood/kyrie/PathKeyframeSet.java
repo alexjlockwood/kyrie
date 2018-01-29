@@ -28,7 +28,7 @@ final class PathKeyframeSet extends KeyframeSet<PointF> {
   private final PointF tempPointF = new PointF();
   private final float[] keyframeData;
 
-  public PathKeyframeSet(@NonNull Path path) {
+  public PathKeyframeSet(Path path) {
     if (path.isEmpty()) {
       throw new IllegalArgumentException("The path must not be empty");
     }
@@ -106,8 +106,8 @@ final class PathKeyframeSet extends KeyframeSet<PointF> {
   }
 
   /** Implementation of {@link Path#approximate(float)} for pre-O devices. */
-  @Size(multiple = 3)
   @NonNull
+  @Size(multiple = 3)
   private static float[] approximate(
       @NonNull Path path, @FloatRange(from = 0f) float acceptableError) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

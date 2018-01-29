@@ -5,25 +5,28 @@ import android.support.annotation.FloatRange;
 import android.support.annotation.Nullable;
 
 public final class Keyframe<V> {
+
+  public static <V> Keyframe<V> of(@FloatRange(from = 0f, to = 1f) float fraction) {
+    return of(fraction, null);
+  }
+
+  public static <V> Keyframe<V> of(
+      @FloatRange(from = 0f, to = 1f) float fraction, @Nullable V value) {
+    return new Keyframe<>(fraction, value);
+  }
+
   @FloatRange(from = 0f, to = 1f)
   private float fraction;
 
   @Nullable private V value;
   @Nullable private TimeInterpolator interpolator;
 
-  public static <V> Keyframe<V> of(float fraction) {
-    return of(fraction, null);
-  }
-
-  public static <V> Keyframe<V> of(float fraction, @Nullable V value) {
-    return new Keyframe<>(fraction, value);
-  }
-
-  private Keyframe(float fraction, @Nullable V value) {
+  private Keyframe(@FloatRange(from = 0f, to = 1f) float fraction, @Nullable V value) {
     this.fraction = fraction;
     this.value = value;
   }
 
+  @FloatRange(from = 0f, to = 1f)
   public float getFraction() {
     return fraction;
   }

@@ -88,7 +88,7 @@ public final class KyrieDrawable extends Drawable implements Animatable {
   private static final int MAX_CACHED_BITMAP_SIZE = 2048;
 
   @Nullable
-  public static KyrieDrawable create(@NonNull Context context, @DrawableRes int resId) {
+  public static KyrieDrawable create(Context context, @DrawableRes int resId) {
     try {
       final KyrieDrawable.Builder builder = KyrieDrawable.builder();
       InflationUtils.inflate(builder, context, resId);
@@ -136,10 +136,10 @@ public final class KyrieDrawable extends Drawable implements Animatable {
       @Px int height,
       @FloatRange(from = 0f) float viewportWidth,
       @FloatRange(from = 0f) float viewportHeight,
-      @NonNull List<Animation<?, Float>> alphaAnimations,
-      @NonNull List<Node> childrenNodes,
+      List<Animation<?, Float>> alphaAnimations,
+      List<Node> childrenNodes,
       @Nullable ColorStateList tintList,
-      @NonNull Mode tintMode,
+      Mode tintMode,
       boolean isAutoMirrored) {
     this.width = width;
     this.height = height;
@@ -199,7 +199,7 @@ public final class KyrieDrawable extends Drawable implements Animatable {
   }
 
   @Override
-  public void setTintMode(@NonNull Mode tintMode) {
+  public void setTintMode(Mode tintMode) {
     if (this.tintMode != tintMode) {
       this.tintMode = tintMode;
       tintFilter = createTintFilter();
@@ -257,7 +257,7 @@ public final class KyrieDrawable extends Drawable implements Animatable {
   }
 
   @Override
-  public void draw(@NonNull Canvas canvas) {
+  public void draw(Canvas canvas) {
     if (!isVisible()) {
       return;
     }
@@ -394,11 +394,11 @@ public final class KyrieDrawable extends Drawable implements Animatable {
     return animator.isRunning();
   }
 
-  public void addListener(@NonNull Listener listener) {
+  public void addListener(Listener listener) {
     animator.addListener(listener);
   }
 
-  public void removeListener(@NonNull Listener listener) {
+  public void removeListener(Listener listener) {
     animator.removeListener(listener);
   }
 
@@ -416,14 +416,14 @@ public final class KyrieDrawable extends Drawable implements Animatable {
      *
      * @param drawable The KyrieDrawable instance being started.
      */
-    public void onAnimationStart(@NonNull KyrieDrawable drawable) {}
+    public void onAnimationStart(KyrieDrawable drawable) {}
 
     /**
      * Notifies the occurrence of another frame of the animation.
      *
      * @param drawable The KyrieDrawable instance being updated.
      */
-    public void onAnimationUpdate(@NonNull KyrieDrawable drawable) {}
+    public void onAnimationUpdate(KyrieDrawable drawable) {}
 
     /**
      * Notifies that the animation was paused.
@@ -431,7 +431,7 @@ public final class KyrieDrawable extends Drawable implements Animatable {
      * @param drawable The KyrieDrawable instance being paused.
      * @see #pause()
      */
-    public void onAnimationPause(@NonNull KyrieDrawable drawable) {}
+    public void onAnimationPause(KyrieDrawable drawable) {}
 
     /**
      * Notifies that the animation was resumed, after being previously paused.
@@ -439,14 +439,14 @@ public final class KyrieDrawable extends Drawable implements Animatable {
      * @param drawable The KyrieDrawable instance being resumed.
      * @see #resume()
      */
-    public void onAnimationResume(@NonNull KyrieDrawable drawable) {}
+    public void onAnimationResume(KyrieDrawable drawable) {}
 
     /**
      * Notifies the cancellation of the animation.
      *
      * @param drawable The KyrieDrawable instance being canceled.
      */
-    public void onAnimationCancel(@NonNull KyrieDrawable drawable) {}
+    public void onAnimationCancel(KyrieDrawable drawable) {}
 
     /**
      * Notifies the end of the animation. This callback is not invoked for animations with repeat
@@ -454,11 +454,11 @@ public final class KyrieDrawable extends Drawable implements Animatable {
      *
      * @param drawable The KyrieDrawable instance being ended.
      */
-    public void onAnimationEnd(@NonNull KyrieDrawable drawable) {}
+    public void onAnimationEnd(KyrieDrawable drawable) {}
   }
 
   private static class KyrieValueAnimator extends ValueAnimator {
-    private final KyrieDrawable drawable;
+    @NonNull private final KyrieDrawable drawable;
     private final List<Listener> listeners = new ArrayList<>();
     private boolean isPaused;
 
@@ -489,7 +489,7 @@ public final class KyrieDrawable extends Drawable implements Animatable {
           }
         };
 
-    public KyrieValueAnimator(@NonNull KyrieDrawable d) {
+    public KyrieValueAnimator(KyrieDrawable d) {
       drawable = d;
       setFloatValues(0f, 1f);
       setInterpolator(new LinearInterpolator());
@@ -551,11 +551,11 @@ public final class KyrieDrawable extends Drawable implements Animatable {
       return isPaused;
     }
 
-    public void addListener(@NonNull Listener listener) {
+    public void addListener(Listener listener) {
       listeners.add(listener);
     }
 
-    public void removeListener(@NonNull Listener listener) {
+    public void removeListener(Listener listener) {
       listeners.remove(listener);
     }
 
@@ -579,7 +579,7 @@ public final class KyrieDrawable extends Drawable implements Animatable {
     private int height = -1;
     private float viewportWidth = -1;
     private float viewportHeight = -1;
-    @NonNull private final List<Animation<?, Float>> alpha = asAnimations(1f);
+    private final List<Animation<?, Float>> alpha = asAnimations(1f);
     private final List<Node> children = new ArrayList<>();
     private boolean isAutoMirrored;
     @Nullable private ColorStateList tintList;
@@ -632,12 +632,12 @@ public final class KyrieDrawable extends Drawable implements Animatable {
     }
 
     @SafeVarargs
-    public final Builder alpha(@NonNull Animation<?, Float>... animations) {
+    public final Builder alpha(Animation<?, Float>... animations) {
       replaceAnimations(alpha, animations);
       return this;
     }
 
-    public final Builder alpha(@NonNull List<Animation<?, Float>> animations) {
+    public final Builder alpha(List<Animation<?, Float>> animations) {
       replaceAnimations(alpha, animations);
       return this;
     }
@@ -660,22 +660,23 @@ public final class KyrieDrawable extends Drawable implements Animatable {
       return this;
     }
 
-    public final Builder tintMode(@NonNull Mode tintMode) {
+    public final Builder tintMode(Mode tintMode) {
       this.tintMode = tintMode;
       return this;
     }
 
     // Children.
 
-    public final Builder child(@NonNull Node node) {
+    public final Builder child(Node node) {
       children.add(node);
       return this;
     }
 
-    public final Builder child(@NonNull Node.Builder builder) {
+    public final Builder child(Node.Builder builder) {
       return child(builder.build());
     }
 
+    @NonNull
     public final KyrieDrawable build() {
       if (viewportWidth <= 0 || viewportHeight <= 0) {
         throw new IllegalStateException(

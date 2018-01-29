@@ -18,5 +18,6 @@ android {
 dependencies {
     implementation "com.android.support:support-annotations:$supportLibVersion"
     implementation "com.android.support:support-compat:$supportLibVersion"
+    compileOnly 'com.google.code.findbugs:jsr305:3.0.2'
 }
 
