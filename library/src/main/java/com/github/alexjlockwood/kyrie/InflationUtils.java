@@ -59,15 +59,14 @@ public final class InflationUtils {
   private static final String TAG_PATH = "path";
   private static final String TAG_CLIP_PATH = "clip-path";
 
-  public static void inflate(
-      @NonNull KyrieDrawable.Builder builder, @NonNull Context context, @DrawableRes int resId)
+  public static void inflate(KyrieDrawable.Builder builder, Context context, @DrawableRes int resId)
       throws XmlPullParserException, IOException {
     inflate(builder, context, resId, null);
   }
 
   private static void inflate(
-      @NonNull KyrieDrawable.Builder builder,
-      @NonNull Context context,
+      KyrieDrawable.Builder builder,
+      Context context,
       @DrawableRes int resId,
       @Nullable Map<String, Map<String, Animation[]>> targetMap)
       throws XmlPullParserException, IOException {
@@ -93,10 +92,7 @@ public final class InflationUtils {
   }
 
   private static void inflateAnimatedVector(
-      @NonNull KyrieDrawable.Builder builder,
-      @NonNull Context context,
-      @NonNull XmlPullParser parser,
-      @NonNull AttributeSet attrs)
+      KyrieDrawable.Builder builder, Context context, XmlPullParser parser, AttributeSet attrs)
       throws XmlPullParserException, IOException {
     int eventType = parser.getEventType();
     final int innerDepth = parser.getDepth() + 1;
@@ -163,10 +159,10 @@ public final class InflationUtils {
   }
 
   private static void inflateVector(
-      @NonNull KyrieDrawable.Builder builder,
-      @NonNull Context context,
-      @NonNull XmlPullParser parser,
-      @NonNull AttributeSet attrs,
+      KyrieDrawable.Builder builder,
+      Context context,
+      XmlPullParser parser,
+      AttributeSet attrs,
       @Nullable Map<String, Map<String, Animation[]>> targetMap)
       throws XmlPullParserException, IOException {
     final TypedArray a = TypedArrayUtils.obtainAttributes(context, attrs, Styleable.VECTOR);
@@ -227,9 +223,9 @@ public final class InflationUtils {
   }
 
   private static void updateVectorFromTypedArray(
-      @NonNull KyrieDrawable.Builder builder,
-      @NonNull TypedArray a,
-      @NonNull XmlPullParser parser,
+      KyrieDrawable.Builder builder,
+      TypedArray a,
+      XmlPullParser parser,
       @Nullable Map<String, Animation[]> animationMap) {
     builder.tintList(a.getColorStateList(Styleable.Vector.TINT));
     final int tintMode =
@@ -253,7 +249,7 @@ public final class InflationUtils {
   }
 
   @NonNull
-  private static PorterDuff.Mode parseTintMode(int value, @NonNull PorterDuff.Mode defaultMode) {
+  private static PorterDuff.Mode parseTintMode(int value, PorterDuff.Mode defaultMode) {
     switch (value) {
       case 3:
         return PorterDuff.Mode.SRC_OVER;
@@ -273,10 +269,10 @@ public final class InflationUtils {
   }
 
   private static void inflateGroup(
-      @NonNull GroupNode.Builder builder,
-      @NonNull Context context,
-      @NonNull XmlPullParser parser,
-      @NonNull AttributeSet attrs,
+      GroupNode.Builder builder,
+      Context context,
+      XmlPullParser parser,
+      AttributeSet attrs,
       @Nullable Map<String, Map<String, Animation[]>> targetMap) {
     final TypedArray a = TypedArrayUtils.obtainAttributes(context, attrs, Styleable.GROUP);
     Map<String, Animation[]> animationMap = null;
@@ -291,9 +287,9 @@ public final class InflationUtils {
   }
 
   private static void updateGroupFromTypedArray(
-      @NonNull GroupNode.Builder builder,
-      @NonNull TypedArray a,
-      @NonNull XmlPullParser parser,
+      GroupNode.Builder builder,
+      TypedArray a,
+      XmlPullParser parser,
       @Nullable Map<String, Animation[]> animationMap) {
     builder.pivotX(a.getFloat(Styleable.Group.PIVOT_X, 0));
     if (animationMap != null && animationMap.containsKey("pivotX")) {
@@ -329,10 +325,10 @@ public final class InflationUtils {
   }
 
   private static void inflatePath(
-      @NonNull PathNode.Builder builder,
-      @NonNull Context context,
-      @NonNull XmlPullParser parser,
-      @NonNull AttributeSet attrs,
+      PathNode.Builder builder,
+      Context context,
+      XmlPullParser parser,
+      AttributeSet attrs,
       @Nullable Map<String, Map<String, Animation[]>> targetMap) {
     final TypedArray a = TypedArrayUtils.obtainAttributes(context, attrs, Styleable.PATH);
     Map<String, Animation[]> animationMap = null;
@@ -348,9 +344,9 @@ public final class InflationUtils {
 
   // TODO: support transforms on paths
   private static void updatePathFromTypedArray(
-      @NonNull PathNode.Builder builder,
-      @NonNull TypedArray a,
-      @NonNull XmlPullParser parser,
+      PathNode.Builder builder,
+      TypedArray a,
+      XmlPullParser parser,
       @Nullable Map<String, Animation[]> animationMap) {
     final boolean hasPathData = TypedArrayUtils.hasAttribute(parser, "pathData");
     if (!hasPathData) {
@@ -431,10 +427,10 @@ public final class InflationUtils {
   }
 
   private static void inflateClipPath(
-      @NonNull ClipPathNode.Builder builder,
-      @NonNull Context context,
-      @NonNull XmlPullParser parser,
-      @NonNull AttributeSet attrs,
+      ClipPathNode.Builder builder,
+      Context context,
+      XmlPullParser parser,
+      AttributeSet attrs,
       @Nullable Map<String, Map<String, Animation[]>> targetMap) {
     final TypedArray a = TypedArrayUtils.obtainAttributes(context, attrs, Styleable.CLIP_PATH);
     Map<String, Animation[]> animationMap = null;
@@ -450,9 +446,9 @@ public final class InflationUtils {
 
   // TODO: support transforms on clip paths
   private static void updateClipPathFromTypedArray(
-      @NonNull ClipPathNode.Builder builder,
-      @NonNull TypedArray a,
-      @NonNull XmlPullParser parser,
+      ClipPathNode.Builder builder,
+      TypedArray a,
+      XmlPullParser parser,
       @Nullable Map<String, Animation[]> animationMap) {
     final boolean hasPathData = TypedArrayUtils.hasAttribute(parser, "pathData");
     if (!hasPathData) {
@@ -495,7 +491,7 @@ public final class InflationUtils {
   private static final int VALUE_TYPE_UNDEFINED = 4;
 
   private static Map<String, List<Animation<?, ?>>> loadAnimationMap(
-      @NonNull Context context, @AnimatorRes @AnimRes int id) throws NotFoundException {
+      Context context, @AnimatorRes @AnimRes int id) throws NotFoundException {
     XmlResourceParser parser = null;
     try {
       parser = context.getResources().getAnimation(id);
@@ -516,9 +512,9 @@ public final class InflationUtils {
   }
 
   private static MyAnimator createAnimatorFromXml(
-      @NonNull Context context,
-      @NonNull XmlPullParser parser,
-      @NonNull AttributeSet attrs,
+      Context context,
+      XmlPullParser parser,
+      AttributeSet attrs,
       @Nullable MyAnimatorSet parent,
       @Ordering int sequenceOrdering)
       throws XmlPullParserException, IOException {
@@ -586,8 +582,7 @@ public final class InflationUtils {
   }
 
   private static MyObjectAnimator loadObjectAnimator(
-      @NonNull Context context, @NonNull AttributeSet attrs, @NonNull XmlPullParser parser)
-      throws NotFoundException {
+      Context context, AttributeSet attrs, XmlPullParser parser) throws NotFoundException {
     final MyObjectAnimator anim = new MyObjectAnimator();
     final TypedArray arrayAnimator =
         TypedArrayUtils.obtainAttributes(context, attrs, Styleable.ANIMATOR);
@@ -611,10 +606,10 @@ public final class InflationUtils {
    * @param arrayObjectAnimator Incoming typed array for Object Animator's attributes.
    */
   private static void parseAnimatorFromTypeArray(
-      @NonNull MyObjectAnimator anim,
-      @NonNull TypedArray arrayAnimator,
-      @NonNull TypedArray arrayObjectAnimator,
-      @NonNull XmlPullParser parser) {
+      MyObjectAnimator anim,
+      TypedArray arrayAnimator,
+      TypedArray arrayObjectAnimator,
+      XmlPullParser parser) {
     final long duration = arrayAnimator.getInt(Styleable.Animator.DURATION, 300);
     final long startDelay = arrayAnimator.getInt(Styleable.Animator.START_OFFSET, 0);
     int valueType =
@@ -699,7 +694,7 @@ public final class InflationUtils {
 
   @ValueType
   private static int inferValueTypeFromValues(
-      @NonNull TypedArray styledAttributes, int valueFromId, int valueToId) {
+      TypedArray styledAttributes, int valueFromId, int valueToId) {
     final TypedValue tvFrom = styledAttributes.peekValue(valueFromId);
     final boolean hasFrom = tvFrom != null;
     final int fromType = hasFrom ? tvFrom.type : 0;
@@ -718,7 +713,7 @@ public final class InflationUtils {
   }
 
   private static MyPropertyValuesHolder[] loadValues(
-      @NonNull Context context, @NonNull XmlPullParser parser, @NonNull AttributeSet attrs)
+      Context context, XmlPullParser parser, AttributeSet attrs)
       throws XmlPullParserException, IOException {
     ArrayList<MyPropertyValuesHolder> values = null;
 
@@ -780,10 +775,7 @@ public final class InflationUtils {
   /** Load property values holder if there are keyframes defined in it. Otherwise return null. */
   @Nullable
   private static MyPropertyValuesHolder loadPvh(
-      @NonNull Context context,
-      @NonNull XmlPullParser parser,
-      @NonNull String propertyName,
-      @ValueType int valueType)
+      Context context, XmlPullParser parser, String propertyName, @ValueType int valueType)
       throws XmlPullParserException, IOException {
     ArrayList<Keyframe> keyframes = null;
 
@@ -873,7 +865,7 @@ public final class InflationUtils {
    */
   @ValueType
   private static int inferValueTypeOfKeyframe(
-      @NonNull Context context, @NonNull AttributeSet attrs, @NonNull XmlPullParser parser) {
+      Context context, AttributeSet attrs, XmlPullParser parser) {
     @ValueType int valueType;
     final TypedArray a = TypedArrayUtils.obtainAttributes(context, attrs, Styleable.KEYFRAME);
     final TypedValue keyframeValue =
@@ -892,11 +884,11 @@ public final class InflationUtils {
 
   @Nullable
   private static MyPropertyValuesHolder getPVH(
-      @NonNull TypedArray styledAttributes,
+      TypedArray styledAttributes,
       @ValueType int valueType,
       int valueFromId,
       int valueToId,
-      @NonNull String propertyName) {
+      String propertyName) {
     final TypedValue tvFrom = styledAttributes.peekValue(valueFromId);
     final boolean hasFrom = tvFrom != null;
     final int fromType = hasFrom ? tvFrom.type : 0;
@@ -1006,7 +998,7 @@ public final class InflationUtils {
    * @param endIndex The index of the last keyframe whose fraction must be set
    */
   private static void distributeKeyframes(
-      @NonNull Keyframe[] keyframes, float gap, int startIndex, int endIndex) {
+      Keyframe[] keyframes, float gap, int startIndex, int endIndex) {
     int count = endIndex - startIndex + 2;
     float increment = gap / count;
     for (int i = startIndex; i <= endIndex; ++i) {
@@ -1015,10 +1007,7 @@ public final class InflationUtils {
   }
 
   private static Keyframe loadKeyframe(
-      @NonNull Context context,
-      @NonNull AttributeSet attrs,
-      @ValueType int valueType,
-      @NonNull XmlPullParser parser)
+      Context context, AttributeSet attrs, @ValueType int valueType, XmlPullParser parser)
       throws XmlPullParserException, IOException {
     final TypedArray a = TypedArrayUtils.obtainAttributes(context, attrs, Styleable.KEYFRAME);
     float fraction =
@@ -1082,12 +1071,12 @@ public final class InflationUtils {
     private MyAnimator[] animators = {};
     private boolean isOrderingSequential = true;
 
-    public void playTogether(@NonNull MyAnimator[] animators) {
+    public void playTogether(MyAnimator[] animators) {
       this.animators = animators;
       isOrderingSequential = false;
     }
 
-    public void playSequentially(@NonNull MyAnimator[] animators) {
+    public void playSequentially(MyAnimator[] animators) {
       this.animators = animators;
       isOrderingSequential = true;
     }
@@ -1204,10 +1193,7 @@ public final class InflationUtils {
     @ValueType private final int valueType;
 
     public MySimplePropertyValuesHolder(
-        @NonNull String propertyName,
-        @Nullable Object fromValue,
-        @NonNull Object toValue,
-        @ValueType int valueType) {
+        String propertyName, @Nullable Object fromValue, Object toValue, @ValueType int valueType) {
       this.propertyName = propertyName;
       this.fromValue = fromValue;
       this.toValue = toValue;
@@ -1277,7 +1263,7 @@ public final class InflationUtils {
     @Nullable private final String propertyNameY;
 
     public MyPathMotionPropertyValuesHolder(
-        @NonNull Path path, @Nullable String propertyNameX, @Nullable String propertyNameY) {
+        Path path, @Nullable String propertyNameX, @Nullable String propertyNameY) {
       this.path = path;
       this.propertyNameX = propertyNameX;
       this.propertyNameY = propertyNameY;
@@ -1330,7 +1316,7 @@ public final class InflationUtils {
     @ValueType private final int valueType;
 
     public MyKeyframePropertyValuesHolder(
-        @NonNull String propertyName, @NonNull Keyframe[] keyframes, @ValueType int valueType) {
+        String propertyName, Keyframe[] keyframes, @ValueType int valueType) {
       this.propertyName = propertyName;
       this.keyframes = keyframes;
       this.valueType = valueType;
@@ -1365,7 +1351,7 @@ public final class InflationUtils {
 
   @NonNull
   private static Map<String, List<Animation<?, ?>>> mergeMaps(
-      @NonNull List<Map<String, List<Animation<?, ?>>>> maps) {
+      List<Map<String, List<Animation<?, ?>>>> maps) {
     final Map<String, List<Animation<?, ?>>> outMap = new ArrayMap<>();
     for (Map<String, List<Animation<?, ?>>> map : maps) {
       for (Map.Entry<String, List<Animation<?, ?>>> entry : map.entrySet()) {
@@ -1398,7 +1384,7 @@ public final class InflationUtils {
    * @return The animation object reference by the specified id
    */
   private static TimeInterpolator loadInterpolator(
-      @NonNull Context context, @AnimRes @InterpolatorRes int id) throws NotFoundException {
+      Context context, @AnimRes @InterpolatorRes int id) throws NotFoundException {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
       return AnimationUtils.loadInterpolator(context, id);
     }
@@ -1429,8 +1415,7 @@ public final class InflationUtils {
   }
 
   @Nullable
-  private static TimeInterpolator createInterpolatorFromXml(
-      @NonNull Context context, @NonNull XmlPullParser parser)
+  private static TimeInterpolator createInterpolatorFromXml(Context context, XmlPullParser parser)
       throws XmlPullParserException, IOException {
     TimeInterpolator interpolator = null;
 
@@ -1479,7 +1464,7 @@ public final class InflationUtils {
 
   @NonNull
   private static TimeInterpolator inflatePathInterpolator(
-      @NonNull Context context, @NonNull AttributeSet attrs, @NonNull XmlPullParser parser) {
+      Context context, AttributeSet attrs, XmlPullParser parser) {
     final TypedArray a =
         TypedArrayUtils.obtainAttributes(context, attrs, Styleable.PATH_INTERPOLATOR);
     final TimeInterpolator interpolator = parseInterpolatorFromTypeArray(a, parser);
@@ -1489,7 +1474,7 @@ public final class InflationUtils {
 
   @NonNull
   private static TimeInterpolator parseInterpolatorFromTypeArray(
-      @NonNull TypedArray a, @NonNull XmlPullParser parser) {
+      TypedArray a, XmlPullParser parser) {
     if (TypedArrayUtils.hasAttribute(parser, "pathData")) {
       final String pathData =
           TypedArrayUtils.getNamedString(

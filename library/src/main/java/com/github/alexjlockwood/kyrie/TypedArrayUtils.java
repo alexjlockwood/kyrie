@@ -28,7 +28,7 @@ final class TypedArrayUtils {
    * @return Whether the current node ofthe {@link XmlPullParser} has an attribute with the
    *     specified {@code attrName}.
    */
-  public static boolean hasAttribute(@NonNull XmlPullParser parser, @NonNull String attrName) {
+  public static boolean hasAttribute(XmlPullParser parser, String attrName) {
     return parser.getAttributeValue(NAMESPACE, attrName) != null;
   }
 
@@ -40,9 +40,9 @@ final class TypedArrayUtils {
    *     defaultValue} if it does not exist.
    */
   public static float getNamedFloat(
-      @NonNull TypedArray a,
-      @NonNull XmlPullParser parser,
-      @NonNull String attrName,
+      TypedArray a,
+      XmlPullParser parser,
+      String attrName,
       @StyleableRes int resId,
       float defaultValue) {
     return hasAttribute(parser, attrName) ? a.getFloat(resId, defaultValue) : defaultValue;
@@ -56,9 +56,9 @@ final class TypedArrayUtils {
    *     defaultValue} if it does not exist.
    */
   public static boolean getNamedBoolean(
-      @NonNull TypedArray a,
-      @NonNull XmlPullParser parser,
-      @NonNull String attrName,
+      TypedArray a,
+      XmlPullParser parser,
+      String attrName,
       @StyleableRes int resId,
       boolean defaultValue) {
     return hasAttribute(parser, attrName) ? a.getBoolean(resId, defaultValue) : defaultValue;
@@ -72,9 +72,9 @@ final class TypedArrayUtils {
    *     defaultValue} if it does not exist.
    */
   public static int getNamedInt(
-      @NonNull TypedArray a,
-      @NonNull XmlPullParser parser,
-      @NonNull String attrName,
+      TypedArray a,
+      XmlPullParser parser,
+      String attrName,
       @StyleableRes int resId,
       int defaultValue) {
     return hasAttribute(parser, attrName) ? a.getInt(resId, defaultValue) : defaultValue;
@@ -89,9 +89,9 @@ final class TypedArrayUtils {
    */
   @ColorInt
   public static int getNamedColor(
-      @NonNull TypedArray a,
-      @NonNull XmlPullParser parser,
-      @NonNull String attrName,
+      TypedArray a,
+      XmlPullParser parser,
+      String attrName,
       @StyleableRes int resId,
       @ColorInt int defaultValue) {
     return hasAttribute(parser, attrName) ? a.getColor(resId, defaultValue) : defaultValue;
@@ -106,9 +106,9 @@ final class TypedArrayUtils {
    */
   @AnyRes
   public static int getNamedResourceId(
-      @NonNull TypedArray a,
-      @NonNull XmlPullParser parser,
-      @NonNull String attrName,
+      TypedArray a,
+      XmlPullParser parser,
+      String attrName,
       @StyleableRes int resId,
       @AnyRes int defaultValue) {
     return hasAttribute(parser, attrName) ? a.getResourceId(resId, defaultValue) : defaultValue;
@@ -123,10 +123,7 @@ final class TypedArrayUtils {
    */
   @Nullable
   public static String getNamedString(
-      @NonNull TypedArray a,
-      @NonNull XmlPullParser parser,
-      @NonNull String attrName,
-      @StyleableRes int resId) {
+      TypedArray a, XmlPullParser parser, String attrName, @StyleableRes int resId) {
     return hasAttribute(parser, attrName) ? a.getString(resId) : null;
   }
 
@@ -136,17 +133,14 @@ final class TypedArrayUtils {
    */
   @Nullable
   public static TypedValue peekNamedValue(
-      @NonNull TypedArray a,
-      @NonNull XmlPullParser parser,
-      @NonNull String attrName,
-      @StyleableRes int resId) {
+      TypedArray a, XmlPullParser parser, String attrName, @StyleableRes int resId) {
     return hasAttribute(parser, attrName) ? a.peekValue(resId) : null;
   }
 
   /** Obtains styled attributes from a context. */
   @NonNull
   public static TypedArray obtainAttributes(
-      @NonNull Context context, @NonNull AttributeSet set, @NonNull @StyleableRes int[] attrs) {
+      Context context, AttributeSet set, @StyleableRes int[] attrs) {
     return obtainAttributes(context.getResources(), context.getTheme(), set, attrs);
   }
 
@@ -156,10 +150,7 @@ final class TypedArrayUtils {
    */
   @NonNull
   private static TypedArray obtainAttributes(
-      @NonNull Resources res,
-      @Nullable Resources.Theme theme,
-      @NonNull AttributeSet set,
-      @NonNull @StyleableRes int[] attrs) {
+      Resources res, @Nullable Resources.Theme theme, AttributeSet set, @StyleableRes int[] attrs) {
     return theme == null
         ? res.obtainAttributes(set, attrs)
         : theme.obtainStyledAttributes(set, attrs, 0, 0);
