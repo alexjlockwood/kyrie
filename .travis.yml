@@ -1,5 +1,15 @@
 language: android
 
+android:
+  components:
+    - tools
+    - platform-tools
+    - build-tools-26.0.2
+    - android-27
+
+jdk:
+  - oraclejdk8
+
 deploy:
   provider: pages
   skip-cleanup: true
