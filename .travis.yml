@@ -5,8 +5,6 @@ jdk:
 
 android:
   components:
-    - tools
-    - platform-tools
     - build-tools-27.0.2
     - android-27
     - extra-android-m2repository
@@ -16,10 +14,14 @@ android:
 before_install:
   - yes | sdkmanager "platforms;android-27"
 
+after_success:
+  - ./gradlew androidJavadocs
+
 deploy:
   provider: pages
   skip-cleanup: true
   github-token: $GITHUB_TOKEN
   keep-history: true
+  local-dir: library/build/docs/javadoc
   on:
     branch: master
