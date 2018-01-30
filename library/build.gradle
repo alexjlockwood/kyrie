@@ -16,12 +16,21 @@ android {
 }
 
 dependencies {
-    implementation "com.android.support:support-annotations:$supportLibVersion"
     implementation "com.android.support:support-compat:$supportLibVersion"
     compileOnly 'com.google.code.findbugs:jsr305:3.0.2'
 }
 
-task androidJavadocs(type: Javadoc) {
-    source = android.sourceSets.main.java.source
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+android.libraryVariants.all { variant ->
+    def name = variant.name
+    task "javadoc$name"(type: Javadoc) {
+        description = "Generates javadocs for build variant: $name"
+        failOnError = false
+        destinationDir = new File(destinationDir, variant.baseName)
+        source = files(variant.javaCompiler.source)
+        classpath = files(variant.javaCompiler.classpath.files) + files(android.bootClasspath)
+        options.windowTitle("Kyrie Reference")
+        options.docTitle("Kyrie Reference")
+        options.header("Kyrie Reference")
+        exclude '**/R.java', '**/BuildConfig.java'
+    }
 }
