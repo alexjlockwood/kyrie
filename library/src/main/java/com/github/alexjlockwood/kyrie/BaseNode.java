@@ -25,6 +25,7 @@ abstract class BaseNode extends Node {
       List<Animation<?, Float>> scaleY,
       List<Animation<?, Float>> translateX,
       List<Animation<?, Float>> translateY) {
+    super();
     this.rotation = rotation;
     this.pivotX = pivotX;
     this.pivotY = pivotY;
