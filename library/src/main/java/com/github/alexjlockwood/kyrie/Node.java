@@ -10,7 +10,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-abstract class Node {
+public abstract class Node {
+
+  Node() {}
 
   @NonNull
   abstract Layer toLayer(PropertyTimeline timeline);
@@ -21,7 +23,7 @@ abstract class Node {
     void onDraw(Canvas canvas, Matrix parentMatrix, PointF viewportScale);
   }
 
-  abstract static class Builder<B extends Builder<B>> {
+  public abstract static class Builder<B extends Builder<B>> {
     @NonNull final B self;
 
     Builder() {

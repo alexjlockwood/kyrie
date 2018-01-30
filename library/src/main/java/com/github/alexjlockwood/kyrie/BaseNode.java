@@ -8,7 +8,7 @@ import android.support.annotation.Size;
 
 import java.util.List;
 
-public abstract class BaseNode extends Node {
+abstract class BaseNode extends Node {
   @NonNull private final List<Animation<?, Float>> rotation;
   @NonNull private final List<Animation<?, Float>> pivotX;
   @NonNull private final List<Animation<?, Float>> pivotY;
@@ -164,7 +164,7 @@ public abstract class BaseNode extends Node {
 
   // <editor-fold desc="Builder">
 
-  public abstract static class Builder<B extends Builder<B>> extends Node.Builder<B> {
+  abstract static class Builder<B extends Builder<B>> extends Node.Builder<B> {
     @NonNull final List<Animation<?, Float>> rotation = Node.asAnimations(0f);
     @NonNull final List<Animation<?, Float>> pivotX = Node.asAnimations(0f);
     @NonNull final List<Animation<?, Float>> pivotY = Node.asAnimations(0f);

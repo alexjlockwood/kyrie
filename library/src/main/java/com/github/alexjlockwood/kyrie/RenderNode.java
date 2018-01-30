@@ -15,7 +15,7 @@ import android.support.annotation.Nullable;
 
 import java.util.List;
 
-public abstract class RenderNode extends BaseNode {
+abstract class RenderNode extends BaseNode {
   @NonNull private final List<Animation<?, Integer>> fillColor;
   @NonNull private final List<Animation<?, Float>> fillAlpha;
   @NonNull private final List<Animation<?, Integer>> strokeColor;
@@ -357,7 +357,7 @@ public abstract class RenderNode extends BaseNode {
 
   // <editor-fold desc="Builder">
 
-  public abstract static class Builder<B extends Builder<B>> extends BaseNode.Builder<B> {
+  abstract static class Builder<B extends Builder<B>> extends BaseNode.Builder<B> {
     @NonNull final List<Animation<?, Integer>> fillColor = asAnimations(Color.TRANSPARENT);
     @NonNull final List<Animation<?, Float>> fillAlpha = asAnimations(1f);
     @NonNull final List<Animation<?, Integer>> strokeColor = asAnimations(Color.TRANSPARENT);
