@@ -10,6 +10,13 @@ import android.view.animation.LinearInterpolator;
 
 import java.util.List;
 
+/**
+ * An {@link Animation} encapsulates the information required to animate a single property of a
+ * {@link Node}, including start delay, duration, repeat count, repeat mode, and interpolator.
+ *
+ * @param <T> The animation's original value type.
+ * @param <V> The animation's transformed value type.
+ */
 public final class Animation<T, V> {
 
   @NonNull
@@ -58,18 +65,27 @@ public final class Animation<T, V> {
 
   @NonNull
   private static <V> Animation<V, V> ofObject(ValueEvaluator<V> evaluator, V[] values) {
+    if (values.length < 1) {
+      throw new IllegalArgumentException("Must specify at least one value");
+    }
     return new Animation<>(
         KeyframeSet.ofObject(evaluator, values), new IdentityValueTransformer<V>());
   }
 
   @NonNull
   private static <V> Animation<V, V> ofObject(ValueEvaluator<V> evaluator, Keyframe<V>[] values) {
+    if (values.length < 1) {
+      throw new IllegalArgumentException("Must specify at least one keyframe");
+    }
     return new Animation<>(
         KeyframeSet.ofObject(evaluator, values), new IdentityValueTransformer<V>());
   }
 
   @NonNull
   public static Animation<PointF, PointF> ofPathMotion(Path path) {
+    if (path.isEmpty()) {
+      throw new IllegalArgumentException("The path must not be empty");
+    }
     return new Animation<>(KeyframeSet.ofPath(path), new IdentityValueTransformer<PointF>());
   }
 
@@ -253,11 +269,12 @@ public final class Animation<T, V> {
   }
 
   /**
-   * Creates a new animation with input type T and output type W.
+   * Creates a new animation with original value type T and a new transformed value type W.
    *
-   * @param transformer The value transformer to use to transform input type T to output type W.
-   * @param <W> The animation's new output type.
-   * @return A new animation with input type T and output type W.
+   * @param transformer The value transformer to use to transform the animation's original type T to
+   *     a new transformed value type W.
+   * @param <W> The animation's new transformed value type.
+   * @return A new animation with original value type T and transformed value type W.
    */
   @NonNull
   public <W> Animation<T, W> transform(ValueTransformer<T, W> transformer) {
@@ -270,11 +287,11 @@ public final class Animation<T, V> {
   }
 
   /**
-   * Interface that can transform type T to another type V. This is necessary when the input type of
-   * an animation is different than the desired output type.
+   * Interface that can transform type T to another type V. This is necessary when the original
+   * value type of an animation is different than the desired value type.
    *
-   * @param <T> The animation's input type.
-   * @param <V> The animation's transformed output type.
+   * @param <T> The animation's original value type.
+   * @param <V> The animation's transformed value type.
    */
   public interface ValueTransformer<T, V> {
     /** Transforms a value from one type to another. */
@@ -283,13 +300,13 @@ public final class Animation<T, V> {
   }
 
   /**
-   * A {@link ValueTransformer} that can transform type T to another type V and back again. This is
-   * necessary when the value types of in animation are different from the property type. This
-   * interface is only needed when working with an {@link Animation} with no explicitly set start
-   * value and that has been transformed using {@link #transform(Object)}.
+   * Interface that can transform type T to another type V and back again. This is necessary when
+   * the value types of in animation are different from the property type. This interface is only
+   * needed when working with an {@link Animation} with no explicitly set start value and that has
+   * been transformed using {@link #transform(Object)}.
    *
-   * @param <T> The animation's input type.
-   * @param <V> The animation's transformed output type.
+   * @param <T> The animation's original value type.
+   * @param <V> The animation's transformed value type.
    */
   public interface BidirectionalValueTransformer<T, V> extends ValueTransformer<T, V> {
     /** Transforms the output type back to the input type. */

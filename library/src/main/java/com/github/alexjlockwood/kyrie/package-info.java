@@ -38,3 +38,4 @@ package com.github.alexjlockwood.kyrie;
 // TODO: test inflating multi-file AVDs
 // TODO: create kyrie view?
 // TODO: make it clear what stuff shouldn't change after the kyrie drawable has been created!!!!!!!!
+// TODO: customize behavior when ValueAnimator#areAnimatorsEnabled returns true
