@@ -164,7 +164,7 @@ public abstract class BaseNode extends Node {
 
   // <editor-fold desc="Builder">
 
-  abstract static class Builder<N extends BaseNode, B extends Builder<N, B>>
+  public abstract static class Builder<N extends BaseNode, B extends Builder<N, B>>
       extends Node.Builder<N, B> {
     @NonNull final List<Animation<?, Float>> rotation = Node.asAnimations(0f);
     @NonNull final List<Animation<?, Float>> pivotX = Node.asAnimations(0f);

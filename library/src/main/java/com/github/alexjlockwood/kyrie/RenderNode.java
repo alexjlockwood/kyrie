@@ -357,7 +357,7 @@ public abstract class RenderNode extends BaseNode {
 
   // <editor-fold desc="Builder">
 
-  abstract static class Builder<N extends RenderNode, B extends Builder<N, B>>
+  public abstract static class Builder<N extends RenderNode, B extends Builder<N, B>>
       extends BaseNode.Builder<N, B> {
     @NonNull final List<Animation<?, Integer>> fillColor = asAnimations(Color.TRANSPARENT);
     @NonNull final List<Animation<?, Float>> fillAlpha = asAnimations(1f);
