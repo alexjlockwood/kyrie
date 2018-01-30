@@ -1,5 +1,8 @@
 language: android
 
+jdk:
+  - oraclejdk8
+
 android:
   components:
     - tools
@@ -10,8 +13,8 @@ android:
   licenses:
     - android-sdk-license-.+
 
-jdk:
-  - oraclejdk8
+before_install:
+  - yes | sdkmanager "platforms;android-27"
 
 deploy:
   provider: pages
