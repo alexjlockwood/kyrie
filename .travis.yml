@@ -1,3 +1,5 @@
+language: android
+
 deploy:
   provider: pages
   skip-cleanup: true
