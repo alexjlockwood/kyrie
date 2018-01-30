@@ -3,16 +3,19 @@ package com.github.alexjlockwood.kyrie;
 import android.animation.TimeInterpolator;
 import android.graphics.Path;
 import android.graphics.PointF;
+import android.support.annotation.IntDef;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.animation.LinearInterpolator;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.List;
 
 /**
  * An {@link Animation} encapsulates the information required to animate a single property of a
- * {@link Node}, including start delay, duration, repeat count, repeat mode, and interpolator.
+ * {@link Node}.
  *
  * @param <T> The animation's original value type.
  * @param <V> The animation's transformed value type.
@@ -95,6 +98,22 @@ public final class Animation<T, V> {
    */
   public static final int INFINITE = -1;
 
+  /** Repeat mode determines how a repeating animation should behave once it completes. */
+  @Retention(RetentionPolicy.SOURCE)
+  @IntDef({RepeatMode.RESTART, RepeatMode.REVERSE})
+  public @interface RepeatMode {
+    /**
+     * When the animation reaches the end and <code>repeatCount</code> is INFINITE or a positive
+     * value, the animation restarts from the beginning.
+     */
+    int RESTART = 1;
+    /**
+     * When the animation reaches the end and <code>repeatCount</code> is INFINITE or a positive
+     * value, the animation reverses direction on every iteration.
+     */
+    int REVERSE = 2;
+  }
+
   @NonNull private final KeyframeSet<T> keyframeSet;
 
   @IntRange(from = 0L)
@@ -124,9 +143,10 @@ public final class Animation<T, V> {
   }
 
   /**
-   * Gets the start delay of the animation.
+   * Sets the start delay of the animation.
    *
-   * @return The start delay of the animation in milliseconds.
+   * @param startDelay The start delay of the animation in milliseconds.
+   * @return This {@link Animation} object (to allow for chaining of calls to setter methods).
    */
   @NonNull
   public Animation<T, V> startDelay(@IntRange(from = 0L) long startDelay) {
@@ -147,6 +167,7 @@ public final class Animation<T, V> {
    * Sets the duration of the animation.
    *
    * @param duration The length of the animation in milliseconds.
+   * @return This {@link Animation} object (to allow for chaining of calls to setter methods).
    */
   @NonNull
   public Animation<T, V> duration(@IntRange(from = 0L) long duration) {
@@ -168,7 +189,8 @@ public final class Animation<T, V> {
    * is never repeated. If the repeat count is greater than 0 or {@link #INFINITE}, the repeat mode
    * will be taken into account. The repeat count is 0 by default.
    *
-   * @param repeatCount the number of times the animation should be repeated
+   * @param repeatCount The number of times the animation should be repeated.
+   * @return This {@link Animation} object (to allow for chaining of calls to setter methods).
    */
   @NonNull
   public Animation<T, V> repeatCount(int repeatCount) {
@@ -191,7 +213,8 @@ public final class Animation<T, V> {
    * when the repeat count is either greater than 0 or {@link #INFINITE}. Defaults to {@link
    * RepeatMode#RESTART}.
    *
-   * @param repeatMode {@link RepeatMode#RESTART} or {@link RepeatMode#REVERSE}
+   * @param repeatMode {@link RepeatMode#RESTART} or {@link RepeatMode#REVERSE}.
+   * @return This {@link Animation} object (to allow for chaining of calls to setter methods).
    */
   @NonNull
   public Animation<T, V> repeatMode(@RepeatMode int repeatMode) {
@@ -215,6 +238,7 @@ public final class Animation<T, V> {
    * will be used by default.
    *
    * @param interpolator The timing interpolator that this animation uses.
+   * @return This {@link Animation} object (to allow for chaining of calls to setter methods).
    */
   @NonNull
   public Animation<T, V> interpolator(@Nullable TimeInterpolator interpolator) {
@@ -261,6 +285,8 @@ public final class Animation<T, V> {
   /**
    * Return the animated value of this animation at the given fraction.
    *
+   * @param fraction The current animation fraction. Typically between 0 and 1 (but may slightly
+   *     extend these bounds depending on the interpolator used).
    * @return The animated value of this animation at the given fraction.
    */
   @NonNull
@@ -271,10 +297,10 @@ public final class Animation<T, V> {
   /**
    * Creates a new animation with original value type T and a new transformed value type W.
    *
+   * @param <W> The animation's new transformed value type.
    * @param transformer The value transformer to use to transform the animation's original type T to
    *     a new transformed value type W.
-   * @param <W> The animation's new transformed value type.
-   * @return A new animation with original value type T and transformed value type W.
+   * @return A new animation with the same original value type T and transformed value type W.
    */
   @NonNull
   public <W> Animation<T, W> transform(ValueTransformer<T, W> transformer) {
@@ -294,7 +320,12 @@ public final class Animation<T, V> {
    * @param <V> The animation's transformed value type.
    */
   public interface ValueTransformer<T, V> {
-    /** Transforms a value from one type to another. */
+    /**
+     * Transforms a value from one type to another.
+     *
+     * @param value The value to transform.
+     * @return The transformed value.
+     */
     @NonNull
     V transform(T value);
   }
@@ -309,7 +340,12 @@ public final class Animation<T, V> {
    * @param <V> The animation's transformed value type.
    */
   public interface BidirectionalValueTransformer<T, V> extends ValueTransformer<T, V> {
-    /** Transforms the output type back to the input type. */
+    /**
+     * Transforms the output type back to the input type. *
+     *
+     * @param value The value to transform back.
+     * @return The value that has been transformed back.
+     */
     @NonNull
     T transformBack(V value);
   }

@@ -5,6 +5,8 @@ import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.view.animation.LinearInterpolator;
 
+import com.github.alexjlockwood.kyrie.Animation.RepeatMode;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;

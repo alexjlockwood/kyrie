@@ -21,16 +21,17 @@ dependencies {
 }
 
 android.libraryVariants.all { variant ->
-    def name = variant.name
-    task "javadoc$name"(type: Javadoc) {
-        description = "Generates javadocs for build variant: $name"
-        failOnError = false
-        destinationDir = new File(destinationDir, variant.baseName)
-        source = files(variant.javaCompiler.source)
-        classpath = files(variant.javaCompiler.classpath.files) + files(android.bootClasspath)
-        options.windowTitle("Kyrie Reference")
-        options.docTitle("Kyrie Reference")
-        options.header("Kyrie Reference")
-        exclude '**/R.java', '**/BuildConfig.java'
+    if (variant.name == 'release') {
+        task javadocRelease(type: Javadoc) {
+            description = "Generates javadocs"
+            failOnError = false
+            destinationDir = new File(destinationDir, variant.baseName)
+            source = files(variant.javaCompiler.source)
+            classpath = files(variant.javaCompiler.classpath.files) + files(android.bootClasspath)
+            options.windowTitle("Kyrie Reference")
+            options.docTitle("Kyrie Reference")
+            options.header("Kyrie Reference")
+            exclude '**/R.java', '**/BuildConfig.java'
+        }
     }
 }

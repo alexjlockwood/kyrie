@@ -15,7 +15,7 @@ before_install:
   - yes | sdkmanager "platforms;android-27"
 
 after_success:
-  - ./gradlew javadocrelease
+  - ./gradlew javadocRelease
 
 deploy:
   provider: pages
