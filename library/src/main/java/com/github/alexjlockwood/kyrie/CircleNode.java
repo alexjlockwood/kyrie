@@ -175,7 +175,7 @@ public final class CircleNode extends RenderNode {
 
     @NonNull
     @Override
-    protected Builder self() {
+    Builder self() {
       return this;
     }
 

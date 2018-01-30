@@ -8,7 +8,7 @@ import android.support.annotation.Size;
 
 import java.util.List;
 
-abstract class BaseNode extends Node {
+public abstract class BaseNode extends Node {
   @NonNull private final List<Animation<?, Float>> rotation;
   @NonNull private final List<Animation<?, Float>> pivotX;
   @NonNull private final List<Animation<?, Float>> pivotY;
@@ -17,7 +17,7 @@ abstract class BaseNode extends Node {
   @NonNull private final List<Animation<?, Float>> translateX;
   @NonNull private final List<Animation<?, Float>> translateY;
 
-  public BaseNode(
+  BaseNode(
       List<Animation<?, Float>> rotation,
       List<Animation<?, Float>> pivotX,
       List<Animation<?, Float>> pivotY,

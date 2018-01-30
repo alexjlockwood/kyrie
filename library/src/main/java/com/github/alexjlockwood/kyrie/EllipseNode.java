@@ -202,7 +202,7 @@ public final class EllipseNode extends RenderNode {
 
     @NonNull
     @Override
-    protected Builder self() {
+    Builder self() {
       return this;
     }
 

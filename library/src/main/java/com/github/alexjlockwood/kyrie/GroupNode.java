@@ -85,7 +85,7 @@ public final class GroupNode extends BaseNode {
 
     @NonNull
     @Override
-    protected Builder self() {
+    Builder self() {
       return this;
     }
 

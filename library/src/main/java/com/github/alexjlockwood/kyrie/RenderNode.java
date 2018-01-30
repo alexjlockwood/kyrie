@@ -15,7 +15,7 @@ import android.support.annotation.Nullable;
 
 import java.util.List;
 
-abstract class RenderNode extends BaseNode {
+public abstract class RenderNode extends BaseNode {
   @NonNull private final List<Animation<?, Integer>> fillColor;
   @NonNull private final List<Animation<?, Float>> fillAlpha;
   @NonNull private final List<Animation<?, Integer>> strokeColor;

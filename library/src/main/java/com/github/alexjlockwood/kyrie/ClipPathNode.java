@@ -105,7 +105,7 @@ public final class ClipPathNode extends BaseNode {
 
     @NonNull
     @Override
-    protected Builder self() {
+    Builder self() {
       return this;
     }
 
