@@ -1,5 +1,6 @@
 # Kyrie
 
+[![Build status][travis-badge]][travis-badge-url]
 [![Release](https://jitpack.io/v/alexjlockwood/kyrie.svg)](https://jitpack.io/#alexjlockwood/kyrie)
 
 ## Dependency
@@ -30,3 +31,6 @@ The latest release version is listed at the top of this page. You can see a full
 
 * **Minimum Android SDK**: Kyrie requires a minimum API level of 14.
 * **Compile Android SDK**: Kyrie requires you to compile against API 27 or later.
+
+  [travis-badge]: https://travis-ci.org/alexjlockwood/kyrie.svg?branch=master
+  [travis-badge-url]: https://travis-ci.org/alexjlockwood/kyrie
