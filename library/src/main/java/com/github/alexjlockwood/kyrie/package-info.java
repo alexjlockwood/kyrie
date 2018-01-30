@@ -31,8 +31,8 @@ package com.github.alexjlockwood.kyrie;
 // TODO: support trimming clip paths?
 // TODO: support stroked clip paths?
 // TODO: think more about how each node builder has two overloaded methods per property
-// TODO: allow user to inflate from xml resource as well as drawable resource?
 // TODO: support setting playback speed?
+// TODO: allow user to inflate from xml resource as well as drawable resource?
 // TODO: support playing animation in reverse?
 // TODO: avoid using bitmap internally (encourage view software rendering instead)
 // TODO: test inflating multi-file AVDs
