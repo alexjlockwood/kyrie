@@ -574,7 +574,7 @@ abstract class RenderNode extends BaseNode {
 
     @NonNull
     @Override
-    public abstract RenderNode build();
+    abstract RenderNode build();
   }
 
   // </editor-fold>

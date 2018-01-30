@@ -34,7 +34,7 @@ public abstract class Node {
     abstract B self();
 
     @NonNull
-    public abstract Node build();
+    abstract Node build();
 
     @NonNull
     final <T> B replaceFirstAnimation(List<Animation<?, T>> animations, Animation<?, T> animation) {

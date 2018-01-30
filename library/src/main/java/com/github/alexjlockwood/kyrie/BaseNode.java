@@ -283,7 +283,7 @@ abstract class BaseNode extends Node {
 
     @NonNull
     @Override
-    public abstract BaseNode build();
+    abstract BaseNode build();
   }
 
   // </editor-fold>
