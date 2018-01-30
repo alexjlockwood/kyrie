@@ -164,8 +164,7 @@ public abstract class BaseNode extends Node {
 
   // <editor-fold desc="Builder">
 
-  public abstract static class Builder<N extends BaseNode, B extends Builder<N, B>>
-      extends Node.Builder<N, B> {
+  public abstract static class Builder<B extends Builder<B>> extends Node.Builder<B> {
     @NonNull final List<Animation<?, Float>> rotation = Node.asAnimations(0f);
     @NonNull final List<Animation<?, Float>> pivotX = Node.asAnimations(0f);
     @NonNull final List<Animation<?, Float>> pivotY = Node.asAnimations(0f);
@@ -280,6 +279,10 @@ public abstract class BaseNode extends Node {
     public final B translateY(List<Animation<?, Float>> animations) {
       return replaceAnimations(translateY, animations);
     }
+
+    @NonNull
+    @Override
+    public abstract BaseNode build();
   }
 
   // </editor-fold>

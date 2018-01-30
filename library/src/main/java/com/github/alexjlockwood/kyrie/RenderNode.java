@@ -357,8 +357,7 @@ public abstract class RenderNode extends BaseNode {
 
   // <editor-fold desc="Builder">
 
-  public abstract static class Builder<N extends RenderNode, B extends Builder<N, B>>
-      extends BaseNode.Builder<N, B> {
+  public abstract static class Builder<B extends Builder<B>> extends BaseNode.Builder<B> {
     @NonNull final List<Animation<?, Integer>> fillColor = asAnimations(Color.TRANSPARENT);
     @NonNull final List<Animation<?, Float>> fillAlpha = asAnimations(1f);
     @NonNull final List<Animation<?, Integer>> strokeColor = asAnimations(Color.TRANSPARENT);
@@ -572,6 +571,10 @@ public abstract class RenderNode extends BaseNode {
       this.isScalingStroke = isScalingStroke;
       return self;
     }
+
+    @NonNull
+    @Override
+    public abstract RenderNode build();
   }
 
   // </editor-fold>

@@ -79,7 +79,7 @@ public final class ClipPathNode extends BaseNode {
     return new Builder();
   }
 
-  public static final class Builder extends BaseNode.Builder<ClipPathNode, Builder> {
+  public static final class Builder extends BaseNode.Builder<Builder> {
     @NonNull private List<Animation<?, PathData>> pathData = asAnimations(new PathData());
 
     private Builder() {}

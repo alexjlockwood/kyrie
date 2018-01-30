@@ -132,7 +132,7 @@ public final class EllipseNode extends RenderNode {
     return new Builder();
   }
 
-  public static final class Builder extends RenderNode.Builder<EllipseNode, Builder> {
+  public static final class Builder extends RenderNode.Builder<Builder> {
     @NonNull private final List<Animation<?, Float>> centerX = asAnimations(0f);
     @NonNull private final List<Animation<?, Float>> centerY = asAnimations(0f);
     @NonNull private final List<Animation<?, Float>> radiusX = asAnimations(0f);

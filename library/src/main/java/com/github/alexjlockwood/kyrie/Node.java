@@ -21,7 +21,7 @@ abstract class Node {
     void onDraw(Canvas canvas, Matrix parentMatrix, PointF viewportScale);
   }
 
-  abstract static class Builder<N extends Node, B extends Builder<N, B>> {
+  abstract static class Builder<B extends Builder<B>> {
     @NonNull final B self;
 
     Builder() {
@@ -32,7 +32,7 @@ abstract class Node {
     abstract B self();
 
     @NonNull
-    public abstract N build();
+    public abstract Node build();
 
     @NonNull
     final <T> B replaceFirstAnimation(List<Animation<?, T>> animations, Animation<?, T> animation) {

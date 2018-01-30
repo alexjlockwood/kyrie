@@ -121,7 +121,7 @@ public final class CircleNode extends RenderNode {
     return new Builder();
   }
 
-  public static final class Builder extends RenderNode.Builder<CircleNode, Builder> {
+  public static final class Builder extends RenderNode.Builder<Builder> {
     @NonNull private final List<Animation<?, Float>> centerX = Node.asAnimations(0f);
     @NonNull private final List<Animation<?, Float>> centerY = Node.asAnimations(0f);
     @NonNull private final List<Animation<?, Float>> radius = Node.asAnimations(0f);

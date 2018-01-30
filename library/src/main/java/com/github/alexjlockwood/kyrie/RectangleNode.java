@@ -154,7 +154,7 @@ public final class RectangleNode extends RenderNode {
     return new Builder();
   }
 
-  public static final class Builder extends RenderNode.Builder<RectangleNode, Builder> {
+  public static final class Builder extends RenderNode.Builder<Builder> {
     @NonNull private final List<Animation<?, Float>> x = Node.asAnimations(0f);
     @NonNull private final List<Animation<?, Float>> y = Node.asAnimations(0f);
     @NonNull private final List<Animation<?, Float>> width = Node.asAnimations(0f);

@@ -67,7 +67,7 @@ public final class GroupNode extends BaseNode {
     return new Builder();
   }
 
-  public static final class Builder extends BaseNode.Builder<GroupNode, Builder> {
+  public static final class Builder extends BaseNode.Builder<Builder> {
     private final List<Node> children = new ArrayList<>();
 
     private Builder() {}
