@@ -295,12 +295,14 @@ public final class Animation<T, V> {
   }
 
   /**
-   * Creates a new animation with original value type T and a new transformed value type W.
+   * Creates a new animation with original value type <code>T</code> and a new transformed value
+   * type <code>W</code>.
    *
    * @param <W> The animation's new transformed value type.
-   * @param transformer The value transformer to use to transform the animation's original type T to
-   *     a new transformed value type W.
-   * @return A new animation with the same original value type T and transformed value type W.
+   * @param transformer The value transformer to use to transform the animation's original type
+   *     <code>T</code> to a new transformed value type <code>W</code>.
+   * @return A new animation with the same original value type <code>T</code> and transformed value
+   *     type <code>W</code>.
    */
   @NonNull
   public <W> Animation<T, W> transform(ValueTransformer<T, W> transformer) {
@@ -313,8 +315,9 @@ public final class Animation<T, V> {
   }
 
   /**
-   * Interface that can transform type T to another type V. This is necessary when the original
-   * value type of an animation is different than the desired value type.
+   * Interface that can transform type <code>T</code> to another type <code>V</code>. This is
+   * necessary when the original value type of an animation is different than the desired value
+   * type.
    *
    * @param <T> The animation's original value type.
    * @param <V> The animation's transformed value type.
@@ -331,10 +334,10 @@ public final class Animation<T, V> {
   }
 
   /**
-   * Interface that can transform type T to another type V and back again. This is necessary when
-   * the value types of in animation are different from the property type. This interface is only
-   * needed when working with an {@link Animation} with no explicitly set start value and that has
-   * been transformed using {@link #transform(Object)}.
+   * Interface that can transform type <code>T</code> to another type <code>V</code> and back again.
+   * This is necessary when the value types of in animation are different from the property type.
+   * This interface is only needed when working with an {@link Animation} with no explicitly set
+   * start value and that has been transformed using {@link #transform(Object)}.
    *
    * @param <T> The animation's original value type.
    * @param <V> The animation's transformed value type.
