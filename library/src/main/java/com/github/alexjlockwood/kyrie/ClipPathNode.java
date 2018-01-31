@@ -8,6 +8,10 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 
+/**
+ * A {@link Node} that defines a region to be clipped. Note that a {@link ClipPathNode} only clips
+ * its sibling {@link Node}s.
+ */
 public final class ClipPathNode extends BaseNode {
   @NonNull private final List<Animation<?, PathData>> pathData;
 
@@ -79,6 +83,7 @@ public final class ClipPathNode extends BaseNode {
     return new Builder();
   }
 
+  /** Builder class used to create {@link ClipPathNode}s. */
   public static final class Builder extends BaseNode.Builder<Builder> {
     @NonNull private List<Animation<?, PathData>> pathData = asAnimations(new PathData());
 

@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import java.util.ArrayList;
 import java.util.List;
 
+/** A {@link Node} that holds a group of children {@link Node}s. */
 public final class GroupNode extends BaseNode {
   @NonNull private final List<Node> children;
 
@@ -67,6 +68,7 @@ public final class GroupNode extends BaseNode {
     return new Builder();
   }
 
+  /** Builder class used to create {@link GroupNode}s. */
   public static final class Builder extends BaseNode.Builder<Builder> {
     private final List<Node> children = new ArrayList<>();
 

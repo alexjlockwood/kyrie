@@ -10,10 +10,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/** Base class for all {@link Node}s used to construct and animate a {@link KyrieDrawable}. */
 public abstract class Node {
 
   Node() {}
 
+  /**
+   * Constructs a {@link Layer} using the information contained by this {@link Node}.
+   *
+   * @param timeline The {@link PropertyTimeline} to use to register property animations.
+   * @return A new {@link Layer} representing this {@link Node}.
+   */
   @NonNull
   abstract Layer toLayer(PropertyTimeline timeline);
 
@@ -23,6 +30,11 @@ public abstract class Node {
     void onDraw(Canvas canvas, Matrix parentMatrix, PointF viewportScale);
   }
 
+  /**
+   * Base class for all {@link Node.Builder}s used to construct new {@link Node} instances.
+   *
+   * @param <B> The concrete builder subclass type.
+   */
   public abstract static class Builder<B extends Builder<B>> {
     @NonNull final B self;
 

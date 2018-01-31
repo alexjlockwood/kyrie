@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 
+/** A {@link Node} that paints a path. */
 public final class PathNode extends RenderNode {
   @NonNull private final List<Animation<?, PathData>> pathData;
 
@@ -93,6 +94,7 @@ public final class PathNode extends RenderNode {
     return new Builder();
   }
 
+  /** Builder class used to create {@link PathNode}s. */
   public static final class Builder extends RenderNode.Builder<Builder> {
     @NonNull private final List<Animation<?, PathData>> pathData = asAnimations(new PathData());
 

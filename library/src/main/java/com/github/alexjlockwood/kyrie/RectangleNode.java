@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 
+/** A {@link Node} that paints a rectangle. */
 public final class RectangleNode extends RenderNode {
   @NonNull private final List<Animation<?, Float>> x;
   @NonNull private final List<Animation<?, Float>> y;
@@ -154,6 +155,7 @@ public final class RectangleNode extends RenderNode {
     return new Builder();
   }
 
+  /** Builder class used to create {@link RectangleNode}s. */
   public static final class Builder extends RenderNode.Builder<Builder> {
     @NonNull private final List<Animation<?, Float>> x = Node.asAnimations(0f);
     @NonNull private final List<Animation<?, Float>> y = Node.asAnimations(0f);

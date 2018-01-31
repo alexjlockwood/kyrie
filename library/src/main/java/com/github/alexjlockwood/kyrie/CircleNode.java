@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 
+/** A {@link Node} that paints a circle. */
 public final class CircleNode extends RenderNode {
   @NonNull private final List<Animation<?, Float>> centerX;
   @NonNull private final List<Animation<?, Float>> centerY;
@@ -121,6 +122,7 @@ public final class CircleNode extends RenderNode {
     return new Builder();
   }
 
+  /** Builder class used to create {@link CircleNode}s. */
   public static final class Builder extends RenderNode.Builder<Builder> {
     @NonNull private final List<Animation<?, Float>> centerX = Node.asAnimations(0f);
     @NonNull private final List<Animation<?, Float>> centerY = Node.asAnimations(0f);

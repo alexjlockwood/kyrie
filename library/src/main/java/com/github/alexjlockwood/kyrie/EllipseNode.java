@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 
+/** A {@link Node} that paints an ellipse. */
 public final class EllipseNode extends RenderNode {
   @NonNull private final List<Animation<?, Float>> centerX;
   @NonNull private final List<Animation<?, Float>> centerY;
@@ -132,6 +133,7 @@ public final class EllipseNode extends RenderNode {
     return new Builder();
   }
 
+  /** Builder class used to create {@link EllipseNode}s. */
   public static final class Builder extends RenderNode.Builder<Builder> {
     @NonNull private final List<Animation<?, Float>> centerX = asAnimations(0f);
     @NonNull private final List<Animation<?, Float>> centerY = asAnimations(0f);
