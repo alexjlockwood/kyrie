@@ -68,17 +68,17 @@ public final class CircleNode extends RenderNode {
   }
 
   @NonNull
-  public List<Animation<?, Float>> getCenterX() {
+  List<Animation<?, Float>> getCenterX() {
     return centerX;
   }
 
   @NonNull
-  public List<Animation<?, Float>> getCenterY() {
+  List<Animation<?, Float>> getCenterY() {
     return centerY;
   }
 
   @NonNull
-  public List<Animation<?, Float>> getRadius() {
+  List<Animation<?, Float>> getRadius() {
     return radius;
   }
 

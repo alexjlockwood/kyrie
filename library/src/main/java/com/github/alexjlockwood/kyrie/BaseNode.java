@@ -36,37 +36,37 @@ abstract class BaseNode extends Node {
   }
 
   @NonNull
-  public final List<Animation<?, Float>> getRotation() {
+  final List<Animation<?, Float>> getRotation() {
     return rotation;
   }
 
   @NonNull
-  public final List<Animation<?, Float>> getPivotX() {
+  final List<Animation<?, Float>> getPivotX() {
     return pivotX;
   }
 
   @NonNull
-  public final List<Animation<?, Float>> getPivotY() {
+  final List<Animation<?, Float>> getPivotY() {
     return pivotY;
   }
 
   @NonNull
-  public final List<Animation<?, Float>> getScaleX() {
+  final List<Animation<?, Float>> getScaleX() {
     return scaleX;
   }
 
   @NonNull
-  public final List<Animation<?, Float>> getScaleY() {
+  final List<Animation<?, Float>> getScaleY() {
     return scaleY;
   }
 
   @NonNull
-  public final List<Animation<?, Float>> getTranslateX() {
+  final List<Animation<?, Float>> getTranslateX() {
     return translateX;
   }
 
   @NonNull
-  public final List<Animation<?, Float>> getTranslateY() {
+  final List<Animation<?, Float>> getTranslateY() {
     return translateY;
   }
 

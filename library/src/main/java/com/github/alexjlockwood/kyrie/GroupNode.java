@@ -26,7 +26,7 @@ public final class GroupNode extends BaseNode {
   }
 
   @NonNull
-  public List<Node> getChildren() {
+  List<Node> getChildren() {
     return children;
   }
 

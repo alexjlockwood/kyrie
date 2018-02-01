@@ -29,7 +29,7 @@ public final class ClipPathNode extends BaseNode {
   }
 
   @NonNull
-  public List<Animation<?, PathData>> getPathData() {
+  List<Animation<?, PathData>> getPathData() {
     return pathData;
   }
 

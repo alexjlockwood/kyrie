@@ -60,7 +60,7 @@ public final class PathNode extends RenderNode {
   }
 
   @NonNull
-  public List<Animation<?, PathData>> getPathData() {
+  List<Animation<?, PathData>> getPathData() {
     return pathData;
   }
 

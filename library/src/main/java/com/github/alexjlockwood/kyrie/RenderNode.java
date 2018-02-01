@@ -74,76 +74,76 @@ abstract class RenderNode extends BaseNode {
   }
 
   @NonNull
-  public final List<Animation<?, Integer>> getFillColor() {
+  final List<Animation<?, Integer>> getFillColor() {
     return fillColor;
   }
 
   @NonNull
-  public final List<Animation<?, Float>> getFillAlpha() {
+  final List<Animation<?, Float>> getFillAlpha() {
     return fillAlpha;
   }
 
   @NonNull
-  public final List<Animation<?, Integer>> getStrokeColor() {
+  final List<Animation<?, Integer>> getStrokeColor() {
     return strokeColor;
   }
 
   @NonNull
-  public final List<Animation<?, Float>> getStrokeAlpha() {
+  final List<Animation<?, Float>> getStrokeAlpha() {
     return strokeAlpha;
   }
 
   @NonNull
-  public final List<Animation<?, Float>> getStrokeWidth() {
+  final List<Animation<?, Float>> getStrokeWidth() {
     return strokeWidth;
   }
 
   @NonNull
-  public final List<Animation<?, Float>> getTrimPathStart() {
+  final List<Animation<?, Float>> getTrimPathStart() {
     return trimPathStart;
   }
 
   @NonNull
-  public final List<Animation<?, Float>> getTrimPathEnd() {
+  final List<Animation<?, Float>> getTrimPathEnd() {
     return trimPathEnd;
   }
 
   @NonNull
-  public final List<Animation<?, Float>> getTrimPathOffset() {
+  final List<Animation<?, Float>> getTrimPathOffset() {
     return trimPathOffset;
   }
 
   @StrokeLineCap
-  public final int getStrokeLineCap() {
+  final int getStrokeLineCap() {
     return strokeLineCap;
   }
 
   @StrokeLineJoin
-  public final int getStrokeLineJoin() {
+  final int getStrokeLineJoin() {
     return strokeLineJoin;
   }
 
   @NonNull
-  public final List<Animation<?, Float>> getStrokeMiterLimit() {
+  final List<Animation<?, Float>> getStrokeMiterLimit() {
     return strokeMiterLimit;
   }
 
   @NonNull
-  public final List<Animation<?, float[]>> getStrokeDashArray() {
+  final List<Animation<?, float[]>> getStrokeDashArray() {
     return strokeDashArray;
   }
 
   @NonNull
-  public final List<Animation<?, Float>> getStrokeDashOffset() {
+  final List<Animation<?, Float>> getStrokeDashOffset() {
     return strokeDashOffset;
   }
 
   @FillType
-  public final int getFillType() {
+  final int getFillType() {
     return fillType;
   }
 
-  public final boolean isScalingStroke() {
+  final boolean isScalingStroke() {
     return isScalingStroke;
   }
 

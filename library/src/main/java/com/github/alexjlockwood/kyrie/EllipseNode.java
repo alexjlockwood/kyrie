@@ -71,22 +71,22 @@ public final class EllipseNode extends RenderNode {
   }
 
   @NonNull
-  public List<Animation<?, Float>> getCenterX() {
+  List<Animation<?, Float>> getCenterX() {
     return centerX;
   }
 
   @NonNull
-  public List<Animation<?, Float>> getCenterY() {
+  List<Animation<?, Float>> getCenterY() {
     return centerY;
   }
 
   @NonNull
-  public List<Animation<?, Float>> getRadiusX() {
+  List<Animation<?, Float>> getRadiusX() {
     return radiusX;
   }
 
   @NonNull
-  public List<Animation<?, Float>> getRadiusY() {
+  List<Animation<?, Float>> getRadiusY() {
     return radiusY;
   }
 

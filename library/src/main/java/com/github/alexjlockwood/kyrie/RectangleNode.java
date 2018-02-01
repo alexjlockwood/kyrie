@@ -77,32 +77,32 @@ public final class RectangleNode extends RenderNode {
   }
 
   @NonNull
-  public List<Animation<?, Float>> getX() {
+  List<Animation<?, Float>> getX() {
     return x;
   }
 
   @NonNull
-  public List<Animation<?, Float>> getY() {
+  List<Animation<?, Float>> getY() {
     return y;
   }
 
   @NonNull
-  public List<Animation<?, Float>> getWidth() {
+  List<Animation<?, Float>> getWidth() {
     return width;
   }
 
   @NonNull
-  public List<Animation<?, Float>> getHeight() {
+  List<Animation<?, Float>> getHeight() {
     return height;
   }
 
   @NonNull
-  public List<Animation<?, Float>> getCornerRadiusX() {
+  List<Animation<?, Float>> getCornerRadiusX() {
     return cornerRadiusX;
   }
 
   @NonNull
-  public List<Animation<?, Float>> getCornerRadiusY() {
+  List<Animation<?, Float>> getCornerRadiusY() {
     return cornerRadiusY;
   }
 
