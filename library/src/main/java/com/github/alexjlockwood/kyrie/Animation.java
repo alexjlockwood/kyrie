@@ -103,13 +103,13 @@ public final class Animation<T, V> {
   @IntDef({RepeatMode.RESTART, RepeatMode.REVERSE})
   public @interface RepeatMode {
     /**
-     * When the animation reaches the end and <code>repeatCount</code> is INFINITE or a positive
-     * value, the animation restarts from the beginning.
+     * When the animation reaches the end and <code>repeatCount</code> is {@link #INFINITE} or a
+     * positive value, the animation restarts from the beginning.
      */
     int RESTART = 1;
     /**
-     * When the animation reaches the end and <code>repeatCount</code> is INFINITE or a positive
-     * value, the animation reverses direction on every iteration.
+     * When the animation reaches the end and <code>repeatCount</code> is {@link #INFINITE} or a
+     * positive value, the animation reverses direction on every iteration.
      */
     int REVERSE = 2;
   }
@@ -128,9 +128,18 @@ public final class Animation<T, V> {
   private int repeatCount;
   @RepeatMode private int repeatMode = RepeatMode.RESTART;
 
+  private boolean isInitialized;
+
   private Animation(KeyframeSet<T> keyframeSet, ValueTransformer<T, V> transformer) {
     this.keyframeSet = keyframeSet;
     this.transformer = transformer;
+  }
+
+  private void throwIfInitialized() {
+    if (isInitialized) {
+      throw new IllegalStateException(
+          "Animation must not be mutated after the KyrieDrawable has been created");
+    }
   }
 
   /**
@@ -150,6 +159,7 @@ public final class Animation<T, V> {
    */
   @NonNull
   public Animation<T, V> startDelay(@IntRange(from = 0L) long startDelay) {
+    throwIfInitialized();
     this.startDelay = startDelay;
     return this;
   }
@@ -171,6 +181,7 @@ public final class Animation<T, V> {
    */
   @NonNull
   public Animation<T, V> duration(@IntRange(from = 0L) long duration) {
+    throwIfInitialized();
     this.duration = duration;
     return this;
   }
@@ -194,6 +205,7 @@ public final class Animation<T, V> {
    */
   @NonNull
   public Animation<T, V> repeatCount(int repeatCount) {
+    throwIfInitialized();
     this.repeatCount = repeatCount;
     return this;
   }
@@ -218,6 +230,7 @@ public final class Animation<T, V> {
    */
   @NonNull
   public Animation<T, V> repeatMode(@RepeatMode int repeatMode) {
+    throwIfInitialized();
     this.repeatMode = repeatMode;
     return this;
   }
@@ -242,6 +255,7 @@ public final class Animation<T, V> {
    */
   @NonNull
   public Animation<T, V> interpolator(@Nullable TimeInterpolator interpolator) {
+    throwIfInitialized();
     this.interpolator = interpolator;
     return this;
   }
@@ -262,6 +276,7 @@ public final class Animation<T, V> {
    * any missing start values.
    */
   void setupStartValue(V startValue) {
+    isInitialized = true;
     final List<Keyframe<T>> keyframes = keyframeSet.getKeyframes();
     for (int i = 0, size = keyframes.size(); i < size; i++) {
       final Keyframe<T> kf = keyframes.get(i);
