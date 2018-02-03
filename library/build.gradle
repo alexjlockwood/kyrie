@@ -31,6 +31,8 @@ android.libraryVariants.all { variant ->
             options.windowTitle("Kyrie Reference")
             options.docTitle("Kyrie Reference")
             options.header("Kyrie Reference")
+            options.links('http://docs.oracle.com/javase/8/docs/api')
+            options.linksOffline('https://d.android.com/reference', "${android.sdkDirectory}/docs/reference")
             exclude '**/R.java', '**/BuildConfig.java'
         }
     }
