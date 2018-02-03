@@ -22,44 +22,116 @@ import java.util.List;
  */
 public final class Animation<T, V> {
 
+  /**
+   * Constructs and returns an {@link Animation} that animates between float values. A single value
+   * implies that the value is the one being animated to, in which case the start value will be
+   * derived from the property being animated and the target object when the animation is started.
+   * Two values imply starting and ending values. More than two values imply a starting value,
+   * values to animate through along the way, and an ending value (these values will be distributed
+   * evenly across the duration of the animation).
+   *
+   * @param values A set of values that the animation will animate through over time.
+   * @return A new {@link Animation}.
+   */
   @NonNull
   public static Animation<Float, Float> ofFloat(Float... values) {
     return ofObject(new FloatValueEvaluator(), values);
   }
 
+  /**
+   * Same as {@link #ofFloat(Float...)} except with {@link Keyframe}s instead of float values.
+   *
+   * @param values A set of {@link Keyframe}s that the animation will animate through over time.
+   * @return A new {@link Animation}.
+   */
   @NonNull
   @SafeVarargs
   public static Animation<Float, Float> ofFloat(Keyframe<Float>... values) {
     return ofObject(new FloatValueEvaluator(), values);
   }
 
+  /**
+   * Constructs and returns an {@link Animation} that animates between color values. A single value
+   * implies that the value is the one being animated to, in which case the start value will be
+   * derived from the property being animated and the target object when the animation is started.
+   * Two values imply starting and ending values. More than two values imply a starting value,
+   * values to animate through along the way, and an ending value (these values will be distributed
+   * evenly across the duration of the animation).
+   *
+   * @param values A set of values that the animation will animate through over time.
+   * @return A new {@link Animation}.
+   */
   @NonNull
   public static Animation<Integer, Integer> ofArgb(Integer... values) {
     return ofObject(new ArgbValueEvaluator(), values);
   }
 
+  /**
+   * Same as {@link #ofArgb(Integer...)} except with {@link Keyframe}s instead of color values.
+   *
+   * @param values A set of {@link Keyframe}s that the animation will animate through over time.
+   * @return A new {@link Animation}.
+   */
   @NonNull
   @SafeVarargs
   public static Animation<Integer, Integer> ofArgb(Keyframe<Integer>... values) {
     return ofObject(new ArgbValueEvaluator(), values);
   }
 
+  /**
+   * Constructs and returns an {@link Animation} that animates between float[] values. A single
+   * value implies that the value is the one being animated to, in which case the start value will
+   * be derived from the property being animated and the target object when the animation is
+   * started. Two values imply starting and ending values. More than two values imply a starting
+   * value, values to animate through along the way, and an ending value (these values will be
+   * distributed evenly across the duration of the animation).
+   *
+   * @param values A set of values that the animation will animate through over time. The float[]
+   *     values should all have the same length.
+   * @return A new {@link Animation}.
+   */
   @NonNull
   public static Animation<float[], float[]> ofFloatArray(float[]... values) {
     return ofObject(new FloatArrayValueEvaluator(), values);
   }
 
+  /**
+   * Same as {@link #ofFloatArray(float[]...)} except with {@link Keyframe}s instead of float[]
+   * values.
+   *
+   * @param values A set of {@link Keyframe}s that the animation will animate through over time.
+   * @return A new {@link Animation}.
+   */
   @NonNull
   @SafeVarargs
   public static Animation<float[], float[]> ofFloatArray(Keyframe<float[]>... values) {
     return ofObject(new FloatArrayValueEvaluator(), values);
   }
 
+  /**
+   * Constructs and returns an {@link Animation} that animates between {@link PathData} values. A
+   * single value implies that the value is the one being animated to, in which case the start value
+   * will be derived from the property being animated and the target object when the animation is
+   * started. Two values imply starting and ending values. More than two values imply a starting
+   * value, values to animate through along the way, and an ending value (these values will be
+   * distributed evenly across the duration of the animation).
+   *
+   * @param values A set of values that the animation will animate through over time. The {@link
+   *     PathData} values should all be morphable with each other.
+   * @return A new {@link Animation}.
+   */
   @NonNull
   public static Animation<PathData, PathData> ofPathMorph(PathData... values) {
     return ofObject(new PathDataValueEvaluator(), values);
   }
 
+  /**
+   * Same as {@link #ofPathMorph(PathData...)} except with {@link Keyframe}s instead of float[]
+   * values.
+   *
+   * @param values A set of {@link Keyframe}s that the animation will animate through over time.
+   * @return A new {@link Animation}.
+   */
   @NonNull
   @SafeVarargs
   public static Animation<PathData, PathData> ofPathMorph(Keyframe<PathData>... values) {
@@ -84,6 +156,15 @@ public final class Animation<T, V> {
         KeyframeSet.ofObject(evaluator, values), new IdentityValueTransformer<V>());
   }
 
+  /**
+   * Constructs and returns an {@link Animation} that animates through {@link PointF} values in
+   * order to simulate motion along the given path. Clients can use {@link
+   * #transform(ValueTransformer)} to transform the returned animation into one that outputs floats
+   * corresponding to the path's x/y coordinates.
+   *
+   * @param path The path to animate values along.
+   * @return A new {@link Animation}.
+   */
   @NonNull
   public static Animation<PointF, PointF> ofPathMotion(Path path) {
     if (path.isEmpty()) {

@@ -19,8 +19,7 @@ abstract class KeyframeSet<T> {
 
   /** @return An {@link ObjectKeyframeSet} with evenly distributed keyframe values. */
   @NonNull
-  public static <T> KeyframeSet<T> ofObject(
-      @NonNull ValueEvaluator<T> evaluator, @NonNull T[] values) {
+  public static <T> KeyframeSet<T> ofObject(ValueEvaluator<T> evaluator, T[] values) {
     final int numKeyframes = values.length;
     final List<Keyframe<T>> keyframes = new ArrayList<>(Math.max(numKeyframes, 2));
     if (numKeyframes == 1) {
@@ -37,8 +36,7 @@ abstract class KeyframeSet<T> {
 
   /** @return An {@link ObjectKeyframeSet} with the given keyframe values. */
   @NonNull
-  public static <T> KeyframeSet<T> ofObject(
-      @NonNull ValueEvaluator<T> evaluator, @NonNull Keyframe<T>[] values) {
+  public static <T> KeyframeSet<T> ofObject(ValueEvaluator<T> evaluator, Keyframe<T>[] values) {
     final List<Keyframe<T>> list = new ArrayList<>(values.length);
     //noinspection ForLoopReplaceableByForEach
     for (int i = 0, size = values.length; i < size; i++) {
@@ -49,7 +47,7 @@ abstract class KeyframeSet<T> {
 
   /** @return A {@link PathKeyframeSet} that estimates motion along the given path. */
   @NonNull
-  public static KeyframeSet<PointF> ofPath(@NonNull Path path) {
+  public static KeyframeSet<PointF> ofPath(Path path) {
     return new PathKeyframeSet(path);
   }
 
