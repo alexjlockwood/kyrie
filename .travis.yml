@@ -5,9 +5,11 @@ jdk:
 
 android:
   components:
+    - tools
+    - platform-tools
     - build-tools-27.0.2
     - android-27
-    - extra-android-m2repository
+    - extra-android-support
   licenses:
     - android-sdk-license-.+
 
