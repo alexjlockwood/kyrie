@@ -561,6 +561,7 @@ public final class KyrieDrawable extends Drawable implements Animatable {
     return new Builder();
   }
 
+  /** Builder class used to create a {@link KyrieDrawable}. */
   public static final class Builder {
     private static final PorterDuff.Mode DEFAULT_TINT_MODE = PorterDuff.Mode.SRC_IN;
 
