@@ -3,6 +3,11 @@ language: android
 jdk:
   - oraclejdk8
 
+cache:
+  directories:
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
+
 android:
   components:
     - tools
