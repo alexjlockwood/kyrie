@@ -17,7 +17,9 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.Rect;
 import android.graphics.drawable.Animatable;
+import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.VectorDrawable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.FloatRange;
@@ -41,6 +43,7 @@ import static com.github.alexjlockwood.kyrie.Node.asAnimations;
 import static com.github.alexjlockwood.kyrie.Node.replaceAnimations;
 import static com.github.alexjlockwood.kyrie.Node.replaceFirstAnimation;
 
+/** An animatable drawable based on scalable vector graphics. */
 public final class KyrieDrawable extends Drawable implements Animatable {
   private static final String TAG = "KyrieDrawable";
 
@@ -51,6 +54,10 @@ public final class KyrieDrawable extends Drawable implements Animatable {
   // The drawable will look blurry above this size.
   private static final int MAX_CACHED_BITMAP_SIZE = 2048;
 
+  /**
+   * Creates a {@link KyrieDrawable} from an existing {@link VectorDrawable} or {@link
+   * AnimatedVectorDrawable} XML file.
+   */
   @Nullable
   public static KyrieDrawable create(Context context, @DrawableRes int resId) {
     try {
@@ -309,15 +316,27 @@ public final class KyrieDrawable extends Drawable implements Animatable {
 
   // <editor-fold desc="Animation">
 
+  /**
+   * Gets the total duration of the animation, accounting for start delay and repeating. Return
+   * {@link Animation#INFINITE} if the duration is infinite.
+   */
   public long getTotalDuration() {
     return timeline.getTotalDuration();
   }
 
+  /**
+   * Gets the current position of the animation in time, which is equal to the current time minus
+   * the time that the animation started.
+   */
   @IntRange(from = 0L)
   public long getCurrentPlayTime() {
     return animator.getCurrentPlayTime();
   }
 
+  /**
+   * Sets the position of the animation to the specified point in time. This time should be between
+   * 0 and the total duration of the animation, including any repetition.
+   */
   public void setCurrentPlayTime(@IntRange(from = 0L) long currentPlayTime) {
     currentPlayTime = Math.max(0, currentPlayTime);
     final long totalDuration = getTotalDuration();
@@ -327,45 +346,55 @@ public final class KyrieDrawable extends Drawable implements Animatable {
     animator.setCurrentPlayTime(currentPlayTime);
   }
 
+  /** Starts the animation. */
   @Override
   public void start() {
     animator.start();
   }
 
+  /** Stops the animation. If the animation is running, it will be canceled. */
   @Override
   public void stop() {
     animator.cancel();
   }
 
+  /** Pauses the animation. */
   public void pause() {
     animator.pause();
   }
 
+  /** Resumes the animation. */
   public void resume() {
     animator.resume();
   }
 
+  /** Returns true if the animation has been started. */
   public boolean isStarted() {
     return animator.isStarted();
   }
 
+  /** Returns true if the animation has been paused. */
   public boolean isPaused() {
     return animator.isPaused();
   }
 
+  /** Returns true if the animation is running. */
   @Override
   public boolean isRunning() {
     return animator.isRunning();
   }
 
+  /** Adds a {@link Listener} to this {@link KyrieDrawable}'s set of listeners. */
   public void addListener(Listener listener) {
     animator.addListener(listener);
   }
 
+  /** Removes a {@link Listener} from this {@link KyrieDrawable}'s set of listeners. */
   public void removeListener(Listener listener) {
     animator.removeListener(listener);
   }
 
+  /** Removes all {@link Listener}s from this {@link KyrieDrawable}'s set of listeners. */
   public void clearListeners() {
     animator.clearListeners();
   }
@@ -557,6 +586,8 @@ public final class KyrieDrawable extends Drawable implements Animatable {
 
   // <editor-fold desc="Builder">
 
+  /** Constructs a new {@link KyrieDrawable.Builder}. */
+  @NonNull
   public static Builder builder() {
     return new Builder();
   }
