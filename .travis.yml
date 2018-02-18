@@ -15,6 +15,7 @@ android:
 
 before_install:
   - yes | sdkmanager "platforms;android-27"
+  - yes | sdkmanager "sources;android-27"
 
 after_success:
   - ./gradlew javadocRelease
