@@ -16,6 +16,7 @@ android:
 before_install:
   - yes | sdkmanager "platforms;android-27"
   - yes | sdkmanager "sources;android-27"
+  - yes | sdkmanager "docs"
   - sdkmanager --list
   - ls /usr/local/android-sdk
   - ls /usr/local/android-sdk/docs
