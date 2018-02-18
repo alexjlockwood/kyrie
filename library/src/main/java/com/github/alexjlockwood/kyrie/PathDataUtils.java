@@ -316,7 +316,7 @@ final class PathDataUtils {
           path.lineTo(currentX, val[k]);
           currentY = val[k];
           break;
-        case 'c': // curveto - Draws a cubic Bézier curve (relative)
+        case 'c': // curveto - Draws a cubic Bezier curve (relative)
           path.rCubicTo(val[k], val[k + 1], val[k + 2], val[k + 3], val[k + 4], val[k + 5]);
 
           ctrlPointX = currentX + val[k + 2];
@@ -325,14 +325,14 @@ final class PathDataUtils {
           currentY += val[k + 5];
 
           break;
-        case 'C': // curveto - Draws a cubic Bézier curve
+        case 'C': // curveto - Draws a cubic Bezier curve
           path.cubicTo(val[k], val[k + 1], val[k + 2], val[k + 3], val[k + 4], val[k + 5]);
           currentX = val[k + 4];
           currentY = val[k + 5];
           ctrlPointX = val[k + 2];
           ctrlPointY = val[k + 3];
           break;
-        case 's': // smooth curveto - Draws a cubic Bézier curve (reflective cp)
+        case 's': // smooth curveto - Draws a cubic Bezier curve (reflective cp)
           reflectiveCtrlPointX = 0;
           reflectiveCtrlPointY = 0;
           if (prevCmd == 'c' || prevCmd == 's' || prevCmd == 'C' || prevCmd == 'S') {
@@ -352,7 +352,7 @@ final class PathDataUtils {
           currentX += val[k + 2];
           currentY += val[k + 3];
           break;
-        case 'S': // shorthand/smooth curveto Draws a cubic Bézier curve(reflective cp)
+        case 'S': // shorthand/smooth curveto Draws a cubic Bezier curve(reflective cp)
           reflectiveCtrlPointX = currentX;
           reflectiveCtrlPointY = currentY;
           if (prevCmd == 'c' || prevCmd == 's' || prevCmd == 'C' || prevCmd == 'S') {
@@ -371,21 +371,21 @@ final class PathDataUtils {
           currentX = val[k + 2];
           currentY = val[k + 3];
           break;
-        case 'q': // Draws a quadratic Bézier (relative)
+        case 'q': // Draws a quadratic Bezier (relative)
           path.rQuadTo(val[k], val[k + 1], val[k + 2], val[k + 3]);
           ctrlPointX = currentX + val[k];
           ctrlPointY = currentY + val[k + 1];
           currentX += val[k + 2];
           currentY += val[k + 3];
           break;
-        case 'Q': // Draws a quadratic Bézier
+        case 'Q': // Draws a quadratic Bezier
           path.quadTo(val[k], val[k + 1], val[k + 2], val[k + 3]);
           ctrlPointX = val[k];
           ctrlPointY = val[k + 1];
           currentX = val[k + 2];
           currentY = val[k + 3];
           break;
-        case 't': // Draws a quadratic Bézier curve(reflective control point)(relative)
+        case 't': // Draws a quadratic Bezier curve(reflective control point)(relative)
           reflectiveCtrlPointX = 0;
           reflectiveCtrlPointY = 0;
           if (prevCmd == 'q' || prevCmd == 't' || prevCmd == 'Q' || prevCmd == 'T') {
@@ -398,7 +398,7 @@ final class PathDataUtils {
           currentX += val[k];
           currentY += val[k + 1];
           break;
-        case 'T': // Draws a quadratic Bézier curve (reflective control point)
+        case 'T': // Draws a quadratic Bezier curve (reflective control point)
           reflectiveCtrlPointX = currentX;
           reflectiveCtrlPointY = currentY;
           if (prevCmd == 'q' || prevCmd == 't' || prevCmd == 'Q' || prevCmd == 'T') {
