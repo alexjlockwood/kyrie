@@ -121,12 +121,12 @@ final class PathKeyframeSet extends KeyframeSet<PointF> {
     float totalLength = 0;
     // The sum of the previous contour plus the current one. Using the sum here
     // because we want to directly subtract from it later.
-    final List<Float> contourLengths = new ArrayList<>();
-    contourLengths.add(0f);
+    final List<Float> summedContourLengths = new ArrayList<>();
+    summedContourLengths.add(0f);
     do {
       final float pathLength = measureForTotalLength.getLength();
       totalLength += pathLength;
-      contourLengths.add(totalLength);
+      summedContourLengths.add(totalLength);
     } while (measureForTotalLength.nextContour());
 
     // Now determine how many sample points we need, and the step for next sample.
@@ -139,27 +139,32 @@ final class PathKeyframeSet extends KeyframeSet<PointF> {
 
     int contourIndex = 0;
     final float step = totalLength / (numPoints - 1);
-    float currentDistance = 0;
+    float cumulativeDistance = 0;
 
     // For each sample point, determine whether we need to move on to next contour.
     // After we find the right contour, then sample it using the current distance value minus
     // the previously sampled contours' total length.
     for (int i = 0; i < numPoints; i++) {
-      pathMeasure.getPosTan(currentDistance, position, null);
+      // The cumulative distance traveled minus the total length of the previous contours
+      // (not including the current contour).
+      final float contourDistance = cumulativeDistance - summedContourLengths.get(contourIndex);
+      pathMeasure.getPosTan(contourDistance, position, null);
 
-      coords[i * NUM_COMPONENTS + FRACTION_OFFSET] = currentDistance / totalLength;
+      coords[i * NUM_COMPONENTS + FRACTION_OFFSET] = cumulativeDistance / totalLength;
       coords[i * NUM_COMPONENTS + X_OFFSET] = position[0];
       coords[i * NUM_COMPONENTS + Y_OFFSET] = position[1];
 
-      currentDistance += step;
-      if ((contourIndex + 1) < contourLengths.size()
-          && currentDistance > contourLengths.get(contourIndex + 1)) {
-        currentDistance -= contourLengths.get(contourIndex + 1);
+      cumulativeDistance = Math.min(cumulativeDistance + step, totalLength);
+
+      // Using a while statement is necessary in the rare case where step is greater than
+      // the length a path contour.
+      while (summedContourLengths.get(contourIndex + 1) < cumulativeDistance) {
         contourIndex++;
         pathMeasure.nextContour();
       }
     }
 
+    coords[(numPoints - 1) * NUM_COMPONENTS + FRACTION_OFFSET] = 1f;
     return coords;
   }
 }
