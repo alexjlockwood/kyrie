@@ -43,3 +43,4 @@ package com.github.alexjlockwood.kyrie;
 // TODO: avoid setting initial state and animations on nodes separately? combine them somehow?
 // TODO: should we use "startOffset" or "startDelay" as terminology? AVD object animators use startOffset
 // TODO: should we use linear or accelerate/decelerate as the default interpolator
+// TODO: publish sample app on play store?
