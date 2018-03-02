@@ -39,3 +39,7 @@ package com.github.alexjlockwood.kyrie;
 // TODO: create kyrie view?
 // TODO: make it clear what stuff shouldn't change after the kyrie drawable has been created!!!!!!!!
 // TODO: customize behavior when ValueAnimator#areAnimatorsEnabled returns true
+// TODO: make sure it works with AnimatedStateListDrawable?
+// TODO: avoid setting initial state and animations on nodes separately? combine them somehow?
+// TODO: should we use "startOffset" or "startDelay" as terminology? AVD object animators use startOffset
+// TODO: should we use linear or accelerate/decelerate as the default interpolator

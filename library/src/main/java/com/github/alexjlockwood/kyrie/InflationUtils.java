@@ -492,6 +492,9 @@ final class InflationUtils {
   private static final int VALUE_TYPE_COLOR = 3;
   private static final int VALUE_TYPE_UNDEFINED = 4;
 
+  private static final TimeInterpolator DEFAULT_INTERPOLATOR =
+      new AccelerateDecelerateInterpolator();
+
   private static Map<String, List<Animation<?, ?>>> loadAnimationMap(
       Context context, @AnimatorRes @AnimRes int id) throws NotFoundException {
     XmlResourceParser parser = null;
@@ -1176,7 +1179,7 @@ final class InflationUtils {
       final long endTime = startTime + duration;
       final List<Map<String, List<Animation<?, ?>>>> maps = new ArrayList<>();
       for (MyPropertyValuesHolder value : values) {
-        maps.add(value.toMap(startTime, endTime, repeatCount, repeatMode));
+        maps.add(value.toMap(startTime, endTime, interpolator, repeatCount, repeatMode));
       }
       return mergeMaps(maps);
     }
@@ -1185,7 +1188,11 @@ final class InflationUtils {
   private abstract static class MyPropertyValuesHolder {
     @NonNull
     public abstract Map<String, List<Animation<?, ?>>> toMap(
-        long startTime, long endTime, int repeatCount, @RepeatMode int repeatMode);
+        long startTime,
+        long endTime,
+        TimeInterpolator interpolator,
+        int repeatCount,
+        @RepeatMode int repeatMode);
   }
 
   private static class MySimplePropertyValuesHolder extends MyPropertyValuesHolder {
@@ -1205,33 +1212,25 @@ final class InflationUtils {
     @NonNull
     @Override
     public Map<String, List<Animation<?, ?>>> toMap(
-        long startTime, long endTime, int repeatCount, @RepeatMode int repeatMode) {
+        long startTime,
+        long endTime,
+        @Nullable TimeInterpolator interpolator,
+        int repeatCount,
+        @RepeatMode int repeatMode) {
       Animation<?, ?> anim;
       switch (valueType) {
         case VALUE_TYPE_FLOAT:
           if (fromValue == null) {
-            anim =
-                Animation.ofFloat((Float) toValue)
-                    .startDelay(startTime)
-                    .duration(endTime - startTime);
+            anim = Animation.ofFloat((Float) toValue);
           } else {
-            anim =
-                Animation.ofFloat((Float) fromValue, (Float) toValue)
-                    .startDelay(startTime)
-                    .duration(endTime - startTime);
+            anim = Animation.ofFloat((Float) fromValue, (Float) toValue);
           }
           break;
         case VALUE_TYPE_COLOR:
           if (fromValue == null) {
-            anim =
-                Animation.ofArgb((Integer) toValue)
-                    .startDelay(startTime)
-                    .duration(endTime - startTime);
+            anim = Animation.ofArgb((Integer) toValue);
           } else {
-            anim =
-                Animation.ofArgb((Integer) fromValue, (Integer) toValue)
-                    .startDelay(startTime)
-                    .duration(endTime - startTime);
+            anim = Animation.ofArgb((Integer) fromValue, (Integer) toValue);
           }
           break;
         case VALUE_TYPE_PATH:
@@ -1241,10 +1240,7 @@ final class InflationUtils {
                     .startDelay(startTime)
                     .duration(endTime - startTime);
           } else {
-            anim =
-                Animation.ofPathMorph((PathData) fromValue, (PathData) toValue)
-                    .startDelay(startTime)
-                    .duration(endTime - startTime);
+            anim = Animation.ofPathMorph((PathData) fromValue, (PathData) toValue);
           }
 
           break;
@@ -1252,7 +1248,15 @@ final class InflationUtils {
           throw new IllegalStateException("Invalid value type: " + valueType);
       }
       final List<Animation<?, ?>> anims = new ArrayList<>(1);
-      anims.add(anim.repeatCount(repeatCount).repeatMode(repeatMode));
+      if (interpolator == null) {
+        interpolator = new AccelerateDecelerateInterpolator();
+      }
+      anims.add(
+          anim.startDelay(startTime)
+              .duration(endTime - startTime)
+              .interpolator(interpolator == null ? DEFAULT_INTERPOLATOR : interpolator)
+              .repeatCount(repeatCount)
+              .repeatMode(repeatMode));
       final Map<String, List<Animation<?, ?>>> map = new ArrayMap<>(1);
       map.put(propertyName, anims);
       return map;
@@ -1274,12 +1278,20 @@ final class InflationUtils {
     @NonNull
     @Override
     public Map<String, List<Animation<?, ?>>> toMap(
-        long startTime, long endTime, int repeatCount, @RepeatMode int repeatMode) {
+        long startTime,
+        long endTime,
+        @Nullable TimeInterpolator interpolator,
+        int repeatCount,
+        @RepeatMode int repeatMode) {
       final Map<String, List<Animation<?, ?>>> map = new ArrayMap<>();
+      if (interpolator == null) {
+        interpolator = new AccelerateDecelerateInterpolator();
+      }
       final Animation<PointF, PointF> anim =
           Animation.ofPathMotion(path)
               .startDelay(startTime)
               .duration(endTime - startTime)
+              .interpolator(interpolator == null ? DEFAULT_INTERPOLATOR : interpolator)
               .repeatCount(repeatCount)
               .repeatMode(repeatMode);
       if (propertyNameX != null) {
@@ -1327,25 +1339,33 @@ final class InflationUtils {
     @NonNull
     @Override
     public Map<String, List<Animation<?, ?>>> toMap(
-        long startTime, long endTime, int repeatCount, @RepeatMode int repeatMode) {
+        long startTime,
+        long endTime,
+        @Nullable TimeInterpolator interpolator,
+        int repeatCount,
+        @RepeatMode int repeatMode) {
       final Map<String, List<Animation<?, ?>>> map = new ArrayMap<>();
       Animation<?, ?> anim;
       switch (valueType) {
         case VALUE_TYPE_FLOAT:
-          anim = Animation.ofFloat(keyframes).startDelay(startTime).duration(endTime - startTime);
+          anim = Animation.ofFloat(keyframes);
           break;
         case VALUE_TYPE_COLOR:
-          anim = Animation.ofArgb(keyframes).startDelay(startTime).duration(endTime - startTime);
+          anim = Animation.ofArgb(keyframes);
           break;
         case VALUE_TYPE_PATH:
-          anim =
-              Animation.ofPathMorph(keyframes).startDelay(startTime).duration(endTime - startTime);
+          anim = Animation.ofPathMorph(keyframes);
           break;
         default:
           throw new IllegalStateException("Invalid value type: " + valueType);
       }
       final List<Animation<?, ?>> anims = new ArrayList<>(1);
-      anims.add(anim.repeatCount(repeatCount).repeatMode(repeatMode));
+      anims.add(
+          anim.startDelay(startTime)
+              .duration(endTime - startTime)
+              .interpolator(interpolator == null ? DEFAULT_INTERPOLATOR : interpolator)
+              .repeatCount(repeatCount)
+              .repeatMode(repeatMode));
       map.put(propertyName, anims);
       return map;
     }
