@@ -1,11 +1,11 @@
 package com.example.kyrie;
 
-import android.graphics.Color;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.animation.FastOutSlowInInterpolator;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,14 +13,13 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 
 import com.github.alexjlockwood.kyrie.Animation;
-import com.github.alexjlockwood.kyrie.GroupNode;
+import com.github.alexjlockwood.kyrie.Keyframe;
 import com.github.alexjlockwood.kyrie.KyrieDrawable;
 import com.github.alexjlockwood.kyrie.PathData;
 import com.github.alexjlockwood.kyrie.PathNode;
 
 public class PathMorphFragment extends Fragment {
-  private static final int TINT_COLOR = 0xff757575;
-  private static final long DURATION = 4000;
+  private static final int DURATION = 1500;
 
   private ImageView imageView;
   private SeekBar seekBar;
@@ -48,32 +47,36 @@ public class PathMorphFragment extends Fragment {
   }
 
   private KyrieDrawable createDrawable() {
+    final Context ctx = getContext();
+    final PathData hippoPathData = PathData.parse(getString(R.string.hippo));
+    final PathData elephantPathData = PathData.parse(getString(R.string.elephant));
+    final PathData buffaloPathData = PathData.parse(getString(R.string.buffalo));
+    final int hippoFillColor = ContextCompat.getColor(ctx, R.color.hippo);
+    final int elephantFillColor = ContextCompat.getColor(ctx, R.color.elephant);
+    final int buffaloFillColor = ContextCompat.getColor(ctx, R.color.buffalo);
     final KyrieDrawable kyrieDrawable =
         KyrieDrawable.builder()
-            .viewport(18, 18)
-            .tint(TINT_COLOR)
+            .viewport(409, 280)
             .child(
-                GroupNode.builder()
-                    .pivotX(9)
-                    .pivotY(9)
-                    .rotation(
-                        Animation.ofFloat(90f, 180f)
-                            .duration(DURATION)
-                            .interpolator(new FastOutSlowInInterpolator()))
-                    .translateX(
-                        Animation.ofFloat(0.75f, 0f)
-                            .duration(DURATION)
-                            .interpolator(new FastOutSlowInInterpolator()))
-                    .child(
-                        PathNode.builder()
-                            .fillColor(Color.WHITE)
-                            .pathData(
-                                Animation.ofPathMorph(
-                                        PathData.parse(
-                                            "M9,5 L9,5 L9,13 L4,13 L9,5 M9,5 L9,5 L14,13 L9,13 L9,5"),
-                                        PathData.parse(
-                                            "M6,5 L8,5 L8,13 L6,13 L6,5 M10,5 L12,5 L12,13 L10,13 L10,5"))
-                                    .duration(DURATION))))
+                PathNode.builder()
+                    .pathData(
+                        Animation.ofPathMorph(
+                                Keyframe.of(0, hippoPathData),
+                                Keyframe.of(0.2f, elephantPathData),
+                                Keyframe.of(0.4f, elephantPathData),
+                                Keyframe.of(0.6f, buffaloPathData),
+                                Keyframe.of(0.8f, buffaloPathData),
+                                Keyframe.of(1, hippoPathData))
+                            .duration(DURATION))
+                    .fillColor(
+                        Animation.ofArgb(
+                                Keyframe.of(0, hippoFillColor),
+                                Keyframe.of(0.2f, elephantFillColor),
+                                Keyframe.of(0.4f, elephantFillColor),
+                                Keyframe.of(0.6f, buffaloFillColor),
+                                Keyframe.of(0.8f, buffaloFillColor),
+                                Keyframe.of(1, hippoFillColor))
+                            .duration(DURATION)))
             .build();
     kyrieDrawable.addListener(new SampleListenerAdapter(seekBar));
     return kyrieDrawable;
