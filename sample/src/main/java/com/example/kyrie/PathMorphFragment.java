@@ -43,37 +43,8 @@ public class PathMorphFragment extends Fragment {
 
     final KyrieDrawable drawable = createDrawable();
     imageView.setImageDrawable(drawable);
-    imageView.setOnClickListener(
-        v -> {
-          if (drawable.isPaused()) {
-            drawable.resume();
-          } else {
-            if (drawable.isStarted()) {
-              drawable.pause();
-            } else {
-              drawable.start();
-            }
-          }
-        });
-
-    final long totalDuration = drawable.getTotalDuration();
-    seekBar.setOnSeekBarChangeListener(
-        new SeekBar.OnSeekBarChangeListener() {
-          @Override
-          public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-            drawable.setCurrentPlayTime((long) (progress / 100f * totalDuration));
-          }
-
-          @Override
-          public void onStartTrackingTouch(SeekBar seekBar) {
-            if (drawable.isRunning()) {
-              drawable.pause();
-            }
-          }
-
-          @Override
-          public void onStopTrackingTouch(SeekBar seekBar) {}
-        });
+    imageView.setOnClickListener(new SampleOnClickListener(drawable));
+    seekBar.setOnSeekBarChangeListener(new SampleOnSeekBarChangeListener(drawable));
   }
 
   private KyrieDrawable createDrawable() {
@@ -104,16 +75,7 @@ public class PathMorphFragment extends Fragment {
                                             "M6,5 L8,5 L8,13 L6,13 L6,5 M10,5 L12,5 L12,13 L10,13 L10,5"))
                                     .duration(DURATION))))
             .build();
-    kyrieDrawable.addListener(
-        new KyrieDrawable.ListenerAdapter() {
-          @Override
-          public void onAnimationUpdate(@NonNull KyrieDrawable drawable) {
-            final float playTime = drawable.getCurrentPlayTime();
-            final float totalDuration = drawable.getTotalDuration();
-            final float fraction = playTime / totalDuration;
-            seekBar.setProgress(Math.round(fraction * seekBar.getMax()));
-          }
-        });
+    kyrieDrawable.addListener(new SampleListenerAdapter(seekBar));
     return kyrieDrawable;
   }
 }

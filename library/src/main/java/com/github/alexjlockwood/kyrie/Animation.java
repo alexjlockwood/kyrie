@@ -379,7 +379,7 @@ public final class Animation<T, V> {
   }
 
   /**
-   * Return the animated value of this animation at the given fraction.
+   * Returns the animated value of this animation at the given fraction.
    *
    * @param fraction The current animation fraction. Typically between 0 and 1 (but may slightly
    *     extend these bounds depending on the interpolator used).
