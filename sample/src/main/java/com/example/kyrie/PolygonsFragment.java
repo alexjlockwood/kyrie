@@ -98,12 +98,10 @@ public class PolygonsFragment extends Fragment {
               .duration(DURATION);
       builder.child(
           CircleNode.builder()
-              .centerX(0)
-              .centerY(0)
-              .radius(8)
               .fillColor(Color.BLACK)
-              .translateX(pathMotion.transform(p -> p.x))
-              .translateY(pathMotion.transform(p -> p.y)));
+              .radius(8)
+              .centerX(pathMotion.transform(p -> p.x))
+              .centerY(pathMotion.transform(p -> p.y)));
     }
 
     return builder.build();
