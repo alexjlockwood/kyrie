@@ -19,8 +19,6 @@ import com.github.alexjlockwood.kyrie.PathData;
 import com.github.alexjlockwood.kyrie.PathNode;
 
 public class PathMorphFragment extends Fragment {
-  private static final int DURATION = 1500;
-
   private ImageView imageView;
   private SeekBar seekBar;
 
@@ -67,16 +65,11 @@ public class PathMorphFragment extends Fragment {
                                 Keyframe.of(0.6f, buffaloPathData),
                                 Keyframe.of(0.8f, buffaloPathData),
                                 Keyframe.of(1, hippoPathData))
-                            .duration(DURATION))
+                            .duration(1500))
                     .fillColor(
-                        Animation.ofArgb(
-                                Keyframe.of(0, hippoFillColor),
-                                Keyframe.of(0.2f, elephantFillColor),
-                                Keyframe.of(0.4f, elephantFillColor),
-                                Keyframe.of(0.6f, buffaloFillColor),
-                                Keyframe.of(0.8f, buffaloFillColor),
-                                Keyframe.of(1, hippoFillColor))
-                            .duration(DURATION)))
+                        Animation.ofArgb(hippoFillColor, elephantFillColor).duration(300),
+                        Animation.ofArgb(buffaloFillColor).startDelay(600).duration(300),
+                        Animation.ofArgb(hippoFillColor).startDelay(1200).duration(300)))
             .build();
     kyrieDrawable.addListener(new SampleListenerAdapter(seekBar));
     return kyrieDrawable;

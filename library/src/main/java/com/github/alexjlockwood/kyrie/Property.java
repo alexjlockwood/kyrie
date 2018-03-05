@@ -110,10 +110,10 @@ final class Property<V> {
     for (int i = size - 1; i >= 0; i--) {
       animation = animations.get(i);
       final long startTime = animation.getStartDelay();
-      final long totalDuration = animation.getTotalDuration();
-      if (startTime <= currentPlayTime
-          && (totalDuration == Animation.INFINITE
-              || currentPlayTime <= startTime + totalDuration)) {
+      // Iterate backwards through the list and stop at the first
+      // animation that has a start time less than or equal to the
+      // current play time.
+      if (startTime <= currentPlayTime) {
         break;
       }
     }
@@ -135,12 +135,17 @@ final class Property<V> {
    * Returns the progress into the current animation between 0 and 1. This does not take into
    * account any interpolation that the animation may have.
    */
-  private float getLinearCurrentAnimationFraction() {
-    final Animation<?, V> animation = getCurrentAnimation();
+  private float getLinearCurrentAnimationFraction(Animation<?, V> animation) {
     final float startTime = animation.getStartDelay();
     final float duration = animation.getDuration();
     if (duration == 0) {
       return 1f;
+    }
+    final long totalDuration = animation.getTotalDuration();
+    long currentPlayTime = this.currentPlayTime;
+    if (totalDuration != Animation.INFINITE) {
+      // Don't let the current play time exceed the animation's total duration if it isn't infinite.
+      currentPlayTime = Math.min(currentPlayTime, totalDuration);
     }
     final float fraction = (currentPlayTime - startTime) / duration;
     final int currentIteration = getCurrentIteration(fraction);
@@ -159,21 +164,21 @@ final class Property<V> {
   }
 
   /**
-   * Takes the value of {@link #getLinearCurrentAnimationFraction()} and interpolates it with the
-   * current animation's getInterpolator.
+   * Takes the value of {@link #getLinearCurrentAnimationFraction(Animation)} and interpolates it
+   * with the current animation's interpolator.
    */
-  private float getInterpolatedCurrentAnimationFraction() {
-    final Animation<?, V> animation = getCurrentAnimation();
+  private float getInterpolatedCurrentAnimationFraction(Animation<?, V> animation) {
     TimeInterpolator interpolator = animation.getInterpolator();
     if (interpolator == null) {
       interpolator = DEFAULT_INTERPOLATOR;
     }
-    return interpolator.getInterpolation(getLinearCurrentAnimationFraction());
+    return interpolator.getInterpolation(getLinearCurrentAnimationFraction(animation));
   }
 
   @NonNull
   public V getAnimatedValue() {
-    return getCurrentAnimation().getAnimatedValue(getInterpolatedCurrentAnimationFraction());
+    final Animation<?, V> animation = getCurrentAnimation();
+    return animation.getAnimatedValue(getInterpolatedCurrentAnimationFraction(animation));
   }
 
   public interface Listener {
