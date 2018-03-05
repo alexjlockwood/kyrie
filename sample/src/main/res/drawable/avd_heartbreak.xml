@@ -1,5 +1,7 @@
 <animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:aapt="http://schemas.android.com/aapt">
+  xmlns:aapt="http://schemas.android.com/aapt"
+  xmlns:tools="http://schemas.android.com/tools"
+  tools:ignore="NewApi">
   <aapt:attr name="android:drawable">
     <vector
       android:name="vector"
@@ -157,17 +159,17 @@
           android:duration="160"
           android:interpolator="@android:interpolator/fast_out_linear_in"
           android:propertyName="pathData"
-          android:valueType="pathType"
           android:startOffset="1000"
           android:valueFrom="@string/clip_path_fill_up_start"
-          android:valueTo="@string/clip_path_fill_up_mid" />
+          android:valueTo="@string/clip_path_fill_up_mid"
+          android:valueType="pathType" />
         <objectAnimator
           android:duration="120"
           android:interpolator="@android:interpolator/fast_out_linear_in"
           android:propertyName="pathData"
-          android:valueType="pathType"
           android:valueFrom="@string/clip_path_fill_up_mid"
-          android:valueTo="@string/clip_path_fill_up_end" />
+          android:valueTo="@string/clip_path_fill_up_end"
+          android:valueType="pathType" />
       </set>
     </aapt:attr>
   </target>
