@@ -1,6 +1,7 @@
 package com.example.kyrie;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -57,6 +58,12 @@ public class PathMorphFragment extends Fragment {
             .viewport(409, 280)
             .child(
                 PathNode.builder()
+                    .strokeColor(Color.BLACK)
+                    .strokeWidth(1f)
+                    .fillColor(
+                        Animation.ofArgb(hippoFillColor, elephantFillColor).duration(300),
+                        Animation.ofArgb(buffaloFillColor).startDelay(600).duration(300),
+                        Animation.ofArgb(hippoFillColor).startDelay(1200).duration(300))
                     .pathData(
                         Animation.ofPathMorph(
                                 Keyframe.of(0, hippoPathData),
@@ -65,11 +72,7 @@ public class PathMorphFragment extends Fragment {
                                 Keyframe.of(0.6f, buffaloPathData),
                                 Keyframe.of(0.8f, buffaloPathData),
                                 Keyframe.of(1, hippoPathData))
-                            .duration(1500))
-                    .fillColor(
-                        Animation.ofArgb(hippoFillColor, elephantFillColor).duration(300),
-                        Animation.ofArgb(buffaloFillColor).startDelay(600).duration(300),
-                        Animation.ofArgb(hippoFillColor).startDelay(1200).duration(300)))
+                            .duration(1500)))
             .build();
     kyrieDrawable.addListener(new SampleListenerAdapter(seekBar));
     return kyrieDrawable;
