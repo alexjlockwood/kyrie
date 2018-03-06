@@ -3,6 +3,8 @@
 [![Build status][travis-badge]][travis-badge-url]
 [![Release](https://jitpack.io/v/alexjlockwood/kyrie.svg)](https://jitpack.io/#alexjlockwood/kyrie)
 
+![Screen capture of tool](art/screencap.gif)
+
 ## Dependency
 
 Add this to your root `build.gradle` file (*not* your module's `build.gradle` file):
