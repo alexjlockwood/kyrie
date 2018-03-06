@@ -5,7 +5,7 @@
 
 Kyrie is a superset of Android's `VectorDrawable` and `AnimatedVectorDrawable` classes: it can do everything they can do and more. 
 
-Check out the blog post for the motivation behind the library as well as some example usages, and don't forget to read the [documentation](https://alexjlockwood.github.io/kyrie).
+Check out [the blog post](https://www.androiddesignpatterns.com/2018/03/introducing-kyrie-animated-vector-drawables.html) for the motivation behind the library as well as some example usages, and don't forget to read the [documentation](https://alexjlockwood.github.io/kyrie).
 
 ![Screen capture of tool](art/screencap.gif)
 
