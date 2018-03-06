@@ -3,7 +3,9 @@
 [![Build status][travis-badge]][travis-badge-url]
 [![Release](https://jitpack.io/v/alexjlockwood/kyrie.svg)](https://jitpack.io/#alexjlockwood/kyrie)
 
-Kyrie is a superset of Android's `VectorDrawable` and `AnimatedVectorDrawable` classes: it can do everything they can do and more. Check out the blog post for the motivation behind the library as well as some example usages, and don't forget to read the [documentation](https://alexjlockwood.github.io/kyrie).
+Kyrie is a superset of Android's `VectorDrawable` and `AnimatedVectorDrawable` classes: it can do everything they can do and more. 
+
+Check out the blog post for the motivation behind the library as well as some example usages, and don't forget to read the [documentation](https://alexjlockwood.github.io/kyrie).
 
 ![Screen capture of tool](art/screencap.gif)
 
