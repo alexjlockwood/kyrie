@@ -22,6 +22,10 @@ after_success:
   - ./gradlew javadocRelease
 
 deploy:
+  # Fix broken deployment due to
+  # https://github.com/travis-ci/travis-ci/issues/9312
+  edge:
+    branch: v1.8.47
   provider: pages
   skip-cleanup: true
   github-token: $GITHUB_TOKEN
