@@ -13,7 +13,7 @@ Check out [the blog post](https://www.androiddesignpatterns.com/2018/03/introduc
 
 Add this to your root `build.gradle` file (*not* your module's `build.gradle` file):
 
-```
+```gradle
 allprojects {
     repositories {
         // ...
@@ -24,7 +24,7 @@ allprojects {
 
 Then add the library to your module's `build.gradle` file:
 
-```
+```gradle
 dependencies {
     // ...
     implementation 'com.github.alexjlockwood:kyrie:latest.release.here'
