@@ -15,8 +15,6 @@ import android.widget.ImageView;
 
 import com.github.alexjlockwood.kyrie.Animation;
 import com.github.alexjlockwood.kyrie.CircleNode;
-import com.github.alexjlockwood.kyrie.GroupNode;
-import com.github.alexjlockwood.kyrie.Keyframe;
 import com.github.alexjlockwood.kyrie.KyrieDrawable;
 import com.github.alexjlockwood.kyrie.PathData;
 import com.github.alexjlockwood.kyrie.PathNode;
@@ -31,19 +29,19 @@ public class PolygonsFragment extends Fragment {
   private static final int DURATION = 7500;
 
   private final Polygon[] polygons = {
-    new Polygon(15, 0xffe84c65, 362f, 2),
-    new Polygon(14, 0xffe84c65, 338f, 3),
-    new Polygon(13, 0xffd554d9, 314f, 4),
-    new Polygon(12, 0xffaf6eee, 292f, 5),
-    new Polygon(11, 0xff4a4ae6, 268f, 6),
-    new Polygon(10, 0xff4294e7, 244f, 7),
-    new Polygon(9, 0xff6beeee, 220f, 8),
-    new Polygon(8, 0xff42e794, 196f, 9),
-    new Polygon(7, 0xff5ae75a, 172f, 10),
-    new Polygon(6, 0xffade76b, 148f, 11),
-    new Polygon(5, 0xffefefbb, 128f, 12),
-    new Polygon(4, 0xffe79442, 106f, 13),
-    new Polygon(3, 0xffe84c65, 90f, 14)
+      new Polygon(15, 0xffe84c65, 362f, 2),
+      new Polygon(14, 0xffe84c65, 338f, 3),
+      new Polygon(13, 0xffd554d9, 314f, 4),
+      new Polygon(12, 0xffaf6eee, 292f, 5),
+      new Polygon(11, 0xff4a4ae6, 268f, 6),
+      new Polygon(10, 0xff4294e7, 244f, 7),
+      new Polygon(9, 0xff6beeee, 220f, 8),
+      new Polygon(8, 0xff42e794, 196f, 9),
+      new Polygon(7, 0xff5ae75a, 172f, 10),
+      new Polygon(6, 0xffade76b, 148f, 11),
+      new Polygon(5, 0xffefefbb, 128f, 12),
+      new Polygon(4, 0xffe79442, 106f, 13),
+      new Polygon(3, 0xffe84c65, 90f, 14)
   };
 
   private View rootView;
@@ -58,7 +56,6 @@ public class PolygonsFragment extends Fragment {
       @Nullable Bundle savedInstanceState) {
     rootView = inflater.inflate(R.layout.fragment_two_pane, container, false);
     imageViewLaps = rootView.findViewById(R.id.image_view_pane1);
-    imageViewLaps.setVisibility(View.GONE);
     imageViewVortex = rootView.findViewById(R.id.image_view_pane2);
     return rootView;
   }
@@ -67,16 +64,16 @@ public class PolygonsFragment extends Fragment {
   public void onActivityCreated(@Nullable Bundle savedInstanceState) {
     super.onActivityCreated(savedInstanceState);
 
-    //    final KyrieDrawable lapsDrawable = createLapsDrawable();
-    //    imageViewLaps.setImageDrawable(lapsDrawable);
+    final KyrieDrawable lapsDrawable = createLapsDrawable();
+    imageViewLaps.setImageDrawable(lapsDrawable);
 
-    final KyrieDrawable rotatingDrawable = createRotatingDrawable();
-    imageViewVortex.setImageDrawable(rotatingDrawable);
+    final KyrieDrawable vortexDrawable = createVortexDrawable();
+    imageViewVortex.setImageDrawable(vortexDrawable);
 
     rootView.setOnClickListener(
         v -> {
-          //          lapsDrawable.start();
-          rotatingDrawable.start();
+          lapsDrawable.start();
+          vortexDrawable.start();
         });
   }
 
@@ -135,61 +132,6 @@ public class PolygonsFragment extends Fragment {
     return builder.build();
   }
 
-  private KyrieDrawable createRotatingDrawable() {
-    final KyrieDrawable.Builder builder =
-        KyrieDrawable.builder().viewport(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
-
-    final int duration = 5000;
-    final float minRadius = polygons[polygons.length - 1].radius;
-    final float maxRadius = polygons[0].radius;
-    final float maxMinusMin = maxRadius - minRadius;
-
-    for (int i = polygons.length - 1; i >= 0; i--) {
-      final Polygon polygon = polygons[i];
-      final float radiusMinusMin = polygon.radius - minRadius;
-      final Keyframe<Float>[] keyframes =
-          new Keyframe[] {
-            Keyframe.of(0f, polygon.radius / minRadius),
-            Keyframe.of(
-                (polygon.radius - minRadius) / (2f * (maxRadius - minRadius)),
-                minRadius / minRadius),
-            Keyframe.of(
-                (polygon.radius - minRadius + maxMinusMin)
-                    / (2f * (maxRadius - minRadius)),
-                maxRadius / minRadius),
-            Keyframe.of(1f, polygon.radius / minRadius)
-          };
-      builder.child(
-          GroupNode.builder()
-              .pivotX(VIEWPORT_WIDTH / 2f)
-              .pivotY(VIEWPORT_HEIGHT / 2f)
-              .scaleX(minRadius / polygon.radius)
-              .scaleY(minRadius / polygon.radius)
-              .child(
-                  PathNode.builder()
-                      .pathData(PathData.parse(polygon.pathData))
-                      .pivotX(VIEWPORT_WIDTH / 2f)
-                      .pivotY(VIEWPORT_HEIGHT / 2f)
-                      .rotation(
-                          Animation.ofFloat(0f, 360f / polygon.sides)
-                              .duration(duration)
-                              .repeatCount(Animation.INFINITE))
-                      .scaleX(
-                          Animation.ofFloat(keyframes)
-                              .duration(duration)
-                              .repeatCount(Animation.INFINITE))
-                      .scaleY(
-                          Animation.ofFloat(keyframes)
-                              .duration(duration)
-                              .repeatCount(Animation.INFINITE))
-                      .scalingStroke(false)
-                      .strokeWidth(4f)
-                      .strokeColor(polygon.color)));
-    }
-
-    return builder.build();
-  }
-
   private static class Polygon {
     final int sides;
     @ColorInt final int color;
@@ -230,7 +172,7 @@ public class PolygonsFragment extends Fragment {
       for (PointF p : points) {
         sb.append(" ").append(p.x).append(" ").append(p.y);
       }
-      return sb.append("Z").toString();
+      return sb.toString();
     }
 
     private static float pointsToLength(List<PointF> points) {
