@@ -7,7 +7,12 @@ import android.support.annotation.NonNull;
 import com.github.alexjlockwood.kyrie.Animation.ValueEvaluator;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Abstracts a collection of {@link Keyframe} objects and is used to calculate values between those
@@ -16,6 +21,13 @@ import java.util.List;
  * @param <T> The keyframe value type.
  */
 abstract class KeyframeSet<T> {
+  private static final Comparator<Keyframe<?>> KEYFRAME_COMPARATOR =
+      new Comparator<Keyframe<?>>() {
+        @Override
+        public int compare(Keyframe<?> k1, Keyframe<?> k2) {
+          return Float.compare(k1.getFraction(), k2.getFraction());
+        }
+      };
 
   /** @return An {@link ObjectKeyframeSet} with evenly distributed keyframe values. */
   @NonNull
@@ -37,11 +49,16 @@ abstract class KeyframeSet<T> {
   /** @return An {@link ObjectKeyframeSet} with the given keyframe values. */
   @NonNull
   public static <T> KeyframeSet<T> ofObject(ValueEvaluator<T> evaluator, Keyframe<T>[] values) {
+    Arrays.sort(values, KEYFRAME_COMPARATOR);
     final List<Keyframe<T>> list = new ArrayList<>(values.length);
-    //noinspection ForLoopReplaceableByForEach
-    for (int i = 0, size = values.length; i < size; i++) {
-      list.add(values[i]);
+    final Set<Float> seenFractions = new HashSet<>(values.length);
+    for (int i = values.length - 1; i >= 0; i--) {
+      if (!seenFractions.contains(values[i].getFraction())) {
+        list.add(values[i]);
+        seenFractions.add(values[i].getFraction());
+      }
     }
+    Collections.reverse(list);
     return new ObjectKeyframeSet<>(evaluator, list);
   }
 
