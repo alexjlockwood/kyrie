@@ -1,8 +1,6 @@
 package com.github.alexjlockwood.kyrie;
 
 import android.graphics.Path;
-import android.graphics.RectF;
-import android.support.annotation.FloatRange;
 import android.support.annotation.NonNull;
 
 import java.util.List;
@@ -199,7 +197,7 @@ public final class LineNode extends RenderNode {
     public Builder endY(List<Animation<?, Float>> animations) {
       return replaceAnimations(endY, animations);
     }
-    
+
     @NonNull
     @Override
     Builder self() {
