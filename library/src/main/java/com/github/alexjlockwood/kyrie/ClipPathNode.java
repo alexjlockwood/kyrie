@@ -4,6 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Path;
 import android.graphics.PointF;
+import android.graphics.Region;
 import android.support.annotation.NonNull;
 
 import java.util.List;
@@ -14,6 +15,8 @@ import java.util.List;
  */
 public final class ClipPathNode extends BaseNode {
   @NonNull private final List<Animation<?, PathData>> pathData;
+  @FillType private final int fillType;
+  @ClipType private final int clipType;
 
   private ClipPathNode(
       @NonNull List<Animation<?, Float>> rotation,
@@ -23,14 +26,28 @@ public final class ClipPathNode extends BaseNode {
       @NonNull List<Animation<?, Float>> scaleY,
       @NonNull List<Animation<?, Float>> translateX,
       @NonNull List<Animation<?, Float>> translateY,
-      @NonNull List<Animation<?, PathData>> pathData) {
+      @NonNull List<Animation<?, PathData>> pathData,
+      @FillType int fillType,
+      @ClipType int clipType) {
     super(rotation, pivotX, pivotY, scaleX, scaleY, translateX, translateY);
     this.pathData = pathData;
+    this.fillType = fillType;
+    this.clipType = clipType;
   }
 
   @NonNull
   List<Animation<?, PathData>> getPathData() {
     return pathData;
+  }
+
+  @FillType
+  int getFillType() {
+    return fillType;
+  }
+
+  @ClipType
+  int getClipType() {
+    return clipType;
   }
 
   // <editor-fold desc="Layer">
@@ -43,6 +60,8 @@ public final class ClipPathNode extends BaseNode {
 
   private static class ClipPathLayer extends BaseLayer {
     @NonNull private final Property<PathData> pathData;
+    @FillType private final int fillType;
+    @ClipType private final int clipType;
 
     private final Matrix tempMatrix = new Matrix();
     private final Path tempPath = new Path();
@@ -51,6 +70,8 @@ public final class ClipPathNode extends BaseNode {
     public ClipPathLayer(PropertyTimeline timeline, ClipPathNode node) {
       super(timeline, node);
       pathData = registerAnimatableProperty(node.getPathData());
+      fillType = node.getFillType();
+      clipType = node.getClipType();
     }
 
     @Override
@@ -71,7 +92,23 @@ public final class ClipPathNode extends BaseNode {
       tempPath.reset();
       PathData.toPath(pathData.getAnimatedValue(), tempPath);
       tempRenderPath.addPath(tempPath, tempMatrix);
-      canvas.clipPath(tempRenderPath);
+      tempRenderPath.setFillType(getPaintFillType(fillType));
+      if (clipType == ClipType.INTERSECT) {
+        canvas.clipPath(tempRenderPath);
+      } else {
+        canvas.clipPath(tempRenderPath, Region.Op.DIFFERENCE);
+      }
+    }
+
+    private static Path.FillType getPaintFillType(@FillType int fillType) {
+      switch (fillType) {
+        case FillType.NON_ZERO:
+          return Path.FillType.WINDING;
+        case FillType.EVEN_ODD:
+          return Path.FillType.EVEN_ODD;
+        default:
+          throw new IllegalArgumentException("Invalid fill type: " + fillType);
+      }
     }
   }
 
@@ -86,6 +123,8 @@ public final class ClipPathNode extends BaseNode {
   /** Builder class used to create {@link ClipPathNode}s. */
   public static final class Builder extends BaseNode.Builder<Builder> {
     @NonNull private List<Animation<?, PathData>> pathData = asAnimations(new PathData());
+    @FillType private int fillType = FillType.NON_ZERO;
+    @ClipType private int clipType = ClipType.INTERSECT;
 
     private Builder() {}
 
@@ -108,6 +147,20 @@ public final class ClipPathNode extends BaseNode {
       return replaceAnimations(pathData, animations);
     }
 
+    // Fill type.
+
+    public final Builder fillType(@FillType int fillType) {
+      this.fillType = fillType;
+      return self;
+    }
+
+    // Clip type.
+
+    public final Builder clipType(@ClipType int clipType) {
+      this.clipType = clipType;
+      return self;
+    }
+
     @NonNull
     @Override
     Builder self() {
@@ -118,7 +171,16 @@ public final class ClipPathNode extends BaseNode {
     @Override
     public ClipPathNode build() {
       return new ClipPathNode(
-          rotation, pivotX, pivotY, scaleX, scaleY, translateX, translateY, pathData);
+          rotation,
+          pivotX,
+          pivotY,
+          scaleX,
+          scaleY,
+          translateX,
+          translateY,
+          pathData,
+          fillType,
+          clipType);
     }
   }
 
