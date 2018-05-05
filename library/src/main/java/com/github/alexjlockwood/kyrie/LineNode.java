@@ -199,8 +199,7 @@ public final class LineNode extends RenderNode {
     public Builder endY(List<Animation<?, Float>> animations) {
       return replaceAnimations(endY, animations);
     }
-
-
+    
     @NonNull
     @Override
     Builder self() {
