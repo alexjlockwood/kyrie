@@ -166,7 +166,7 @@ public final class LineNode extends RenderNode {
       return replaceAnimations(startY, animations);
     }
 
-    public Builder centerY(List<Animation<?, Float>> animations) {
+    public Builder startY(List<Animation<?, Float>> animations) {
       return replaceAnimations(startY, animations);
     }
 
