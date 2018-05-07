@@ -12,7 +12,9 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.FloatRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
+import java.util.Arrays;
 import java.util.List;
 
 abstract class RenderNode extends BaseNode {
@@ -297,13 +299,20 @@ abstract class RenderNode extends BaseNode {
       if (strokeDashArray.length == 0) {
         return null;
       }
-      final float strokeDashOffset = this.strokeDashOffset.getAnimatedValue();
-      if (tempStrokeDashArray == null || tempStrokeDashArray.length != strokeDashArray.length) {
-        tempStrokeDashArray = new float[strokeDashArray.length];
+      // DashPathEffect throws an exception if the dash array is odd in length,
+      // so double the size of the array if this is the case.
+      final int initialSize = strokeDashArray.length;
+      final int expansionFactor = initialSize % 2 == 0 ? 1 : 2;
+      final int requiredSize = initialSize * expansionFactor;
+      if (tempStrokeDashArray == null || tempStrokeDashArray.length != requiredSize) {
+        tempStrokeDashArray = new float[requiredSize];
       }
-      for (int i = 0; i < tempStrokeDashArray.length; i++) {
+      for (int i = 0; i < initialSize; i++) {
         tempStrokeDashArray[i] = strokeDashArray[i] * strokeScaleFactor;
       }
+      System.arraycopy(
+          tempStrokeDashArray, 0, tempStrokeDashArray, initialSize, requiredSize - initialSize);
+      final float strokeDashOffset = this.strokeDashOffset.getAnimatedValue();
       return new DashPathEffect(tempStrokeDashArray, strokeDashOffset);
     }
 
