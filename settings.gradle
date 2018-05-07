@@ -1,2 +1,3 @@
+include ':dsl'
 include 'library'
 include 'sample'
