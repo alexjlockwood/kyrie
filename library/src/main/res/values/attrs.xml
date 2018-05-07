@@ -1,0 +1,18 @@
+<resources>
+
+  <!-- Custom attributes for a RenderNode. -->
+  <declare-styleable name="KyrieDrawableRenderNode">
+    <attr name="strokeDashArray" format="string" />
+    <attr name="strokeDashOffset" format="float" />
+    <attr name="isScalingStroke" format="boolean" />
+  </declare-styleable>
+
+  <!-- Custom attributes for a ClipPathNode. -->
+  <declare-styleable name="KyrieDrawableClipPathNode">
+    <attr name="clipType" format="enum">
+      <enum name="intersect" value="0" />
+      <enum name="subtract" value="1" />
+    </attr>
+  </declare-styleable>
+
+</resources>

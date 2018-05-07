@@ -27,6 +27,7 @@ import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.Px;
+import android.support.annotation.XmlRes;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.view.ViewCompat;
 import android.util.Log;
@@ -59,7 +60,7 @@ public final class KyrieDrawable extends Drawable implements Animatable {
    * AnimatedVectorDrawable} XML file.
    */
   @Nullable
-  public static KyrieDrawable create(Context context, @DrawableRes int resId) {
+  public static KyrieDrawable create(Context context, @DrawableRes @XmlRes int resId) {
     try {
       final KyrieDrawable.Builder builder = KyrieDrawable.builder();
       InflationUtils.inflate(builder, context, resId);

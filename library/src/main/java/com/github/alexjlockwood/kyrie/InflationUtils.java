@@ -20,6 +20,7 @@ import android.support.annotation.IntDef;
 import android.support.annotation.InterpolatorRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StyleableRes;
 import android.support.v4.util.ArrayMap;
 import android.support.v4.view.animation.PathInterpolatorCompat;
 import android.util.AttributeSet;
@@ -46,6 +47,7 @@ import java.io.IOException;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
@@ -224,6 +226,7 @@ final class InflationUtils {
     }
   }
 
+  @SuppressWarnings("unchecked")
   private static void updateVectorFromTypedArray(
       KyrieDrawable.Builder builder,
       TypedArray a,
@@ -270,6 +273,50 @@ final class InflationUtils {
     }
   }
 
+  @SuppressWarnings({"unchecked", "InlinedApi"})
+  private static void updateBaseFromTypedArray(
+      BaseNode.Builder builder,
+      TypedArray a,
+      XmlPullParser parser,
+      @Nullable Map<String, Animation[]> animationMap,
+      @StyleableRes int[] sortedAttrs) {
+    final int indexPivotX = Arrays.binarySearch(sortedAttrs, android.R.attr.pivotX);
+    builder.pivotX(a.getFloat(indexPivotX, 0));
+    if (animationMap != null && animationMap.containsKey("pivotX")) {
+      builder.pivotX((Animation<?, Float>[]) animationMap.get("pivotX"));
+    }
+    final int indexPivotY = Arrays.binarySearch(sortedAttrs, android.R.attr.pivotY);
+    builder.pivotY(a.getFloat(indexPivotY, 0));
+    if (animationMap != null && animationMap.containsKey("pivotY")) {
+      builder.pivotY((Animation<?, Float>[]) animationMap.get("pivotY"));
+    }
+    final int indexRotation = Arrays.binarySearch(sortedAttrs, android.R.attr.rotation);
+    builder.rotation(TypedArrayUtils.getNamedFloat(a, parser, "rotation", indexRotation, 0));
+    if (animationMap != null && animationMap.containsKey("rotation")) {
+      builder.rotation((Animation<?, Float>[]) animationMap.get("rotation"));
+    }
+    final int indexScaleX = Arrays.binarySearch(sortedAttrs, android.R.attr.scaleX);
+    builder.scaleX(TypedArrayUtils.getNamedFloat(a, parser, "scaleX", indexScaleX, 1));
+    if (animationMap != null && animationMap.containsKey("scaleX")) {
+      builder.scaleX((Animation<?, Float>[]) animationMap.get("scaleX"));
+    }
+    final int indexScaleY = Arrays.binarySearch(sortedAttrs, android.R.attr.scaleY);
+    builder.scaleY(TypedArrayUtils.getNamedFloat(a, parser, "scaleY", indexScaleY, 1));
+    if (animationMap != null && animationMap.containsKey("scaleY")) {
+      builder.scaleY((Animation<?, Float>[]) animationMap.get("scaleY"));
+    }
+    final int indexTranslateX = Arrays.binarySearch(sortedAttrs, android.R.attr.translateX);
+    builder.translateX(TypedArrayUtils.getNamedFloat(a, parser, "translateX", indexTranslateX, 0));
+    if (animationMap != null && animationMap.containsKey("translateX")) {
+      builder.translateX((Animation<?, Float>[]) animationMap.get("translateX"));
+    }
+    final int indexTranslateY = Arrays.binarySearch(sortedAttrs, android.R.attr.translateY);
+    builder.translateY(TypedArrayUtils.getNamedFloat(a, parser, "translateY", indexTranslateY, 0));
+    if (animationMap != null && animationMap.containsKey("translateY")) {
+      builder.translateY((Animation<?, Float>[]) animationMap.get("translateY"));
+    }
+  }
+
   private static void inflateGroup(
       GroupNode.Builder builder,
       Context context,
@@ -284,46 +331,8 @@ final class InflationUtils {
         animationMap = targetMap.get(groupName);
       }
     }
-    updateGroupFromTypedArray(builder, a, parser, animationMap);
+    updateBaseFromTypedArray(builder, a, parser, animationMap, Styleable.GROUP);
     a.recycle();
-  }
-
-  private static void updateGroupFromTypedArray(
-      GroupNode.Builder builder,
-      TypedArray a,
-      XmlPullParser parser,
-      @Nullable Map<String, Animation[]> animationMap) {
-    builder.pivotX(a.getFloat(Styleable.Group.PIVOT_X, 0));
-    if (animationMap != null && animationMap.containsKey("pivotX")) {
-      builder.pivotX((Animation<?, Float>[]) animationMap.get("pivotX"));
-    }
-    builder.pivotY(a.getFloat(Styleable.Group.PIVOT_Y, 0));
-    if (animationMap != null && animationMap.containsKey("pivotY")) {
-      builder.pivotY((Animation<?, Float>[]) animationMap.get("pivotY"));
-    }
-    builder.rotation(
-        TypedArrayUtils.getNamedFloat(a, parser, "rotation", Styleable.Group.ROTATION, 0));
-    if (animationMap != null && animationMap.containsKey("rotation")) {
-      builder.rotation((Animation<?, Float>[]) animationMap.get("rotation"));
-    }
-    builder.scaleX(TypedArrayUtils.getNamedFloat(a, parser, "scaleX", Styleable.Group.SCALE_X, 1));
-    if (animationMap != null && animationMap.containsKey("scaleX")) {
-      builder.scaleX((Animation<?, Float>[]) animationMap.get("scaleX"));
-    }
-    builder.scaleY(TypedArrayUtils.getNamedFloat(a, parser, "scaleY", Styleable.Group.SCALE_Y, 1));
-    if (animationMap != null && animationMap.containsKey("scaleY")) {
-      builder.scaleY((Animation<?, Float>[]) animationMap.get("scaleY"));
-    }
-    builder.translateX(
-        TypedArrayUtils.getNamedFloat(a, parser, "translateX", Styleable.Group.TRANSLATE_X, 0));
-    if (animationMap != null && animationMap.containsKey("translateX")) {
-      builder.translateX((Animation<?, Float>[]) animationMap.get("translateX"));
-    }
-    builder.translateY(
-        TypedArrayUtils.getNamedFloat(a, parser, "translateY", Styleable.Group.TRANSLATE_Y, 0));
-    if (animationMap != null && animationMap.containsKey("translateY")) {
-      builder.translateY((Animation<?, Float>[]) animationMap.get("translateY"));
-    }
   }
 
   private static void inflatePath(
@@ -340,11 +349,12 @@ final class InflationUtils {
         animationMap = targetMap.get(pathName);
       }
     }
+    updateBaseFromTypedArray(builder, a, parser, animationMap, Styleable.PATH);
     updatePathFromTypedArray(builder, a, parser, animationMap);
     a.recycle();
   }
 
-  // TODO: support transforms on paths
+  @SuppressWarnings("unchecked")
   private static void updatePathFromTypedArray(
       PathNode.Builder builder,
       TypedArray a,
@@ -442,11 +452,12 @@ final class InflationUtils {
         animationMap = targetMap.get(pathName);
       }
     }
+    updateBaseFromTypedArray(builder, a, parser, animationMap, Styleable.CLIP_PATH);
     updateClipPathFromTypedArray(builder, a, parser, animationMap);
     a.recycle();
   }
 
-  // TODO: support transforms on clip paths
+  @SuppressWarnings("unchecked")
   private static void updateClipPathFromTypedArray(
       ClipPathNode.Builder builder,
       TypedArray a,

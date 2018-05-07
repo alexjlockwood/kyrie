@@ -1,0 +1,181 @@
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:aapt="http://schemas.android.com/aapt"
+  xmlns:tools="http://schemas.android.com/tools"
+  tools:ignore="NewApi">
+  <aapt:attr name="android:drawable">
+    <vector
+      android:name="vector"
+      android:width="56dp"
+      android:height="56dp"
+      android:tint="?attr/colorAccent"
+      android:viewportHeight="56"
+      android:viewportWidth="56">
+      <group android:pivotX="28"
+        android:pivotY="28"
+        android:rotation="180">
+      <group
+        android:name="groupLeft"
+        android:pivotX="28"
+        android:pivotY="37.3">
+        <path
+          android:name="pathFillLeft"
+          android:fillColor="#fff"
+          android:pathData="@string/path_fill_left" />
+      </group>
+      <group
+        android:name="groupRight"
+        android:pivotX="28"
+        android:pivotY="37.3">
+        <path
+          android:name="pathFillRight"
+          android:fillColor="#fff"
+          android:pathData="@string/path_fill_right" />
+      </group>
+      <group>
+        <path
+          android:name="pathStrokeLeft"
+          android:pathData="@string/path_stroke_left"
+          android:strokeColor="#fff"
+          android:strokeWidth="2"
+          android:trimPathEnd="0" />
+      </group>
+      <group>
+        <path
+          android:name="pathStrokeRight"
+          android:pathData="@string/path_stroke_right"
+          android:strokeColor="#fff"
+          android:strokeWidth="2"
+          android:trimPathEnd="0" />
+      </group>
+      <group>
+        <clip-path
+          android:name="clipPathFillUp"
+          android:pathData="@string/clip_path_fill_up_start" />
+        <path
+          android:name="pathFillUp"
+          android:fillColor="#fff"
+          android:pathData="@string/path_fill_up" />
+      </group>
+      </group>
+    </vector>
+  </aapt:attr>
+
+  <target android:name="vector">
+    <aapt:attr name="android:animation">
+      <set>
+        <objectAnimator
+          android:duration="400"
+          android:interpolator="@android:interpolator/fast_out_slow_in"
+          android:propertyName="alpha"
+          android:startOffset="500"
+          android:valueFrom="0.4"
+          android:valueTo="1" />
+      </set>
+    </aapt:attr>
+  </target>
+
+  <target android:name="groupLeft">
+    <aapt:attr name="android:animation">
+      <set>
+        <objectAnimator
+          android:duration="400"
+          android:interpolator="@android:interpolator/linear_out_slow_in"
+          android:propertyName="rotation"
+          android:valueFrom="0"
+          android:valueTo="-20" />
+      </set>
+    </aapt:attr>
+  </target>
+
+  <target android:name="groupRight">
+    <aapt:attr name="android:animation">
+      <set>
+        <objectAnimator
+          android:duration="400"
+          android:interpolator="@android:interpolator/linear_out_slow_in"
+          android:propertyName="rotation"
+          android:valueFrom="0"
+          android:valueTo="20" />
+      </set>
+    </aapt:attr>
+  </target>
+
+  <target android:name="pathFillLeft">
+    <aapt:attr name="android:animation">
+      <set>
+        <objectAnimator
+          android:duration="300"
+          android:interpolator="@android:interpolator/linear_out_slow_in"
+          android:propertyName="fillAlpha"
+          android:startOffset="100"
+          android:valueFrom="1"
+          android:valueTo="0" />
+      </set>
+    </aapt:attr>
+  </target>
+
+  <target android:name="pathFillRight">
+    <aapt:attr name="android:animation">
+      <set>
+        <objectAnimator
+          android:duration="300"
+          android:interpolator="@android:interpolator/linear_out_slow_in"
+          android:propertyName="fillAlpha"
+          android:startOffset="100"
+          android:valueFrom="1"
+          android:valueTo="0" />
+      </set>
+    </aapt:attr>
+  </target>
+
+  <target android:name="pathStrokeLeft">
+    <aapt:attr name="android:animation">
+      <set>
+        <objectAnimator
+          android:duration="400"
+          android:interpolator="@android:interpolator/fast_out_slow_in"
+          android:propertyName="trimPathEnd"
+          android:startOffset="500"
+          android:valueFrom="0"
+          android:valueTo="1" />
+      </set>
+    </aapt:attr>
+  </target>
+
+  <target android:name="pathStrokeRight">
+    <aapt:attr name="android:animation">
+      <set>
+        <objectAnimator
+          android:duration="400"
+          android:interpolator="@android:interpolator/fast_out_slow_in"
+          android:propertyName="trimPathEnd"
+          android:startOffset="500"
+          android:valueFrom="0"
+          android:valueTo="1" />
+      </set>
+    </aapt:attr>
+  </target>
+
+  <target android:name="clipPathFillUp">
+    <aapt:attr name="android:animation">
+      <set android:ordering="sequentially">
+        <objectAnimator
+          android:duration="160"
+          android:interpolator="@android:interpolator/fast_out_linear_in"
+          android:propertyName="pathData"
+          android:startOffset="1000"
+          android:valueFrom="@string/clip_path_fill_up_start"
+          android:valueTo="@string/clip_path_fill_up_mid"
+          android:valueType="pathType" />
+        <objectAnimator
+          android:duration="120"
+          android:interpolator="@android:interpolator/fast_out_linear_in"
+          android:propertyName="pathData"
+          android:valueFrom="@string/clip_path_fill_up_mid"
+          android:valueTo="@string/clip_path_fill_up_end"
+          android:valueType="pathType" />
+      </set>
+    </aapt:attr>
+  </target>
+
+</animated-vector>
