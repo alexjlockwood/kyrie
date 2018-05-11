@@ -4,7 +4,7 @@ import android.support.v4.view.animation.PathInterpolatorCompat
 
 class KyrieDrawableDsl {
 
-    internal val builder = KyrieDrawable.builder()
+    val builder = KyrieDrawable.builder()
 
     fun build() = builder.build()
 

@@ -2,58 +2,58 @@ package com.github.alexjlockwood.kyrie
 
 import android.support.v4.view.animation.PathInterpolatorCompat
 
-fun kyrieDrawable(init: KyrieDrawableDsl.() -> Unit): KyrieDrawable =
+inline fun kyrieDrawable(init: KyrieDrawableDsl.() -> Unit): KyrieDrawable =
     KyrieDrawableDsl().apply(init).build()
 
 infix fun KyrieDrawable.withListener(listener: KyrieDrawable.Listener): KyrieDrawable =
     apply { addListener(listener) }
 
-fun GroupNode.Builder.circle(init: CircleNode.Builder.() -> Unit): GroupNode.Builder =
+inline fun GroupNode.Builder.circle(init: CircleNode.Builder.() -> Unit): GroupNode.Builder =
     child(CircleNode.builder().apply(init))
 
-fun KyrieDrawableDsl.circle(init: CircleNode.Builder.() -> Unit): Unit {
+inline fun KyrieDrawableDsl.circle(init: CircleNode.Builder.() -> Unit) {
     builder.child(CircleNode.builder().apply(init))
 }
 
-fun GroupNode.Builder.clipPath(init: ClipPathNode.Builder.() -> Unit): GroupNode.Builder =
+inline fun GroupNode.Builder.clipPath(init: ClipPathNode.Builder.() -> Unit): GroupNode.Builder =
     child(ClipPathNode.builder().apply(init))
 
-fun KyrieDrawableDsl.clipPath(init: ClipPathNode.Builder.() -> Unit): Unit {
+inline fun KyrieDrawableDsl.clipPath(init: ClipPathNode.Builder.() -> Unit) {
     builder.child(ClipPathNode.builder().apply(init))
 }
 
-fun GroupNode.Builder.ellipse(init: EllipseNode.Builder.() -> Unit): GroupNode.Builder =
+inline fun GroupNode.Builder.ellipse(init: EllipseNode.Builder.() -> Unit): GroupNode.Builder =
     child(EllipseNode.builder().apply(init))
 
-fun KyrieDrawableDsl.ellipse(init: EllipseNode.Builder.() -> Unit) {
+inline fun KyrieDrawableDsl.ellipse(init: EllipseNode.Builder.() -> Unit) {
     builder.child(EllipseNode.builder().apply(init))
 }
 
-fun GroupNode.Builder.group(init: GroupNode.Builder.() -> Unit): GroupNode.Builder =
+inline fun GroupNode.Builder.group(init: GroupNode.Builder.() -> Unit): GroupNode.Builder =
     child(GroupNode.builder().apply(init))
 
-fun KyrieDrawableDsl.group(init: GroupNode.Builder.() -> Unit) {
+inline fun KyrieDrawableDsl.group(init: GroupNode.Builder.() -> Unit) {
     builder.child(GroupNode.builder().apply(init))
 }
 
-fun GroupNode.Builder.path(init: PathNode.Builder.() -> Unit): GroupNode.Builder =
+inline fun GroupNode.Builder.path(init: PathNode.Builder.() -> Unit): GroupNode.Builder =
     child(PathNode.builder().apply(init))
 
-fun KyrieDrawableDsl.path(init: PathNode.Builder.() -> Unit) {
+inline fun KyrieDrawableDsl.path(init: PathNode.Builder.() -> Unit) {
     builder.child(PathNode.builder().apply(init))
 }
 
-fun GroupNode.Builder.line(init: LineNode.Builder.() -> Unit): GroupNode.Builder =
+inline fun GroupNode.Builder.line(init: LineNode.Builder.() -> Unit): GroupNode.Builder =
     child(LineNode.builder().apply(init))
 
-fun KyrieDrawableDsl.line(init: LineNode.Builder.() -> Unit) {
+inline fun KyrieDrawableDsl.line(init: LineNode.Builder.() -> Unit) {
     builder.child(LineNode.builder().apply(init))
 }
 
-fun GroupNode.Builder.rect(init: RectangleNode.Builder.() -> Unit): GroupNode.Builder =
+inline fun GroupNode.Builder.rect(init: RectangleNode.Builder.() -> Unit): GroupNode.Builder =
     child(RectangleNode.builder().apply(init))
 
-fun KyrieDrawableDsl.rect(init: RectangleNode.Builder.() -> Unit) {
+inline fun KyrieDrawableDsl.rect(init: RectangleNode.Builder.() -> Unit) {
     builder.child(RectangleNode.builder().apply(init))
 }
 
