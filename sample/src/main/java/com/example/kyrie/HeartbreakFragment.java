@@ -33,7 +33,7 @@ public class HeartbreakFragment extends Fragment {
   public void onActivityCreated(@Nullable Bundle savedInstanceState) {
     super.onActivityCreated(savedInstanceState);
 
-    final KyrieDrawable drawable = KyrieDrawable.create(getContext(), R.drawable.avd_heartbreak);
+    final KyrieDrawable drawable = KyrieDrawable.create(requireContext(), R.drawable.avd_heartbreak);
     drawable.addListener(new SampleListenerAdapter(seekBar));
     imageView.setImageDrawable(drawable);
     imageView.setOnClickListener(new SampleOnClickListener(drawable));
