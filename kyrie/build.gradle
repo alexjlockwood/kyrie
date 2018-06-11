@@ -1,7 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.github.dcendents.android-maven'
-
-group = 'com.github.alexjlockwood'
 
 android {
     compileSdkVersion rootProject.ext.targetSdkVersion
@@ -17,6 +14,35 @@ android {
 dependencies {
     implementation "com.android.support:support-compat:$supportLibVersion"
     compileOnly 'com.google.code.findbugs:jsr305:3.0.2'
+}
+
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'kyrie'
+
+    publishedGroupId = 'com.github.alexjlockwood'
+    libraryName = 'Kyrie'
+    artifact = 'kyrie'
+
+    libraryDescription = 'Animated Vector Drawables on steroids'
+
+    siteUrl = 'https://github.com/alexjlockwood/kyrie'
+    gitUrl = 'https://github.com/alexjlockwood/kyrie.git'
+
+    libraryVersion = '0.1.1'
+
+    developerId = 'alexjlockwood'
+    developerName = 'Alex Lockwood'
+    developerEmail = 'alexjlockwood@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
+if (project.rootProject.file('local.properties').exists()) {
+    apply from: 'install.gradle'
+    apply from: 'bintray.gradle'
 }
 
 project.afterEvaluate {

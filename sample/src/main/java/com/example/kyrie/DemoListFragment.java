@@ -14,11 +14,11 @@ import android.widget.TextView;
 public class DemoListFragment extends Fragment {
 
   private static final Demo[] DEMOS = {
-      new Demo("Polygons", PolygonsFragment.class),
-      new Demo("Progress bars", ProgressFragment.class),
-      new Demo("Path morphing", PathMorphFragment.class),
-      new Demo("Heartbreak", HeartbreakFragment.class),
-      new Demo("Kotlin extensions", KotlinDemoFragment.class),
+    new Demo("Polygons", PolygonsFragment.class),
+    new Demo("Progress bars", ProgressFragment.class),
+    new Demo("Path morphing", PathMorphFragment.class),
+    new Demo("Heartbreak", HeartbreakFragment.class),
+    new Demo("Kotlin extensions", KotlinDemoFragment.class),
   };
 
   private Callbacks callbacks;
@@ -46,14 +46,15 @@ public class DemoListFragment extends Fragment {
 
   private class Adapter extends RecyclerView.Adapter<ViewHolder> {
 
+    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
       final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
       return new ViewHolder(inflater.inflate(R.layout.fragment_demo_item, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
       holder.bind(DEMOS[position]);
     }
 

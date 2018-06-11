@@ -46,7 +46,7 @@ public class PathMorphFragment extends Fragment {
   }
 
   private KyrieDrawable createDrawable() {
-    final Context ctx = getContext();
+    final Context ctx = requireContext();
     final PathData hippoPathData = PathData.parse(getString(R.string.hippo));
     final PathData elephantPathData = PathData.parse(getString(R.string.elephant));
     final PathData buffaloPathData = PathData.parse(getString(R.string.buffalo));
