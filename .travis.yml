@@ -30,6 +30,6 @@ deploy:
   skip-cleanup: true
   github-token: $GITHUB_TOKEN
   keep-history: true
-  local-dir: library/build/docs/javadoc/release
+  local-dir: kyrie/build/docs/javadoc/release
   on:
     branch: master
