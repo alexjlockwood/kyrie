@@ -1,7 +1,7 @@
 # Kyrie
 
 [![Build status][travis-badge]][travis-badge-url]
-[![Release](https://jitpack.io/v/alexjlockwood/kyrie.svg)](https://jitpack.io/#alexjlockwood/kyrie)
+[![Download](https://api.bintray.com/packages/alexjlockwood/maven/kyrie/images/download.svg)](https://bintray.com/alexjlockwood/maven/kyrie/_latestVersion)
 
 Kyrie is a superset of Android's `VectorDrawable` and `AnimatedVectorDrawable` classes: it can do everything they can do and more. 
 
@@ -17,7 +17,7 @@ Add this to your root `build.gradle` file (*not* your module's `build.gradle` fi
 allprojects {
     repositories {
         // ...
-        maven { url "https://jitpack.io" }
+	jcenter()
     }
 }
 ```
