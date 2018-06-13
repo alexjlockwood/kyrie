@@ -33,4 +33,5 @@ dependencies {
     implementation "com.android.support:recyclerview-v7:$supportLibVersion"
     implementation project(':kyrie')
     implementation project(':dsl')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
