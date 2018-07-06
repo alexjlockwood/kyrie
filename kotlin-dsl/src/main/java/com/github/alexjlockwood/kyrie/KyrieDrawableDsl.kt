@@ -1,7 +1,5 @@
 package com.github.alexjlockwood.kyrie
 
-import android.support.v4.view.animation.PathInterpolatorCompat
-
 class KyrieDrawableDsl {
 
     val builder = KyrieDrawable.builder()
@@ -20,7 +18,7 @@ class KyrieDrawableDsl {
             builder.tint(value)
         }
 
-    infix fun Float.x(height: Float) = Size(this, height)
+    fun size(width:Float, height: Float) = Size(width, height)
 
     data class Size (val width: Float, val height: Float)
 }

@@ -2,15 +2,13 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion rootProject.ext.targetSdkVersion
 
     defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 27
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
-
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
 
@@ -29,7 +27,7 @@ android {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation "com.android.support:support-compat:$supportLibVersion"
-    implementation project(':kyrie')
+    api "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+    api "com.android.support:support-compat:$supportLibVersion"
+    api project(':kyrie')
 }

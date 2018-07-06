@@ -68,14 +68,12 @@ class KotlinDemoFragment : Fragment() {
 
 
     private fun createHeartDrawable(): KyrieDrawable {
-        return context?.let {
-            KyrieDrawable.create(it, R.drawable.avd_heartbreak)
-        } ?: error("No context available")
+        return KyrieDrawable.create(requireContext(), R.drawable.avd_heartbreak) ?: error("XML error")
     }
 
     private fun createHorizontalDrawable(): KyrieDrawable {
         return kyrieDrawable {
-            viewport = 360f x 10f
+            viewport = size(360f, 10f)
             tint = TINT_COLOR
             group {
                 translateX(180f)
@@ -132,7 +130,7 @@ class KotlinDemoFragment : Fragment() {
     private fun createCircularDrawable(): KyrieDrawable {
         return kyrieDrawable {
 
-            viewport = 48f x 48f
+            viewport = size(48f, 48f)
             tint = TINT_COLOR
             group {
                 translateX(24f)
@@ -172,7 +170,7 @@ class KotlinDemoFragment : Fragment() {
     private fun createPolygonDrawable(): KyrieDrawable {
         return kyrieDrawable {
 
-            viewport = VIEWPORT_WIDTH x VIEWPORT_HEIGHT
+            viewport = size(VIEWPORT_WIDTH, VIEWPORT_HEIGHT)
 
             polygons.forEach { polygon ->
                 path {
@@ -202,16 +200,12 @@ class KotlinDemoFragment : Fragment() {
         val hippoPathData = PathData.parse(getString(R.string.hippo))
         val elephantPathData = PathData.parse(getString(R.string.elephant))
         val buffaloPathData = PathData.parse(getString(R.string.buffalo))
-        var hippoFillColor = Color.BLUE
-        var elephantFillColor = Color.GRAY
-        var buffaloFillColor = Color.GREEN
-        context?.let { ctx ->
-            hippoFillColor = ContextCompat.getColor(ctx, R.color.hippo)
-            elephantFillColor = ContextCompat.getColor(ctx, R.color.elephant)
-            buffaloFillColor = ContextCompat.getColor(ctx, R.color.buffalo)
-        }
+        val ctx = requireContext()
+        val hippoFillColor = ContextCompat.getColor(ctx, R.color.hippo)
+        val elephantFillColor = ContextCompat.getColor(ctx, R.color.elephant)
+        val buffaloFillColor = ContextCompat.getColor(ctx, R.color.buffalo)
         return kyrieDrawable {
-            viewport = 409f x 280f
+            viewport = size(409f, 280f)
             path {
                 strokeColor(Color.BLACK)
                 strokeWidth(1f)
