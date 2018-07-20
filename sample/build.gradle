@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion rootProject.ext.targetSdkVersion
@@ -30,4 +32,6 @@ dependencies {
     implementation "com.android.support:support-fragment:$supportLibVersion"
     implementation "com.android.support:recyclerview-v7:$supportLibVersion"
     implementation project(':kyrie')
+    implementation project(':kotlin-dsl')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
 }

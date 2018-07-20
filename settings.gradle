@@ -1,2 +1,3 @@
+include ':kotlin-dsl'
 include 'kyrie'
 include 'sample'
