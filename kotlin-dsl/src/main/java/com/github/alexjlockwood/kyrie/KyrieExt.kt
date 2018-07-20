@@ -1,6 +1,7 @@
 package com.github.alexjlockwood.kyrie
 
 import android.support.v4.view.animation.PathInterpolatorCompat
+import android.view.animation.Interpolator
 
 inline fun kyrieDrawable(init: KyrieDrawableDsl.() -> Unit): KyrieDrawable =
         KyrieDrawableDsl().apply(init).build()
@@ -50,23 +51,15 @@ inline fun KyrieDrawableDsl.line(init: LineNode.Builder.() -> Unit) {
     builder.child(LineNode.builder().apply(init))
 }
 
-inline fun GroupNode.Builder.rect(init: RectangleNode.Builder.() -> Unit): GroupNode.Builder =
+inline fun GroupNode.Builder.rectangle(init: RectangleNode.Builder.() -> Unit): GroupNode.Builder =
         child(RectangleNode.builder().apply(init))
 
-inline fun KyrieDrawableDsl.rect(init: RectangleNode.Builder.() -> Unit) {
+inline fun KyrieDrawableDsl.rectangle(init: RectangleNode.Builder.() -> Unit) {
     builder.child(RectangleNode.builder().apply(init))
 }
-
-fun pathDataAnimation(vararg frames: Pair<Float, PathData>) =
-        Animation.ofPathMorph(*frames.map { (fraction, value) ->
-            Keyframe.of(
-                    fraction,
-                    value
-            )
-        }.toTypedArray())
 
 fun String.asPathData() = PathData.parse(this)
 
 fun String.asPath() = PathData.toPath(this)
 
-fun String.asPathInterpolator() = PathInterpolatorCompat.create(PathData.toPath(this))
+fun String.asPathInterpolator(): Interpolator = PathInterpolatorCompat.create(PathData.toPath(this))

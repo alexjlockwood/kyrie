@@ -12,12 +12,12 @@ install {
                 groupId publishedGroupId
                 artifactId artifact
 
-                // Add your description here
+                // Add your description here.
                 name libraryName
                 description libraryDescription
                 url siteUrl
 
-                // Set your license
+                // Set your license.
                 licenses {
                     license {
                         name licenseName

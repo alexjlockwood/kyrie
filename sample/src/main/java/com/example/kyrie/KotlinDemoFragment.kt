@@ -200,15 +200,14 @@ class KotlinDemoFragment : Fragment() {
                         Animation.ofArgb(buffaloFillColor).startDelay(600).duration(300),
                         Animation.ofArgb(hippoFillColor).startDelay(1200).duration(300)
                 )
-
                 pathData(
-                        pathDataAnimation(
-                                0f to hippoPathData,
-                                0.2f to elephantPathData,
-                                0.4f to elephantPathData,
-                                0.6f to buffaloPathData,
-                                0.8f to buffaloPathData,
-                                1f to hippoPathData
+                        Animation.ofPathMorph(
+                                Keyframe.of(0f, hippoPathData),
+                                Keyframe.of(0.2f, elephantPathData),
+                                Keyframe.of(0.4f, elephantPathData),
+                                Keyframe.of(0.6f, buffaloPathData),
+                                Keyframe.of(0.8f, buffaloPathData),
+                                Keyframe.of(1f, hippoPathData)
                         ).duration(1500)
                 )
             }

@@ -41,8 +41,8 @@ ext {
 }
 
 if (project.rootProject.file('local.properties').exists()) {
-    apply from: 'install.gradle'
-    apply from: 'bintray.gradle'
+    apply from: '../scripts/install.gradle'
+    apply from: '../scripts/bintray.gradle'
 }
 
 project.afterEvaluate {
