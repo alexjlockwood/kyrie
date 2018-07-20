@@ -18,7 +18,7 @@ class KyrieDrawableDsl {
             builder.tint(value)
         }
 
-    fun size(width:Float, height: Float) = Size(width, height)
+    fun size(width: Float, height: Float) = Size(width, height)
 
-    data class Size (val width: Float, val height: Float)
+    data class Size(val width: Float, val height: Float)
 }
