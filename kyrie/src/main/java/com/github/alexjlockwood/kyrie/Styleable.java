@@ -64,8 +64,8 @@ final class Styleable {
     @StyleableRes int STROKE_LINE_CAP = 8;
     @StyleableRes int STROKE_LINE_JOIN = 9;
     @StyleableRes int STROKE_MITER_LIMIT = 10;
-    @StyleableRes int FILL_ALPHA = 11;
-    @StyleableRes int STROKE_ALPHA = 12;
+    @StyleableRes int STROKE_ALPHA = 11;
+    @StyleableRes int FILL_ALPHA = 12;
     @StyleableRes int FILL_TYPE = 13;
   }
 
