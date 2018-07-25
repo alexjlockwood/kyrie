@@ -115,7 +115,12 @@ val drawable =
     }
 ```
 
-Check out the [documentation][documentation] for a listing of all supported `Animation`s and `Node`s that can be used when constructing `KyrieDrawable`s programatically. Also check out the [source code][kotlin-dsl-source-code] for a listing of all supported Kotlin-specific features that Kyrie provides.
+## Useful links
+
+- Check out [the blog post](https://www.androiddesignpatterns.com/2018/03/introducing-kyrie-animated-vector-drawables.html) for the motivation behind the library.
+- Take a look at the [sample application](https://github.com/alexjlockwood/kyrie/tree/master/sample) for some example usages.
+- Check out the [documentation][documentation] for a listing of all supported `Animation`s and `Node`s that can be used when constructing `KyrieDrawable`s programatically.
+- Check out the [source code][kotlin-dsl-source-code] for a complete listing of the Kotlin-specific features Kyrie provides.
 
 ## Dependency
 
@@ -152,12 +157,6 @@ dependencies {
 
 - **Minimum Android SDK**: Kyrie requires a minimum API level of 14.
 - **Compile Android SDK**: Kyrie requires you to compile against API 27 or later.
-
-## Useful links
-
-- Check out [the blog post](https://www.androiddesignpatterns.com/2018/03/introducing-kyrie-animated-vector-drawables.html) for the motivation behind the library.
-- Take a look at the [sample application](https://github.com/alexjlockwood/kyrie/tree/master/sample) for some example usages.
-- Don't forget to read the [documentation](https://alexjlockwood.github.io/kyrie)!
 
   [travis-badge]: https://travis-ci.org/alexjlockwood/kyrie.svg?branch=master
   [travis-badge-url]: https://travis-ci.org/alexjlockwood/kyrie
