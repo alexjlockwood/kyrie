@@ -7,7 +7,7 @@
   tools:context="com.example.kyrie.MainActivity">
 
   <ImageView
-    android:id="@+id/image_view_pane1"
+    android:id="@+id/imageViewPane1"
     android:layout_width="match_parent"
     android:layout_height="0dp"
     android:layout_marginBottom="8dp"
@@ -18,7 +18,7 @@
     tools:ignore="ContentDescription" />
 
   <ImageView
-    android:id="@+id/image_view_pane2"
+    android:id="@+id/imageViewPane2"
     android:layout_width="match_parent"
     android:layout_height="0dp"
     android:layout_marginBottom="8dp"

@@ -55,8 +55,8 @@ public class PolygonsFragment extends Fragment {
       @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
     rootView = inflater.inflate(R.layout.fragment_two_pane, container, false);
-    imageViewLaps = rootView.findViewById(R.id.image_view_pane1);
-    imageViewVortex = rootView.findViewById(R.id.image_view_pane2);
+    imageViewLaps = rootView.findViewById(R.id.imageViewPane1);
+    imageViewVortex = rootView.findViewById(R.id.imageViewPane2);
     return rootView;
   }
 

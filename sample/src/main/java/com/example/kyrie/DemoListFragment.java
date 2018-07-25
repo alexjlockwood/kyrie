@@ -18,7 +18,6 @@ public class DemoListFragment extends Fragment {
     new Demo("Progress bars", ProgressFragment.class),
     new Demo("Path morphing", PathMorphFragment.class),
     new Demo("Heartbreak", HeartbreakFragment.class),
-    new Demo("Kotlin extensions", KotlinDemoFragment.class),
   };
 
   private Callbacks callbacks;

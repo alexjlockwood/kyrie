@@ -41,76 +41,87 @@ Once we do this, we can perform several actions that aren't currently possible u
 
 We can also build `KyrieDrawable`s at runtime using the builder pattern. `KyrieDrawable`s are similar to SVGs and `VectorDrawable`s in that they are tree-like structures built of [`Node`][node]s. As we build the tree, we can optionally assign [`Animation`][animation]s to the properties of each `Node` to create a more elaborate animation.
 
-Here is a snippet of code from the [sample app][pathmorphfragment] that shows how we can create a path morphing animation this way:
+Here is a snippet of code from the [sample app][progressfragment] that shows how we can programatically create a circular progress indicator this way:
 
 ```java
-// Fill colors.
-int hippoFillColor = ContextCompat.getColor(ctx, R.color.hippo);
-int elephantFillColor = ContextCompat.getColor(ctx, R.color.elephant);
-int buffaloFillColor = ContextCompat.getColor(ctx, R.color.buffalo);
-
-// SVG path data objects.
-PathData hippoPathData = PathData.parse(getString(R.string.hippo));
-PathData elephantPathData = PathData.parse(getString(R.string.elephant));
-PathData buffaloPathData = PathData.parse(getString(R.string.buffalo));
-
 KyrieDrawable drawable =
     KyrieDrawable.builder()
-        .viewport(409, 280)
+        .viewport(48f, 48f)
+        .tint(Color.RED)
         .child(
-            PathNode.builder()
-                .strokeColor(Color.BLACK)
-                .strokeWidth(1f)
-                .fillColor(
-                    Animation.ofArgb(hippoFillColor, elephantFillColor).duration(300),
-                    Animation.ofArgb(buffaloFillColor).startDelay(600).duration(300),
-                    Animation.ofArgb(hippoFillColor).startDelay(1200).duration(300))
-                .pathData(
-                    Animation.ofPathMorph(
-                            Keyframe.of(0, hippoPathData),
-                            Keyframe.of(0.2f, elephantPathData),
-                            Keyframe.of(0.4f, elephantPathData),
-                            Keyframe.of(0.6f, buffaloPathData),
-                            Keyframe.of(0.8f, buffaloPathData),
-                            Keyframe.of(1, hippoPathData))
-                        .duration(1500)))
-            .build();
+            GroupNode.builder()
+                .translateX(24f)
+                .translateY(24f)
+                .rotation(
+                    Animation.ofFloat(0f, 720f)
+                        .duration(4444)
+                        .repeatCount(Animation.INFINITE))
+                .child(
+                    PathNode.builder()
+                        .strokeColor(Color.WHITE)
+                        .strokeWidth(4f)
+                        .trimPathStart(
+                            Animation.ofFloat(0f, 0.75f)
+                                .duration(1333)
+                                .repeatCount(Animation.INFINITE)
+                                .interpolator(
+                                    PathInterpolatorCompat.create(
+                                        PathData.toPath("M 0 0 L 0.5 0 C 0.7 0 0.6 1 1 1"))))
+                        .trimPathEnd(
+                            Animation.ofFloat(0.03f, 0.78f)
+                                .duration(1333)
+                                .repeatCount(Animation.INFINITE)
+                                .interpolator(
+                                    PathInterpolatorCompat.create(
+                                        PathData.toPath(
+                                            "M 0 0 C 0.2 0 0.1 1 0.5 0.96 C 0.966 0.96 0.993 1 1 1"))))
+                        .trimPathOffset(
+                            Animation.ofFloat(0f, 0.25f)
+                                .duration(1333)
+                                .repeatCount(Animation.INFINITE))
+                        .strokeLineCap(StrokeLineCap.SQUARE)
+                        .pathData("M 0 0 m 0 -18 a 18 18 0 1 1 0 36 a 18 18 0 1 1 0 -36")))
+        .build();
 ```
 
-Or in Kotlin:
+Or more succinctly in Kotlin:
 
 ```kotlin
-// Fill colors.
-val hippoFillColor = ContextCompat.getColor(ctx, R.color.hippo)
-val elephantFillColor = ContextCompat.getColor(ctx, R.color.elephant)
-val buffaloFillColor = ContextCompat.getColor(ctx, R.color.buffalo)
-
-// SVG path data objects.
-val hippoPathData = getString(R.string.hippo)).asPathData();
-val elephantPathData = getString(R.string.elephant).asPathData();
-val buffaloPathData = getString(R.string.buffalo).asPathData();
-
 val drawable =
     kyrieDrawable {
-        viewport = size(409f, 280f)
-        path {
-            strokeColor(Color.BLACK)
-            strokeWidth(1f)
-            fillColor(
-                Animation.ofArgb(hippoFillColor, elephantFillColor).duration(300),
-                Animation.ofArgb(buffaloFillColor).startDelay(600).duration(300),
-                Animation.ofArgb(hippoFillColor).startDelay(1200).duration(300)
+        viewport = size(48f, 48f)
+        tint = Color.RED
+        group {
+            translateX(24f)
+            translateY(24f)
+            rotation(
+                Animation.ofFloat(0f, 720f)
+                    .duration(4444)
+                    .repeatCount(Animation.INFINITE)
             )
-            pathData(
-                Animation.ofPathMorph(
-                    Keyframe.of(0f, hippoPathData),
-                    Keyframe.of(0.2f, elephantPathData),
-                    Keyframe.of(0.4f, elephantPathData),
-                    Keyframe.of(0.6f, buffaloPathData),
-                    Keyframe.of(0.8f, buffaloPathData),
-                    Keyframe.of(1f, hippoPathData)
-                ).duration(1500)
-            )
+            path {
+                strokeColor(Color.WHITE)
+                strokeWidth(4f)
+                trimPathStart(
+                    Animation.ofFloat(0f, 0.75f)
+                        .duration(1333)
+                        .repeatCount(Animation.INFINITE)
+                        .interpolator("M 0 0 L 0.5 0 C 0.7 0 0.6 1 1 1".asPathInterpolator())
+                )
+                trimPathEnd(
+                    Animation.ofFloat(0.03f, 0.78f)
+                        .duration(1333)
+                        .repeatCount(Animation.INFINITE)
+                        .interpolator("M 0 0 C 0.2 0 0.1 1 0.5 0.96 C 0.966 0.96 0.993 1 1 1".asPathInterpolator())
+                )
+                trimPathOffset(
+                    Animation.ofFloat(0f, 0.25f)
+                        .duration(1333)
+                        .repeatCount(Animation.INFINITE)
+                )
+                strokeLineCap(StrokeLineCap.SQUARE)
+                pathData("M 0 0 m 0 -18 a 18 18 0 1 1 0 36 a 18 18 0 1 1 0 -36")
+            }
         }
     }
 ```
@@ -163,7 +174,7 @@ dependencies {
   [kyriedrawable]: https://alexjlockwood.github.io/kyrie/com/github/alexjlockwood/kyrie/KyrieDrawable.html
   [node]: https://alexjlockwood.github.io/kyrie/com/github/alexjlockwood/kyrie/Node.html
   [animation]: https://alexjlockwood.github.io/kyrie/com/github/alexjlockwood/kyrie/Animation.html
-  [pathmorphfragment]: https://github.com/alexjlockwood/kyrie/blob/master/sample/src/main/java/com/example/kyrie/PathMorphFragment.java
+  [progressfragment]: https://github.com/alexjlockwood/kyrie/blob/master/sample/src/main/java/com/example/kyrie/ProgressFragment.kt
   [kyriedrawable#setcurrentplaytime]: https://alexjlockwood.github.io/kyrie/com/github/alexjlockwood/kyrie/KyrieDrawable.html#setCurrentPlayTime-long-
   [kyriedrawable#pause]: https://alexjlockwood.github.io/kyrie/com/github/alexjlockwood/kyrie/KyrieDrawable.html#pause--
   [kyriedrawable#resume]: https://alexjlockwood.github.io/kyrie/com/github/alexjlockwood/kyrie/KyrieDrawable.html#resume--

@@ -1,10 +1,5 @@
 <resources>
 
   <string name="app_name">Kyrie</string>
-  <string name="morph">Morphing</string>
-  <string name="polygon">Polygons</string>
-  <string name="progress_line">Progress bar</string>
-  <string name="progress_spin">Progress spinner</string>
-  <string name="heartbreak">Heart break</string>
 
 </resources>
