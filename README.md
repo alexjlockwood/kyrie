@@ -19,11 +19,15 @@ However, these two classes also have several limitations:
 
 Kyrie extends the functionality of `VectorDrawable`s and `AnimatedVectorDrawable`s by addressing these problems.
 
-## Creating [`KyrieDrawable`][kyriedrawable]s
+## Overview
+
+This section will give a brief overview of how to use the library, as well as a couple of examples.
+
+### Creating [`KyrieDrawable`][kyriedrawable]s
 
 To play an animation using Kyrie, you first need to build a [`KyrieDrawable`][kyriedrawable]. There are two main ways to do this:
 
-### From an existing `VectorDrawable` or `AnimatedVectorDrawable` resource
+#### Option #1: from an existing `VectorDrawable` or `AnimatedVectorDrawable` resource
 
 Using Kyrie, we can convert an existing `VectorDrawable` or `AnimatedVectorDrawable` resource into a `KyrieDrawable` with a single line:
 
@@ -37,7 +41,7 @@ Once we do this, we can perform several actions that aren't currently possible u
 2.  Pause and resume the animation using [`pause()`][kyriedrawable#pause] and [`resume()`][kyriedrawable#resume].
 3.  Listen for animation events using [`addListener(KyrieDrawable.Listener)`][kyriedrawable#addlistener].
 
-### Programatically using a `KyrieDrawable.Builder`
+#### Option #2: programatically using a `KyrieDrawable.Builder`
 
 We can also build `KyrieDrawable`s at runtime using the builder pattern. `KyrieDrawable`s are similar to SVGs and `VectorDrawable`s in that they are tree-like structures built of [`Node`][node]s. As we build the tree, we can optionally assign [`Animation`][animation]s to the properties of each `Node` to create a more elaborate animation. Here is a snippet of code from the [sample app][pathmorphfragment] that shows how we can create a path morphing animation this way:
 
