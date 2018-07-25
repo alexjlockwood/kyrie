@@ -1,6 +1,8 @@
 # Instructions
 
-Increment the version numbers in `kyrie/build.gradle` and `kyrie-kotlin-dsl/build.gradle`. Then run the following:
+Increment the version numbers in `kyrie/build.gradle`, `kyrie-kotlin-dsl/build.gradle`, and `README.md`.
+
+Then run the following:
 
 ```
 ./gradlew kyrie:install
