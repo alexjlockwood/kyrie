@@ -2,6 +2,7 @@
 
 [![Build status][travis-badge]][travis-badge-url]
 [![Download](https://api.bintray.com/packages/alexjlockwood/maven/kyrie/images/download.svg)](https://bintray.com/alexjlockwood/maven/kyrie/_latestVersion)
+[![Download](https://api.bintray.com/packages/alexjlockwood/maven/kyrie-kotlin-dsl/images/download.svg)](https://bintray.com/alexjlockwood/maven/kyrie-kotlin-dsl/_latestVersion)
 
 Kyrie is a superset of Android's `VectorDrawable` and `AnimatedVectorDrawable` classes: it can do everything they can do and more.
 
@@ -11,17 +12,17 @@ Kyrie is a superset of Android's `VectorDrawable` and `AnimatedVectorDrawable` c
 
 `VectorDrawable`s are great because they provide density independence—they can be scaled arbitrarily on any device without loss of quality. `AnimatedVectorDrawable`s make them even more awesome, allowing us to animate specific properties of a `VectorDrawable` in a variety of ways.
 
-However, these two classes also have several limitations:
+However, these two classes also have some limitations:
 
 - They can't be paused, resumed, or seeked.
 - They can't be dynamically created at runtime (they must be inflated from a drawable resource).
 - They only support a small subset of features that SVGs provide on the web.
 
-Kyrie extends the functionality of `VectorDrawable`s and `AnimatedVectorDrawable`s by addressing these problems.
+Kyrie was created in order to address these problems.
 
 ## Getting started
 
-To play an animation using Kyrie, you first need to build a [`KyrieDrawable`][kyriedrawable]. There are two ways to do this:
+To create an animation using Kyrie, we first need to build a [`KyrieDrawable`][kyriedrawable]. There are two ways to do this:
 
 ### Option #1: from an existing VD/AVD resource
 
@@ -31,7 +32,7 @@ With Kyrie, we can convert an existing VD/AVD resource into a `KyrieDrawable` wi
 KyrieDrawable drawable = KyrieDrawable.create(context, R.drawable.my_vd_or_avd);
 ```
 
-Once we do this, we can perform several actions that aren't currently possible using `AnimatedVectorDrawable`s, such as:
+Once we do this, we can perform several actions that are currently not possible using `AnimatedVectorDrawable`s, such as:
 
 1.  Seek the animation using [`setCurrentPlayTime(long)`][kyriedrawable#setcurrentplaytime].
 2.  Pause and resume the animation using [`pause()`][kyriedrawable#pause] and [`resume()`][kyriedrawable#resume].
@@ -41,7 +42,7 @@ Once we do this, we can perform several actions that aren't currently possible u
 
 We can also build `KyrieDrawable`s at runtime using the builder pattern. `KyrieDrawable`s are similar to SVGs and `VectorDrawable`s in that they are tree-like structures built of [`Node`][node]s. As we build the tree, we can optionally assign [`Animation`][animation]s to the properties of each `Node` to create a more elaborate animation.
 
-Here is a snippet of code from the [sample app][progressfragment] that shows how we can programatically create a circular progress indicator this way:
+Here is a snippet of code from the [sample app][progressfragment] that shows how we can programatically create a circular progress indicator:
 
 ```java
 KyrieDrawable drawable =
@@ -128,10 +129,10 @@ val drawable =
 
 ## Further reading
 
-- Check out [this blog post](https://www.androiddesignpatterns.com/2018/03/introducing-kyrie-animated-vector-drawables.html) for the motivation behind the library.
-- Take a look at the [sample app](https://github.com/alexjlockwood/kyrie/tree/master/sample) for example usages.
-- Check out the [documentation][documentation] for a listing of all supported `Animation`s and `Node`s that can be used when constructing `KyrieDrawable`s programatically.
-- Check out the [source code][kotlin-dsl-source-code] for a complete listing of the Kotlin-specific features that Kyrie provides.
+- Check out [this blog post][adp-blog-post] for more on the motivation behind the library.
+- Check out [the sample app][sample-app-source-code] for example usages in both Java and Kotlin.
+- Check out [the documentation][documentation] for a complete listing of all supported `Animation`s and `Node`s that can be used when constructing `KyrieDrawable`s programatically.
+- Check out [the source code][kotlin-dsl-source-code] for a complete listing of Kyrie's Kotlin-specific features.
 
 ## Dependency
 
@@ -155,7 +156,7 @@ dependencies {
 }
 ```
 
-If you want to use the additional Kotlin features provided by this library, such as the `KyrieDrawable` DSL and/or Kotlin extension functions, use this line instead:
+If you want to use the `KyrieDrawable` DSL and/or Kotlin extension functions, use this line instead:
 
 ```gradle
 dependencies {
@@ -169,16 +170,23 @@ dependencies {
 - **Minimum Android SDK**: Kyrie requires a minimum API level of 14.
 - **Compile Android SDK**: Kyrie requires you to compile against API 27 or later.
 
-  [travis-badge]: https://travis-ci.org/alexjlockwood/kyrie.svg?branch=master
-  [travis-badge-url]: https://travis-ci.org/alexjlockwood/kyrie
-  [kyriedrawable]: https://alexjlockwood.github.io/kyrie/com/github/alexjlockwood/kyrie/KyrieDrawable.html
-  [node]: https://alexjlockwood.github.io/kyrie/com/github/alexjlockwood/kyrie/Node.html
-  [animation]: https://alexjlockwood.github.io/kyrie/com/github/alexjlockwood/kyrie/Animation.html
-  [progressfragment]: https://github.com/alexjlockwood/kyrie/blob/master/sample/src/main/java/com/example/kyrie/ProgressFragment.kt
-  [kyriedrawable#setcurrentplaytime]: https://alexjlockwood.github.io/kyrie/com/github/alexjlockwood/kyrie/KyrieDrawable.html#setCurrentPlayTime-long-
-  [kyriedrawable#pause]: https://alexjlockwood.github.io/kyrie/com/github/alexjlockwood/kyrie/KyrieDrawable.html#pause--
-  [kyriedrawable#resume]: https://alexjlockwood.github.io/kyrie/com/github/alexjlockwood/kyrie/KyrieDrawable.html#resume--
-  [kyriedrawable#addlistener]: https://alexjlockwood.github.io/kyrie/com/github/alexjlockwood/kyrie/KyrieDrawable.html#addListener-com.github.alexjlockwood.kyrie.KyrieDrawable.Listener-
-  [kyriedrawable#builder]: https://alexjlockwood.github.io/kyrie/com/github/alexjlockwood/kyrie/KyrieDrawable.Builder.html
-  [documentation]: https://alexjlockwood.github.io/kyrie
-  [kotlin-dsl-source-code]: https://github.com/alexjlockwood/kyrie/tree/master/kyrie-kotlin-dsl/src/main/java/com/github/alexjlockwood/kyrie
+## Special thanks
+
+Thanks to [David Blanc][david-blanc-twitter] for contributing the `KyrieDrawable` DSL for Kotlin!
+
+[travis-badge]: https://travis-ci.org/alexjlockwood/kyrie.svg?branch=master
+[travis-badge-url]: https://travis-ci.org/alexjlockwood/kyrie
+[kyriedrawable]: https://alexjlockwood.github.io/kyrie/com/github/alexjlockwood/kyrie/KyrieDrawable.html
+[node]: https://alexjlockwood.github.io/kyrie/com/github/alexjlockwood/kyrie/Node.html
+[animation]: https://alexjlockwood.github.io/kyrie/com/github/alexjlockwood/kyrie/Animation.html
+[progressfragment]: https://github.com/alexjlockwood/kyrie/blob/master/sample/src/main/java/com/example/kyrie/ProgressFragment.kt
+[kyriedrawable#setcurrentplaytime]: https://alexjlockwood.github.io/kyrie/com/github/alexjlockwood/kyrie/KyrieDrawable.html#setCurrentPlayTime-long-
+[kyriedrawable#pause]: https://alexjlockwood.github.io/kyrie/com/github/alexjlockwood/kyrie/KyrieDrawable.html#pause--
+[kyriedrawable#resume]: https://alexjlockwood.github.io/kyrie/com/github/alexjlockwood/kyrie/KyrieDrawable.html#resume--
+[kyriedrawable#addlistener]: https://alexjlockwood.github.io/kyrie/com/github/alexjlockwood/kyrie/KyrieDrawable.html#addListener-com.github.alexjlockwood.kyrie.KyrieDrawable.Listener-
+[kyriedrawable#builder]: https://alexjlockwood.github.io/kyrie/com/github/alexjlockwood/kyrie/KyrieDrawable.Builder.html
+[documentation]: https://alexjlockwood.github.io/kyrie
+[kotlin-dsl-source-code]: https://github.com/alexjlockwood/kyrie/tree/master/kyrie-kotlin-dsl/src/main/java/com/github/alexjlockwood/kyrie
+[david-blanc-twitter]: https://twitter.com/speekha
+[sample-app-source-code]: https://github.com/alexjlockwood/kyrie/tree/master/sample/src/main/java/com/example/kyrie
+[adp-blog-post]: https://www.androiddesignpatterns.com/2018/03/introducing-kyrie-animated-vector-drawables.html
