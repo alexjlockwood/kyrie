@@ -32,8 +32,8 @@ class ProgressFragment : Fragment() {
 
     private fun createHorizontalDrawable(): KyrieDrawable {
         return kyrieDrawable {
-            viewport = size(360f, 10f)
-            tint = TINT_COLOR
+            viewport(360f, 10f)
+            tint(TINT_COLOR)
             group {
                 translateX(180f)
                 translateY(5f)
@@ -81,8 +81,8 @@ class ProgressFragment : Fragment() {
 
     private fun createCircularDrawable(): KyrieDrawable {
         return kyrieDrawable {
-            viewport = size(48f, 48f)
-            tint = TINT_COLOR
+            viewport(48f, 48f)
+            tint(TINT_COLOR)
             group {
                 translateX(24f)
                 translateY(24f)
