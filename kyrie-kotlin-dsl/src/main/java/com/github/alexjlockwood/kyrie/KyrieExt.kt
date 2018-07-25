@@ -6,9 +6,6 @@ import android.view.animation.Interpolator
 inline fun kyrieDrawable(init: KyrieDrawableDsl.() -> Unit): KyrieDrawable =
         KyrieDrawableDsl().apply(init).build()
 
-infix fun KyrieDrawable.withListener(listener: KyrieDrawable.Listener): KyrieDrawable =
-        apply { addListener(listener) }
-
 inline fun GroupNode.Builder.circle(init: CircleNode.Builder.() -> Unit): GroupNode.Builder =
         child(CircleNode.builder().apply(init))
 
@@ -37,18 +34,18 @@ inline fun KyrieDrawableDsl.group(init: GroupNode.Builder.() -> Unit) {
     builder.child(GroupNode.builder().apply(init))
 }
 
-inline fun GroupNode.Builder.path(init: PathNode.Builder.() -> Unit): GroupNode.Builder =
-        child(PathNode.builder().apply(init))
-
-inline fun KyrieDrawableDsl.path(init: PathNode.Builder.() -> Unit) {
-    builder.child(PathNode.builder().apply(init))
-}
-
 inline fun GroupNode.Builder.line(init: LineNode.Builder.() -> Unit): GroupNode.Builder =
         child(LineNode.builder().apply(init))
 
 inline fun KyrieDrawableDsl.line(init: LineNode.Builder.() -> Unit) {
     builder.child(LineNode.builder().apply(init))
+}
+
+inline fun GroupNode.Builder.path(init: PathNode.Builder.() -> Unit): GroupNode.Builder =
+        child(PathNode.builder().apply(init))
+
+inline fun KyrieDrawableDsl.path(init: PathNode.Builder.() -> Unit) {
+    builder.child(PathNode.builder().apply(init))
 }
 
 inline fun GroupNode.Builder.rectangle(init: RectangleNode.Builder.() -> Unit): GroupNode.Builder =
