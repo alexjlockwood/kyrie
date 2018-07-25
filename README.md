@@ -2,7 +2,6 @@
 
 [![Build status][travis-badge]][travis-badge-url]
 [![Download](https://api.bintray.com/packages/alexjlockwood/maven/kyrie/images/download.svg)](https://bintray.com/alexjlockwood/maven/kyrie/_latestVersion)
-[![Download](https://api.bintray.com/packages/alexjlockwood/maven/kyrie-kotlin-dsl/images/download.svg)](https://bintray.com/alexjlockwood/maven/kyrie-kotlin-dsl/_latestVersion)
 
 Kyrie is a superset of Android's `VectorDrawable` and `AnimatedVectorDrawable` classes: it can do everything they can do and more.
 
