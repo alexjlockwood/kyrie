@@ -66,7 +66,7 @@ KyrieDrawable drawable =
                                 .repeatCount(Animation.INFINITE)
                                 .interpolator(
                                     PathInterpolatorCompat.create(
-                                        PathData.toPath("M 0 0 L 0.5 0 C 0.7 0 0.6 1 1 1"))))
+                                        PathData.toPath("M0 0h.5C.7 0 .6 1 1 1"))))
                         .trimPathEnd(
                             Animation.ofFloat(0.03f, 0.78f)
                                 .duration(1333)
@@ -74,64 +74,21 @@ KyrieDrawable drawable =
                                 .interpolator(
                                     PathInterpolatorCompat.create(
                                         PathData.toPath(
-                                            "M 0 0 C 0.2 0 0.1 1 0.5 0.96 C 0.966 0.96 0.993 1 1 1"))))
+                                            "M0 0c.2 0 .1 1 .5.96C.966.96.993 1 1 1"))))
                         .trimPathOffset(
                             Animation.ofFloat(0f, 0.25f)
                                 .duration(1333)
                                 .repeatCount(Animation.INFINITE))
                         .strokeLineCap(StrokeLineCap.SQUARE)
-                        .pathData("M 0 0 m 0 -18 a 18 18 0 1 1 0 36 a 18 18 0 1 1 0 -36")))
+                        .pathData("M0-18a18 18 0 1 1 0 36 18 18 0 1 1 0-36")))
         .build();
-```
-
-Or more succinctly in Kotlin:
-
-```kotlin
-val drawable =
-    kyrieDrawable {
-        viewport = size(48f, 48f)
-        tint = Color.RED
-        group {
-            translateX(24f)
-            translateY(24f)
-            rotation(
-                Animation.ofFloat(0f, 720f)
-                    .duration(4444)
-                    .repeatCount(Animation.INFINITE)
-            )
-            path {
-                strokeColor(Color.WHITE)
-                strokeWidth(4f)
-                trimPathStart(
-                    Animation.ofFloat(0f, 0.75f)
-                        .duration(1333)
-                        .repeatCount(Animation.INFINITE)
-                        .interpolator("M 0 0 L 0.5 0 C 0.7 0 0.6 1 1 1".asPathInterpolator())
-                )
-                trimPathEnd(
-                    Animation.ofFloat(0.03f, 0.78f)
-                        .duration(1333)
-                        .repeatCount(Animation.INFINITE)
-                        .interpolator("M 0 0 C 0.2 0 0.1 1 0.5 0.96 C 0.966 0.96 0.993 1 1 1".asPathInterpolator())
-                )
-                trimPathOffset(
-                    Animation.ofFloat(0f, 0.25f)
-                        .duration(1333)
-                        .repeatCount(Animation.INFINITE)
-                )
-                strokeLineCap(StrokeLineCap.SQUARE)
-                pathData("M 0 0 m 0 -18 a 18 18 0 1 1 0 36 a 18 18 0 1 1 0 -36")
-            }
-        }
-    }
 ```
 
 ## Further reading
 
 - Check out [this blog post][adp-blog-post] for more on the motivation behind the library.
-- Check out [the sample app][sample-app-source-code] for example usages in both Java and Kotlin.
+- Check out [the sample app][sample-app-source-code] for example usages in Java.
 - Check out [the documentation][documentation] for a complete listing of all supported `Animation`s and `Node`s that can be used when constructing `KyrieDrawable`s programatically.
-- Check out [the source code][kotlin-dsl-source-code] for a complete listing of Kyrie's Kotlin-specific features.
 
 ## Dependency
 
@@ -155,23 +112,10 @@ dependencies {
 }
 ```
 
-If you want to use the `KyrieDrawable` DSL and/or Kotlin extension functions, use this line instead:
-
-```gradle
-dependencies {
-    // ...
-    implementation 'com.github.alexjlockwood:kyrie-kotlin-dsl:0.1.2'
-}
-```
-
 ## Compatibility
 
 - **Minimum Android SDK**: Kyrie requires a minimum API level of 14.
 - **Compile Android SDK**: Kyrie requires you to compile against API 27 or later.
-
-## Special thanks
-
-Thanks to [David Blanc][david-blanc-twitter] for contributing the `KyrieDrawable` DSL for Kotlin!
 
 [travis-badge]: https://travis-ci.org/alexjlockwood/kyrie.svg?branch=master
 [travis-badge-url]: https://travis-ci.org/alexjlockwood/kyrie
