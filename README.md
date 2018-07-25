@@ -73,7 +73,7 @@ KyrieDrawable drawable =
                             Keyframe.of(0.6f, buffaloPathData),
                             Keyframe.of(0.8f, buffaloPathData),
                             Keyframe.of(1, hippoPathData))
-                       .duration(1500)))
+                        .duration(1500)))
             .build();
 ```
 
@@ -144,7 +144,7 @@ dependencies {
 }
 ```
 
-If you want to use the additional Kotlin features provided by this library, such as the `KyrieDrawable` DSL and/or Kotlin extension functions, use this instead:
+If you want to use the additional Kotlin features provided by this library, such as the `KyrieDrawable` DSL and/or Kotlin extension functions, use this line instead:
 
 ```gradle
 dependencies {
