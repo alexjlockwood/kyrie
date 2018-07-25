@@ -21,7 +21,7 @@ Kyrie extends the functionality of `VectorDrawable`s and `AnimatedVectorDrawable
 
 ## Getting started
 
-This section will give a brief overview of how to get started using the library. To play an animation using Kyrie, you first need to build a [`KyrieDrawable`][kyriedrawable]. There are two main ways to do this:
+To play an animation using Kyrie, you first need to build a [`KyrieDrawable`][kyriedrawable]. There are two ways to do this:
 
 ### Option #1: from an existing VD/AVD resource
 
@@ -115,12 +115,12 @@ val drawable =
     }
 ```
 
-## Useful links
+## Further reading
 
-- Check out [the blog post](https://www.androiddesignpatterns.com/2018/03/introducing-kyrie-animated-vector-drawables.html) for the motivation behind the library.
-- Take a look at the [sample application](https://github.com/alexjlockwood/kyrie/tree/master/sample) for some example usages.
+- Check out [this blog post](https://www.androiddesignpatterns.com/2018/03/introducing-kyrie-animated-vector-drawables.html) for the motivation behind the library.
+- Take a look at the [sample app](https://github.com/alexjlockwood/kyrie/tree/master/sample) for example usages.
 - Check out the [documentation][documentation] for a listing of all supported `Animation`s and `Node`s that can be used when constructing `KyrieDrawable`s programatically.
-- Check out the [source code][kotlin-dsl-source-code] for a complete listing of the Kotlin-specific features Kyrie provides.
+- Check out the [source code][kotlin-dsl-source-code] for a complete listing of the Kotlin-specific features that Kyrie provides.
 
 ## Dependency
 
