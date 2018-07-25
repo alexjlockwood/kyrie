@@ -183,9 +183,9 @@ class KotlinDemoFragment : Fragment() {
     }
 
     private fun createMorphDrawable(): KyrieDrawable {
-        val hippoPathData = PathData.parse(getString(R.string.hippo))
-        val elephantPathData = PathData.parse(getString(R.string.elephant))
-        val buffaloPathData = PathData.parse(getString(R.string.buffalo))
+        val hippoPathData = getString(R.string.hippo).asPathData()
+        val elephantPathData = getString(R.string.elephant).asPathData()
+        val buffaloPathData = getString(R.string.buffalo).asPathData()
         val ctx = requireContext()
         val hippoFillColor = ContextCompat.getColor(ctx, R.color.hippo)
         val elephantFillColor = ContextCompat.getColor(ctx, R.color.elephant)

@@ -19,17 +19,13 @@ However, these two classes also have several limitations:
 
 Kyrie extends the functionality of `VectorDrawable`s and `AnimatedVectorDrawable`s by addressing these problems.
 
-## Overview
+## Getting started
 
-This section will give a brief overview of how to use the library, as well as a couple of examples.
+This section will give a brief overview of how to get started using the library. To play an animation using Kyrie, you first need to build a [`KyrieDrawable`][kyriedrawable]. There are two main ways to do this:
 
-### Creating [`KyrieDrawable`][kyriedrawable]s
+### Option #1: from an existing VD/AVD resource
 
-To play an animation using Kyrie, you first need to build a [`KyrieDrawable`][kyriedrawable]. There are two main ways to do this:
-
-#### Option #1: from an existing `VectorDrawable` or `AnimatedVectorDrawable` resource
-
-Using Kyrie, we can convert an existing `VectorDrawable` or `AnimatedVectorDrawable` resource into a `KyrieDrawable` with a single line:
+With Kyrie, we can convert an existing VD/AVD resource into a `KyrieDrawable` with a single line:
 
 ```java
 KyrieDrawable drawable = KyrieDrawable.create(context, R.drawable.my_vd_or_avd);
@@ -41,15 +37,17 @@ Once we do this, we can perform several actions that aren't currently possible u
 2.  Pause and resume the animation using [`pause()`][kyriedrawable#pause] and [`resume()`][kyriedrawable#resume].
 3.  Listen for animation events using [`addListener(KyrieDrawable.Listener)`][kyriedrawable#addlistener].
 
-#### Option #2: programatically using a `KyrieDrawable.Builder`
+### Option #2: programatically using a [`KyrieDrawable.Builder`][kyriedrawable#builder]
 
-We can also build `KyrieDrawable`s at runtime using the builder pattern. `KyrieDrawable`s are similar to SVGs and `VectorDrawable`s in that they are tree-like structures built of [`Node`][node]s. As we build the tree, we can optionally assign [`Animation`][animation]s to the properties of each `Node` to create a more elaborate animation. Here is a snippet of code from the [sample app][pathmorphfragment] that shows how we can create a path morphing animation this way:
+We can also build `KyrieDrawable`s at runtime using the builder pattern. `KyrieDrawable`s are similar to SVGs and `VectorDrawable`s in that they are tree-like structures built of [`Node`][node]s. As we build the tree, we can optionally assign [`Animation`][animation]s to the properties of each `Node` to create a more elaborate animation.
+
+Here is a snippet of code from the [sample app][pathmorphfragment] that shows how we can create a path morphing animation this way:
 
 ```java
 // Fill colors.
-int hippoFillColor = ContextCompat.getColor(context, R.color.hippo);
-int elephantFillColor = ContextCompat.getColor(context, R.color.elephant);
-int buffaloFillColor = ContextCompat.getColor(context, R.color.buffalo);
+int hippoFillColor = ContextCompat.getColor(ctx, R.color.hippo);
+int elephantFillColor = ContextCompat.getColor(ctx, R.color.elephant);
+int buffaloFillColor = ContextCompat.getColor(ctx, R.color.buffalo);
 
 // SVG path data objects.
 PathData hippoPathData = PathData.parse(getString(R.string.hippo));
@@ -78,6 +76,46 @@ KyrieDrawable drawable =
                        .duration(1500)))
             .build();
 ```
+
+Or in Kotlin:
+
+```kotlin
+// Fill colors.
+val hippoFillColor = ContextCompat.getColor(ctx, R.color.hippo)
+val elephantFillColor = ContextCompat.getColor(ctx, R.color.elephant)
+val buffaloFillColor = ContextCompat.getColor(ctx, R.color.buffalo)
+
+// SVG path data objects.
+val hippoPathData = getString(R.string.hippo)).asPathData();
+val elephantPathData = getString(R.string.elephant).asPathData();
+val buffaloPathData = getString(R.string.buffalo).asPathData();
+
+val drawable =
+    kyrieDrawable {
+        viewport = size(409f, 280f)
+        path {
+            strokeColor(Color.BLACK)
+            strokeWidth(1f)
+            fillColor(
+                Animation.ofArgb(hippoFillColor, elephantFillColor).duration(300),
+                Animation.ofArgb(buffaloFillColor).startDelay(600).duration(300),
+                Animation.ofArgb(hippoFillColor).startDelay(1200).duration(300)
+            )
+            pathData(
+                Animation.ofPathMorph(
+                    Keyframe.of(0f, hippoPathData),
+                    Keyframe.of(0.2f, elephantPathData),
+                    Keyframe.of(0.4f, elephantPathData),
+                    Keyframe.of(0.6f, buffaloPathData),
+                    Keyframe.of(0.8f, buffaloPathData),
+                    Keyframe.of(1f, hippoPathData)
+                ).duration(1500)
+            )
+        }
+    }
+```
+
+Check out the [documentation][documentation] for a listing of all supported `Animation`s and `Node`s that can be used when constructing `KyrieDrawable`s programatically. Also check out the [source code][kotlin-dsl-source-code] for a listing of all supported Kotlin-specific features that Kyrie provides.
 
 ## Dependency
 
@@ -130,3 +168,7 @@ dependencies {
   [kyriedrawable#setcurrentplaytime]: https://alexjlockwood.github.io/kyrie/com/github/alexjlockwood/kyrie/KyrieDrawable.html#setCurrentPlayTime-long-
   [kyriedrawable#pause]: https://alexjlockwood.github.io/kyrie/com/github/alexjlockwood/kyrie/KyrieDrawable.html#pause--
   [kyriedrawable#resume]: https://alexjlockwood.github.io/kyrie/com/github/alexjlockwood/kyrie/KyrieDrawable.html#resume--
+  [kyriedrawable#addlistener]: https://alexjlockwood.github.io/kyrie/com/github/alexjlockwood/kyrie/KyrieDrawable.html#addListener-com.github.alexjlockwood.kyrie.KyrieDrawable.Listener-
+  [kyriedrawable#builder]: https://alexjlockwood.github.io/kyrie/com/github/alexjlockwood/kyrie/KyrieDrawable.Builder.html
+  [documentation]: https://alexjlockwood.github.io/kyrie
+  [kotlin-dsl-source-code]: https://github.com/alexjlockwood/kyrie/tree/master/kyrie-kotlin-dsl/src/main/java/com/github/alexjlockwood/kyrie
