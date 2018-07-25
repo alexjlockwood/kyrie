@@ -66,7 +66,7 @@ KyrieDrawable drawable =
                                 .repeatCount(Animation.INFINITE)
                                 .interpolator(
                                     PathInterpolatorCompat.create(
-                                        PathData.toPath("M 0 0 L 0.5 0 C 0.7 0 0.6 1 1 1"))))
+                                        PathData.toPath("M0 0h.5C.7 0 .6 1 1 1"))))
                         .trimPathEnd(
                             Animation.ofFloat(0.03f, 0.78f)
                                 .duration(1333)
@@ -74,13 +74,13 @@ KyrieDrawable drawable =
                                 .interpolator(
                                     PathInterpolatorCompat.create(
                                         PathData.toPath(
-                                            "M 0 0 C 0.2 0 0.1 1 0.5 0.96 C 0.966 0.96 0.993 1 1 1"))))
+                                            "M0 0c.2 0 .1 1 .5.96C.966.96.993 1 1 1"))))
                         .trimPathOffset(
                             Animation.ofFloat(0f, 0.25f)
                                 .duration(1333)
                                 .repeatCount(Animation.INFINITE))
                         .strokeLineCap(StrokeLineCap.SQUARE)
-                        .pathData("M 0 0 m 0 -18 a 18 18 0 1 1 0 36 a 18 18 0 1 1 0 -36")))
+                        .pathData("M0-18a18 18 0 1 1 0 36 18 18 0 1 1 0-36")))
         .build();
 ```
 
@@ -106,13 +106,13 @@ val drawable =
                     Animation.ofFloat(0f, 0.75f)
                         .duration(1333)
                         .repeatCount(Animation.INFINITE)
-                        .interpolator("M 0 0 L 0.5 0 C 0.7 0 0.6 1 1 1".asPathInterpolator())
+                        .interpolator("M0 0h.5C.7 0 .6 1 1 1".asPathInterpolator())
                 )
                 trimPathEnd(
                     Animation.ofFloat(0.03f, 0.78f)
                         .duration(1333)
                         .repeatCount(Animation.INFINITE)
-                        .interpolator("M 0 0 C 0.2 0 0.1 1 0.5 0.96 C 0.966 0.96 0.993 1 1 1".asPathInterpolator())
+                        .interpolator("M0 0c.2 0 .1 1 .5.96C.966.96.993 1 1 1".asPathInterpolator())
                 )
                 trimPathOffset(
                     Animation.ofFloat(0f, 0.25f)
@@ -120,7 +120,7 @@ val drawable =
                         .repeatCount(Animation.INFINITE)
                 )
                 strokeLineCap(StrokeLineCap.SQUARE)
-                pathData("M 0 0 m 0 -18 a 18 18 0 1 1 0 36 a 18 18 0 1 1 0 -36")
+                pathData("M0-18a18 18 0 1 1 0 36 18 18 0 1 1 0-36")
             }
         }
     }
