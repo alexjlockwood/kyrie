@@ -29,7 +29,7 @@ ext {
     siteUrl = 'https://github.com/alexjlockwood/kyrie'
     gitUrl = 'https://github.com/alexjlockwood/kyrie.git'
 
-    libraryVersion = '0.1.2'
+    libraryVersion = '0.1.3'
 
     developerId = 'alexjlockwood'
     developerName = 'Alex Lockwood'
