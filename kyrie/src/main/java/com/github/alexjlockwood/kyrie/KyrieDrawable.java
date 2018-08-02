@@ -512,6 +512,7 @@ public final class KyrieDrawable extends Drawable implements Animatable {
       setFloatValues(0f, 1f);
       setInterpolator(new LinearInterpolator());
       final PropertyTimeline timeline = drawable.timeline;
+      addListener(listenerAdapter);
       addUpdateListener(
           new AnimatorUpdateListener() {
             @Override
