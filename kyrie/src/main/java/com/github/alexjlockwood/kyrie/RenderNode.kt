@@ -11,7 +11,7 @@ import android.graphics.PointF
 import androidx.annotation.ColorInt
 import androidx.annotation.FloatRange
 
-abstract class RenderNode(
+abstract class RenderNode internal constructor(
         rotation: List<Animation<*, Float>>,
         pivotX: List<Animation<*, Float>>,
         pivotY: List<Animation<*, Float>>,

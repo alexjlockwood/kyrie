@@ -5,7 +5,7 @@ import android.graphics.Matrix
 import android.graphics.PointF
 import androidx.annotation.Size
 
-abstract class BaseNode(
+abstract class BaseNode internal constructor(
         val rotation: List<Animation<*, Float>>,
         val pivotX: List<Animation<*, Float>>,
         val pivotY: List<Animation<*, Float>>,
