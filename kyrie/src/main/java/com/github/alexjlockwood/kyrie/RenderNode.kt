@@ -1,0 +1,449 @@
+package com.github.alexjlockwood.kyrie
+
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.DashPathEffect
+import android.graphics.Matrix
+import android.graphics.Paint
+import android.graphics.Path
+import android.graphics.PathMeasure
+import android.graphics.PointF
+import androidx.annotation.ColorInt
+import androidx.annotation.FloatRange
+
+abstract class RenderNode(
+        rotation: List<Animation<*, Float>>,
+        pivotX: List<Animation<*, Float>>,
+        pivotY: List<Animation<*, Float>>,
+        scaleX: List<Animation<*, Float>>,
+        scaleY: List<Animation<*, Float>>,
+        translateX: List<Animation<*, Float>>,
+        translateY: List<Animation<*, Float>>,
+        private val fillColor: List<Animation<*, Int>>,
+        private val fillAlpha: List<Animation<*, Float>>,
+        private val strokeColor: List<Animation<*, Int>>,
+        private val strokeAlpha: List<Animation<*, Float>>,
+        private val strokeWidth: List<Animation<*, Float>>,
+        private val trimPathStart: List<Animation<*, Float>>,
+        private val trimPathEnd: List<Animation<*, Float>>,
+        private val trimPathOffset: List<Animation<*, Float>>,
+        @param:StrokeLineCap @field:StrokeLineCap @get:StrokeLineCap
+        private val strokeLineCap: Int,
+        @param:StrokeLineJoin @field:StrokeLineJoin @get:StrokeLineJoin
+        private val strokeLineJoin: Int,
+        private val strokeMiterLimit: List<Animation<*, Float>>,
+        private val strokeDashArray: List<Animation<*, FloatArray>>,
+        private val strokeDashOffset: List<Animation<*, Float>>,
+        @param:FillType @field:FillType @get:FillType
+        private val fillType: Int,
+        private val isScalingStroke: Boolean
+) : BaseNode(rotation, pivotX, pivotY, scaleX, scaleY, translateX, translateY) {
+
+    // <editor-fold desc="Layer">
+
+    abstract override fun toLayer(timeline: PropertyTimeline): RenderLayer
+
+    internal abstract class RenderLayer(timeline: PropertyTimeline, node: RenderNode) : BaseNode.BaseLayer(timeline, node) {
+        private val fillColor: Property<Int> = registerAnimatableProperty(node.fillColor)
+        private val fillAlpha: Property<Float> = registerAnimatableProperty(node.fillAlpha)
+        private val strokeColor: Property<Int> = registerAnimatableProperty(node.strokeColor)
+        private val strokeAlpha: Property<Float> = registerAnimatableProperty(node.strokeAlpha)
+        private val strokeWidth: Property<Float> = registerAnimatableProperty(node.strokeWidth)
+        private val trimPathStart: Property<Float> = registerAnimatableProperty(node.trimPathStart)
+        private val trimPathEnd: Property<Float> = registerAnimatableProperty(node.trimPathEnd)
+        private val trimPathOffset: Property<Float> = registerAnimatableProperty(node.trimPathOffset)
+        @StrokeLineCap
+        private val strokeLineCap: Int = node.strokeLineCap
+        @StrokeLineJoin
+        private val strokeLineJoin: Int = node.strokeLineJoin
+        private val strokeMiterLimit: Property<Float> = registerAnimatableProperty(node.strokeMiterLimit)
+        private val strokeDashArray: Property<FloatArray> = registerAnimatableProperty(node.strokeDashArray)
+        private val strokeDashOffset: Property<Float> = registerAnimatableProperty(node.strokeDashOffset)
+        @FillType
+        private val fillType: Int = node.fillType
+        private val isStrokeScaling: Boolean = node.isScalingStroke
+
+        private val tempMatrix = Matrix()
+        private val tempPath = Path()
+        private val tempRenderPath = Path()
+        private var tempStrokePaint: Paint? = null
+        private var tempFillPaint: Paint? = null
+        private var tempPathMeasure: PathMeasure? = null
+        private var tempStrokeDashArray: FloatArray? = null
+
+        abstract fun onInitPath(outPath: Path)
+
+        override fun onDraw(canvas: Canvas, parentMatrix: Matrix, viewportScale: PointF) {
+            val matrixScale = getMatrixScale(parentMatrix)
+            if (matrixScale == 0f) {
+                return
+            }
+
+            val scaleX = viewportScale.x
+            val scaleY = viewportScale.y
+            tempMatrix.set(parentMatrix)
+            if (scaleX != 1f || scaleY != 1f) {
+                tempMatrix.postScale(scaleX, scaleY)
+            }
+
+            tempPath.reset()
+            onInitPath(tempPath)
+            applyTrimPathIfNeeded(tempPath)
+            tempRenderPath.reset()
+            tempRenderPath.addPath(tempPath, tempMatrix)
+            drawFillIfNeeded(canvas, tempRenderPath)
+            val strokeScaleFactor = Math.min(scaleX, scaleY) * if (isStrokeScaling) matrixScale else 1f
+            drawStrokeIfNeeded(canvas, tempRenderPath, strokeScaleFactor)
+        }
+
+        private fun applyTrimPathIfNeeded(outPath: Path) {
+            val trimPathStart = this.trimPathStart.animatedValue
+            val trimPathEnd = this.trimPathEnd.animatedValue
+            val trimPathOffset = this.trimPathOffset.animatedValue
+            if (trimPathStart == 0f && trimPathEnd == 1f) {
+                return
+            }
+            var start = (trimPathStart + trimPathOffset) % 1f
+            var end = (trimPathEnd + trimPathOffset) % 1f
+            if (tempPathMeasure == null) {
+                tempPathMeasure = PathMeasure()
+            }
+            tempPathMeasure!!.setPath(outPath, false)
+            val len = tempPathMeasure!!.length
+            start *= len
+            end *= len
+            outPath.reset()
+            if (start > end) {
+                tempPathMeasure!!.getSegment(start, len, outPath, true)
+                tempPathMeasure!!.getSegment(0f, end, outPath, true)
+            } else {
+                tempPathMeasure!!.getSegment(start, end, outPath, true)
+            }
+            // Required for Android 4.4 and earlier.
+            outPath.rLineTo(0f, 0f)
+        }
+
+        private fun drawFillIfNeeded(canvas: Canvas, path: Path) {
+            val fillColor = this.fillColor.animatedValue
+            val fillAlpha = this.fillAlpha.animatedValue
+            if (fillColor == Color.TRANSPARENT) {
+                return
+            }
+            if (tempFillPaint == null) {
+                tempFillPaint = Paint()
+                tempFillPaint!!.style = Paint.Style.FILL
+                tempFillPaint!!.isAntiAlias = true
+            }
+            val paint = tempFillPaint!!
+            paint.color = applyAlpha(fillColor, fillAlpha)
+            path.fillType = getPaintFillType(fillType)
+            canvas.drawPath(path, paint)
+        }
+
+        private fun drawStrokeIfNeeded(canvas: Canvas, path: Path, strokeScaleFactor: Float) {
+            val strokeColor = this.strokeColor.animatedValue
+            val strokeAlpha = this.strokeAlpha.animatedValue
+            val strokeWidth = this.strokeWidth.animatedValue
+            if (strokeColor == Color.TRANSPARENT || strokeWidth == 0f) {
+                return
+            }
+            if (tempStrokePaint == null) {
+                tempStrokePaint = Paint()
+                tempStrokePaint!!.style = Paint.Style.STROKE
+                tempStrokePaint!!.isAntiAlias = true
+            }
+            val paint = tempStrokePaint!!
+            paint.strokeCap = getPaintStrokeLineCap(strokeLineCap)
+            paint.strokeJoin = getPaintStrokeLineJoin(strokeLineJoin)
+            paint.strokeMiter = strokeMiterLimit.animatedValue
+            paint.color = applyAlpha(strokeColor, strokeAlpha)
+            paint.strokeWidth = strokeWidth * strokeScaleFactor
+            // TODO: can/should we cache path effects?
+            paint.pathEffect = getDashPathEffect(strokeScaleFactor)
+            canvas.drawPath(path, paint)
+        }
+
+        private fun getDashPathEffect(strokeScaleFactor: Float): DashPathEffect? {
+            val strokeDashArray = this.strokeDashArray.animatedValue
+            if (strokeDashArray.isEmpty()) {
+                return null
+            }
+            // DashPathEffect throws an exception if the dash array is odd in length,
+            // so double the size of the array if this is the case.
+            val initialSize = strokeDashArray.size
+            val expansionFactor = if (initialSize % 2 == 0) 1 else 2
+            val requiredSize = initialSize * expansionFactor
+            if (tempStrokeDashArray == null || tempStrokeDashArray!!.size != requiredSize) {
+                tempStrokeDashArray = FloatArray(requiredSize)
+            }
+            val tempStrokeDashArray = tempStrokeDashArray!!
+            for (i in 0 until initialSize) {
+                tempStrokeDashArray[i] = strokeDashArray[i] * strokeScaleFactor
+            }
+            System.arraycopy(tempStrokeDashArray, 0, tempStrokeDashArray, initialSize, requiredSize - initialSize)
+            val strokeDashOffset = this.strokeDashOffset.animatedValue
+            return DashPathEffect(tempStrokeDashArray, strokeDashOffset)
+        }
+
+        @ColorInt
+        private fun applyAlpha(@ColorInt color: Int, alpha: Float): Int {
+            var c = color
+            val alphaBytes = Color.alpha(c)
+            c = c and 0x00FFFFFF
+            c = c or ((alphaBytes * alpha).toInt() shl 24)
+            return c
+        }
+
+        private fun getPaintStrokeLineCap(@StrokeLineCap strokeLineCap: Int): Paint.Cap {
+            return when (strokeLineCap) {
+                StrokeLineCap.BUTT -> Paint.Cap.BUTT
+                StrokeLineCap.ROUND -> Paint.Cap.ROUND
+                StrokeLineCap.SQUARE -> Paint.Cap.SQUARE
+                else -> throw IllegalArgumentException("Invalid stroke line cap: $strokeLineCap")
+            }
+        }
+
+        private fun getPaintStrokeLineJoin(@StrokeLineJoin strokeLineJoin: Int): Paint.Join {
+            return when (strokeLineJoin) {
+                StrokeLineJoin.MITER -> Paint.Join.MITER
+                StrokeLineJoin.ROUND -> Paint.Join.ROUND
+                StrokeLineJoin.BEVEL -> Paint.Join.BEVEL
+                else -> throw IllegalArgumentException("Invalid stroke line join: $strokeLineJoin")
+            }
+        }
+
+        private fun getPaintFillType(@FillType fillType: Int): Path.FillType {
+            return when (fillType) {
+                FillType.NON_ZERO -> Path.FillType.WINDING
+                FillType.EVEN_ODD -> Path.FillType.EVEN_ODD
+                else -> throw IllegalArgumentException("Invalid fill type: $fillType")
+            }
+        }
+    }
+
+    // </editor-fold>
+
+    // <editor-fold desc="Builder">
+
+    abstract class Builder<B : Builder<B>> internal constructor() : BaseNode.Builder<B>() {
+        internal val fillColor: MutableList<Animation<*, Int>> = asAnimations(Color.TRANSPARENT)
+        internal val fillAlpha: MutableList<Animation<*, Float>> = asAnimations(1f)
+        internal val strokeColor: MutableList<Animation<*, Int>> = asAnimations(Color.TRANSPARENT)
+        internal val strokeAlpha: MutableList<Animation<*, Float>> = asAnimations(1f)
+        internal val strokeWidth: MutableList<Animation<*, Float>> = asAnimations(0f)
+        internal val trimPathStart: MutableList<Animation<*, Float>> = asAnimations(0f)
+        internal val trimPathEnd: MutableList<Animation<*, Float>> = asAnimations(1f)
+        internal val trimPathOffset: MutableList<Animation<*, Float>> = asAnimations(0f)
+        @StrokeLineCap
+        internal var strokeLineCap = StrokeLineCap.BUTT
+        @StrokeLineJoin
+        internal var strokeLineJoin = StrokeLineJoin.MITER
+        internal val strokeMiterLimit: MutableList<Animation<*, Float>> = asAnimations(4f)
+        internal val strokeDashArray: MutableList<Animation<*, FloatArray>> = asAnimations(FloatArray(0))
+        internal val strokeDashOffset: MutableList<Animation<*, Float>> = asAnimations(0f)
+        @FillType
+        internal var fillType = FillType.NON_ZERO
+        internal var isScalingStroke = true
+
+        // Fill color.
+
+        fun fillColor(@ColorInt initialFillColor: Int): B {
+            return replaceFirstAnimation(fillColor, asAnimation(initialFillColor))
+        }
+
+        @SafeVarargs
+        fun fillColor(vararg animations: Animation<*, Int>): B {
+            return replaceAnimations(fillColor, *animations)
+        }
+
+        fun fillColor(animations: List<Animation<*, Int>>): B {
+            return replaceAnimations(fillColor, animations)
+        }
+
+        // Fill alpha.
+
+        fun fillAlpha(@FloatRange(from = 0.0, to = 1.0) initialFillAlpha: Float): B {
+            return replaceFirstAnimation(fillAlpha, asAnimation(initialFillAlpha))
+        }
+
+        @SafeVarargs
+        fun fillAlpha(vararg animations: Animation<*, Float>): B {
+            return replaceAnimations(fillAlpha, *animations)
+        }
+
+        fun fillAlpha(animations: List<Animation<*, Float>>): B {
+            return replaceAnimations(fillAlpha, animations)
+        }
+
+        // Stroke color.
+
+        fun strokeColor(@ColorInt initialStrokeColor: Int): B {
+            return replaceFirstAnimation(strokeColor, asAnimation(initialStrokeColor))
+        }
+
+        @SafeVarargs
+        fun strokeColor(vararg animations: Animation<*, Int>): B {
+            return replaceAnimations(strokeColor, *animations)
+        }
+
+        fun strokeColor(animations: List<Animation<*, Int>>): B {
+            return replaceAnimations(strokeColor, animations)
+        }
+
+        // Stroke alpha.
+
+        fun strokeAlpha(@FloatRange(from = 0.0, to = 1.0) initialStrokeAlpha: Float): B {
+            return replaceFirstAnimation(strokeAlpha, asAnimation(initialStrokeAlpha))
+        }
+
+        @SafeVarargs
+        fun strokeAlpha(vararg animations: Animation<*, Float>): B {
+            return replaceAnimations(strokeAlpha, *animations)
+        }
+
+        fun strokeAlpha(animations: List<Animation<*, Float>>): B {
+            return replaceAnimations(strokeAlpha, animations)
+        }
+
+        // Stroke width.
+
+        fun strokeWidth(@FloatRange(from = 0.0) initialStrokeWidth: Float): B {
+            return replaceFirstAnimation(strokeWidth, asAnimation(initialStrokeWidth))
+        }
+
+        @SafeVarargs
+        fun strokeWidth(vararg animations: Animation<*, Float>): B {
+            return replaceAnimations(strokeWidth, *animations)
+        }
+
+        fun strokeWidth(animations: List<Animation<*, Float>>): B {
+            return replaceAnimations(strokeWidth, animations)
+        }
+
+        // Trim path start.
+
+        fun trimPathStart(@FloatRange(from = 0.0, to = 1.0) initialTrimPathStart: Float): B {
+            return replaceFirstAnimation(trimPathStart, asAnimation(initialTrimPathStart))
+        }
+
+        @SafeVarargs
+        fun trimPathStart(vararg animations: Animation<*, Float>): B {
+            return replaceAnimations(trimPathStart, *animations)
+        }
+
+        fun trimPathStart(animations: List<Animation<*, Float>>): B {
+            return replaceAnimations(trimPathStart, animations)
+        }
+
+        // Trim path end.
+
+        fun trimPathEnd(@FloatRange(from = 0.0, to = 1.0) initialTrimPathEnd: Float): B {
+            return replaceFirstAnimation(trimPathEnd, asAnimation(initialTrimPathEnd))
+        }
+
+        @SafeVarargs
+        fun trimPathEnd(vararg animations: Animation<*, Float>): B {
+            return replaceAnimations(trimPathEnd, *animations)
+        }
+
+        fun trimPathEnd(animations: List<Animation<*, Float>>): B {
+            return replaceAnimations(trimPathEnd, animations)
+        }
+
+        // Trim path offset.
+
+        fun trimPathOffset(@FloatRange(from = 0.0, to = 1.0) initialTrimPathOffset: Float): B {
+            return replaceFirstAnimation(trimPathOffset, asAnimation(initialTrimPathOffset))
+        }
+
+        @SafeVarargs
+        fun trimPathOffset(vararg animations: Animation<*, Float>): B {
+            return replaceAnimations(trimPathOffset, *animations)
+        }
+
+        fun trimPathOffset(animations: List<Animation<*, Float>>): B {
+            return replaceAnimations(trimPathOffset, animations)
+        }
+
+        // Stroke line cap.
+
+        fun strokeLineCap(@StrokeLineCap strokeLineCap: Int): B {
+            this.strokeLineCap = strokeLineCap
+            return self
+        }
+
+        // Stroke line join.
+
+        fun strokeLineJoin(@StrokeLineJoin strokeLineJoin: Int): B {
+            this.strokeLineJoin = strokeLineJoin
+            return self
+        }
+
+        // Stroke miter limit.
+
+        fun strokeMiterLimit(@FloatRange(from = 0.0, to = 1.0) initialStrokeMiterLimit: Float): B {
+            return replaceFirstAnimation(strokeMiterLimit, asAnimation(initialStrokeMiterLimit))
+        }
+
+        @SafeVarargs
+        fun strokeMiterLimit(vararg animations: Animation<*, Float>): B {
+            return replaceAnimations(strokeMiterLimit, *animations)
+        }
+
+        fun strokeMiterLimit(animations: List<Animation<*, Float>>): B {
+            return replaceAnimations(strokeMiterLimit, animations)
+        }
+
+        // Stroke dash array.
+
+        fun strokeDashArray(initialStrokeDashArray: FloatArray?): B {
+            var initialStrokeDashArray = initialStrokeDashArray
+            if (initialStrokeDashArray == null) {
+                initialStrokeDashArray = FloatArray(0)
+            }
+            return replaceFirstAnimation(strokeDashArray, asAnimation(initialStrokeDashArray))
+        }
+
+        @SafeVarargs
+        fun strokeDashArray(vararg animations: Animation<*, FloatArray>): B {
+            return replaceAnimations(strokeDashArray, *animations)
+        }
+
+        fun strokeDashArray(animations: List<Animation<*, FloatArray>>): B {
+            return replaceAnimations(strokeDashArray, animations)
+        }
+
+        // Stroke dash offset.
+
+        fun strokeDashOffset(@FloatRange(from = 0.0, to = 1.0) initialStrokeDashOffset: Float): B {
+            return replaceFirstAnimation(strokeDashOffset, asAnimation(initialStrokeDashOffset))
+        }
+
+        @SafeVarargs
+        fun strokeDashOffset(vararg animations: Animation<*, Float>): B {
+            return replaceAnimations(strokeDashOffset, *animations)
+        }
+
+        fun strokeDashOffset(animations: List<Animation<*, Float>>): B {
+            return replaceAnimations(strokeDashOffset, animations)
+        }
+
+        // Fill type.
+
+        fun fillType(@FillType fillType: Int): B {
+            this.fillType = fillType
+            return self
+        }
+
+        // Scaling stroke.
+
+        fun scalingStroke(isScalingStroke: Boolean): B {
+            this.isScalingStroke = isScalingStroke
+            return self
+        }
+
+        abstract override fun build(): RenderNode
+    }
+
+    // </editor-fold>
+}
