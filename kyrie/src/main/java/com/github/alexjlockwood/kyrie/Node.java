@@ -3,8 +3,8 @@ package com.github.alexjlockwood.kyrie;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.PointF;
-import android.support.annotation.ColorInt;
-import android.support.annotation.NonNull;
+import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.Collections;

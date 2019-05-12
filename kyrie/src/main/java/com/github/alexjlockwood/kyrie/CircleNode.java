@@ -2,8 +2,8 @@ package com.github.alexjlockwood.kyrie;
 
 import android.graphics.Path;
 import android.graphics.RectF;
-import android.support.annotation.FloatRange;
-import android.support.annotation.NonNull;
+import androidx.annotation.FloatRange;
+import androidx.annotation.NonNull;
 
 import java.util.List;
 

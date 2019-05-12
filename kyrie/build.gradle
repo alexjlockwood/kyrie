@@ -14,7 +14,7 @@ android {
 
 dependencies {
     api "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
-    implementation "com.android.support:support-compat:$supportLibVersion"
+    implementation 'androidx.core:core:1.0.2'
     compileOnly 'com.google.code.findbugs:jsr305:3.0.2'
 }
 

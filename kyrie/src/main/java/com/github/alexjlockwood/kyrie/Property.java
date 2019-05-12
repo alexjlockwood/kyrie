@@ -1,8 +1,8 @@
 package com.github.alexjlockwood.kyrie;
 
 import android.animation.TimeInterpolator;
-import android.support.annotation.IntRange;
-import android.support.annotation.NonNull;
+import androidx.annotation.IntRange;
+import androidx.annotation.NonNull;
 import android.view.animation.LinearInterpolator;
 
 import com.github.alexjlockwood.kyrie.Animation.RepeatMode;

@@ -3,10 +3,10 @@ package com.github.alexjlockwood.kyrie;
 import android.animation.TimeInterpolator;
 import android.graphics.Path;
 import android.graphics.PointF;
-import android.support.annotation.IntDef;
-import android.support.annotation.IntRange;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.IntDef;
+import androidx.annotation.IntRange;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.view.animation.LinearInterpolator;
 
 import java.lang.annotation.Retention;

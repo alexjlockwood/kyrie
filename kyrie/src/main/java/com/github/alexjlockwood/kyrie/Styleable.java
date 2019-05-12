@@ -1,6 +1,6 @@
 package com.github.alexjlockwood.kyrie;
 
-import android.support.annotation.StyleableRes;
+import androidx.annotation.StyleableRes;
 
 final class Styleable {
 

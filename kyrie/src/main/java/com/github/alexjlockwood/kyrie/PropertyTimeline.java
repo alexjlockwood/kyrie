@@ -1,7 +1,7 @@
 package com.github.alexjlockwood.kyrie;
 
-import android.support.annotation.IntRange;
-import android.support.annotation.NonNull;
+import androidx.annotation.IntRange;
+import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;

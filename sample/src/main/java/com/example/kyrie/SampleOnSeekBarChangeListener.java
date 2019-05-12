@@ -1,6 +1,6 @@
 package com.example.kyrie;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.widget.SeekBar;
 
 import com.github.alexjlockwood.kyrie.KyrieDrawable;
