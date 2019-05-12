@@ -65,4 +65,4 @@ fun String.asPath() = PathData.toPath(this)
 
 fun String.asPathData() = PathData.parse(this)
 
-fun String.asPathInterpolator(): Interpolator = androidx.core.view.animation.PathInterpolatorCompat.create(PathData.toPath(this))
+fun String.asPathInterpolator(): Interpolator = PathInterpolatorCompat.create(PathData.toPath(this))
