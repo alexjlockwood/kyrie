@@ -8,7 +8,7 @@ import androidx.annotation.ColorInt
 import java.util.ArrayList
 import java.util.Collections
 
-/** Base class for all [Node]s used to construct and animate a [KyrieDrawable].  */
+/** Base class for all [Node]s used to construct and animate a [KyrieDrawable]. */
 abstract class Node internal constructor() {
 
     /**
@@ -45,7 +45,8 @@ abstract class Node internal constructor() {
 
         internal abstract fun build(): Node
 
-        internal fun <T> replaceFirstAnimation(animations: MutableList<Animation<*, T>>, animation: Animation<*, T>): B {
+        internal fun <T> replaceFirstAnimation(
+                animations: MutableList<Animation<*, T>>, animation: Animation<*, T>): B {
             Node.replaceFirstAnimation(animations, animation)
             return self
         }
@@ -106,7 +107,6 @@ abstract class Node internal constructor() {
             return asList(asAnimation(initialValue))
         }
 
-        @JvmStatic
         private fun <T> asList(animation: Animation<*, T>): MutableList<Animation<*, T>> {
             val animations = ArrayList<Animation<*, T>>(1)
             animations.add(animation)
@@ -115,14 +115,18 @@ abstract class Node internal constructor() {
 
         @JvmStatic
         internal fun <T> replaceFirstAnimation(
-                animations: MutableList<Animation<*, T>>, animation: Animation<*, T>) {
+                animations: MutableList<Animation<*, T>>,
+                animation: Animation<*, T>
+        ) {
             animations[0] = animation
         }
 
         @JvmStatic
         @SafeVarargs
         internal fun <T> replaceAnimations(
-                animations: MutableList<Animation<*, T>>, vararg newAnimations: Animation<*, T>) {
+                animations: MutableList<Animation<*, T>>,
+                vararg newAnimations: Animation<*, T>
+        ) {
             for (i in animations.size - 1 downTo 1) {
                 animations.removeAt(i)
             }
@@ -131,7 +135,9 @@ abstract class Node internal constructor() {
 
         @JvmStatic
         internal fun <T> replaceAnimations(
-                animations: MutableList<Animation<*, T>>, newAnimations: List<Animation<*, T>>) {
+                animations: MutableList<Animation<*, T>>,
+                newAnimations: List<Animation<*, T>>
+        ) {
             for (i in animations.size - 1 downTo 1) {
                 animations.removeAt(i)
             }

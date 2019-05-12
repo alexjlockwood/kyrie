@@ -32,11 +32,11 @@ class ClipPathNode private constructor(
     }
 
     internal class ClipPathLayer(timeline: PropertyTimeline, node: ClipPathNode) : BaseNode.BaseLayer(timeline, node) {
-        private val pathData: Property<PathData> = registerAnimatableProperty(node.pathData)
+        private val pathData = registerAnimatableProperty(node.pathData)
         @FillType
-        private val fillType: Int = node.fillType
+        private val fillType = node.fillType
         @ClipType
-        private val clipType: Int = node.clipType
+        private val clipType = node.clipType
 
         private val tempMatrix = Matrix()
         private val tempPath = Path()
@@ -83,7 +83,7 @@ class ClipPathNode private constructor(
     @DslMarker
     private annotation class ClipPathNodeMarker
 
-    /** Builder class used to create [ClipPathNode]s.  */
+    /** Builder class used to create [ClipPathNode]s. */
     @ClipPathNodeMarker
     class Builder internal constructor() : BaseNode.Builder<Builder>() {
         private val pathData = asAnimations(PathData())

@@ -44,24 +44,24 @@ abstract class RenderNode(
     abstract override fun toLayer(timeline: PropertyTimeline): RenderLayer
 
     internal abstract class RenderLayer(timeline: PropertyTimeline, node: RenderNode) : BaseNode.BaseLayer(timeline, node) {
-        private val fillColor: Property<Int> = registerAnimatableProperty(node.fillColor)
-        private val fillAlpha: Property<Float> = registerAnimatableProperty(node.fillAlpha)
-        private val strokeColor: Property<Int> = registerAnimatableProperty(node.strokeColor)
-        private val strokeAlpha: Property<Float> = registerAnimatableProperty(node.strokeAlpha)
-        private val strokeWidth: Property<Float> = registerAnimatableProperty(node.strokeWidth)
-        private val trimPathStart: Property<Float> = registerAnimatableProperty(node.trimPathStart)
+        private val fillColor = registerAnimatableProperty(node.fillColor)
+        private val fillAlpha = registerAnimatableProperty(node.fillAlpha)
+        private val strokeColor = registerAnimatableProperty(node.strokeColor)
+        private val strokeAlpha = registerAnimatableProperty(node.strokeAlpha)
+        private val strokeWidth = registerAnimatableProperty(node.strokeWidth)
+        private val trimPathStart = registerAnimatableProperty(node.trimPathStart)
         private val trimPathEnd: Property<Float> = registerAnimatableProperty(node.trimPathEnd)
-        private val trimPathOffset: Property<Float> = registerAnimatableProperty(node.trimPathOffset)
+        private val trimPathOffset = registerAnimatableProperty(node.trimPathOffset)
         @StrokeLineCap
-        private val strokeLineCap: Int = node.strokeLineCap
+        private val strokeLineCap = node.strokeLineCap
         @StrokeLineJoin
-        private val strokeLineJoin: Int = node.strokeLineJoin
-        private val strokeMiterLimit: Property<Float> = registerAnimatableProperty(node.strokeMiterLimit)
-        private val strokeDashArray: Property<FloatArray> = registerAnimatableProperty(node.strokeDashArray)
-        private val strokeDashOffset: Property<Float> = registerAnimatableProperty(node.strokeDashOffset)
+        private val strokeLineJoin = node.strokeLineJoin
+        private val strokeMiterLimit = registerAnimatableProperty(node.strokeMiterLimit)
+        private val strokeDashArray = registerAnimatableProperty(node.strokeDashArray)
+        private val strokeDashOffset = registerAnimatableProperty(node.strokeDashOffset)
         @FillType
-        private val fillType: Int = node.fillType
-        private val isStrokeScaling: Boolean = node.isScalingStroke
+        private val fillType = node.fillType
+        private val isStrokeScaling = node.isScalingStroke
 
         private val tempMatrix = Matrix()
         private val tempPath = Path()
@@ -226,21 +226,21 @@ abstract class RenderNode(
     // <editor-fold desc="Builder">
 
     abstract class Builder<B : Builder<B>> internal constructor() : BaseNode.Builder<B>() {
-        internal val fillColor: MutableList<Animation<*, Int>> = asAnimations(Color.TRANSPARENT)
-        internal val fillAlpha: MutableList<Animation<*, Float>> = asAnimations(1f)
-        internal val strokeColor: MutableList<Animation<*, Int>> = asAnimations(Color.TRANSPARENT)
-        internal val strokeAlpha: MutableList<Animation<*, Float>> = asAnimations(1f)
-        internal val strokeWidth: MutableList<Animation<*, Float>> = asAnimations(0f)
-        internal val trimPathStart: MutableList<Animation<*, Float>> = asAnimations(0f)
-        internal val trimPathEnd: MutableList<Animation<*, Float>> = asAnimations(1f)
-        internal val trimPathOffset: MutableList<Animation<*, Float>> = asAnimations(0f)
+        internal val fillColor = asAnimations(Color.TRANSPARENT)
+        internal val fillAlpha = asAnimations(1f)
+        internal val strokeColor = asAnimations(Color.TRANSPARENT)
+        internal val strokeAlpha = asAnimations(1f)
+        internal val strokeWidth = asAnimations(0f)
+        internal val trimPathStart = asAnimations(0f)
+        internal val trimPathEnd = asAnimations(1f)
+        internal val trimPathOffset = asAnimations(0f)
         @StrokeLineCap
         internal var strokeLineCap = StrokeLineCap.BUTT
         @StrokeLineJoin
         internal var strokeLineJoin = StrokeLineJoin.MITER
-        internal val strokeMiterLimit: MutableList<Animation<*, Float>> = asAnimations(4f)
-        internal val strokeDashArray: MutableList<Animation<*, FloatArray>> = asAnimations(FloatArray(0))
-        internal val strokeDashOffset: MutableList<Animation<*, Float>> = asAnimations(0f)
+        internal val strokeMiterLimit = asAnimations(4f)
+        internal val strokeDashArray = asAnimations(FloatArray(0))
+        internal val strokeDashOffset = asAnimations(0f)
         @FillType
         internal var fillType = FillType.NON_ZERO
         internal var isScalingStroke = true

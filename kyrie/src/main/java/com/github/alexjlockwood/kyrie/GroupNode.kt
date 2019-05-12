@@ -6,7 +6,7 @@ import android.graphics.PointF
 
 import java.util.ArrayList
 
-/** A [Node] that holds a group of children [Node]s.  */
+/** A [Node] that holds a group of children [Node]s. */
 class GroupNode private constructor(
         rotation: List<Animation<*, Float>>,
         pivotX: List<Animation<*, Float>>,
@@ -25,7 +25,7 @@ class GroupNode private constructor(
     }
 
     internal class GroupLayer(timeline: PropertyTimeline, node: GroupNode) : BaseNode.BaseLayer(timeline, node) {
-        private val children: MutableList<Layer>
+        private val children: ArrayList<Layer>
 
         init {
             val childrenNodes = node.children
@@ -57,7 +57,7 @@ class GroupNode private constructor(
     @DslMarker
     private annotation class GroupNodeMarker
 
-    /** Builder class used to create [GroupNode]s.  */
+    /** Builder class used to create [GroupNode]s. */
     @GroupNodeMarker
     class Builder internal constructor() : BaseNode.Builder<Builder>() {
         private val children = ArrayList<Node>()

@@ -2,7 +2,7 @@ package com.github.alexjlockwood.kyrie
 
 import android.graphics.Path
 
-/** A [Node] that paints a path.  */
+/** A [Node] that paints a path. */
 class PathNode private constructor(
         rotation: List<Animation<*, Float>>,
         pivotX: List<Animation<*, Float>>,
@@ -59,7 +59,7 @@ class PathNode private constructor(
     }
 
     internal class PathLayer(timeline: PropertyTimeline, node: PathNode) : RenderNode.RenderLayer(timeline, node) {
-        private val pathData: Property<PathData> = registerAnimatableProperty(node.pathData)
+        private val pathData = registerAnimatableProperty(node.pathData)
 
         override fun onInitPath(outPath: Path) {
             PathData.toPath(pathData.animatedValue, outPath)
@@ -73,7 +73,7 @@ class PathNode private constructor(
     @DslMarker
     private annotation class PathNodeMarker
 
-    /** Builder class used to create [PathNode]s.  */
+    /** Builder class used to create [PathNode]s. */
     @PathNodeMarker
     class Builder internal constructor() : RenderNode.Builder<Builder>() {
         private val pathData = asAnimations(PathData())

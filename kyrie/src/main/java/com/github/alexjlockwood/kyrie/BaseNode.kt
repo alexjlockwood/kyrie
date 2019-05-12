@@ -20,7 +20,7 @@ abstract class BaseNode(
     abstract override fun toLayer(timeline: PropertyTimeline): BaseLayer
 
     internal abstract class BaseLayer(private val timeline: PropertyTimeline, node: BaseNode) : Layer {
-        private val rotation: Property<Float>
+        private val rotation: Property<Float> = registerAnimatableProperty(node.rotation)
         private val pivotX: Property<Float>
         private val pivotY: Property<Float>
         private val scaleX: Property<Float>
@@ -34,7 +34,6 @@ abstract class BaseNode(
         private val tempUnitVectors = FloatArray(4)
 
         init {
-            rotation = registerAnimatableProperty(node.rotation)
             pivotX = registerAnimatableProperty(node.pivotX)
             pivotY = registerAnimatableProperty(node.pivotY)
             scaleX = registerAnimatableProperty(node.scaleX)

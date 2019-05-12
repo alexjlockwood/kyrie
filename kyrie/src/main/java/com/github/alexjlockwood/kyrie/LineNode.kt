@@ -2,7 +2,7 @@ package com.github.alexjlockwood.kyrie
 
 import android.graphics.Path
 
-/** A [Node] that paints a line.  */
+/** A [Node] that paints a line. */
 class LineNode private constructor(
         rotation: List<Animation<*, Float>>,
         pivotX: List<Animation<*, Float>>,
@@ -62,10 +62,10 @@ class LineNode private constructor(
     }
 
     internal class LineLayer(timeline: PropertyTimeline, node: LineNode) : RenderNode.RenderLayer(timeline, node) {
-        private val startX: Property<Float> = registerAnimatableProperty(node.startX)
-        private val startY: Property<Float> = registerAnimatableProperty(node.startY)
-        private val endX: Property<Float> = registerAnimatableProperty(node.endX)
-        private val endY: Property<Float> = registerAnimatableProperty(node.endY)
+        private val startX = registerAnimatableProperty(node.startX)
+        private val startY = registerAnimatableProperty(node.startY)
+        private val endX = registerAnimatableProperty(node.endX)
+        private val endY = registerAnimatableProperty(node.endY)
 
         override fun onInitPath(outPath: Path) {
             val startX = this.startX.animatedValue
@@ -84,7 +84,7 @@ class LineNode private constructor(
     @DslMarker
     private annotation class LineNodeMarker
 
-    /** Builder class used to create [LineNode]s.  */
+    /** Builder class used to create [LineNode]s. */
     @LineNodeMarker
     class Builder internal constructor() : RenderNode.Builder<Builder>() {
         private val startX = asAnimations(0f)

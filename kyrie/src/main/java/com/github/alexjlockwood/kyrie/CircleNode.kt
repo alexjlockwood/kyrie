@@ -4,7 +4,7 @@ import android.graphics.Path
 import android.graphics.RectF
 import androidx.annotation.FloatRange
 
-/** A [Node] that paints a circle.  */
+/** A [Node] that paints a circle. */
 class CircleNode private constructor(
         rotation: List<Animation<*, Float>>,
         pivotX: List<Animation<*, Float>>,
@@ -63,9 +63,9 @@ class CircleNode private constructor(
     }
 
     internal class CircleLayer(timeline: PropertyTimeline, node: CircleNode) : RenderNode.RenderLayer(timeline, node) {
-        private val centerX: Property<Float> = registerAnimatableProperty(node.centerX)
-        private val centerY: Property<Float> = registerAnimatableProperty(node.centerY)
-        private val radius: Property<Float> = registerAnimatableProperty(node.radius)
+        private val centerX = registerAnimatableProperty(node.centerX)
+        private val centerY = registerAnimatableProperty(node.centerY)
+        private val radius = registerAnimatableProperty(node.radius)
 
         private val tempRect = RectF()
 
@@ -85,7 +85,7 @@ class CircleNode private constructor(
     @DslMarker
     private annotation class CircleNodeMarker
 
-    /** Builder class used to create [CircleNode]s.  */
+    /** Builder class used to create [CircleNode]s. */
     @CircleNodeMarker
     class Builder internal constructor() : RenderNode.Builder<Builder>() {
         private val centerX = asAnimations(0f)

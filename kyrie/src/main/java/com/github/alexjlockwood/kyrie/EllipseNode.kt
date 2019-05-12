@@ -4,7 +4,7 @@ import android.graphics.Path
 import android.graphics.RectF
 import androidx.annotation.FloatRange
 
-/** A [Node] that paints an ellipse.  */
+/** A [Node] that paints an ellipse. */
 class EllipseNode private constructor(
         rotation: List<Animation<*, Float>>,
         pivotX: List<Animation<*, Float>>,
@@ -64,10 +64,10 @@ class EllipseNode private constructor(
     }
 
     internal class EllipseLayer(timeline: PropertyTimeline, node: EllipseNode) : RenderNode.RenderLayer(timeline, node) {
-        private val centerX: Property<Float> = registerAnimatableProperty(node.centerX)
-        private val centerY: Property<Float> = registerAnimatableProperty(node.centerY)
-        private val radiusX: Property<Float> = registerAnimatableProperty(node.radiusX)
-        private val radiusY: Property<Float> = registerAnimatableProperty(node.radiusY)
+        private val centerX = registerAnimatableProperty(node.centerX)
+        private val centerY = registerAnimatableProperty(node.centerY)
+        private val radiusX = registerAnimatableProperty(node.radiusX)
+        private val radiusY = registerAnimatableProperty(node.radiusY)
 
         private val tempRect = RectF()
 
@@ -88,7 +88,7 @@ class EllipseNode private constructor(
     @DslMarker
     private annotation class EllipseNodeMarker
 
-    /** Builder class used to create [EllipseNode]s.  */
+    /** Builder class used to create [EllipseNode]s. */
     @EllipseNodeMarker
     class Builder internal constructor() : RenderNode.Builder<Builder>() {
         private val centerX = asAnimations(0f)

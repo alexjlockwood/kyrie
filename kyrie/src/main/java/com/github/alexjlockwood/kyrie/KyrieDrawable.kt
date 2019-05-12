@@ -37,9 +37,8 @@ import com.github.alexjlockwood.kyrie.Node.Companion.replaceFirstAnimation
 import org.xmlpull.v1.XmlPullParserException
 
 import java.io.IOException
-import java.util.ArrayList
 
-/** An animatable drawable based on scalable vector graphics.  */
+/** An animatable drawable based on scalable vector graphics. */
 class KyrieDrawable private constructor(
         @param:Px @field:Px private val width: Int,
         @param:Px @field:Px private val height: Int,
@@ -58,7 +57,7 @@ class KyrieDrawable private constructor(
 
     private val timeline: PropertyTimeline
     private val animator: KyrieValueAnimator
-    private val childrenLayers = ArrayList<Node.Layer>()
+    private val childrenLayers = mutableListOf<Node.Layer>()
 
     @IntRange(from = 0, to = 0xff)
     private var alpha = 0xff
@@ -101,11 +100,11 @@ class KyrieDrawable private constructor(
             animator.currentPlayTime = playTime
         }
 
-    /** Returns true if the animation has been started.  */
+    /** Returns true if the animation has been started. */
     val isStarted: Boolean
         get() = animator.isStarted
 
-    /** Returns true if the animation has been paused.  */
+    /** Returns true if the animation has been paused. */
     val isPaused: Boolean
         get() = animator.isPaused
 
@@ -251,7 +250,8 @@ class KyrieDrawable private constructor(
         canvas.translate(bounds.left.toFloat(), bounds.top.toFloat())
 
         // Handle RTL mirroring.
-        val shouldAutoMirror = isAutoMirrored && DrawableCompat.getLayoutDirection(this) == ViewCompat.LAYOUT_DIRECTION_RTL
+        val shouldAutoMirror =
+                isAutoMirrored && DrawableCompat.getLayoutDirection(this) == ViewCompat.LAYOUT_DIRECTION_RTL
         if (shouldAutoMirror) {
             canvas.translate(bounds.width().toFloat(), 0f)
             canvas.scale(-1f, 1f)
@@ -297,42 +297,42 @@ class KyrieDrawable private constructor(
         canvas.restoreToCount(saveCount)
     }
 
-    /** Starts the animation.  */
+    /** Starts the animation. */
     override fun start() {
         animator.start()
     }
 
-    /** Stops the animation. If the animation is running, it will be canceled.  */
+    /** Stops the animation. If the animation is running, it will be canceled. */
     override fun stop() {
         animator.cancel()
     }
 
-    /** Pauses the animation.  */
+    /** Pauses the animation. */
     fun pause() {
         animator.pause()
     }
 
-    /** Resumes the animation.  */
+    /** Resumes the animation. */
     fun resume() {
         animator.resume()
     }
 
-    /** Returns true if the animation is running.  */
+    /** Returns true if the animation is running. */
     override fun isRunning(): Boolean {
         return animator.isRunning
     }
 
-    /** Adds a [Listener] to this [KyrieDrawable]'s set of listeners.  */
+    /** Adds a [Listener] to this [KyrieDrawable]'s set of listeners. */
     fun addListener(listener: Listener) {
         animator.addListener(listener)
     }
 
-    /** Removes a [Listener] from this [KyrieDrawable]'s set of listeners.  */
+    /** Removes a [Listener] from this [KyrieDrawable]'s set of listeners. */
     fun removeListener(listener: Listener) {
         animator.removeListener(listener)
     }
 
-    /** Removes all [Listener]s from this [KyrieDrawable]'s set of listeners.  */
+    /** Removes all [Listener]s from this [KyrieDrawable]'s set of listeners. */
     fun clearListeners() {
         animator.clearListeners()
     }
@@ -409,7 +409,7 @@ class KyrieDrawable private constructor(
 
     private class KyrieValueAnimator(private val drawable: KyrieDrawable) : ValueAnimator() {
         private val listeners = mutableListOf<Listener>()
-        private var isPaused: Boolean = false
+        private var isPaused = false
 
         @IntRange(from = 0L)
         private var playTime: Long = 0L
@@ -526,7 +526,7 @@ class KyrieDrawable private constructor(
     @DslMarker
     private annotation class KyrieDrawableMarker
 
-    /** Builder class used to create a [KyrieDrawable].  */
+    /** Builder class used to create a [KyrieDrawable]. */
     @KyrieDrawableMarker
     class Builder internal constructor() {
 
@@ -535,7 +535,7 @@ class KyrieDrawable private constructor(
         private var viewportWidth = -1f
         private var viewportHeight = -1f
         private val alpha = asAnimations(1f)
-        private val children = ArrayList<Node>()
+        private val children = mutableListOf<Node>()
         private var isAutoMirrored: Boolean = false
         private var tintList: ColorStateList? = null
         private var tintMode = DEFAULT_TINT_MODE
@@ -698,7 +698,7 @@ class KyrieDrawable private constructor(
 
         }
 
-        /** Constructs a new [KyrieDrawable.Builder].  */
+        /** Constructs a new [KyrieDrawable.Builder]. */
         @JvmStatic
         fun builder(): Builder {
             return Builder()

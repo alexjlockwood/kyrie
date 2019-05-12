@@ -4,7 +4,7 @@ import android.graphics.Path
 import android.graphics.RectF
 import androidx.annotation.FloatRange
 
-/** A [Node] that paints a rectangle.  */
+/** A [Node] that paints a rectangle. */
 class RectangleNode private constructor(
         rotation: List<Animation<*, Float>>,
         pivotX: List<Animation<*, Float>>,
@@ -66,12 +66,12 @@ class RectangleNode private constructor(
     }
 
     internal class RectangleLayer(timeline: PropertyTimeline, node: RectangleNode) : RenderNode.RenderLayer(timeline, node) {
-        private val x: Property<Float> = registerAnimatableProperty(node.x)
-        private val y: Property<Float> = registerAnimatableProperty(node.y)
-        private val width: Property<Float> = registerAnimatableProperty(node.width)
-        private val height: Property<Float> = registerAnimatableProperty(node.height)
-        private val cornerRadiusX: Property<Float> = registerAnimatableProperty(node.cornerRadiusX)
-        private val cornerRadiusY: Property<Float> = registerAnimatableProperty(node.cornerRadiusY)
+        private val x = registerAnimatableProperty(node.x)
+        private val y = registerAnimatableProperty(node.y)
+        private val width = registerAnimatableProperty(node.width)
+        private val height = registerAnimatableProperty(node.height)
+        private val cornerRadiusX = registerAnimatableProperty(node.cornerRadiusX)
+        private val cornerRadiusY = registerAnimatableProperty(node.cornerRadiusY)
 
         private val tempRect = RectF()
 
@@ -94,7 +94,7 @@ class RectangleNode private constructor(
     @DslMarker
     private annotation class RectangleNodeMarker
 
-    /** Builder class used to create [RectangleNode]s.  */
+    /** Builder class used to create [RectangleNode]s. */
     @RectangleNodeMarker
     class Builder internal constructor() : RenderNode.Builder<Builder>() {
         private val x = asAnimations(0f)
