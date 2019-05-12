@@ -32,6 +32,5 @@ dependencies {
     implementation "com.android.support:support-fragment:$supportLibVersion"
     implementation "com.android.support:recyclerview-v7:$supportLibVersion"
     implementation project(':kyrie')
-    implementation project(':kyrie-kotlin-dsl')
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
 }

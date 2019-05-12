@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion rootProject.ext.targetSdkVersion
@@ -12,6 +13,7 @@ android {
 }
 
 dependencies {
+    api "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
     implementation "com.android.support:support-compat:$supportLibVersion"
     compileOnly 'com.google.code.findbugs:jsr305:3.0.2'
 }

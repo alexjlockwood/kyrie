@@ -1,3 +1,2 @@
-include ':kyrie-kotlin-dsl'
 include ':kyrie'
 include ':sample'
