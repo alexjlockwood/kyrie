@@ -28,6 +28,9 @@ class RectangleNode private constructor(
         strokeDashOffset: List<Animation<*, Float>>,
         @FillType fillType: Int,
         isStrokeScaling: Boolean,
+        // TODO: finalize API
+        fillColorComplex: ComplexColorCompat?,
+        strokeColorComplex: ComplexColorCompat?,
         private val x: List<Animation<*, Float>>,
         private val y: List<Animation<*, Float>>,
         private val width: List<Animation<*, Float>>,
@@ -56,7 +59,9 @@ class RectangleNode private constructor(
         strokeDashArray,
         strokeDashOffset,
         fillType,
-        isStrokeScaling
+        isStrokeScaling,
+        fillColorComplex,
+        strokeColorComplex
 ) {
 
     // <editor-fold desc="Layer">
@@ -222,6 +227,8 @@ class RectangleNode private constructor(
                     strokeDashOffset,
                     fillType,
                     isScalingStroke,
+                    fillColorComplex,
+                    strokeColorComplex,
                     x,
                     y,
                     width,

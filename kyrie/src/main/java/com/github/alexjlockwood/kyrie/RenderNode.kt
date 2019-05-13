@@ -1,15 +1,16 @@
 package com.github.alexjlockwood.kyrie
 
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.DashPathEffect
-import android.graphics.Matrix
-import android.graphics.Paint
-import android.graphics.Path
-import android.graphics.PathMeasure
-import android.graphics.PointF
+import android.content.res.ColorStateList
+import android.graphics.*
 import androidx.annotation.ColorInt
 import androidx.annotation.FloatRange
+
+// TODO: finalize CSL/gradient API
+// TODO: reset the animations when CSL/gradients are set (and vice versa)
+// TODO: make ComplexColorCompat internal?
+// TODO: properly override onStateChanged() and isStateful() methods
+// TODO: investigate AVD behavior when complex color in vector but non-complex color in AVD (and vice-versa)
+// TODO: look at VDC source code and figure out if filter needs to be set on path nodes
 
 abstract class RenderNode internal constructor(
         rotation: List<Animation<*, Float>>,
@@ -36,7 +37,10 @@ abstract class RenderNode internal constructor(
         private val strokeDashOffset: List<Animation<*, Float>>,
         @param:FillType @field:FillType @get:FillType
         private val fillType: Int,
-        private val isScalingStroke: Boolean
+        private val isScalingStroke: Boolean,
+        // TODO: finalize API
+        private val fillColorComplex: ComplexColorCompat?,
+        private val strokeColorComplex: ComplexColorCompat?
 ) : BaseNode(rotation, pivotX, pivotY, scaleX, scaleY, translateX, translateY) {
 
     // <editor-fold desc="Layer">
@@ -62,6 +66,10 @@ abstract class RenderNode internal constructor(
         @FillType
         private val fillType = node.fillType
         private val isStrokeScaling = node.isScalingStroke
+
+        // TODO: finalize API
+        private val fillColorComplex = node.fillColorComplex
+        private val strokeColorComplex = node.strokeColorComplex
 
         private val tempMatrix = Matrix()
         private val tempPath = Path()
@@ -124,9 +132,9 @@ abstract class RenderNode internal constructor(
         }
 
         private fun drawFillIfNeeded(canvas: Canvas, path: Path) {
+            val fillColorComplex = fillColorComplex
             val fillColor = this.fillColor.animatedValue
-            val fillAlpha = this.fillAlpha.animatedValue
-            if (fillColor == Color.TRANSPARENT) {
+            if ((fillColorComplex == null || !fillColorComplex.willDraw()) && fillColor == Color.TRANSPARENT) {
                 return
             }
             if (tempFillPaint == null) {
@@ -135,16 +143,33 @@ abstract class RenderNode internal constructor(
                 tempFillPaint!!.isAntiAlias = true
             }
             val paint = tempFillPaint!!
-            paint.color = applyAlpha(fillColor, fillAlpha)
+            if (fillColorComplex != null && fillColorComplex.isGradient) {
+                val shader = fillColorComplex.shader!!
+                // TODO: set the local matrix as in the VDC source code
+                shader.setLocalMatrix(tempMatrix)
+                paint.shader = shader
+                paint.alpha = Math.round(fillAlpha.animatedValue * 255f)
+            } else {
+                paint.shader = null
+                paint.alpha = 255
+                paint.color = if (fillColorComplex != null) {
+                    applyAlpha(fillColorComplex.color, fillAlpha.animatedValue)
+                } else {
+                    applyAlpha(fillColor, fillAlpha.animatedValue)
+                }
+            }
             path.fillType = getPaintFillType(fillType)
             canvas.drawPath(path, paint)
         }
 
         private fun drawStrokeIfNeeded(canvas: Canvas, path: Path, strokeScaleFactor: Float) {
+            val strokeColorComplex = strokeColorComplex
             val strokeColor = this.strokeColor.animatedValue
-            val strokeAlpha = this.strokeAlpha.animatedValue
             val strokeWidth = this.strokeWidth.animatedValue
-            if (strokeColor == Color.TRANSPARENT || strokeWidth == 0f) {
+            if (strokeWidth == 0f) {
+                return
+            }
+            if ((strokeColorComplex == null || !strokeColorComplex.willDraw()) && strokeColor == Color.TRANSPARENT) {
                 return
             }
             if (tempStrokePaint == null) {
@@ -156,10 +181,26 @@ abstract class RenderNode internal constructor(
             paint.strokeCap = getPaintStrokeLineCap(strokeLineCap)
             paint.strokeJoin = getPaintStrokeLineJoin(strokeLineJoin)
             paint.strokeMiter = strokeMiterLimit.animatedValue
-            paint.color = applyAlpha(strokeColor, strokeAlpha)
             paint.strokeWidth = strokeWidth * strokeScaleFactor
             // TODO: can/should we cache path effects?
             paint.pathEffect = getDashPathEffect(strokeScaleFactor)
+
+            if (strokeColorComplex != null && strokeColorComplex.isGradient) {
+                val shader = strokeColorComplex.shader!!
+                // TODO: set the local matrix as in the VDC source code
+                shader.setLocalMatrix(tempMatrix)
+                paint.shader = shader
+                paint.alpha = Math.round((strokeAlpha.animatedValue * 255f))
+            } else {
+                paint.shader = null
+                paint.alpha = 255
+                paint.color = if (strokeColorComplex != null) {
+                    applyAlpha(strokeColorComplex.color, strokeAlpha.animatedValue)
+                } else {
+                    applyAlpha(strokeColor, strokeAlpha.animatedValue)
+                }
+            }
+
             canvas.drawPath(path, paint)
         }
 
@@ -244,6 +285,10 @@ abstract class RenderNode internal constructor(
         @FillType
         internal var fillType = FillType.NON_ZERO
         internal var isScalingStroke = true
+
+        // TODO: finalize API
+        internal var fillColorComplex: ComplexColorCompat? = null
+        internal var strokeColorComplex: ComplexColorCompat? = null
 
         // Fill color.
 
@@ -439,6 +484,54 @@ abstract class RenderNode internal constructor(
 
         fun scalingStroke(isScalingStroke: Boolean): B {
             this.isScalingStroke = isScalingStroke
+            return self
+        }
+
+        // TODO: finalize API
+        // TODO: reset animations when CSL/gradients are set (and vice versa)?
+
+        fun fillColor(linearGradient: LinearGradient?): B {
+            return fillColor(if (linearGradient == null) null else ComplexColorCompat.from(linearGradient))
+        }
+
+        fun fillColor(radialGradient: RadialGradient?): B {
+            return fillColor(if (radialGradient == null) null else ComplexColorCompat.from(radialGradient))
+        }
+
+        fun fillColor(sweepGradient: SweepGradient?): B {
+            return fillColor(if (sweepGradient == null) null else ComplexColorCompat.from(sweepGradient))
+        }
+
+        fun fillColor(colorStateList: ColorStateList?): B {
+            return fillColor(if (colorStateList == null) null else ComplexColorCompat.from(colorStateList))
+        }
+
+        fun fillColor(complexColorCompat: ComplexColorCompat?): B {
+            this.fillColorComplex = complexColorCompat
+            return self
+        }
+
+        fun strokeColor(linearGradient: LinearGradient?): B {
+            return strokeColor(if (linearGradient == null) null else ComplexColorCompat.from(linearGradient))
+
+        }
+
+        fun strokeColor(radialGradient: RadialGradient?): B {
+            return strokeColor(if (radialGradient == null) null else ComplexColorCompat.from(radialGradient))
+
+        }
+
+        fun strokeColor(sweepGradient: SweepGradient?): B {
+            return strokeColor(if (sweepGradient == null) null else ComplexColorCompat.from(sweepGradient))
+
+        }
+
+        fun strokeColor(colorStateList: ColorStateList?): B {
+            return strokeColor(if (colorStateList == null) null else ComplexColorCompat.from(colorStateList))
+        }
+
+        fun strokeColor(complexColorCompat: ComplexColorCompat?): B {
+            this.strokeColorComplex = complexColorCompat
             return self
         }
 

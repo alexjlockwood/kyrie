@@ -26,6 +26,9 @@ class LineNode private constructor(
         strokeDashOffset: List<Animation<*, Float>>,
         @FillType fillType: Int,
         isStrokeScaling: Boolean,
+        // TODO: finalize API
+        fillColorComplex: ComplexColorCompat?,
+        strokeColorComplex: ComplexColorCompat?,
         private val startX: List<Animation<*, Float>>,
         private val startY: List<Animation<*, Float>>,
         private val endX: List<Animation<*, Float>>,
@@ -52,7 +55,9 @@ class LineNode private constructor(
         strokeDashArray,
         strokeDashOffset,
         fillType,
-        isStrokeScaling
+        isStrokeScaling,
+        fillColorComplex,
+        strokeColorComplex
 ) {
 
     // <editor-fold desc="Layer">
@@ -180,6 +185,8 @@ class LineNode private constructor(
                     strokeDashOffset,
                     fillType,
                     isScalingStroke,
+                    fillColorComplex,
+                    strokeColorComplex,
                     startX,
                     startY,
                     endX,

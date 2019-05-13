@@ -13,15 +13,6 @@ import android.graphics.Path;
 import android.graphics.PointF;
 import android.graphics.PorterDuff;
 import android.os.Build;
-import androidx.annotation.AnimRes;
-import androidx.annotation.AnimatorRes;
-import androidx.annotation.DrawableRes;
-import androidx.annotation.IntDef;
-import androidx.annotation.InterpolatorRes;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.collection.ArrayMap;
-import androidx.core.view.animation.PathInterpolatorCompat;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.util.Xml;
@@ -36,6 +27,16 @@ import android.view.animation.CycleInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.OvershootInterpolator;
+
+import androidx.annotation.AnimRes;
+import androidx.annotation.AnimatorRes;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.IntDef;
+import androidx.annotation.InterpolatorRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.collection.ArrayMap;
+import androidx.core.view.animation.PathInterpolatorCompat;
 
 import com.github.alexjlockwood.kyrie.Animation.RepeatMode;
 
@@ -109,7 +110,8 @@ final class InflationUtils {
         final String tagName = parser.getName();
         if (TAG_ANIMATED_VECTOR.equals(tagName)) {
           final TypedArray a =
-              TypedArrayUtils.obtainAttributes(context, attrs, Styleable.ANIMATED_VECTOR);
+              TypedArrayUtils.obtainAttributes(
+                  context.getResources(), context.getTheme(), attrs, Styleable.ANIMATED_VECTOR);
           drawableResId = a.getResourceId(Styleable.AnimatedVector.DRAWABLE, 0);
           a.recycle();
         } else if (TAG_TARGET.equals(tagName)) {
@@ -167,7 +169,9 @@ final class InflationUtils {
       AttributeSet attrs,
       @Nullable Map<String, Map<String, Animation[]>> targetMap)
       throws XmlPullParserException, IOException {
-    final TypedArray a = TypedArrayUtils.obtainAttributes(context, attrs, Styleable.VECTOR);
+    final TypedArray a =
+        TypedArrayUtils.obtainAttributes(
+            context.getResources(), context.getTheme(), attrs, Styleable.VECTOR);
     Map<String, Animation[]> animationMap = null;
     if (targetMap != null) {
       final String groupName = a.getString(Styleable.Vector.NAME);
@@ -175,7 +179,7 @@ final class InflationUtils {
         animationMap = targetMap.get(groupName);
       }
     }
-    updateVectorFromTypedArray(builder, a, parser, animationMap);
+    updateVectorFromTypedArray(builder, context, a, parser, animationMap);
     a.recycle();
 
     // Use a stack to help to build the group tree. The top is always the current group.
@@ -226,10 +230,12 @@ final class InflationUtils {
 
   private static void updateVectorFromTypedArray(
       KyrieDrawable.Builder builder,
+      Context context,
       TypedArray a,
       XmlPullParser parser,
       @Nullable Map<String, Animation[]> animationMap) {
-    builder.tintList(a.getColorStateList(Styleable.Vector.TINT));
+    builder.tintList(
+        TypedArrayUtils.getNamedColorStateList(a, parser, context, "tint", Styleable.Vector.TINT));
     final int tintMode =
         TypedArrayUtils.getNamedInt(a, parser, "tintMode", Styleable.Vector.TINT_MODE, -1);
     builder.tintMode(parseTintMode(tintMode, PorterDuff.Mode.SRC_IN));
@@ -276,7 +282,9 @@ final class InflationUtils {
       XmlPullParser parser,
       AttributeSet attrs,
       @Nullable Map<String, Map<String, Animation[]>> targetMap) {
-    final TypedArray a = TypedArrayUtils.obtainAttributes(context, attrs, Styleable.GROUP);
+    final TypedArray a =
+        TypedArrayUtils.obtainAttributes(
+            context.getResources(), context.getTheme(), attrs, Styleable.GROUP);
     Map<String, Animation[]> animationMap = null;
     if (targetMap != null) {
       final String groupName = a.getString(Styleable.Group.NAME);
@@ -332,7 +340,9 @@ final class InflationUtils {
       XmlPullParser parser,
       AttributeSet attrs,
       @Nullable Map<String, Map<String, Animation[]>> targetMap) {
-    final TypedArray a = TypedArrayUtils.obtainAttributes(context, attrs, Styleable.PATH);
+    final TypedArray a =
+        TypedArrayUtils.obtainAttributes(
+            context.getResources(), context.getTheme(), attrs, Styleable.PATH);
     Map<String, Animation[]> animationMap = null;
     if (targetMap != null) {
       final String pathName = a.getString(Styleable.Path.NAME);
@@ -340,7 +350,7 @@ final class InflationUtils {
         animationMap = targetMap.get(pathName);
       }
     }
-    updatePathFromTypedArray(builder, a, parser, animationMap);
+    updatePathFromTypedArray(builder, a, parser, context, animationMap);
     a.recycle();
   }
 
@@ -349,6 +359,7 @@ final class InflationUtils {
       PathNode.Builder builder,
       TypedArray a,
       XmlPullParser parser,
+      Context context,
       @Nullable Map<String, Animation[]> animationMap) {
     final boolean hasPathData = TypedArrayUtils.hasAttribute(parser, "pathData");
     if (!hasPathData) {
@@ -361,23 +372,39 @@ final class InflationUtils {
         builder.pathData((Animation<?, PathData>[]) animationMap.get("pathData"));
       }
     }
-    builder.fillColor(
-        TypedArrayUtils.getNamedColor(
-            a, parser, "fillColor", Styleable.Path.FILL_COLOR, Color.TRANSPARENT));
-    if (animationMap != null && animationMap.containsKey("fillColor")) {
-      builder.fillColor((Animation<?, Integer>[]) animationMap.get("fillColor"));
+
+    // TODO: mirror the behavior that VDs/AVDs use when both types of colors are used
+    final ComplexColorCompat complexFillColor =
+        TypedArrayUtils.getNamedComplexColor(
+            a, parser, context, "fillColor", Styleable.Path.FILL_COLOR, Color.TRANSPARENT);
+    if (complexFillColor.isGradient() || complexFillColor.isStateful()) {
+      builder.fillColor(complexFillColor);
+    } else {
+      builder.fillColor(complexFillColor.getColor());
+      if (animationMap != null && animationMap.containsKey("fillColor")) {
+        builder.fillColor((Animation<?, Integer>[]) animationMap.get("fillColor"));
+      }
     }
+
     builder.fillAlpha(
         TypedArrayUtils.getNamedFloat(a, parser, "fillAlpha", Styleable.Path.FILL_ALPHA, 1));
     if (animationMap != null && animationMap.containsKey("fillAlpha")) {
       builder.fillAlpha((Animation<?, Float>[]) animationMap.get("fillAlpha"));
     }
-    builder.strokeColor(
-        TypedArrayUtils.getNamedColor(
-            a, parser, "strokeColor", Styleable.Path.STROKE_COLOR, Color.TRANSPARENT));
-    if (animationMap != null && animationMap.containsKey("strokeColor")) {
-      builder.strokeColor((Animation<?, Integer>[]) animationMap.get("strokeColor"));
+
+    // TODO: mirror the behavior that VDs/AVDs use when both types of colors are used
+    final ComplexColorCompat complexStrokeColor =
+        TypedArrayUtils.getNamedComplexColor(
+            a, parser, context, "strokeColor", Styleable.Path.STROKE_COLOR, Color.TRANSPARENT);
+    if (complexStrokeColor.isGradient() || complexStrokeColor.isStateful()) {
+      builder.strokeColor(complexStrokeColor);
+    } else {
+      builder.strokeColor(complexStrokeColor.getColor());
+      if (animationMap != null && animationMap.containsKey("strokeColor")) {
+        builder.strokeColor((Animation<?, Integer>[]) animationMap.get("strokeColor"));
+      }
     }
+
     builder.strokeAlpha(
         TypedArrayUtils.getNamedFloat(a, parser, "strokeAlpha", Styleable.Path.STROKE_ALPHA, 1));
     if (animationMap != null && animationMap.containsKey("strokeAlpha")) {
@@ -434,7 +461,9 @@ final class InflationUtils {
       XmlPullParser parser,
       AttributeSet attrs,
       @Nullable Map<String, Map<String, Animation[]>> targetMap) {
-    final TypedArray a = TypedArrayUtils.obtainAttributes(context, attrs, Styleable.CLIP_PATH);
+    final TypedArray a =
+        TypedArrayUtils.obtainAttributes(
+            context.getResources(), context.getTheme(), attrs, Styleable.CLIP_PATH);
     Map<String, Animation[]> animationMap = null;
     if (targetMap != null) {
       final String pathName = a.getString(Styleable.ClipPath.NAME);
@@ -551,7 +580,8 @@ final class InflationUtils {
       } else if (name.equals("set")) {
         anim = new MyAnimatorSet();
         final TypedArray a =
-            TypedArrayUtils.obtainAttributes(context, attrs, Styleable.ANIMATOR_SET);
+            TypedArrayUtils.obtainAttributes(
+                context.getResources(), context.getTheme(), attrs, Styleable.ANIMATOR_SET);
         final int ordering =
             TypedArrayUtils.getNamedInt(
                 a, parser, "ordering", Styleable.AnimatorSet.ORDERING, ORDERING_TOGETHER);
@@ -596,9 +626,11 @@ final class InflationUtils {
       Context context, AttributeSet attrs, XmlPullParser parser) throws NotFoundException {
     final MyObjectAnimator anim = new MyObjectAnimator();
     final TypedArray arrayAnimator =
-        TypedArrayUtils.obtainAttributes(context, attrs, Styleable.ANIMATOR);
+        TypedArrayUtils.obtainAttributes(
+            context.getResources(), context.getTheme(), attrs, Styleable.ANIMATOR);
     final TypedArray arrayObjectAnimator =
-        TypedArrayUtils.obtainAttributes(context, attrs, Styleable.PROPERTY_ANIMATOR);
+        TypedArrayUtils.obtainAttributes(
+            context.getResources(), context.getTheme(), attrs, Styleable.PROPERTY_ANIMATOR);
     parseAnimatorFromTypeArray(anim, arrayAnimator, arrayObjectAnimator, parser);
     final int resId =
         TypedArrayUtils.getNamedResourceId(
@@ -740,7 +772,11 @@ final class InflationUtils {
 
       if (name.equals("propertyValuesHolder")) {
         final TypedArray a =
-            TypedArrayUtils.obtainAttributes(context, attrs, Styleable.PROPERTY_VALUES_HOLDER);
+            TypedArrayUtils.obtainAttributes(
+                context.getResources(),
+                context.getTheme(),
+                attrs,
+                Styleable.PROPERTY_VALUES_HOLDER);
         final String propertyName =
             TypedArrayUtils.getNamedString(
                 a, parser, "propertyName", Styleable.PropertyValuesHolder.PROPERTY_NAME);
@@ -878,7 +914,9 @@ final class InflationUtils {
   private static int inferValueTypeOfKeyframe(
       Context context, AttributeSet attrs, XmlPullParser parser) {
     @ValueType int valueType;
-    final TypedArray a = TypedArrayUtils.obtainAttributes(context, attrs, Styleable.KEYFRAME);
+    final TypedArray a =
+        TypedArrayUtils.obtainAttributes(
+            context.getResources(), context.getTheme(), attrs, Styleable.KEYFRAME);
     final TypedValue keyframeValue =
         TypedArrayUtils.peekNamedValue(a, parser, "value", Styleable.Keyframe.VALUE);
     final boolean hasValue = keyframeValue != null;
@@ -1020,7 +1058,9 @@ final class InflationUtils {
   private static Keyframe loadKeyframe(
       Context context, AttributeSet attrs, @ValueType int valueType, XmlPullParser parser)
       throws XmlPullParserException, IOException {
-    final TypedArray a = TypedArrayUtils.obtainAttributes(context, attrs, Styleable.KEYFRAME);
+    final TypedArray a =
+        TypedArrayUtils.obtainAttributes(
+            context.getResources(), context.getTheme(), attrs, Styleable.KEYFRAME);
     float fraction =
         TypedArrayUtils.getNamedFloat(a, parser, "fraction", Styleable.Keyframe.FRACTION, -1);
 
@@ -1494,7 +1534,8 @@ final class InflationUtils {
   private static TimeInterpolator inflatePathInterpolator(
       Context context, AttributeSet attrs, XmlPullParser parser) {
     final TypedArray a =
-        TypedArrayUtils.obtainAttributes(context, attrs, Styleable.PATH_INTERPOLATOR);
+        TypedArrayUtils.obtainAttributes(
+            context.getResources(), context.getTheme(), attrs, Styleable.PATH_INTERPOLATOR);
     final TimeInterpolator interpolator = parseInterpolatorFromTypeArray(a, parser);
     a.recycle();
     return interpolator;

@@ -28,6 +28,9 @@ class EllipseNode private constructor(
         strokeDashOffset: List<Animation<*, Float>>,
         @FillType fillType: Int,
         isStrokeScaling: Boolean,
+        // TODO: finalize API
+        fillColorComplex: ComplexColorCompat?,
+        strokeColorComplex: ComplexColorCompat?,
         private val centerX: List<Animation<*, Float>>,
         private val centerY: List<Animation<*, Float>>,
         private val radiusX: List<Animation<*, Float>>,
@@ -54,7 +57,9 @@ class EllipseNode private constructor(
         strokeDashArray,
         strokeDashOffset,
         fillType,
-        isStrokeScaling
+        isStrokeScaling,
+        fillColorComplex,
+        strokeColorComplex
 ) {
 
     // <editor-fold desc="Layer">
@@ -184,6 +189,8 @@ class EllipseNode private constructor(
                     strokeDashOffset,
                     fillType,
                     isScalingStroke,
+                    fillColorComplex,
+                    strokeColorComplex,
                     centerX,
                     centerY,
                     radiusX,

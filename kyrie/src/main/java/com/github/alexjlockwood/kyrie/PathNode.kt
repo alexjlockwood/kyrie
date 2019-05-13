@@ -26,6 +26,9 @@ class PathNode private constructor(
         strokeDashOffset: List<Animation<*, Float>>,
         @FillType fillType: Int,
         isStrokeScaling: Boolean,
+        // TODO: finalize API
+        fillColorComplex: ComplexColorCompat?,
+        strokeColorComplex: ComplexColorCompat?,
         private val pathData: List<Animation<*, PathData>>
 ) : RenderNode(
         rotation,
@@ -49,7 +52,9 @@ class PathNode private constructor(
         strokeDashArray,
         strokeDashOffset,
         fillType,
-        isStrokeScaling
+        isStrokeScaling,
+        fillColorComplex,
+        strokeColorComplex
 ) {
 
     // <editor-fold desc="Layer">
@@ -125,6 +130,8 @@ class PathNode private constructor(
                     strokeDashOffset,
                     fillType,
                     isScalingStroke,
+                    fillColorComplex,
+                    strokeColorComplex,
                     pathData
             )
         }

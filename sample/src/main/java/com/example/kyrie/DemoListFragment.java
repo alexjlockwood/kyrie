@@ -2,14 +2,15 @@ package com.example.kyrie;
 
 import android.content.Context;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class DemoListFragment extends Fragment {
 
@@ -18,6 +19,7 @@ public class DemoListFragment extends Fragment {
     new Demo("Progress bars", ProgressFragment.class),
     new Demo("Path morphing", PathMorphFragment.class),
     new Demo("Heartbreak", HeartbreakFragment.class),
+    new Demo("Gradients", GradientFragment.class)
   };
 
   private Callbacks callbacks;
