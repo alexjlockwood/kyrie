@@ -1,10 +1,6 @@
 package com.github.alexjlockwood.kyrie
 
-import android.graphics.Canvas
-import android.graphics.Matrix
-import android.graphics.Path
-import android.graphics.PointF
-import android.graphics.Region
+import android.graphics.*
 
 /**
  * A [Node] that defines a region to be clipped. Note that a [ClipPathNode] only clips
@@ -73,6 +69,14 @@ class ClipPathNode private constructor(
                 FillType.EVEN_ODD -> Path.FillType.EVEN_ODD
                 else -> throw IllegalArgumentException("Invalid fill type: $fillType")
             }
+        }
+
+        override fun isStateful(): Boolean {
+            return false
+        }
+
+        override fun onStateChange(stateSet: IntArray): Boolean {
+            return false
         }
     }
 

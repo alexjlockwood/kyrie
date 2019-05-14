@@ -8,7 +8,7 @@ import androidx.annotation.FloatRange
 // TODO: finalize CSL/gradient API
 // TODO: reset the animations when CSL/gradients are set (and vice versa)
 // TODO: make ComplexColorCompat internal?
-// TODO: properly override onStateChanged() and isStateful() methods
+// TODO: properly override onStateChange() and isStateful() methods
 // TODO: investigate AVD behavior when complex color in vector but non-complex color in AVD (and vice-versa)
 // TODO: look at VDC source code and figure out if filter needs to be set on path nodes
 
@@ -259,6 +259,17 @@ abstract class RenderNode internal constructor(
                 FillType.EVEN_ODD -> Path.FillType.EVEN_ODD
                 else -> throw IllegalArgumentException("Invalid fill type: $fillType")
             }
+        }
+
+        override fun isStateful(): Boolean {
+            return (fillColorComplex?.isStateful ?: false)
+                    || (strokeColorComplex?.isStateful ?: false)
+        }
+
+        override fun onStateChange(stateSet: IntArray): Boolean {
+            var changed = fillColorComplex?.onStateChanged(stateSet) ?: false
+            changed = changed || strokeColorComplex?.onStateChanged(stateSet) ?: false
+            return changed
         }
     }
 

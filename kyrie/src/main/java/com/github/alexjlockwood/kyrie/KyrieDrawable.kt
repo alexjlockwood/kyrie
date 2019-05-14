@@ -5,37 +5,22 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.ValueAnimator
 import android.content.Context
 import android.content.res.ColorStateList
-import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.ColorFilter
-import android.graphics.Matrix
-import android.graphics.Paint
-import android.graphics.PixelFormat
-import android.graphics.PointF
-import android.graphics.PorterDuff
-import android.graphics.PorterDuffColorFilter
-import android.graphics.Rect
+import android.graphics.*
 import android.graphics.drawable.Animatable
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.VectorDrawable
-import androidx.annotation.ColorInt
-import androidx.annotation.DrawableRes
-import androidx.annotation.FloatRange
-import androidx.annotation.IntRange
-import androidx.annotation.Px
-import androidx.core.graphics.drawable.DrawableCompat
-import androidx.core.view.ViewCompat
 import android.util.Log
 import android.view.animation.LinearInterpolator
+import androidx.annotation.*
+import androidx.annotation.IntRange
+import androidx.core.graphics.drawable.DrawableCompat
+import androidx.core.view.ViewCompat
 import com.github.alexjlockwood.kyrie.Node.Companion.asAnimation
 import com.github.alexjlockwood.kyrie.Node.Companion.asAnimations
 import com.github.alexjlockwood.kyrie.Node.Companion.replaceAnimations
 import com.github.alexjlockwood.kyrie.Node.Companion.replaceFirstAnimation
-
 import org.xmlpull.v1.XmlPullParserException
-
 import java.io.IOException
 
 /** An animatable drawable based on scalable vector graphics. */
@@ -89,7 +74,6 @@ class KyrieDrawable private constructor(
     var currentPlayTime: Long
         @IntRange(from = 0L)
         get() = animator.currentPlayTime
-
         set(@IntRange(from = 0L) currentPlayTime) {
             var playTime = currentPlayTime
             playTime = Math.max(0, playTime)
@@ -132,16 +116,44 @@ class KyrieDrawable private constructor(
     }
 
     override fun isStateful(): Boolean {
-        return super.isStateful() || tintList != null && tintList!!.isStateful
+        if (tintList?.isStateful == true) {
+            return true
+        }
+        if (areLayersStateful()) {
+            return true
+        }
+        return super.isStateful()
     }
 
     override fun onStateChange(stateSet: IntArray): Boolean {
-        if (tintList == null) {
-            return false
+        var changed = false
+
+        if (tintList != null) {
+            tintFilter = createTintFilter()
+            changed = true
         }
-        tintFilter = createTintFilter()
-        invalidateSelf()
+
+        if (areLayersStateful() && onLayerStateChange(stateSet)) {
+            changed = true
+        }
+
+        if (changed) {
+            invalidateSelf()
+        }
+
         return true
+    }
+
+    private fun areLayersStateful(): Boolean {
+        return childrenLayers.any { it.isStateful() }
+    }
+
+    private fun onLayerStateChange(stateSet: IntArray): Boolean {
+        var changed = false
+        for (i in 0 until childrenLayers.size) {
+            changed = changed or childrenLayers[i].onStateChange(stateSet)
+        }
+        return changed
     }
 
     override fun setTint(@ColorInt tint: Int) {

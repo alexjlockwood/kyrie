@@ -21,6 +21,10 @@ abstract class Node internal constructor() {
         fun draw(canvas: Canvas, parentMatrix: Matrix, viewportScale: PointF)
 
         fun onDraw(canvas: Canvas, parentMatrix: Matrix, viewportScale: PointF)
+
+        fun isStateful(): Boolean
+
+        fun onStateChange(stateSet: IntArray): Boolean
     }
 
     @DslMarker

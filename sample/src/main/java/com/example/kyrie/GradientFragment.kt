@@ -1,7 +1,6 @@
 package com.example.kyrie
 
 import android.graphics.Color
-import android.graphics.LinearGradient
 import android.graphics.RadialGradient
 import android.graphics.Shader
 import android.os.Bundle
@@ -30,13 +29,7 @@ class GradientFragment : Fragment() {
     }
 
     private fun createLinearGradientDrawable(): KyrieDrawable {
-        return kyrieDrawable {
-            viewport(200f, 200f)
-            path {
-                pathData("M 0 0 h 200 v 200 h -200v -200 z")
-                fillColor(LinearGradient(0f, 0f, 200f, 200f, Color.RED, Color.BLUE, Shader.TileMode.CLAMP))
-            }
-        }
+        return KyrieDrawable.create(requireContext(), R.drawable.vd_gradient_test)!!
     }
 
     private fun createRadialGradientDrawable(): KyrieDrawable {

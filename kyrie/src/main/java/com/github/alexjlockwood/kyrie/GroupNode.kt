@@ -3,8 +3,7 @@ package com.github.alexjlockwood.kyrie
 import android.graphics.Canvas
 import android.graphics.Matrix
 import android.graphics.PointF
-
-import java.util.ArrayList
+import java.util.*
 
 /** A [Node] that holds a group of children [Node]s. */
 class GroupNode private constructor(
@@ -47,6 +46,23 @@ class GroupNode private constructor(
                 i++
             }
             canvas.restore()
+        }
+
+        override fun isStateful(): Boolean {
+            for (i in 0 until children.size) {
+                if (children[i].isStateful()) {
+                    return true
+                }
+            }
+            return false
+        }
+
+        override fun onStateChange(stateSet: IntArray): Boolean {
+            var changed = false
+            for (i in 0 until children.size) {
+                changed = changed or children[i].onStateChange(stateSet)
+            }
+            return changed
         }
     }
 
