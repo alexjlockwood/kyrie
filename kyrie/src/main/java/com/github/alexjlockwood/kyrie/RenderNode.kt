@@ -50,7 +50,7 @@ abstract class RenderNode internal constructor(
         private val strokeAlpha = registerAnimatableProperty(node.strokeAlpha)
         private val strokeWidth = registerAnimatableProperty(node.strokeWidth)
         private val trimPathStart = registerAnimatableProperty(node.trimPathStart)
-        private val trimPathEnd: Property<Float> = registerAnimatableProperty(node.trimPathEnd)
+        private val trimPathEnd = registerAnimatableProperty(node.trimPathEnd)
         private val trimPathOffset = registerAnimatableProperty(node.trimPathOffset)
         @StrokeLineCap
         private val strokeLineCap = node.strokeLineCap
