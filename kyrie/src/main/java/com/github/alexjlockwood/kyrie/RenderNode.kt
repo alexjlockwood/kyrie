@@ -99,9 +99,9 @@ abstract class RenderNode internal constructor(
             applyTrimPathIfNeeded(tempPath)
             tempRenderPath.reset()
             tempRenderPath.addPath(tempPath, tempMatrix)
-            drawFillIfNeeded(canvas, tempRenderPath)
+            drawFillIfNeeded(canvas, tempRenderPath, tempMatrix)
             val strokeScaleFactor = Math.min(scaleX, scaleY) * if (isStrokeScaling) matrixScale else 1f
-            drawStrokeIfNeeded(canvas, tempRenderPath, strokeScaleFactor)
+            drawStrokeIfNeeded(canvas, tempRenderPath, tempMatrix, strokeScaleFactor)
         }
 
         private fun applyTrimPathIfNeeded(outPath: Path) {
@@ -131,7 +131,7 @@ abstract class RenderNode internal constructor(
             outPath.rLineTo(0f, 0f)
         }
 
-        private fun drawFillIfNeeded(canvas: Canvas, path: Path) {
+        private fun drawFillIfNeeded(canvas: Canvas, path: Path, localMatrix: Matrix) {
             val fillColorComplex = fillColorComplex
             val fillColor = this.fillColor.animatedValue
             if ((fillColorComplex == null || !fillColorComplex.willDraw()) && fillColor == Color.TRANSPARENT) {
@@ -145,8 +145,7 @@ abstract class RenderNode internal constructor(
             val paint = tempFillPaint!!
             if (fillColorComplex != null && fillColorComplex.isGradient) {
                 val shader = fillColorComplex.shader!!
-                // TODO: set the local matrix as in the VDC source code
-                shader.setLocalMatrix(tempMatrix)
+                shader.setLocalMatrix(localMatrix)
                 paint.shader = shader
                 paint.alpha = Math.round(fillAlpha.animatedValue * 255f)
             } else {
@@ -162,7 +161,7 @@ abstract class RenderNode internal constructor(
             canvas.drawPath(path, paint)
         }
 
-        private fun drawStrokeIfNeeded(canvas: Canvas, path: Path, strokeScaleFactor: Float) {
+        private fun drawStrokeIfNeeded(canvas: Canvas, path: Path, localMatrix: Matrix, strokeScaleFactor: Float) {
             val strokeColorComplex = strokeColorComplex
             val strokeColor = this.strokeColor.animatedValue
             val strokeWidth = this.strokeWidth.animatedValue
@@ -187,8 +186,7 @@ abstract class RenderNode internal constructor(
 
             if (strokeColorComplex != null && strokeColorComplex.isGradient) {
                 val shader = strokeColorComplex.shader!!
-                // TODO: set the local matrix as in the VDC source code
-                shader.setLocalMatrix(tempMatrix)
+                shader.setLocalMatrix(localMatrix)
                 paint.shader = shader
                 paint.alpha = Math.round((strokeAlpha.animatedValue * 255f))
             } else {
