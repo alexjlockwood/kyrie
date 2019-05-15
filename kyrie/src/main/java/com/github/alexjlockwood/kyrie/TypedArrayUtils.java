@@ -129,7 +129,7 @@ final class TypedArrayUtils {
    * @return a complex color value form the {@link TypedArray} with the specified {@code resId}, or
    *     containing {@code defaultValue} if it does not exist.
    */
-  public static ComplexColorCompat getNamedComplexColor(
+  public static ComplexColor getNamedComplexColor(
       @NonNull TypedArray a,
       @NonNull XmlPullParser parser,
       @NonNull Context context,
@@ -142,15 +142,15 @@ final class TypedArrayUtils {
       a.getValue(resId, value);
       if (value.type >= TypedValue.TYPE_FIRST_COLOR_INT
           && value.type <= TypedValue.TYPE_LAST_COLOR_INT) {
-        return ComplexColorCompat.from(value.data);
+        return ComplexColor.from(value.data);
       }
 
       // not a simple color, attempt to inflate complex types
-      final ComplexColorCompat complexColor =
-          ComplexColorCompat.inflate(context, a.getResourceId(resId, 0));
+      final ComplexColor complexColor =
+          ComplexColor.inflate(context, a.getResourceId(resId, 0));
       if (complexColor != null) return complexColor;
     }
-    return ComplexColorCompat.from(defaultValue);
+    return ComplexColor.from(defaultValue);
   }
 
   /**

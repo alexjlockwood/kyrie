@@ -28,7 +28,7 @@ import static android.graphics.drawable.GradientDrawable.LINEAR_GRADIENT;
 import static android.graphics.drawable.GradientDrawable.RADIAL_GRADIENT;
 import static android.graphics.drawable.GradientDrawable.SWEEP_GRADIENT;
 
-final class GradientColorInflaterCompat {
+final class GradientColorInflater {
 
   @IntDef({TILE_MODE_CLAMP, TILE_MODE_REPEAT, TILE_MODE_MIRROR})
   @Retention(RetentionPolicy.SOURCE)
@@ -38,7 +38,7 @@ final class GradientColorInflaterCompat {
   private static final int TILE_MODE_REPEAT = 1;
   private static final int TILE_MODE_MIRROR = 2;
 
-  private GradientColorInflaterCompat() {}
+  private GradientColorInflater() {}
 
   static Shader createFromXml(
       @NonNull Resources resources, @NonNull XmlPullParser parser, @Nullable Resources.Theme theme)

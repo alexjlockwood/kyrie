@@ -29,8 +29,8 @@ class RectangleNode private constructor(
         @FillType fillType: Int,
         isStrokeScaling: Boolean,
         // TODO: finalize API
-        fillColorComplex: ComplexColorCompat?,
-        strokeColorComplex: ComplexColorCompat?,
+        fillColorComplex: ComplexColor?,
+        strokeColorComplex: ComplexColor?,
         private val x: List<Animation<*, Float>>,
         private val y: List<Animation<*, Float>>,
         private val width: List<Animation<*, Float>>,

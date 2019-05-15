@@ -33,29 +33,29 @@ import static android.graphics.Color.TRANSPARENT;
  *   <li>A simple color represented by an {@code int}
  * </ol>
  */
-public final class ComplexColorCompat {
-  private static final String LOG_TAG = "ComplexColorCompat";
+public final class ComplexColor {
+  private static final String LOG_TAG = "ComplexColor";
 
   private final Shader mShader;
   private final ColorStateList mColorStateList;
   private int mColor; // mutable for animation/state changes
 
-  private ComplexColorCompat(Shader shader, ColorStateList colorStateList, @ColorInt int color) {
+  private ComplexColor(Shader shader, ColorStateList colorStateList, @ColorInt int color) {
     mShader = shader;
     mColorStateList = colorStateList;
     mColor = color;
   }
 
-  static ComplexColorCompat from(@NonNull Shader shader) {
-    return new ComplexColorCompat(shader, null, TRANSPARENT);
+  static ComplexColor from(@NonNull Shader shader) {
+    return new ComplexColor(shader, null, TRANSPARENT);
   }
 
-  static ComplexColorCompat from(@NonNull ColorStateList colorStateList) {
-    return new ComplexColorCompat(null, colorStateList, colorStateList.getDefaultColor());
+  static ComplexColor from(@NonNull ColorStateList colorStateList) {
+    return new ComplexColor(null, colorStateList, colorStateList.getDefaultColor());
   }
 
-  static ComplexColorCompat from(@ColorInt int color) {
-    return new ComplexColorCompat(null, null, color);
+  static ComplexColor from(@ColorInt int color) {
+    return new ComplexColor(null, null, color);
   }
 
   @Nullable
@@ -105,15 +105,15 @@ public final class ComplexColorCompat {
   }
 
   /**
-   * Creates a ComplexColorCompat from an XML document using given a set of {@link Resources} and a
+   * Creates a ComplexColor from an XML document using given a set of {@link Resources} and a
    * {@link Resources.Theme}.
    *
-   * @param context Context against which the ComplexColorCompat should be inflated.
+   * @param context Context against which the ComplexColor should be inflated.
    * @param resId the resource identifier of the ColorStateList of GradientColor to retrieve.
    * @return A new color.
    */
   @Nullable
-  public static ComplexColorCompat inflate(@NonNull Context context, @ColorRes int resId) {
+  public static ComplexColor inflate(@NonNull Context context, @ColorRes int resId) {
     try {
       return createFromXml(context, resId);
     } catch (Exception e) {
@@ -123,7 +123,7 @@ public final class ComplexColorCompat {
   }
 
   @NonNull
-  private static ComplexColorCompat createFromXml(@NonNull Context context, @ColorRes int resId)
+  private static ComplexColor createFromXml(@NonNull Context context, @ColorRes int resId)
       throws IOException, XmlPullParserException {
     @SuppressLint("ResourceType")
     XmlPullParser parser = context.getResources().getXml(resId);
@@ -139,10 +139,10 @@ public final class ComplexColorCompat {
     final String name = parser.getName();
     switch (name) {
       case "selector":
-        return ComplexColorCompat.from(AppCompatResources.getColorStateList(context, resId));
+        return ComplexColor.from(AppCompatResources.getColorStateList(context, resId));
       case "gradient":
-        return ComplexColorCompat.from(
-            GradientColorInflaterCompat.createFromXmlInner(
+        return ComplexColor.from(
+            GradientColorInflater.createFromXmlInner(
                 context.getResources(), parser, attrs, context.getTheme()));
       default:
         throw new XmlPullParserException(

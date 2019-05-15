@@ -27,8 +27,8 @@ class LineNode private constructor(
         @FillType fillType: Int,
         isStrokeScaling: Boolean,
         // TODO: finalize API
-        fillColorComplex: ComplexColorCompat?,
-        strokeColorComplex: ComplexColorCompat?,
+        fillColorComplex: ComplexColor?,
+        strokeColorComplex: ComplexColor?,
         private val startX: List<Animation<*, Float>>,
         private val startY: List<Animation<*, Float>>,
         private val endX: List<Animation<*, Float>>,

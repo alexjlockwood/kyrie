@@ -374,7 +374,7 @@ final class InflationUtils {
     }
 
     // TODO: mirror the behavior that VDs/AVDs use when both types of colors are used
-    final ComplexColorCompat complexFillColor =
+    final ComplexColor complexFillColor =
         TypedArrayUtils.getNamedComplexColor(
             a, parser, context, "fillColor", Styleable.Path.FILL_COLOR, Color.TRANSPARENT);
     if (complexFillColor.isGradient() || complexFillColor.isStateful()) {
@@ -393,7 +393,7 @@ final class InflationUtils {
     }
 
     // TODO: mirror the behavior that VDs/AVDs use when both types of colors are used
-    final ComplexColorCompat complexStrokeColor =
+    final ComplexColor complexStrokeColor =
         TypedArrayUtils.getNamedComplexColor(
             a, parser, context, "strokeColor", Styleable.Path.STROKE_COLOR, Color.TRANSPARENT);
     if (complexStrokeColor.isGradient() || complexStrokeColor.isStateful()) {

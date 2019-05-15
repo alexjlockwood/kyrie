@@ -27,8 +27,8 @@ class PathNode private constructor(
         @FillType fillType: Int,
         isStrokeScaling: Boolean,
         // TODO: finalize API
-        fillColorComplex: ComplexColorCompat?,
-        strokeColorComplex: ComplexColorCompat?,
+        fillColorComplex: ComplexColor?,
+        strokeColorComplex: ComplexColor?,
         private val pathData: List<Animation<*, PathData>>
 ) : RenderNode(
         rotation,

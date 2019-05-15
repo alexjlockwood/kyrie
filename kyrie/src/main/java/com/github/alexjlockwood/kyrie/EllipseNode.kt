@@ -29,8 +29,8 @@ class EllipseNode private constructor(
         @FillType fillType: Int,
         isStrokeScaling: Boolean,
         // TODO: finalize API
-        fillColorComplex: ComplexColorCompat?,
-        strokeColorComplex: ComplexColorCompat?,
+        fillColorComplex: ComplexColor?,
+        strokeColorComplex: ComplexColor?,
         private val centerX: List<Animation<*, Float>>,
         private val centerY: List<Animation<*, Float>>,
         private val radiusX: List<Animation<*, Float>>,
