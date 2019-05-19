@@ -377,11 +377,11 @@ final class InflationUtils {
       }
     }
 
-    final ComplexColor fillComplexColor =
+    final ComplexColor fillColorComplex =
         TypedArrayUtils.getNamedComplexColor(
             a, parser, context, "fillColor", Styleable.Path.FILL_COLOR, Color.TRANSPARENT);
-    if (fillComplexColor.isGradient()) {
-      final Shader shader = fillComplexColor.getShader();
+    if (fillColorComplex.isGradient()) {
+      final Shader shader = fillColorComplex.getShader();
       if (shader instanceof LinearGradient) {
         builder.fillColor((LinearGradient) shader);
       } else if (shader instanceof RadialGradient) {
@@ -393,13 +393,13 @@ final class InflationUtils {
       }
     } else {
       if (animationMap != null && animationMap.containsKey("fillColor")) {
-        builder.fillColor(fillComplexColor.getColor());
+        builder.fillColor(fillColorComplex.getColor());
         builder.fillColor((Animation<?, Integer>[]) animationMap.get("fillColor"));
       } else {
-        if (fillComplexColor.isStateful()) {
-          builder.fillColor(fillComplexColor.getColorStateList());
+        if (fillColorComplex.isStateful()) {
+          builder.fillColor(fillColorComplex.getColorStateList());
         } else {
-          builder.fillColor(fillComplexColor.getColor());
+          builder.fillColor(fillColorComplex.getColor());
         }
       }
     }
@@ -410,11 +410,11 @@ final class InflationUtils {
       builder.fillAlpha((Animation<?, Float>[]) animationMap.get("fillAlpha"));
     }
 
-    final ComplexColor strokeComplexColor =
+    final ComplexColor strokeColorComplex =
         TypedArrayUtils.getNamedComplexColor(
             a, parser, context, "strokeColor", Styleable.Path.STROKE_COLOR, Color.TRANSPARENT);
-    if (strokeComplexColor.isGradient()) {
-      final Shader shader = strokeComplexColor.getShader();
+    if (strokeColorComplex.isGradient()) {
+      final Shader shader = strokeColorComplex.getShader();
       if (shader instanceof LinearGradient) {
         builder.strokeColor((LinearGradient) shader);
       } else if (shader instanceof RadialGradient) {
@@ -426,13 +426,13 @@ final class InflationUtils {
       }
     } else {
       if (animationMap != null && animationMap.containsKey("strokeColor")) {
-        builder.strokeColor(strokeComplexColor.getColor());
+        builder.strokeColor(strokeColorComplex.getColor());
         builder.strokeColor((Animation<?, Integer>[]) animationMap.get("strokeColor"));
       } else {
-        if (strokeComplexColor.isStateful()) {
-          builder.strokeColor(strokeComplexColor.getColorStateList());
+        if (strokeColorComplex.isStateful()) {
+          builder.strokeColor(strokeColorComplex.getColorStateList());
         } else {
-          builder.strokeColor(strokeComplexColor.getColor());
+          builder.strokeColor(strokeColorComplex.getColor());
         }
       }
     }

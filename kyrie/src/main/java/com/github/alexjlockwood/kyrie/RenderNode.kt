@@ -5,11 +5,6 @@ import android.graphics.*
 import androidx.annotation.ColorInt
 import androidx.annotation.FloatRange
 
-// TODO: reset the animations when CSL/gradients are set (and vice versa)
-// TODO: look at VDC source code and figure out if filter needs to be set on path nodes
-// TODO: support animated gradients
-// TODO: support gradients w/ color state lists?
-
 abstract class RenderNode internal constructor(
         rotation: List<Animation<*, Float>>,
         pivotX: List<Animation<*, Float>>,
@@ -308,22 +303,22 @@ abstract class RenderNode internal constructor(
         }
 
         fun fillColor(colorStateList: ColorStateList?): B {
-            return fillComplexColor(if (colorStateList == null) null else ComplexColor.from(colorStateList))
+            return fillColorComplex(if (colorStateList == null) null else ComplexColor.from(colorStateList))
         }
 
         fun fillColor(linearGradient: LinearGradient?): B {
-            return fillComplexColor(if (linearGradient == null) null else ComplexColor.from(linearGradient))
+            return fillColorComplex(if (linearGradient == null) null else ComplexColor.from(linearGradient))
         }
 
         fun fillColor(radialGradient: RadialGradient?): B {
-            return fillComplexColor(if (radialGradient == null) null else ComplexColor.from(radialGradient))
+            return fillColorComplex(if (radialGradient == null) null else ComplexColor.from(radialGradient))
         }
 
         fun fillColor(sweepGradient: SweepGradient?): B {
-            return fillComplexColor(if (sweepGradient == null) null else ComplexColor.from(sweepGradient))
+            return fillColorComplex(if (sweepGradient == null) null else ComplexColor.from(sweepGradient))
         }
 
-        private fun fillComplexColor(complexColor: ComplexColor?): B {
+        private fun fillColorComplex(complexColor: ComplexColor?): B {
             this.fillColorComplex = complexColor
             return self
         }
@@ -359,22 +354,22 @@ abstract class RenderNode internal constructor(
         }
 
         fun strokeColor(colorStateList: ColorStateList?): B {
-            return strokeComplexColor(if (colorStateList == null) null else ComplexColor.from(colorStateList))
+            return strokeColorComplex(if (colorStateList == null) null else ComplexColor.from(colorStateList))
         }
 
         fun strokeColor(linearGradient: LinearGradient?): B {
-            return strokeComplexColor(if (linearGradient == null) null else ComplexColor.from(linearGradient))
+            return strokeColorComplex(if (linearGradient == null) null else ComplexColor.from(linearGradient))
         }
 
         fun strokeColor(radialGradient: RadialGradient?): B {
-            return strokeComplexColor(if (radialGradient == null) null else ComplexColor.from(radialGradient))
+            return strokeColorComplex(if (radialGradient == null) null else ComplexColor.from(radialGradient))
         }
 
         fun strokeColor(sweepGradient: SweepGradient?): B {
-            return strokeComplexColor(if (sweepGradient == null) null else ComplexColor.from(sweepGradient))
+            return strokeColorComplex(if (sweepGradient == null) null else ComplexColor.from(sweepGradient))
         }
 
-        private fun strokeComplexColor(complexColor: ComplexColor?): B {
+        private fun strokeColorComplex(complexColor: ComplexColor?): B {
             this.strokeColorComplex = complexColor
             return self
         }
