@@ -4,9 +4,7 @@ import android.graphics.Canvas
 import android.graphics.Matrix
 import android.graphics.PointF
 import androidx.annotation.ColorInt
-
-import java.util.ArrayList
-import java.util.Collections
+import java.util.*
 
 /** Base class for all [Node]s used to construct and animate a [KyrieDrawable]. */
 abstract class Node internal constructor() {
@@ -67,42 +65,34 @@ abstract class Node internal constructor() {
 
     internal companion object {
 
-        @JvmStatic
         internal fun asAnimation(initialValue: Float): Animation<*, Float> {
             return Animation.ofFloat(initialValue, initialValue).duration(0)
         }
 
-        @JvmStatic
         internal fun asAnimation(@ColorInt initialValue: Int): Animation<*, Int> {
             return Animation.ofArgb(initialValue, initialValue).duration(0)
         }
 
-        @JvmStatic
         internal fun asAnimation(initialValue: FloatArray): Animation<*, FloatArray> {
             return Animation.ofFloatArray(initialValue, initialValue).duration(0)
         }
 
-        @JvmStatic
         internal fun asAnimation(initialValue: PathData): Animation<*, PathData> {
             return Animation.ofPathMorph(initialValue, initialValue).duration(0)
         }
 
-        @JvmStatic
         internal fun asAnimations(initialValue: Float): MutableList<Animation<*, Float>> {
             return asList(asAnimation(initialValue))
         }
 
-        @JvmStatic
         internal fun asAnimations(initialValue: Int): MutableList<Animation<*, Int>> {
             return asList(asAnimation(initialValue))
         }
 
-        @JvmStatic
         internal fun asAnimations(initialValue: FloatArray): MutableList<Animation<*, FloatArray>> {
             return asList(asAnimation(initialValue))
         }
 
-        @JvmStatic
         internal fun asAnimations(initialValue: PathData): MutableList<Animation<*, PathData>> {
             return asList(asAnimation(initialValue))
         }
@@ -113,31 +103,19 @@ abstract class Node internal constructor() {
             return animations
         }
 
-        @JvmStatic
-        internal fun <T> replaceFirstAnimation(
-                animations: MutableList<Animation<*, T>>,
-                animation: Animation<*, T>
-        ) {
+        internal fun <T> replaceFirstAnimation(animations: MutableList<Animation<*, T>>, animation: Animation<*, T>) {
             animations[0] = animation
         }
 
-        @JvmStatic
         @SafeVarargs
-        internal fun <T> replaceAnimations(
-                animations: MutableList<Animation<*, T>>,
-                vararg newAnimations: Animation<*, T>
-        ) {
+        internal fun <T> replaceAnimations(animations: MutableList<Animation<*, T>>, vararg newAnimations: Animation<*, T>) {
             for (i in animations.size - 1 downTo 1) {
                 animations.removeAt(i)
             }
             Collections.addAll(animations, *newAnimations)
         }
 
-        @JvmStatic
-        internal fun <T> replaceAnimations(
-                animations: MutableList<Animation<*, T>>,
-                newAnimations: List<Animation<*, T>>
-        ) {
+        internal fun <T> replaceAnimations(animations: MutableList<Animation<*, T>>, newAnimations: List<Animation<*, T>>) {
             for (i in animations.size - 1 downTo 1) {
                 animations.removeAt(i)
             }
