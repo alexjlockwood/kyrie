@@ -196,7 +196,7 @@ class KyrieDrawable private constructor(
     }
 
     override fun setColorFilter(colorFilter: ColorFilter?) {
-        if (this.colorFilter !== colorFilter) {
+        if (this.colorFilter != colorFilter) {
             this.colorFilter = colorFilter
             invalidateSelf()
         }
