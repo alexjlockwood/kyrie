@@ -7,7 +7,6 @@ import android.graphics.RadialGradient;
 import android.graphics.Shader;
 import android.graphics.SweepGradient;
 import android.util.AttributeSet;
-import android.util.Xml;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.IntDef;
@@ -39,24 +38,6 @@ final class GradientColorInflater {
   private static final int TILE_MODE_MIRROR = 2;
 
   private GradientColorInflater() {}
-
-  static Shader createFromXml(
-      @NonNull Resources resources, @NonNull XmlPullParser parser, @Nullable Resources.Theme theme)
-      throws XmlPullParserException, IOException {
-    final AttributeSet attrs = Xml.asAttributeSet(parser);
-
-    int type;
-    while ((type = parser.next()) != XmlPullParser.START_TAG
-        && type != XmlPullParser.END_DOCUMENT) {
-      // Seek parser to start tag.
-    }
-
-    if (type != XmlPullParser.START_TAG) {
-      throw new XmlPullParserException("No start tag found");
-    }
-
-    return createFromXmlInner(resources, parser, attrs, theme);
-  }
 
   static Shader createFromXmlInner(
       @NonNull Resources resources,

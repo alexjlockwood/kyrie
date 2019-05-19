@@ -33,14 +33,15 @@ import static android.graphics.Color.TRANSPARENT;
  *   <li>A simple color represented by an {@code int}
  * </ol>
  */
-public final class ComplexColor {
+final class ComplexColor {
   private static final String LOG_TAG = "ComplexColor";
 
-  private final Shader mShader;
-  private final ColorStateList mColorStateList;
+  @Nullable private final Shader mShader;
+  @Nullable private final ColorStateList mColorStateList;
   private int mColor; // mutable for animation/state changes
 
-  private ComplexColor(Shader shader, ColorStateList colorStateList, @ColorInt int color) {
+  private ComplexColor(
+      @Nullable Shader shader, @Nullable ColorStateList colorStateList, @ColorInt int color) {
     mShader = shader;
     mColorStateList = colorStateList;
     mColor = color;
@@ -61,6 +62,11 @@ public final class ComplexColor {
   @Nullable
   public Shader getShader() {
     return mShader;
+  }
+
+  @Nullable
+  public ColorStateList getColorStateList() {
+    return mColorStateList;
   }
 
   @ColorInt
@@ -105,8 +111,8 @@ public final class ComplexColor {
   }
 
   /**
-   * Creates a ComplexColor from an XML document using given a set of {@link Resources} and a
-   * {@link Resources.Theme}.
+   * Creates a ComplexColor from an XML document using given a set of {@link Resources} and a {@link
+   * Resources.Theme}.
    *
    * @param context Context against which the ComplexColor should be inflated.
    * @param resId the resource identifier of the ColorStateList of GradientColor to retrieve.

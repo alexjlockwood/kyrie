@@ -9,9 +9,13 @@ import android.content.res.Resources.NotFoundException;
 import android.content.res.TypedArray;
 import android.content.res.XmlResourceParser;
 import android.graphics.Color;
+import android.graphics.LinearGradient;
 import android.graphics.Path;
 import android.graphics.PointF;
 import android.graphics.PorterDuff;
+import android.graphics.RadialGradient;
+import android.graphics.Shader;
+import android.graphics.SweepGradient;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -373,16 +377,30 @@ final class InflationUtils {
       }
     }
 
-    // TODO: mirror the behavior that VDs/AVDs use when both types of colors are used
-    final ComplexColor complexFillColor =
+    final ComplexColor fillComplexColor =
         TypedArrayUtils.getNamedComplexColor(
             a, parser, context, "fillColor", Styleable.Path.FILL_COLOR, Color.TRANSPARENT);
-    if (complexFillColor.isGradient() || complexFillColor.isStateful()) {
-      builder.fillColor(complexFillColor);
+    if (fillComplexColor.isGradient()) {
+      final Shader shader = fillComplexColor.getShader();
+      if (shader instanceof LinearGradient) {
+        builder.fillColor((LinearGradient) shader);
+      } else if (shader instanceof RadialGradient) {
+        builder.fillColor((RadialGradient) shader);
+      } else if (shader instanceof SweepGradient) {
+        builder.fillColor((SweepGradient) shader);
+      } else {
+        throw new IllegalStateException("Unsupported shader type");
+      }
     } else {
-      builder.fillColor(complexFillColor.getColor());
       if (animationMap != null && animationMap.containsKey("fillColor")) {
+        builder.fillColor(fillComplexColor.getColor());
         builder.fillColor((Animation<?, Integer>[]) animationMap.get("fillColor"));
+      } else {
+        if (fillComplexColor.isStateful()) {
+          builder.fillColor(fillComplexColor.getColorStateList());
+        } else {
+          builder.fillColor(fillComplexColor.getColor());
+        }
       }
     }
 
@@ -392,16 +410,30 @@ final class InflationUtils {
       builder.fillAlpha((Animation<?, Float>[]) animationMap.get("fillAlpha"));
     }
 
-    // TODO: mirror the behavior that VDs/AVDs use when both types of colors are used
-    final ComplexColor complexStrokeColor =
+    final ComplexColor strokeComplexColor =
         TypedArrayUtils.getNamedComplexColor(
             a, parser, context, "strokeColor", Styleable.Path.STROKE_COLOR, Color.TRANSPARENT);
-    if (complexStrokeColor.isGradient() || complexStrokeColor.isStateful()) {
-      builder.strokeColor(complexStrokeColor);
+    if (strokeComplexColor.isGradient()) {
+      final Shader shader = strokeComplexColor.getShader();
+      if (shader instanceof LinearGradient) {
+        builder.strokeColor((LinearGradient) shader);
+      } else if (shader instanceof RadialGradient) {
+        builder.strokeColor((RadialGradient) shader);
+      } else if (shader instanceof SweepGradient) {
+        builder.strokeColor((SweepGradient) shader);
+      } else {
+        throw new IllegalStateException("Unsupported shader type");
+      }
     } else {
-      builder.strokeColor(complexStrokeColor.getColor());
       if (animationMap != null && animationMap.containsKey("strokeColor")) {
+        builder.strokeColor(strokeComplexColor.getColor());
         builder.strokeColor((Animation<?, Integer>[]) animationMap.get("strokeColor"));
+      } else {
+        if (strokeComplexColor.isStateful()) {
+          builder.strokeColor(strokeComplexColor.getColorStateList());
+        } else {
+          builder.strokeColor(strokeComplexColor.getColor());
+        }
       }
     }
 
@@ -1056,8 +1088,7 @@ final class InflationUtils {
   }
 
   private static Keyframe loadKeyframe(
-      Context context, AttributeSet attrs, @ValueType int valueType, XmlPullParser parser)
-      throws XmlPullParserException, IOException {
+      Context context, AttributeSet attrs, @ValueType int valueType, XmlPullParser parser) {
     final TypedArray a =
         TypedArrayUtils.obtainAttributes(
             context.getResources(), context.getTheme(), attrs, Styleable.KEYFRAME);

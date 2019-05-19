@@ -1,5 +1,6 @@
 package com.example.kyrie
 
+import android.graphics.drawable.Animatable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -25,6 +26,7 @@ class ColorStateListFragment : Fragment() {
 
         imageViewPane1.setImageDrawable(createColorStateListXmlDrawable())
         imageViewPane1.setOnClickListener {
+            (imageViewPane1.drawable as Animatable).start()
             Toast.makeText(requireContext(), "Click!", Toast.LENGTH_SHORT).show()
         }
         imageViewPane2.setImageDrawable(createColorStateListBuilderDrawable())

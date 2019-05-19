@@ -1,12 +1,39 @@
-<?xml version="1.0" encoding="utf-8"?>
-<vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="200dp"
-    android:height="200dp"
-    android:viewportWidth="200"
-    android:viewportHeight="200">
+<animated-vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="NewApi">
 
-    <path
-        android:pathData="M 0 0 h 200 v 200 h -200 v -200 z"
-        android:fillColor="@color/colorstatelist"/>
+    <aapt:attr name="android:drawable">
+        <vector
+            android:name="vector"
+            android:width="240dp"
+            android:height="240dp"
+            android:viewportHeight="24"
+            android:viewportWidth="24">
+            <group
+                android:name="group"
+                android:pivotX="12"
+                android:pivotY="12">
+                <path
+                    android:name="path"
+                    android:fillColor="?colorControlNormal"
+                    android:pathData="M 4 4 h 16 v 16 h -16 v -16 z"/>
+            </group>
+        </vector>
+    </aapt:attr>
 
-</vector>
+    <target android:name="path">
+        <aapt:attr name="android:animation">
+            <set>
+                <objectAnimator
+                    android:duration="3000"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"
+                    android:propertyName="fillColor"
+                    android:valueFrom="#0f0"
+                    android:valueTo="#0ff"/>
+            </set>
+        </aapt:attr>
+    </target>
+
+</animated-vector>

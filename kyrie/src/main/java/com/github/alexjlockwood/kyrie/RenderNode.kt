@@ -316,6 +316,27 @@ abstract class RenderNode internal constructor(
             return replaceAnimations(fillColor, animations)
         }
 
+        fun fillColor(colorStateList: ColorStateList?): B {
+            return fillComplexColor(if (colorStateList == null) null else ComplexColor.from(colorStateList))
+        }
+
+        fun fillColor(linearGradient: LinearGradient?): B {
+            return fillComplexColor(if (linearGradient == null) null else ComplexColor.from(linearGradient))
+        }
+
+        fun fillColor(radialGradient: RadialGradient?): B {
+            return fillComplexColor(if (radialGradient == null) null else ComplexColor.from(radialGradient))
+        }
+
+        fun fillColor(sweepGradient: SweepGradient?): B {
+            return fillComplexColor(if (sweepGradient == null) null else ComplexColor.from(sweepGradient))
+        }
+
+        private fun fillComplexColor(complexColor: ComplexColor?): B {
+            this.fillColorComplex = complexColor
+            return self
+        }
+
         // Fill alpha.
 
         fun fillAlpha(@FloatRange(from = 0.0, to = 1.0) initialFillAlpha: Float): B {
@@ -344,6 +365,27 @@ abstract class RenderNode internal constructor(
 
         fun strokeColor(animations: List<Animation<*, Int>>): B {
             return replaceAnimations(strokeColor, animations)
+        }
+
+        fun strokeColor(colorStateList: ColorStateList?): B {
+            return strokeComplexColor(if (colorStateList == null) null else ComplexColor.from(colorStateList))
+        }
+
+        fun strokeColor(linearGradient: LinearGradient?): B {
+            return strokeComplexColor(if (linearGradient == null) null else ComplexColor.from(linearGradient))
+        }
+
+        fun strokeColor(radialGradient: RadialGradient?): B {
+            return strokeComplexColor(if (radialGradient == null) null else ComplexColor.from(radialGradient))
+        }
+
+        fun strokeColor(sweepGradient: SweepGradient?): B {
+            return strokeComplexColor(if (sweepGradient == null) null else ComplexColor.from(sweepGradient))
+        }
+
+        private fun strokeComplexColor(complexColor: ComplexColor?): B {
+            this.strokeColorComplex = complexColor
+            return self
         }
 
         // Stroke alpha.
@@ -495,54 +537,6 @@ abstract class RenderNode internal constructor(
 
         fun scalingStroke(isScalingStroke: Boolean): B {
             this.isScalingStroke = isScalingStroke
-            return self
-        }
-
-        // TODO: finalize API
-        // TODO: reset animations when CSL/gradients are set (and vice versa)?
-
-        fun fillColor(linearGradient: LinearGradient?): B {
-            return fillColor(if (linearGradient == null) null else ComplexColor.from(linearGradient))
-        }
-
-        fun fillColor(radialGradient: RadialGradient?): B {
-            return fillColor(if (radialGradient == null) null else ComplexColor.from(radialGradient))
-        }
-
-        fun fillColor(sweepGradient: SweepGradient?): B {
-            return fillColor(if (sweepGradient == null) null else ComplexColor.from(sweepGradient))
-        }
-
-        fun fillColor(colorStateList: ColorStateList?): B {
-            return fillColor(if (colorStateList == null) null else ComplexColor.from(colorStateList))
-        }
-
-        fun fillColor(complexColor: ComplexColor?): B {
-            this.fillColorComplex = complexColor
-            return self
-        }
-
-        fun strokeColor(linearGradient: LinearGradient?): B {
-            return strokeColor(if (linearGradient == null) null else ComplexColor.from(linearGradient))
-
-        }
-
-        fun strokeColor(radialGradient: RadialGradient?): B {
-            return strokeColor(if (radialGradient == null) null else ComplexColor.from(radialGradient))
-
-        }
-
-        fun strokeColor(sweepGradient: SweepGradient?): B {
-            return strokeColor(if (sweepGradient == null) null else ComplexColor.from(sweepGradient))
-
-        }
-
-        fun strokeColor(colorStateList: ColorStateList?): B {
-            return strokeColor(if (colorStateList == null) null else ComplexColor.from(colorStateList))
-        }
-
-        fun strokeColor(complexColor: ComplexColor?): B {
-            this.strokeColorComplex = complexColor
             return self
         }
 
