@@ -22,8 +22,6 @@ import java.io.IOException;
 
 import static android.graphics.Color.TRANSPARENT;
 
-// TODO: make internal
-
 /**
  * Represents a color which is one of either:
  *
