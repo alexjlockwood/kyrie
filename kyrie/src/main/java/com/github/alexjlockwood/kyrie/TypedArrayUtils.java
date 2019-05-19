@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
-import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 
@@ -263,119 +262,6 @@ final class TypedArrayUtils {
       return res.obtainAttributes(set, attrs);
     }
     return theme.obtainStyledAttributes(set, attrs, 0, 0);
-  }
-
-  /**
-   * @return a boolean value of {@code index}. If it does not exist, a boolean value of {@code
-   *     fallbackIndex}. If it still does not exist, {@code defaultValue}.
-   */
-  public static boolean getBoolean(
-      @NonNull TypedArray a,
-      @StyleableRes int index,
-      @StyleableRes int fallbackIndex,
-      boolean defaultValue) {
-    boolean val = a.getBoolean(fallbackIndex, defaultValue);
-    return a.getBoolean(index, val);
-  }
-
-  /**
-   * @return a drawable value of {@code index}. If it does not exist, a drawable value of {@code
-   *     fallbackIndex}. If it still does not exist, {@code null}.
-   */
-  @Nullable
-  public static Drawable getDrawable(
-      @NonNull TypedArray a, @StyleableRes int index, @StyleableRes int fallbackIndex) {
-    Drawable val = a.getDrawable(index);
-    if (val == null) {
-      val = a.getDrawable(fallbackIndex);
-    }
-    return val;
-  }
-
-  /**
-   * @return an int value of {@code index}. If it does not exist, an int value of {@code
-   *     fallbackIndex}. If it still does not exist, {@code defaultValue}.
-   */
-  public static int getInt(
-      @NonNull TypedArray a,
-      @StyleableRes int index,
-      @StyleableRes int fallbackIndex,
-      int defaultValue) {
-    int val = a.getInt(fallbackIndex, defaultValue);
-    return a.getInt(index, val);
-  }
-
-  /**
-   * @return a resource ID value of {@code index}. If it does not exist, a resource ID value of
-   *     {@code fallbackIndex}. If it still does not exist, {@code defaultValue}.
-   */
-  @AnyRes
-  public static int getResourceId(
-      @NonNull TypedArray a,
-      @StyleableRes int index,
-      @StyleableRes int fallbackIndex,
-      @AnyRes int defaultValue) {
-    int val = a.getResourceId(fallbackIndex, defaultValue);
-    return a.getResourceId(index, val);
-  }
-
-  /**
-   * @return a string value of {@code index}. If it does not exist, a string value of {@code
-   *     fallbackIndex}. If it still does not exist, {@code null}.
-   */
-  @Nullable
-  public static String getString(
-      @NonNull TypedArray a, @StyleableRes int index, @StyleableRes int fallbackIndex) {
-    String val = a.getString(index);
-    if (val == null) {
-      val = a.getString(fallbackIndex);
-    }
-    return val;
-  }
-
-  /**
-   * Retrieves a text attribute value with the specified fallback ID.
-   *
-   * @return a text value of {@code index}. If it does not exist, a text value of {@code
-   *     fallbackIndex}. If it still does not exist, {@code null}.
-   */
-  @Nullable
-  public static CharSequence getText(
-      @NonNull TypedArray a, @StyleableRes int index, @StyleableRes int fallbackIndex) {
-    CharSequence val = a.getText(index);
-    if (val == null) {
-      val = a.getText(fallbackIndex);
-    }
-    return val;
-  }
-
-  /**
-   * Retrieves a string array attribute value with the specified fallback ID.
-   *
-   * @return a string array value of {@code index}. If it does not exist, a string array value of
-   *     {@code fallbackIndex}. If it still does not exist, {@code null}.
-   */
-  @Nullable
-  public static CharSequence[] getTextArray(
-      @NonNull TypedArray a, @StyleableRes int index, @StyleableRes int fallbackIndex) {
-    CharSequence[] val = a.getTextArray(index);
-    if (val == null) {
-      val = a.getTextArray(fallbackIndex);
-    }
-    return val;
-  }
-
-  /**
-   * @return The resource ID value in the {@code context} specified by {@code attr}. If it does not
-   *     exist, {@code fallbackAttr}.
-   */
-  public static int getAttr(@NonNull Context context, int attr, int fallbackAttr) {
-    TypedValue value = new TypedValue();
-    context.getTheme().resolveAttribute(attr, value, true);
-    if (value.resourceId != 0) {
-      return attr;
-    }
-    return fallbackAttr;
   }
 
   private TypedArrayUtils() {}

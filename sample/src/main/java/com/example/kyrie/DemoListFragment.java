@@ -18,9 +18,7 @@ public class DemoListFragment extends Fragment {
     new Demo("Polygons", PolygonsFragment.class),
     new Demo("Progress bars", ProgressFragment.class),
     new Demo("Path morphing", PathMorphFragment.class),
-    new Demo("Heartbreak", HeartbreakFragment.class),
-    new Demo("Gradients", GradientFragment.class),
-    new Demo("ColorStateLists", ColorStateListFragment.class)
+    new Demo("Heartbreak", HeartbreakFragment.class)
   };
 
   private Callbacks callbacks;
