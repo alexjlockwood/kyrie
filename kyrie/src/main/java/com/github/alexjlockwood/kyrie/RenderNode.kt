@@ -46,8 +46,10 @@ abstract class RenderNode internal constructor(
 
     internal abstract class RenderLayer(timeline: PropertyTimeline, node: RenderNode) : BaseNode.BaseLayer(timeline, node) {
         private val fillColor = registerAnimatableProperty(node.fillColor)
+        private val fillColorComplex = node.fillColorComplex
         private val fillAlpha = registerAnimatableProperty(node.fillAlpha)
         private val strokeColor = registerAnimatableProperty(node.strokeColor)
+        private val strokeColorComplex = node.strokeColorComplex
         private val strokeAlpha = registerAnimatableProperty(node.strokeAlpha)
         private val strokeWidth = registerAnimatableProperty(node.strokeWidth)
         private val trimPathStart = registerAnimatableProperty(node.trimPathStart)
@@ -63,10 +65,6 @@ abstract class RenderNode internal constructor(
         @FillType
         private val fillType = node.fillType
         private val isStrokeScaling = node.isScalingStroke
-
-        // TODO: finalize API
-        private val fillColorComplex = node.fillColorComplex
-        private val strokeColorComplex = node.strokeColorComplex
 
         private val tempMatrix = Matrix()
         private val tempPath = Path()
