@@ -12,8 +12,10 @@ class PathNode private constructor(
         translateX: List<Animation<*, Float>>,
         translateY: List<Animation<*, Float>>,
         fillColor: List<Animation<*, Int>>,
+        fillColorComplex: ComplexColor?,
         fillAlpha: List<Animation<*, Float>>,
         strokeColor: List<Animation<*, Int>>,
+        strokeColorComplex: ComplexColor?,
         strokeAlpha: List<Animation<*, Float>>,
         strokeWidth: List<Animation<*, Float>>,
         trimPathStart: List<Animation<*, Float>>,
@@ -26,9 +28,6 @@ class PathNode private constructor(
         strokeDashOffset: List<Animation<*, Float>>,
         @FillType fillType: Int,
         isStrokeScaling: Boolean,
-        // TODO: finalize API
-        fillColorComplex: ComplexColor?,
-        strokeColorComplex: ComplexColor?,
         private val pathData: List<Animation<*, PathData>>
 ) : RenderNode(
         rotation,
@@ -39,8 +38,10 @@ class PathNode private constructor(
         translateX,
         translateY,
         fillColor,
+        fillColorComplex,
         fillAlpha,
         strokeColor,
+        strokeColorComplex,
         strokeAlpha,
         strokeWidth,
         trimPathStart,
@@ -52,9 +53,7 @@ class PathNode private constructor(
         strokeDashArray,
         strokeDashOffset,
         fillType,
-        isStrokeScaling,
-        fillColorComplex,
-        strokeColorComplex
+        isStrokeScaling
 ) {
 
     // <editor-fold desc="Layer">
@@ -116,8 +115,10 @@ class PathNode private constructor(
                     translateX,
                     translateY,
                     fillColor,
+                    fillColorComplex,
                     fillAlpha,
                     strokeColor,
+                    strokeColorComplex,
                     strokeAlpha,
                     strokeWidth,
                     trimPathStart,
@@ -130,8 +131,6 @@ class PathNode private constructor(
                     strokeDashOffset,
                     fillType,
                     isScalingStroke,
-                    fillColorComplex,
-                    strokeColorComplex,
                     pathData
             )
         }

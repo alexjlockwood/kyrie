@@ -5,11 +5,7 @@ import android.graphics.*
 import androidx.annotation.ColorInt
 import androidx.annotation.FloatRange
 
-// TODO: finalize CSL/gradient API
 // TODO: reset the animations when CSL/gradients are set (and vice versa)
-// TODO: make ComplexColor internal?
-// TODO: properly override onStateChange() and isStateful() methods
-// TODO: investigate AVD behavior when complex color in vector but non-complex color in AVD (and vice-versa)
 // TODO: look at VDC source code and figure out if filter needs to be set on path nodes
 // TODO: support animated gradients
 // TODO: support gradients w/ color state lists?
@@ -23,8 +19,10 @@ abstract class RenderNode internal constructor(
         translateX: List<Animation<*, Float>>,
         translateY: List<Animation<*, Float>>,
         private val fillColor: List<Animation<*, Int>>,
+        private val fillColorComplex: ComplexColor?,
         private val fillAlpha: List<Animation<*, Float>>,
         private val strokeColor: List<Animation<*, Int>>,
+        private val strokeColorComplex: ComplexColor?,
         private val strokeAlpha: List<Animation<*, Float>>,
         private val strokeWidth: List<Animation<*, Float>>,
         private val trimPathStart: List<Animation<*, Float>>,
@@ -39,10 +37,7 @@ abstract class RenderNode internal constructor(
         private val strokeDashOffset: List<Animation<*, Float>>,
         @param:FillType @field:FillType @get:FillType
         private val fillType: Int,
-        private val isScalingStroke: Boolean,
-        // TODO: finalize API
-        private val fillColorComplex: ComplexColor?,
-        private val strokeColorComplex: ComplexColor?
+        private val isScalingStroke: Boolean
 ) : BaseNode(rotation, pivotX, pivotY, scaleX, scaleY, translateX, translateY) {
 
     // <editor-fold desc="Layer">
@@ -279,8 +274,10 @@ abstract class RenderNode internal constructor(
 
     abstract class Builder<B : Builder<B>> internal constructor() : BaseNode.Builder<B>() {
         internal val fillColor = asAnimations(Color.TRANSPARENT)
+        internal var fillColorComplex: ComplexColor? = null
         internal val fillAlpha = asAnimations(1f)
         internal val strokeColor = asAnimations(Color.TRANSPARENT)
+        internal var strokeColorComplex: ComplexColor? = null
         internal val strokeAlpha = asAnimations(1f)
         internal val strokeWidth = asAnimations(0f)
         internal val trimPathStart = asAnimations(0f)
@@ -296,10 +293,6 @@ abstract class RenderNode internal constructor(
         @FillType
         internal var fillType = FillType.NON_ZERO
         internal var isScalingStroke = true
-
-        // TODO: finalize API
-        internal var fillColorComplex: ComplexColor? = null
-        internal var strokeColorComplex: ComplexColor? = null
 
         // Fill color.
 

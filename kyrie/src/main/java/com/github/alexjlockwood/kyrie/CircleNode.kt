@@ -14,8 +14,10 @@ class CircleNode private constructor(
         translateX: List<Animation<*, Float>>,
         translateY: List<Animation<*, Float>>,
         fillColor: List<Animation<*, Int>>,
+        fillColorComplex: ComplexColor?,
         fillAlpha: List<Animation<*, Float>>,
         strokeColor: List<Animation<*, Int>>,
+        strokeColorComplex: ComplexColor?,
         strokeAlpha: List<Animation<*, Float>>,
         strokeWidth: List<Animation<*, Float>>,
         trimPathStart: List<Animation<*, Float>>,
@@ -28,9 +30,6 @@ class CircleNode private constructor(
         strokeDashOffset: List<Animation<*, Float>>,
         @FillType fillType: Int,
         isStrokeScaling: Boolean,
-        // TODO: finalize API
-        fillColorComplex: ComplexColor?,
-        strokeColorComplex: ComplexColor?,
         private val centerX: List<Animation<*, Float>>,
         private val centerY: List<Animation<*, Float>>,
         private val radius: List<Animation<*, Float>>
@@ -43,8 +42,10 @@ class CircleNode private constructor(
         translateX,
         translateY,
         fillColor,
+        fillColorComplex,
         fillAlpha,
         strokeColor,
+        strokeColorComplex,
         strokeAlpha,
         strokeWidth,
         trimPathStart,
@@ -56,9 +57,7 @@ class CircleNode private constructor(
         strokeDashArray,
         strokeDashOffset,
         fillType,
-        isStrokeScaling,
-        fillColorComplex,
-        strokeColorComplex
+        isStrokeScaling
 ) {
 
     // <editor-fold desc="Layer">
@@ -156,8 +155,10 @@ class CircleNode private constructor(
                     translateX,
                     translateY,
                     fillColor,
+                    fillColorComplex,
                     fillAlpha,
                     strokeColor,
+                    strokeColorComplex,
                     strokeAlpha,
                     strokeWidth,
                     trimPathStart,
@@ -170,8 +171,6 @@ class CircleNode private constructor(
                     strokeDashOffset,
                     fillType,
                     isScalingStroke,
-                    fillColorComplex,
-                    strokeColorComplex,
                     centerX,
                     centerY,
                     radius

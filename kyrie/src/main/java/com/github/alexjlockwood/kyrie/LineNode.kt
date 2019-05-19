@@ -12,8 +12,10 @@ class LineNode private constructor(
         translateX: List<Animation<*, Float>>,
         translateY: List<Animation<*, Float>>,
         fillColor: List<Animation<*, Int>>,
+        fillColorComplex: ComplexColor?,
         fillAlpha: List<Animation<*, Float>>,
         strokeColor: List<Animation<*, Int>>,
+        strokeColorComplex: ComplexColor?,
         strokeAlpha: List<Animation<*, Float>>,
         strokeWidth: List<Animation<*, Float>>,
         trimPathStart: List<Animation<*, Float>>,
@@ -26,9 +28,6 @@ class LineNode private constructor(
         strokeDashOffset: List<Animation<*, Float>>,
         @FillType fillType: Int,
         isStrokeScaling: Boolean,
-        // TODO: finalize API
-        fillColorComplex: ComplexColor?,
-        strokeColorComplex: ComplexColor?,
         private val startX: List<Animation<*, Float>>,
         private val startY: List<Animation<*, Float>>,
         private val endX: List<Animation<*, Float>>,
@@ -42,8 +41,10 @@ class LineNode private constructor(
         translateX,
         translateY,
         fillColor,
+        fillColorComplex,
         fillAlpha,
         strokeColor,
+        strokeColorComplex,
         strokeAlpha,
         strokeWidth,
         trimPathStart,
@@ -55,9 +56,7 @@ class LineNode private constructor(
         strokeDashArray,
         strokeDashOffset,
         fillType,
-        isStrokeScaling,
-        fillColorComplex,
-        strokeColorComplex
+        isStrokeScaling
 ) {
 
     // <editor-fold desc="Layer">
@@ -171,8 +170,10 @@ class LineNode private constructor(
                     translateX,
                     translateY,
                     fillColor,
+                    fillColorComplex,
                     fillAlpha,
                     strokeColor,
+                    strokeColorComplex,
                     strokeAlpha,
                     strokeWidth,
                     trimPathStart,
@@ -185,8 +186,6 @@ class LineNode private constructor(
                     strokeDashOffset,
                     fillType,
                     isScalingStroke,
-                    fillColorComplex,
-                    strokeColorComplex,
                     startX,
                     startY,
                     endX,

@@ -14,8 +14,10 @@ class RectangleNode private constructor(
         translateX: List<Animation<*, Float>>,
         translateY: List<Animation<*, Float>>,
         fillColor: List<Animation<*, Int>>,
+        fillColorComplex: ComplexColor?,
         fillAlpha: List<Animation<*, Float>>,
         strokeColor: List<Animation<*, Int>>,
+        strokeColorComplex: ComplexColor?,
         strokeAlpha: List<Animation<*, Float>>,
         strokeWidth: List<Animation<*, Float>>,
         trimPathStart: List<Animation<*, Float>>,
@@ -28,9 +30,6 @@ class RectangleNode private constructor(
         strokeDashOffset: List<Animation<*, Float>>,
         @FillType fillType: Int,
         isStrokeScaling: Boolean,
-        // TODO: finalize API
-        fillColorComplex: ComplexColor?,
-        strokeColorComplex: ComplexColor?,
         private val x: List<Animation<*, Float>>,
         private val y: List<Animation<*, Float>>,
         private val width: List<Animation<*, Float>>,
@@ -46,8 +45,10 @@ class RectangleNode private constructor(
         translateX,
         translateY,
         fillColor,
+        fillColorComplex,
         fillAlpha,
         strokeColor,
+        strokeColorComplex,
         strokeAlpha,
         strokeWidth,
         trimPathStart,
@@ -59,9 +60,7 @@ class RectangleNode private constructor(
         strokeDashArray,
         strokeDashOffset,
         fillType,
-        isStrokeScaling,
-        fillColorComplex,
-        strokeColorComplex
+        isStrokeScaling
 ) {
 
     // <editor-fold desc="Layer">
@@ -213,8 +212,10 @@ class RectangleNode private constructor(
                     translateX,
                     translateY,
                     fillColor,
+                    fillColorComplex,
                     fillAlpha,
                     strokeColor,
+                    strokeColorComplex,
                     strokeAlpha,
                     strokeWidth,
                     trimPathStart,
@@ -227,8 +228,6 @@ class RectangleNode private constructor(
                     strokeDashOffset,
                     fillType,
                     isScalingStroke,
-                    fillColorComplex,
-                    strokeColorComplex,
                     x,
                     y,
                     width,
