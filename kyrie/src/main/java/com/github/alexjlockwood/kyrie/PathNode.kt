@@ -101,7 +101,7 @@ class PathNode private constructor(
             return this
         }
 
-        public override fun build(): PathNode {
+        override fun build(): PathNode {
             return PathNode(
                     rotation,
                     pivotX,

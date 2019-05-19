@@ -141,7 +141,7 @@ class CircleNode private constructor(
             return this
         }
 
-        public override fun build(): CircleNode {
+        override fun build(): CircleNode {
             return CircleNode(
                     rotation,
                     pivotX,

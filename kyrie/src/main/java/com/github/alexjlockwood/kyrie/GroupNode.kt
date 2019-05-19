@@ -77,7 +77,7 @@ class GroupNode private constructor(
             return this
         }
 
-        public override fun build(): GroupNode {
+        override fun build(): GroupNode {
             return GroupNode(rotation, pivotX, pivotY, scaleX, scaleY, translateX, translateY, children)
         }
     }

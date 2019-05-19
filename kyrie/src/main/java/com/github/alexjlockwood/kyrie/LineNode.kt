@@ -156,7 +156,7 @@ class LineNode private constructor(
             return this
         }
 
-        public override fun build(): LineNode {
+        override fun build(): LineNode {
             return LineNode(
                     rotation,
                     pivotX,
