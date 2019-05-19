@@ -463,6 +463,12 @@ final class InflationUtils {
         builder.pathData((Animation<?, PathData>[]) animationMap.get("pathData"));
       }
     }
+
+    @FillType
+    final int fillType =
+        TypedArrayUtils.getNamedInt(
+            a, parser, "fillType", Styleable.ClipPath.FILL_TYPE, FillType.NON_ZERO);
+    builder.fillType(fillType);
   }
 
   // </editor-fold>

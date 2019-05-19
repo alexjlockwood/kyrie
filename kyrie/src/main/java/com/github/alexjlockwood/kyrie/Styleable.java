@@ -90,9 +90,14 @@ final class Styleable {
   interface ClipPath {
     @StyleableRes int NAME = 0;
     @StyleableRes int PATH_DATA = 1;
+    @StyleableRes int FILL_TYPE = 2;
   }
 
-  @StyleableRes static final int[] CLIP_PATH = {android.R.attr.name, android.R.attr.pathData};
+  @StyleableRes static final int[] CLIP_PATH = {
+          android.R.attr.name,
+          android.R.attr.pathData,
+          android.R.attr.fillType
+  };
 
   interface AnimatedVector {
     @StyleableRes int DRAWABLE = 0;
