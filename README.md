@@ -43,6 +43,48 @@ We can also build `KyrieDrawable`s at runtime using the builder pattern. `KyrieD
 
 Here is a snippet of code from the [sample app][progressfragment] that shows how we can programatically create a circular progress indicator:
 
+```kotlin
+val drawable =
+    kyrieDrawable {
+        viewport = size(48f, 48f)
+        tint = Color.RED
+        group {
+            translateX(24f)
+            translateY(24f)
+            rotation(
+                Animation.ofFloat(0f, 720f)
+                    .duration(4444)
+                    .repeatCount(Animation.INFINITE)
+            )
+            path {
+                strokeColor(Color.WHITE)
+                strokeWidth(4f)
+                trimPathStart(
+                    Animation.ofFloat(0f, 0.75f)
+                        .duration(1333)
+                        .repeatCount(Animation.INFINITE)
+                        .interpolator("M0 0h.5C.7 0 .6 1 1 1".asPathInterpolator())
+                )
+                trimPathEnd(
+                    Animation.ofFloat(0.03f, 0.78f)
+                        .duration(1333)
+                        .repeatCount(Animation.INFINITE)
+                        .interpolator("M0 0c.2 0 .1 1 .5.96C.966.96.993 1 1 1".asPathInterpolator())
+                )
+                trimPathOffset(
+                    Animation.ofFloat(0f, 0.25f)
+                        .duration(1333)
+                        .repeatCount(Animation.INFINITE)
+                )
+                strokeLineCap(StrokeLineCap.SQUARE)
+                pathData("M0-18a18 18 0 1 1 0 36 18 18 0 1 1 0-36")
+            }
+        }
+    }
+```
+
+Or in Java:
+
 ```java
 KyrieDrawable drawable =
     KyrieDrawable.builder()
@@ -82,48 +124,6 @@ KyrieDrawable drawable =
                         .strokeLineCap(StrokeLineCap.SQUARE)
                         .pathData("M0-18a18 18 0 1 1 0 36 18 18 0 1 1 0-36")))
         .build();
-```
-
-Or more succinctly in Kotlin:
-
-```kotlin
-val drawable =
-    kyrieDrawable {
-        viewport = size(48f, 48f)
-        tint = Color.RED
-        group {
-            translateX(24f)
-            translateY(24f)
-            rotation(
-                Animation.ofFloat(0f, 720f)
-                    .duration(4444)
-                    .repeatCount(Animation.INFINITE)
-            )
-            path {
-                strokeColor(Color.WHITE)
-                strokeWidth(4f)
-                trimPathStart(
-                    Animation.ofFloat(0f, 0.75f)
-                        .duration(1333)
-                        .repeatCount(Animation.INFINITE)
-                        .interpolator("M0 0h.5C.7 0 .6 1 1 1".asPathInterpolator())
-                )
-                trimPathEnd(
-                    Animation.ofFloat(0.03f, 0.78f)
-                        .duration(1333)
-                        .repeatCount(Animation.INFINITE)
-                        .interpolator("M0 0c.2 0 .1 1 .5.96C.966.96.993 1 1 1".asPathInterpolator())
-                )
-                trimPathOffset(
-                    Animation.ofFloat(0f, 0.25f)
-                        .duration(1333)
-                        .repeatCount(Animation.INFINITE)
-                )
-                strokeLineCap(StrokeLineCap.SQUARE)
-                pathData("M0-18a18 18 0 1 1 0 36 18 18 0 1 1 0-36")
-            }
-        }
-    }
 ```
 
 ## Further reading
