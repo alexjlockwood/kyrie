@@ -1115,13 +1115,13 @@ final class InflationUtils {
         case VALUE_TYPE_FLOAT:
           float value =
               TypedArrayUtils.getNamedFloat(a, parser, "value", Styleable.Keyframe.VALUE, 0);
-          keyframe = Keyframe.of(fraction, value);
+          keyframe = Keyframe.<Float>of(fraction, value);
           break;
         case VALUE_TYPE_COLOR:
         case VALUE_TYPE_INT:
           int intValue =
               TypedArrayUtils.getNamedInt(a, parser, "value", Styleable.Keyframe.VALUE, 0);
-          keyframe = Keyframe.of(fraction, intValue);
+          keyframe = Keyframe.<Integer>of(fraction, intValue);
           break;
       }
     } else {
