@@ -1,0 +1,261 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>com.github.alexjlockwood.kyrie - kyrie</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">kyrie</a>&nbsp;/&nbsp;<a href="./index.html">com.github.alexjlockwood.kyrie</a><br/>
+<br/>
+<h2>Package com.github.alexjlockwood.kyrie</h2>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-animation/index.html">Animation</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">Animation</span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">!</span><span class="symbol">, </span><span class="identifier">V</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">!</span><span class="symbol">&gt;</span></code>
+<p>An <code><a href="-animation/index.html">Animation</a></code> encapsulates the information required to animate a single property of a <code><a href="-node/index.html">Node</a></code>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-base-node/index.html">BaseNode</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">BaseNode</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-node/index.html"><span class="identifier">Node</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-circle-node/index.html">CircleNode</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">CircleNode</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-render-node/index.html"><span class="identifier">RenderNode</span></a></code>
+<p>A <a href="-node/index.html">Node</a> that paints a circle.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-clip-path-node/index.html">ClipPathNode</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">ClipPathNode</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-base-node/index.html"><span class="identifier">BaseNode</span></a></code>
+<p>A <a href="-node/index.html">Node</a> that defines a region to be clipped. Note that a <a href="-clip-path-node/index.html">ClipPathNode</a> only clips
+its sibling <a href="-node/index.html">Node</a>s.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-ellipse-node/index.html">EllipseNode</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">EllipseNode</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-render-node/index.html"><span class="identifier">RenderNode</span></a></code>
+<p>A <a href="-node/index.html">Node</a> that paints an ellipse.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-group-node/index.html">GroupNode</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">GroupNode</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-base-node/index.html"><span class="identifier">BaseNode</span></a></code>
+<p>A <a href="-node/index.html">Node</a> that holds a group of children <a href="-node/index.html">Node</a>s.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-keyframe/index.html">Keyframe</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">Keyframe</span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">!</span><span class="symbol">&gt;</span></code>
+<p>This class holds a time/value pair for an animation. A <code><a href="-keyframe/index.html">Keyframe</a></code> is used to define the values that the animation target will have over the course of the animation. As the time proceeds from one keyframe to the other, the value of the target will animate between the value at the previous keyframe and the value at the next keyframe. Each keyframe also holds an optional object, which defines the time interpolation over the inter-value preceding the keyframe.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-kyrie-drawable/index.html">KyrieDrawable</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">KyrieDrawable</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/graphics/drawable/Drawable.html"><span class="identifier">Drawable</span></a><span class="symbol">, </span><a href="https://developer.android.com/reference/android/graphics/drawable/Animatable.html"><span class="identifier">Animatable</span></a></code>
+<p>An animatable drawable based on scalable vector graphics.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-line-node/index.html">LineNode</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">LineNode</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-render-node/index.html"><span class="identifier">RenderNode</span></a></code>
+<p>A <a href="-node/index.html">Node</a> that paints a line.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-node/index.html">Node</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">Node</span></code>
+<p>Base class for all <a href="-node/index.html">Node</a>s used to construct and animate a <a href="-kyrie-drawable/index.html">KyrieDrawable</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-path-data/index.html">PathData</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">PathData</span></code>
+<p>A simple container class that represents an SVG path string.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-path-node/index.html">PathNode</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">PathNode</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-render-node/index.html"><span class="identifier">RenderNode</span></a></code>
+<p>A <a href="-node/index.html">Node</a> that paints a path.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-rectangle-node/index.html">RectangleNode</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">RectangleNode</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-render-node/index.html"><span class="identifier">RenderNode</span></a></code>
+<p>A <a href="-node/index.html">Node</a> that paints a rectangle.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-render-node/index.html">RenderNode</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">RenderNode</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-base-node/index.html"><span class="identifier">BaseNode</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Annotations</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-clip-type/index.html">ClipType</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">ClipType</span></code>
+<p>Determines the clipping strategy of a <code><a href="-clip-path-node/index.html">ClipPathNode</a></code>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-fill-type/index.html">FillType</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">FillType</span></code>
+<p>Fill type determines how a shape should be filled when painted.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-stroke-line-cap/index.html">StrokeLineCap</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">StrokeLineCap</span></code>
+<p>Stroke line cap determines the shape that should be used at the corners of stroked paths.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-stroke-line-join/index.html">StrokeLineJoin</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">StrokeLineJoin</span></code>
+<p>Stroke line join determines the shape that should be used at the ends of a stroked sub-path.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Extensions for External Classes</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="kotlin.-string/index.html">kotlin.String</a></p>
+</td>
+<td>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="circle.html">circle</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="-kyrie-drawable/-builder/index.html"><span class="identifier">KyrieDrawable.Builder</span></a><span class="symbol">.</span><span class="identifier">circle</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie$circle(com.github.alexjlockwood.kyrie.KyrieDrawable.Builder, kotlin.Function1((com.github.alexjlockwood.kyrie.CircleNode.Builder, kotlin.Unit)))/init">init</span><span class="symbol">:</span>&nbsp;<a href="-circle-node/-builder/index.html"><span class="identifier">CircleNode.Builder</span></a><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code><br/>
+<code><span class="keyword">fun </span><a href="-group-node/-builder/index.html"><span class="identifier">GroupNode.Builder</span></a><span class="symbol">.</span><span class="identifier">circle</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie$circle(com.github.alexjlockwood.kyrie.GroupNode.Builder, kotlin.Function1((com.github.alexjlockwood.kyrie.CircleNode.Builder, kotlin.Unit)))/init">init</span><span class="symbol">:</span>&nbsp;<a href="-circle-node/-builder/index.html"><span class="identifier">CircleNode.Builder</span></a><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="-group-node/-builder/index.html"><span class="identifier">GroupNode.Builder</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="clip-path.html">clipPath</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="-kyrie-drawable/-builder/index.html"><span class="identifier">KyrieDrawable.Builder</span></a><span class="symbol">.</span><span class="identifier">clipPath</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie$clipPath(com.github.alexjlockwood.kyrie.KyrieDrawable.Builder, kotlin.Function1((com.github.alexjlockwood.kyrie.ClipPathNode.Builder, kotlin.Unit)))/init">init</span><span class="symbol">:</span>&nbsp;<a href="-clip-path-node/-builder/index.html"><span class="identifier">ClipPathNode.Builder</span></a><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code><br/>
+<code><span class="keyword">fun </span><a href="-group-node/-builder/index.html"><span class="identifier">GroupNode.Builder</span></a><span class="symbol">.</span><span class="identifier">clipPath</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie$clipPath(com.github.alexjlockwood.kyrie.GroupNode.Builder, kotlin.Function1((com.github.alexjlockwood.kyrie.ClipPathNode.Builder, kotlin.Unit)))/init">init</span><span class="symbol">:</span>&nbsp;<a href="-clip-path-node/-builder/index.html"><span class="identifier">ClipPathNode.Builder</span></a><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="-group-node/-builder/index.html"><span class="identifier">GroupNode.Builder</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="ellipse.html">ellipse</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="-kyrie-drawable/-builder/index.html"><span class="identifier">KyrieDrawable.Builder</span></a><span class="symbol">.</span><span class="identifier">ellipse</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie$ellipse(com.github.alexjlockwood.kyrie.KyrieDrawable.Builder, kotlin.Function1((com.github.alexjlockwood.kyrie.EllipseNode.Builder, kotlin.Unit)))/init">init</span><span class="symbol">:</span>&nbsp;<a href="-ellipse-node/-builder/index.html"><span class="identifier">EllipseNode.Builder</span></a><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code><br/>
+<code><span class="keyword">fun </span><a href="-group-node/-builder/index.html"><span class="identifier">GroupNode.Builder</span></a><span class="symbol">.</span><span class="identifier">ellipse</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie$ellipse(com.github.alexjlockwood.kyrie.GroupNode.Builder, kotlin.Function1((com.github.alexjlockwood.kyrie.EllipseNode.Builder, kotlin.Unit)))/init">init</span><span class="symbol">:</span>&nbsp;<a href="-ellipse-node/-builder/index.html"><span class="identifier">EllipseNode.Builder</span></a><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="-group-node/-builder/index.html"><span class="identifier">GroupNode.Builder</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="group.html">group</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="-kyrie-drawable/-builder/index.html"><span class="identifier">KyrieDrawable.Builder</span></a><span class="symbol">.</span><span class="identifier">group</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie$group(com.github.alexjlockwood.kyrie.KyrieDrawable.Builder, kotlin.Function1((com.github.alexjlockwood.kyrie.GroupNode.Builder, kotlin.Unit)))/init">init</span><span class="symbol">:</span>&nbsp;<a href="-group-node/-builder/index.html"><span class="identifier">GroupNode.Builder</span></a><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code><br/>
+<code><span class="keyword">fun </span><a href="-group-node/-builder/index.html"><span class="identifier">GroupNode.Builder</span></a><span class="symbol">.</span><span class="identifier">group</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie$group(com.github.alexjlockwood.kyrie.GroupNode.Builder, kotlin.Function1((com.github.alexjlockwood.kyrie.GroupNode.Builder, kotlin.Unit)))/init">init</span><span class="symbol">:</span>&nbsp;<a href="-group-node/-builder/index.html"><span class="identifier">GroupNode.Builder</span></a><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="-group-node/-builder/index.html"><span class="identifier">GroupNode.Builder</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="kyrie-drawable.html">kyrieDrawable</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">kyrieDrawable</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie$kyrieDrawable(kotlin.Function1((com.github.alexjlockwood.kyrie.KyrieDrawable.Builder, kotlin.Unit)))/init">init</span><span class="symbol">:</span>&nbsp;<a href="-kyrie-drawable/-builder/index.html"><span class="identifier">KyrieDrawable.Builder</span></a><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="-kyrie-drawable/index.html"><span class="identifier">KyrieDrawable</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="line.html">line</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="-kyrie-drawable/-builder/index.html"><span class="identifier">KyrieDrawable.Builder</span></a><span class="symbol">.</span><span class="identifier">line</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie$line(com.github.alexjlockwood.kyrie.KyrieDrawable.Builder, kotlin.Function1((com.github.alexjlockwood.kyrie.LineNode.Builder, kotlin.Unit)))/init">init</span><span class="symbol">:</span>&nbsp;<a href="-line-node/-builder/index.html"><span class="identifier">LineNode.Builder</span></a><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code><br/>
+<code><span class="keyword">fun </span><a href="-group-node/-builder/index.html"><span class="identifier">GroupNode.Builder</span></a><span class="symbol">.</span><span class="identifier">line</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie$line(com.github.alexjlockwood.kyrie.GroupNode.Builder, kotlin.Function1((com.github.alexjlockwood.kyrie.LineNode.Builder, kotlin.Unit)))/init">init</span><span class="symbol">:</span>&nbsp;<a href="-line-node/-builder/index.html"><span class="identifier">LineNode.Builder</span></a><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="-group-node/-builder/index.html"><span class="identifier">GroupNode.Builder</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="path.html">path</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="-kyrie-drawable/-builder/index.html"><span class="identifier">KyrieDrawable.Builder</span></a><span class="symbol">.</span><span class="identifier">path</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie$path(com.github.alexjlockwood.kyrie.KyrieDrawable.Builder, kotlin.Function1((com.github.alexjlockwood.kyrie.PathNode.Builder, kotlin.Unit)))/init">init</span><span class="symbol">:</span>&nbsp;<a href="-path-node/-builder/index.html"><span class="identifier">PathNode.Builder</span></a><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code><br/>
+<code><span class="keyword">fun </span><a href="-group-node/-builder/index.html"><span class="identifier">GroupNode.Builder</span></a><span class="symbol">.</span><span class="identifier">path</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie$path(com.github.alexjlockwood.kyrie.GroupNode.Builder, kotlin.Function1((com.github.alexjlockwood.kyrie.PathNode.Builder, kotlin.Unit)))/init">init</span><span class="symbol">:</span>&nbsp;<a href="-path-node/-builder/index.html"><span class="identifier">PathNode.Builder</span></a><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="-group-node/-builder/index.html"><span class="identifier">GroupNode.Builder</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="rectangle.html">rectangle</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="-kyrie-drawable/-builder/index.html"><span class="identifier">KyrieDrawable.Builder</span></a><span class="symbol">.</span><span class="identifier">rectangle</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie$rectangle(com.github.alexjlockwood.kyrie.KyrieDrawable.Builder, kotlin.Function1((com.github.alexjlockwood.kyrie.RectangleNode.Builder, kotlin.Unit)))/init">init</span><span class="symbol">:</span>&nbsp;<a href="-rectangle-node/-builder/index.html"><span class="identifier">RectangleNode.Builder</span></a><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code><br/>
+<code><span class="keyword">fun </span><a href="-group-node/-builder/index.html"><span class="identifier">GroupNode.Builder</span></a><span class="symbol">.</span><span class="identifier">rectangle</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie$rectangle(com.github.alexjlockwood.kyrie.GroupNode.Builder, kotlin.Function1((com.github.alexjlockwood.kyrie.RectangleNode.Builder, kotlin.Unit)))/init">init</span><span class="symbol">:</span>&nbsp;<a href="-rectangle-node/-builder/index.html"><span class="identifier">RectangleNode.Builder</span></a><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="-group-node/-builder/index.html"><span class="identifier">GroupNode.Builder</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

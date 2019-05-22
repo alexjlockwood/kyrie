@@ -1,0 +1,129 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>RenderNode - kyrie</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">kyrie</a>&nbsp;/&nbsp;<a href="../index.html">com.github.alexjlockwood.kyrie</a>&nbsp;/&nbsp;<a href="./index.html">RenderNode</a><br/>
+<br/>
+<h1>RenderNode</h1>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">RenderNode</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-base-node/index.html"><span class="identifier">BaseNode</span></a></code>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-builder/index.html">Builder</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">Builder</span><span class="symbol">&lt;</span><span class="identifier">B</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-builder/index.html"><span class="identifier">RenderNode.Builder</span></a><span class="symbol">&lt;</span><a href="-builder/index.html#B"><span class="identifier">B</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-base-node/-builder/index.html"><span class="identifier">BaseNode.Builder</span></a><span class="symbol">&lt;</span><a href="-builder/index.html#B"><span class="identifier">B</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-base-node/pivot-x.html">pivotX</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">pivotX</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../-base-node/pivot-y.html">pivotY</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">pivotY</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../-base-node/rotation.html">rotation</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">rotation</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../-base-node/scale-x.html">scaleX</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">scaleX</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../-base-node/scale-y.html">scaleY</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">scaleY</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../-base-node/translate-x.html">translateX</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">translateX</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../-base-node/translate-y.html">translateY</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">translateY</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-circle-node/index.html">CircleNode</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">CircleNode</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">RenderNode</span></a></code>
+<p>A <a href="../-node/index.html">Node</a> that paints a circle.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-ellipse-node/index.html">EllipseNode</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">EllipseNode</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">RenderNode</span></a></code>
+<p>A <a href="../-node/index.html">Node</a> that paints an ellipse.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-line-node/index.html">LineNode</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">LineNode</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">RenderNode</span></a></code>
+<p>A <a href="../-node/index.html">Node</a> that paints a line.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-path-node/index.html">PathNode</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">PathNode</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">RenderNode</span></a></code>
+<p>A <a href="../-node/index.html">Node</a> that paints a path.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-rectangle-node/index.html">RectangleNode</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">RectangleNode</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">RenderNode</span></a></code>
+<p>A <a href="../-node/index.html">Node</a> that paints a rectangle.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

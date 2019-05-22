@@ -1,0 +1,325 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>RenderNode.Builder - kyrie</title>
+<link rel="stylesheet" href="../../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../../index.html">kyrie</a>&nbsp;/&nbsp;<a href="../../index.html">com.github.alexjlockwood.kyrie</a>&nbsp;/&nbsp;<a href="../index.html">RenderNode</a>&nbsp;/&nbsp;<a href="./index.html">Builder</a><br/>
+<br/>
+<h1>Builder</h1>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">Builder</span><span class="symbol">&lt;</span><span class="identifier">B</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">RenderNode.Builder</span></a><span class="symbol">&lt;</span><a href="index.html#B"><span class="identifier">B</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../-base-node/-builder/index.html"><span class="identifier">BaseNode.Builder</span></a><span class="symbol">&lt;</span><a href="index.html#B"><span class="identifier">B</span></a><span class="symbol">&gt;</span></code>
+<h3>Inherited Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../-base-node/-builder/pivot-x.html">pivotX</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">pivotX</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/index.html"><span class="identifier">MutableList</span></a><span class="symbol">&lt;</span><a href="../../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../../-base-node/-builder/pivot-y.html">pivotY</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">pivotY</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/index.html"><span class="identifier">MutableList</span></a><span class="symbol">&lt;</span><a href="../../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../../-base-node/-builder/rotation.html">rotation</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">rotation</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/index.html"><span class="identifier">MutableList</span></a><span class="symbol">&lt;</span><a href="../../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../../-base-node/-builder/scale-x.html">scaleX</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">scaleX</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/index.html"><span class="identifier">MutableList</span></a><span class="symbol">&lt;</span><a href="../../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../../-base-node/-builder/scale-y.html">scaleY</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">scaleY</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/index.html"><span class="identifier">MutableList</span></a><span class="symbol">&lt;</span><a href="../../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../../-base-node/-builder/translate-x.html">translateX</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">translateX</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/index.html"><span class="identifier">MutableList</span></a><span class="symbol">&lt;</span><a href="../../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../../-base-node/-builder/translate-y.html">translateY</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">translateY</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/index.html"><span class="identifier">MutableList</span></a><span class="symbol">&lt;</span><a href="../../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="fill-alpha.html">fillAlpha</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">fillAlpha</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.RenderNode.Builder$fillAlpha(kotlin.Float)/initialFillAlpha">initialFillAlpha</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="index.html#B"><span class="identifier">B</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">fillAlpha</span><span class="symbol">(</span><span class="keyword">vararg</span> <span class="identifier" id="com.github.alexjlockwood.kyrie.RenderNode.Builder$fillAlpha(kotlin.Array((com.github.alexjlockwood.kyrie.Animation((kotlin.Any, kotlin.Float)))))/animations">animations</span><span class="symbol">:</span>&nbsp;<a href="../../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="index.html#B"><span class="identifier">B</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">fillAlpha</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.RenderNode.Builder$fillAlpha(kotlin.collections.List((com.github.alexjlockwood.kyrie.Animation((kotlin.Any, kotlin.Float)))))/animations">animations</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="index.html#B"><span class="identifier">B</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="fill-color.html">fillColor</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">fillColor</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.RenderNode.Builder$fillColor(kotlin.Int)/initialFillColor">initialFillColor</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="index.html#B"><span class="identifier">B</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">fillColor</span><span class="symbol">(</span><span class="keyword">vararg</span> <span class="identifier" id="com.github.alexjlockwood.kyrie.RenderNode.Builder$fillColor(kotlin.Array((com.github.alexjlockwood.kyrie.Animation((kotlin.Any, kotlin.Int)))))/animations">animations</span><span class="symbol">:</span>&nbsp;<a href="../../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="index.html#B"><span class="identifier">B</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">fillColor</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.RenderNode.Builder$fillColor(kotlin.collections.List((com.github.alexjlockwood.kyrie.Animation((kotlin.Any, kotlin.Int)))))/animations">animations</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="index.html#B"><span class="identifier">B</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">fillColor</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.RenderNode.Builder$fillColor(android.content.res.ColorStateList)/colorStateList">colorStateList</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/res/ColorStateList.html"><span class="identifier">ColorStateList</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="index.html#B"><span class="identifier">B</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">fillColor</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.RenderNode.Builder$fillColor(android.graphics.LinearGradient)/linearGradient">linearGradient</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/graphics/LinearGradient.html"><span class="identifier">LinearGradient</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="index.html#B"><span class="identifier">B</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">fillColor</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.RenderNode.Builder$fillColor(android.graphics.RadialGradient)/radialGradient">radialGradient</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/graphics/RadialGradient.html"><span class="identifier">RadialGradient</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="index.html#B"><span class="identifier">B</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">fillColor</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.RenderNode.Builder$fillColor(android.graphics.SweepGradient)/sweepGradient">sweepGradient</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/graphics/SweepGradient.html"><span class="identifier">SweepGradient</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="index.html#B"><span class="identifier">B</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="fill-type.html">fillType</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">fillType</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.RenderNode.Builder$fillType(kotlin.Int)/fillType">fillType</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="index.html#B"><span class="identifier">B</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="scaling-stroke.html">scalingStroke</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">scalingStroke</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.RenderNode.Builder$scalingStroke(kotlin.Boolean)/isScalingStroke">isScalingStroke</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="index.html#B"><span class="identifier">B</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="stroke-alpha.html">strokeAlpha</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">strokeAlpha</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.RenderNode.Builder$strokeAlpha(kotlin.Float)/initialStrokeAlpha">initialStrokeAlpha</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="index.html#B"><span class="identifier">B</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">strokeAlpha</span><span class="symbol">(</span><span class="keyword">vararg</span> <span class="identifier" id="com.github.alexjlockwood.kyrie.RenderNode.Builder$strokeAlpha(kotlin.Array((com.github.alexjlockwood.kyrie.Animation((kotlin.Any, kotlin.Float)))))/animations">animations</span><span class="symbol">:</span>&nbsp;<a href="../../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="index.html#B"><span class="identifier">B</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">strokeAlpha</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.RenderNode.Builder$strokeAlpha(kotlin.collections.List((com.github.alexjlockwood.kyrie.Animation((kotlin.Any, kotlin.Float)))))/animations">animations</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="index.html#B"><span class="identifier">B</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="stroke-color.html">strokeColor</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">strokeColor</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.RenderNode.Builder$strokeColor(kotlin.Int)/initialStrokeColor">initialStrokeColor</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="index.html#B"><span class="identifier">B</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">strokeColor</span><span class="symbol">(</span><span class="keyword">vararg</span> <span class="identifier" id="com.github.alexjlockwood.kyrie.RenderNode.Builder$strokeColor(kotlin.Array((com.github.alexjlockwood.kyrie.Animation((kotlin.Any, kotlin.Int)))))/animations">animations</span><span class="symbol">:</span>&nbsp;<a href="../../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="index.html#B"><span class="identifier">B</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">strokeColor</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.RenderNode.Builder$strokeColor(kotlin.collections.List((com.github.alexjlockwood.kyrie.Animation((kotlin.Any, kotlin.Int)))))/animations">animations</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="index.html#B"><span class="identifier">B</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">strokeColor</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.RenderNode.Builder$strokeColor(android.content.res.ColorStateList)/colorStateList">colorStateList</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/res/ColorStateList.html"><span class="identifier">ColorStateList</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="index.html#B"><span class="identifier">B</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">strokeColor</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.RenderNode.Builder$strokeColor(android.graphics.LinearGradient)/linearGradient">linearGradient</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/graphics/LinearGradient.html"><span class="identifier">LinearGradient</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="index.html#B"><span class="identifier">B</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">strokeColor</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.RenderNode.Builder$strokeColor(android.graphics.RadialGradient)/radialGradient">radialGradient</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/graphics/RadialGradient.html"><span class="identifier">RadialGradient</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="index.html#B"><span class="identifier">B</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">strokeColor</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.RenderNode.Builder$strokeColor(android.graphics.SweepGradient)/sweepGradient">sweepGradient</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/graphics/SweepGradient.html"><span class="identifier">SweepGradient</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="index.html#B"><span class="identifier">B</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="stroke-dash-array.html">strokeDashArray</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">strokeDashArray</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.RenderNode.Builder$strokeDashArray(kotlin.FloatArray)/initialStrokeDashArray">initialStrokeDashArray</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float-array/index.html"><span class="identifier">FloatArray</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="index.html#B"><span class="identifier">B</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">strokeDashArray</span><span class="symbol">(</span><span class="keyword">vararg</span> <span class="identifier" id="com.github.alexjlockwood.kyrie.RenderNode.Builder$strokeDashArray(kotlin.Array((com.github.alexjlockwood.kyrie.Animation((kotlin.Any, kotlin.FloatArray)))))/animations">animations</span><span class="symbol">:</span>&nbsp;<a href="../../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float-array/index.html"><span class="identifier">FloatArray</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="index.html#B"><span class="identifier">B</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">strokeDashArray</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.RenderNode.Builder$strokeDashArray(kotlin.collections.List((com.github.alexjlockwood.kyrie.Animation((kotlin.Any, kotlin.FloatArray)))))/animations">animations</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float-array/index.html"><span class="identifier">FloatArray</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="index.html#B"><span class="identifier">B</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="stroke-dash-offset.html">strokeDashOffset</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">strokeDashOffset</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.RenderNode.Builder$strokeDashOffset(kotlin.Float)/initialStrokeDashOffset">initialStrokeDashOffset</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="index.html#B"><span class="identifier">B</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">strokeDashOffset</span><span class="symbol">(</span><span class="keyword">vararg</span> <span class="identifier" id="com.github.alexjlockwood.kyrie.RenderNode.Builder$strokeDashOffset(kotlin.Array((com.github.alexjlockwood.kyrie.Animation((kotlin.Any, kotlin.Float)))))/animations">animations</span><span class="symbol">:</span>&nbsp;<a href="../../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="index.html#B"><span class="identifier">B</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">strokeDashOffset</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.RenderNode.Builder$strokeDashOffset(kotlin.collections.List((com.github.alexjlockwood.kyrie.Animation((kotlin.Any, kotlin.Float)))))/animations">animations</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="index.html#B"><span class="identifier">B</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="stroke-line-cap.html">strokeLineCap</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">strokeLineCap</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.RenderNode.Builder$strokeLineCap(kotlin.Int)/strokeLineCap">strokeLineCap</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="index.html#B"><span class="identifier">B</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="stroke-line-join.html">strokeLineJoin</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">strokeLineJoin</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.RenderNode.Builder$strokeLineJoin(kotlin.Int)/strokeLineJoin">strokeLineJoin</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="index.html#B"><span class="identifier">B</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="stroke-miter-limit.html">strokeMiterLimit</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">strokeMiterLimit</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.RenderNode.Builder$strokeMiterLimit(kotlin.Float)/initialStrokeMiterLimit">initialStrokeMiterLimit</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="index.html#B"><span class="identifier">B</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">strokeMiterLimit</span><span class="symbol">(</span><span class="keyword">vararg</span> <span class="identifier" id="com.github.alexjlockwood.kyrie.RenderNode.Builder$strokeMiterLimit(kotlin.Array((com.github.alexjlockwood.kyrie.Animation((kotlin.Any, kotlin.Float)))))/animations">animations</span><span class="symbol">:</span>&nbsp;<a href="../../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="index.html#B"><span class="identifier">B</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">strokeMiterLimit</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.RenderNode.Builder$strokeMiterLimit(kotlin.collections.List((com.github.alexjlockwood.kyrie.Animation((kotlin.Any, kotlin.Float)))))/animations">animations</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="index.html#B"><span class="identifier">B</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="stroke-width.html">strokeWidth</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">strokeWidth</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.RenderNode.Builder$strokeWidth(kotlin.Float)/initialStrokeWidth">initialStrokeWidth</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="index.html#B"><span class="identifier">B</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">strokeWidth</span><span class="symbol">(</span><span class="keyword">vararg</span> <span class="identifier" id="com.github.alexjlockwood.kyrie.RenderNode.Builder$strokeWidth(kotlin.Array((com.github.alexjlockwood.kyrie.Animation((kotlin.Any, kotlin.Float)))))/animations">animations</span><span class="symbol">:</span>&nbsp;<a href="../../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="index.html#B"><span class="identifier">B</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">strokeWidth</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.RenderNode.Builder$strokeWidth(kotlin.collections.List((com.github.alexjlockwood.kyrie.Animation((kotlin.Any, kotlin.Float)))))/animations">animations</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="index.html#B"><span class="identifier">B</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="trim-path-end.html">trimPathEnd</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">trimPathEnd</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.RenderNode.Builder$trimPathEnd(kotlin.Float)/initialTrimPathEnd">initialTrimPathEnd</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="index.html#B"><span class="identifier">B</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">trimPathEnd</span><span class="symbol">(</span><span class="keyword">vararg</span> <span class="identifier" id="com.github.alexjlockwood.kyrie.RenderNode.Builder$trimPathEnd(kotlin.Array((com.github.alexjlockwood.kyrie.Animation((kotlin.Any, kotlin.Float)))))/animations">animations</span><span class="symbol">:</span>&nbsp;<a href="../../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="index.html#B"><span class="identifier">B</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">trimPathEnd</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.RenderNode.Builder$trimPathEnd(kotlin.collections.List((com.github.alexjlockwood.kyrie.Animation((kotlin.Any, kotlin.Float)))))/animations">animations</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="index.html#B"><span class="identifier">B</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="trim-path-offset.html">trimPathOffset</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">trimPathOffset</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.RenderNode.Builder$trimPathOffset(kotlin.Float)/initialTrimPathOffset">initialTrimPathOffset</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="index.html#B"><span class="identifier">B</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">trimPathOffset</span><span class="symbol">(</span><span class="keyword">vararg</span> <span class="identifier" id="com.github.alexjlockwood.kyrie.RenderNode.Builder$trimPathOffset(kotlin.Array((com.github.alexjlockwood.kyrie.Animation((kotlin.Any, kotlin.Float)))))/animations">animations</span><span class="symbol">:</span>&nbsp;<a href="../../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="index.html#B"><span class="identifier">B</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">trimPathOffset</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.RenderNode.Builder$trimPathOffset(kotlin.collections.List((com.github.alexjlockwood.kyrie.Animation((kotlin.Any, kotlin.Float)))))/animations">animations</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="index.html#B"><span class="identifier">B</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="trim-path-start.html">trimPathStart</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">trimPathStart</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.RenderNode.Builder$trimPathStart(kotlin.Float)/initialTrimPathStart">initialTrimPathStart</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="index.html#B"><span class="identifier">B</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">trimPathStart</span><span class="symbol">(</span><span class="keyword">vararg</span> <span class="identifier" id="com.github.alexjlockwood.kyrie.RenderNode.Builder$trimPathStart(kotlin.Array((com.github.alexjlockwood.kyrie.Animation((kotlin.Any, kotlin.Float)))))/animations">animations</span><span class="symbol">:</span>&nbsp;<a href="../../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="index.html#B"><span class="identifier">B</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">trimPathStart</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.RenderNode.Builder$trimPathStart(kotlin.collections.List((com.github.alexjlockwood.kyrie.Animation((kotlin.Any, kotlin.Float)))))/animations">animations</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="index.html#B"><span class="identifier">B</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../-base-node/-builder/pivot-x.html">pivotX</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">pivotX</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.BaseNode.Builder$pivotX(kotlin.Float)/initialPivotX">initialPivotX</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../-base-node/-builder/index.html#B"><span class="identifier">B</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">pivotX</span><span class="symbol">(</span><span class="keyword">vararg</span> <span class="identifier" id="com.github.alexjlockwood.kyrie.BaseNode.Builder$pivotX(kotlin.Array((com.github.alexjlockwood.kyrie.Animation((kotlin.Any, kotlin.Float)))))/animations">animations</span><span class="symbol">:</span>&nbsp;<a href="../../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../-base-node/-builder/index.html#B"><span class="identifier">B</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">pivotX</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.BaseNode.Builder$pivotX(kotlin.collections.List((com.github.alexjlockwood.kyrie.Animation((kotlin.Any, kotlin.Float)))))/animations">animations</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../-base-node/-builder/index.html#B"><span class="identifier">B</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../../-base-node/-builder/pivot-y.html">pivotY</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">pivotY</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.BaseNode.Builder$pivotY(kotlin.Float)/initialPivotY">initialPivotY</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../-base-node/-builder/index.html#B"><span class="identifier">B</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">pivotY</span><span class="symbol">(</span><span class="keyword">vararg</span> <span class="identifier" id="com.github.alexjlockwood.kyrie.BaseNode.Builder$pivotY(kotlin.Array((com.github.alexjlockwood.kyrie.Animation((kotlin.Any, kotlin.Float)))))/animations">animations</span><span class="symbol">:</span>&nbsp;<a href="../../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../-base-node/-builder/index.html#B"><span class="identifier">B</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">pivotY</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.BaseNode.Builder$pivotY(kotlin.collections.List((com.github.alexjlockwood.kyrie.Animation((kotlin.Any, kotlin.Float)))))/animations">animations</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../-base-node/-builder/index.html#B"><span class="identifier">B</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../../-base-node/-builder/rotation.html">rotation</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">rotation</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.BaseNode.Builder$rotation(kotlin.Float)/initialRotation">initialRotation</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../-base-node/-builder/index.html#B"><span class="identifier">B</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">rotation</span><span class="symbol">(</span><span class="keyword">vararg</span> <span class="identifier" id="com.github.alexjlockwood.kyrie.BaseNode.Builder$rotation(kotlin.Array((com.github.alexjlockwood.kyrie.Animation((kotlin.Any, kotlin.Float)))))/animations">animations</span><span class="symbol">:</span>&nbsp;<a href="../../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../-base-node/-builder/index.html#B"><span class="identifier">B</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">rotation</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.BaseNode.Builder$rotation(kotlin.collections.List((com.github.alexjlockwood.kyrie.Animation((kotlin.Any, kotlin.Float)))))/animations">animations</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../-base-node/-builder/index.html#B"><span class="identifier">B</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../../-base-node/-builder/scale-x.html">scaleX</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">scaleX</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.BaseNode.Builder$scaleX(kotlin.Float)/initialScaleX">initialScaleX</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../-base-node/-builder/index.html#B"><span class="identifier">B</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">scaleX</span><span class="symbol">(</span><span class="keyword">vararg</span> <span class="identifier" id="com.github.alexjlockwood.kyrie.BaseNode.Builder$scaleX(kotlin.Array((com.github.alexjlockwood.kyrie.Animation((kotlin.Any, kotlin.Float)))))/animations">animations</span><span class="symbol">:</span>&nbsp;<a href="../../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../-base-node/-builder/index.html#B"><span class="identifier">B</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">scaleX</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.BaseNode.Builder$scaleX(kotlin.collections.List((com.github.alexjlockwood.kyrie.Animation((kotlin.Any, kotlin.Float)))))/animations">animations</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../-base-node/-builder/index.html#B"><span class="identifier">B</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../../-base-node/-builder/scale-y.html">scaleY</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">scaleY</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.BaseNode.Builder$scaleY(kotlin.Float)/initialScaleY">initialScaleY</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../-base-node/-builder/index.html#B"><span class="identifier">B</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">scaleY</span><span class="symbol">(</span><span class="keyword">vararg</span> <span class="identifier" id="com.github.alexjlockwood.kyrie.BaseNode.Builder$scaleY(kotlin.Array((com.github.alexjlockwood.kyrie.Animation((kotlin.Any, kotlin.Float)))))/animations">animations</span><span class="symbol">:</span>&nbsp;<a href="../../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../-base-node/-builder/index.html#B"><span class="identifier">B</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">scaleY</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.BaseNode.Builder$scaleY(kotlin.collections.List((com.github.alexjlockwood.kyrie.Animation((kotlin.Any, kotlin.Float)))))/animations">animations</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../-base-node/-builder/index.html#B"><span class="identifier">B</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../../-base-node/-builder/translate-x.html">translateX</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">translateX</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.BaseNode.Builder$translateX(kotlin.Float)/initialTranslateX">initialTranslateX</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../-base-node/-builder/index.html#B"><span class="identifier">B</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">translateX</span><span class="symbol">(</span><span class="keyword">vararg</span> <span class="identifier" id="com.github.alexjlockwood.kyrie.BaseNode.Builder$translateX(kotlin.Array((com.github.alexjlockwood.kyrie.Animation((kotlin.Any, kotlin.Float)))))/animations">animations</span><span class="symbol">:</span>&nbsp;<a href="../../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../-base-node/-builder/index.html#B"><span class="identifier">B</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">translateX</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.BaseNode.Builder$translateX(kotlin.collections.List((com.github.alexjlockwood.kyrie.Animation((kotlin.Any, kotlin.Float)))))/animations">animations</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../-base-node/-builder/index.html#B"><span class="identifier">B</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../../-base-node/-builder/translate-y.html">translateY</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">translateY</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.BaseNode.Builder$translateY(kotlin.Float)/initialTranslateY">initialTranslateY</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../-base-node/-builder/index.html#B"><span class="identifier">B</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">translateY</span><span class="symbol">(</span><span class="keyword">vararg</span> <span class="identifier" id="com.github.alexjlockwood.kyrie.BaseNode.Builder$translateY(kotlin.Array((com.github.alexjlockwood.kyrie.Animation((kotlin.Any, kotlin.Float)))))/animations">animations</span><span class="symbol">:</span>&nbsp;<a href="../../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../-base-node/-builder/index.html#B"><span class="identifier">B</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">translateY</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.BaseNode.Builder$translateY(kotlin.collections.List((com.github.alexjlockwood.kyrie.Animation((kotlin.Any, kotlin.Float)))))/animations">animations</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../-base-node/-builder/index.html#B"><span class="identifier">B</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../-circle-node/-builder/index.html">Builder</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">Builder</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">RenderNode.Builder</span></a><span class="symbol">&lt;</span><a href="../../-circle-node/-builder/index.html"><span class="identifier">CircleNode.Builder</span></a><span class="symbol">&gt;</span></code>
+<p>Builder class used to create <a href="../../-circle-node/index.html">CircleNode</a>s.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../-ellipse-node/-builder/index.html">Builder</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">Builder</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">RenderNode.Builder</span></a><span class="symbol">&lt;</span><a href="../../-ellipse-node/-builder/index.html"><span class="identifier">EllipseNode.Builder</span></a><span class="symbol">&gt;</span></code>
+<p>Builder class used to create <a href="../../-ellipse-node/index.html">EllipseNode</a>s.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../-line-node/-builder/index.html">Builder</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">Builder</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">RenderNode.Builder</span></a><span class="symbol">&lt;</span><a href="../../-line-node/-builder/index.html"><span class="identifier">LineNode.Builder</span></a><span class="symbol">&gt;</span></code>
+<p>Builder class used to create <a href="../../-line-node/index.html">LineNode</a>s.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../-path-node/-builder/index.html">Builder</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">Builder</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">RenderNode.Builder</span></a><span class="symbol">&lt;</span><a href="../../-path-node/-builder/index.html"><span class="identifier">PathNode.Builder</span></a><span class="symbol">&gt;</span></code>
+<p>Builder class used to create <a href="../../-path-node/index.html">PathNode</a>s.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../-rectangle-node/-builder/index.html">Builder</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">Builder</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">RenderNode.Builder</span></a><span class="symbol">&lt;</span><a href="../../-rectangle-node/-builder/index.html"><span class="identifier">RectangleNode.Builder</span></a><span class="symbol">&gt;</span></code>
+<p>Builder class used to create <a href="../../-rectangle-node/index.html">RectangleNode</a>s.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

@@ -1,0 +1,298 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>KyrieDrawable - kyrie</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">kyrie</a>&nbsp;/&nbsp;<a href="../index.html">com.github.alexjlockwood.kyrie</a>&nbsp;/&nbsp;<a href="./index.html">KyrieDrawable</a><br/>
+<br/>
+<h1>KyrieDrawable</h1>
+<code><span class="keyword">class </span><span class="identifier">KyrieDrawable</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/graphics/drawable/Drawable.html"><span class="identifier">Drawable</span></a><span class="symbol">, </span><a href="https://developer.android.com/reference/android/graphics/drawable/Animatable.html"><span class="identifier">Animatable</span></a></code>
+<p>An animatable drawable based on scalable vector graphics.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-builder/index.html">Builder</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">Builder</span></code>
+<p>Builder class used to create a <a href="./index.html">KyrieDrawable</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-listener/index.html">Listener</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">Listener</span></code>
+<p>A listener that receives notifications from an animation. Notifications indicate animation
+related events, such as the start or end of the animation.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-listener-adapter/index.html">ListenerAdapter</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">ListenerAdapter</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-listener/index.html"><span class="identifier">KyrieDrawable.Listener</span></a></code>
+<p>This adapter class provides empty implementations of the methods from <a href="-listener/index.html">Listener</a>. Any
+custom listener that cares only about a subset of the methods of this listener can simply
+subclass this adapter class instead of implementing the interface directly.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="current-play-time.html">currentPlayTime</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">currentPlayTime</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a></code>
+<p>Sets the position of the animation to the specified point in time. This time should be between
+0 and the total duration of the animation, including any repetition.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="is-paused.html">isPaused</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">isPaused</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>Returns true if the animation has been paused.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="is-started.html">isStarted</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">isStarted</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>Returns true if the animation has been started.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="total-duration.html">totalDuration</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">totalDuration</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a></code>
+<p>Gets the total duration of the animation, accounting for start delay and repeating. Return
+<a href="../-animation/-i-n-f-i-n-i-t-e.html">Animation.INFINITE</a> if the duration is infinite.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="add-listener.html">addListener</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">addListener</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.KyrieDrawable$addListener(com.github.alexjlockwood.kyrie.KyrieDrawable.Listener)/listener">listener</span><span class="symbol">:</span>&nbsp;<a href="-listener/index.html"><span class="identifier">KyrieDrawable.Listener</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Adds a <a href="-listener/index.html">Listener</a> to this <a href="./index.html">KyrieDrawable</a>'s set of listeners.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="clear-listeners.html">clearListeners</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">clearListeners</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Removes all <a href="-listener/index.html">Listener</a>s from this <a href="./index.html">KyrieDrawable</a>'s set of listeners.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="draw.html">draw</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">draw</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.KyrieDrawable$draw(android.graphics.Canvas)/canvas">canvas</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/graphics/Canvas.html"><span class="identifier">Canvas</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="get-alpha.html">getAlpha</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getAlpha</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="get-color-filter.html">getColorFilter</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getColorFilter</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/graphics/ColorFilter.html"><span class="identifier">ColorFilter</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="get-intrinsic-height.html">getIntrinsicHeight</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getIntrinsicHeight</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="get-intrinsic-width.html">getIntrinsicWidth</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getIntrinsicWidth</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="get-opacity.html">getOpacity</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getOpacity</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="is-auto-mirrored.html">isAutoMirrored</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">isAutoMirrored</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="is-running.html">isRunning</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">isRunning</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>Returns true if the animation is running.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="is-stateful.html">isStateful</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">isStateful</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="on-state-change.html">onStateChange</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onStateChange</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.KyrieDrawable$onStateChange(kotlin.IntArray)/stateSet">stateSet</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int-array/index.html"><span class="identifier">IntArray</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="pause.html">pause</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">pause</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Pauses the animation.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="remove-listener.html">removeListener</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">removeListener</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.KyrieDrawable$removeListener(com.github.alexjlockwood.kyrie.KyrieDrawable.Listener)/listener">listener</span><span class="symbol">:</span>&nbsp;<a href="-listener/index.html"><span class="identifier">KyrieDrawable.Listener</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Removes a <a href="-listener/index.html">Listener</a> from this <a href="./index.html">KyrieDrawable</a>'s set of listeners.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="resume.html">resume</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">resume</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Resumes the animation.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="set-alpha.html">setAlpha</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">setAlpha</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.KyrieDrawable$setAlpha(kotlin.Int)/alpha">alpha</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="set-auto-mirrored.html">setAutoMirrored</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">setAutoMirrored</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.KyrieDrawable$setAutoMirrored(kotlin.Boolean)/mirrored">mirrored</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="set-color-filter.html">setColorFilter</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">setColorFilter</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.KyrieDrawable$setColorFilter(android.graphics.ColorFilter)/colorFilter">colorFilter</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/graphics/ColorFilter.html"><span class="identifier">ColorFilter</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="set-tint.html">setTint</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">setTint</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.KyrieDrawable$setTint(kotlin.Int)/tint">tint</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="set-tint-list.html">setTintList</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">setTintList</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.KyrieDrawable$setTintList(android.content.res.ColorStateList)/tintList">tintList</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/res/ColorStateList.html"><span class="identifier">ColorStateList</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="set-tint-mode.html">setTintMode</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">setTintMode</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.KyrieDrawable$setTintMode(android.graphics.PorterDuff.Mode)/tintMode">tintMode</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/graphics/PorterDuff/Mode.html"><span class="identifier">Mode</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="start.html">start</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">start</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Starts the animation.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="stop.html">stop</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">stop</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Stops the animation. If the animation is running, it will be canceled.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="builder.html">builder</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">builder</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="-builder/index.html"><span class="identifier">KyrieDrawable.Builder</span></a></code>
+<p>Constructs a new <a href="-builder/index.html">KyrieDrawable.Builder</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="create.html">create</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">create</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.KyrieDrawable.Companion$create(android.content.Context, kotlin.Int)/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">, </span><span class="identifier" id="com.github.alexjlockwood.kyrie.KyrieDrawable.Companion$create(android.content.Context, kotlin.Int)/resId">resId</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">KyrieDrawable</span></a><span class="symbol">?</span></code>
+<p>Creates a <a href="./index.html">KyrieDrawable</a> from an existing <a href="https://developer.android.com/reference/android/graphics/drawable/VectorDrawable.html">VectorDrawable</a>
+or <a href="https://developer.android.com/reference/android/graphics/drawable/AnimatedVectorDrawable.html">AnimatedVectorDrawable</a> XML file.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

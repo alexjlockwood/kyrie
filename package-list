@@ -1,1 +1,6 @@
+$dokka.format:html
+$dokka.linkExtension:html
+$dokka.location:com.github.alexjlockwood.kyrie$asPath(kotlin.String)com.github.alexjlockwood.kyrie/kotlin.-string/as-path.html
+$dokka.location:com.github.alexjlockwood.kyrie$asPathData(kotlin.String)com.github.alexjlockwood.kyrie/kotlin.-string/as-path-data.html
+$dokka.location:com.github.alexjlockwood.kyrie$asPathInterpolator(kotlin.String)com.github.alexjlockwood.kyrie/kotlin.-string/as-path-interpolator.html
 com.github.alexjlockwood.kyrie

@@ -1,0 +1,34 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Keyframe.of - kyrie</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">kyrie</a>&nbsp;/&nbsp;<a href="../index.html">com.github.alexjlockwood.kyrie</a>&nbsp;/&nbsp;<a href="index.html">Keyframe</a>&nbsp;/&nbsp;<a href="./of.html">of</a><br/>
+<br/>
+<h1>of</h1>
+<a name="com.github.alexjlockwood.kyrie.Keyframe$of(kotlin.Float)"></a>
+<code><span class="identifier">@NonNull</span> <span class="keyword">static</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">!</span><span class="symbol">&gt;</span> <span class="identifier">of</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.Keyframe$of(kotlin.Float)/fraction">fraction</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="index.html"><span class="identifier">Keyframe</span></a><span class="symbol">&lt;</span><a href="of.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Constructs a <code><a href="index.html">Keyframe</a></code> object with the given time. The value at this time will be derived from the target object when the animation first starts. The time defines the time, as a proportion of an overall animation's duration, at which the value will hold true for the animation. The value for the animation between keyframes will be calculated as an interpolation between the values at those keyframes.</p>
+<h3>Parameters</h3>
+<p><a name="&lt;T&gt;"></a>
+<code><T></code> - The keyframe value type.</p>
+<p><a name="fraction"></a>
+<code>fraction</code> - <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">:</span> The time, expressed as a value between 0 and 1, representing the fraction of time elapsed of the overall animation duration.</p>
+<p><strong>Return</strong><br/>
+<a href="index.html"><span class="identifier">Keyframe</span></a><span class="symbol">&lt;</span><a href="of.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">:</span> The constructed <code><a href="index.html">Keyframe</a></code> object.</p>
+<a name="com.github.alexjlockwood.kyrie.Keyframe$of(kotlin.Float, com.github.alexjlockwood.kyrie.Keyframe.of.T)"></a>
+<code><span class="identifier">@NonNull</span> <span class="keyword">static</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">!</span><span class="symbol">&gt;</span> <span class="identifier">of</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.Keyframe$of(kotlin.Float, com.github.alexjlockwood.kyrie.Keyframe.of.T)/fraction">fraction</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">, </span><span class="identifier">@Nullable</span> <span class="identifier" id="com.github.alexjlockwood.kyrie.Keyframe$of(kotlin.Float, com.github.alexjlockwood.kyrie.Keyframe.of.T)/value">value</span><span class="symbol">:</span>&nbsp;<a href="of.html#T"><span class="identifier">T</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="index.html"><span class="identifier">Keyframe</span></a><span class="symbol">&lt;</span><a href="of.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Constructs a <code><a href="index.html">Keyframe</a></code> object with the given time and value. The time defines the time, as a proportion of an overall animation's duration, at which the value will hold true for the animation. The value for the animation between keyframes will be calculated as an interpolation between the values at those keyframes.</p>
+<h3>Parameters</h3>
+<p><a name="&lt;T&gt;"></a>
+<code><T></code> - The keyframe value type.</p>
+<p><a name="fraction"></a>
+<code>fraction</code> - <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">:</span> The time, expressed as a value between 0 and 1, representing the fraction of time elapsed of the overall animation duration.</p>
+<p><a name="value"></a>
+<code>value</code> - <a href="of.html#T"><span class="identifier">T</span></a><span class="symbol">?</span><span class="symbol">:</span> The value that the object will animate to as the animation time approaches the time in this <code><a href="index.html">Keyframe</a></code>, and the the value animated from as the time passes the time in this <code><a href="index.html">Keyframe</a></code>. May be null.</p>
+<p><strong>Return</strong><br/>
+<a href="index.html"><span class="identifier">Keyframe</span></a><span class="symbol">&lt;</span><a href="of.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">:</span> The constructed <code><a href="index.html">Keyframe</a></code> object.</p>
+</BODY>
+</HTML>

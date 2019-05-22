@@ -1,0 +1,84 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Keyframe - kyrie</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">kyrie</a>&nbsp;/&nbsp;<a href="../index.html">com.github.alexjlockwood.kyrie</a>&nbsp;/&nbsp;<a href="./index.html">Keyframe</a><br/>
+<br/>
+<h1>Keyframe</h1>
+<code><span class="keyword">class </span><span class="identifier">Keyframe</span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">!</span><span class="symbol">&gt;</span></code>
+<p>This class holds a time/value pair for an animation. A <code><a href="./index.html">Keyframe</a></code> is used to define the values that the animation target will have over the course of the animation. As the time proceeds from one keyframe to the other, the value of the target will animate between the value at the previous keyframe and the value at the next keyframe. Each keyframe also holds an optional object, which defines the time interpolation over the inter-value preceding the keyframe.</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="fraction.html">fraction</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">fraction</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.Keyframe$fraction(kotlin.Float)/fraction">fraction</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">Keyframe</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Sets the time for this <code><a href="./index.html">Keyframe</a></code>, as a fraction of the overall animation duration.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="get-fraction.html">getFraction</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getFraction</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a></code>
+<p>Gets the time for this <code><a href="./index.html">Keyframe</a></code>, as a fraction of the overall animation duration.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="get-interpolator.html">getInterpolator</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getInterpolator</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/animation/TimeInterpolator.html"><span class="identifier">TimeInterpolator</span></a><span class="symbol">?</span></code>
+<p>Gets the optional interpolator for this <code><a href="./index.html">Keyframe</a></code>. A value of null indicates that there is no interpolation, which is the same as linear interpolation.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="get-value.html">getValue</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getValue</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">?</span></code>
+<p>Gets the value for this <code><a href="./index.html">Keyframe</a></code>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="interpolator.html">interpolator</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">interpolator</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.Keyframe$interpolator(android.animation.TimeInterpolator)/interpolator">interpolator</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/animation/TimeInterpolator.html"><span class="identifier">TimeInterpolator</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">Keyframe</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Sets the optional interpolator for this <code><a href="./index.html">Keyframe</a></code>. A value of null indicates that there is no interpolation, which is the same as linear interpolation.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="of.html">of</a></p>
+</td>
+<td>
+<code><span class="keyword">static</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">!</span><span class="symbol">&gt;</span> <span class="identifier">of</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.Keyframe$of(kotlin.Float)/fraction">fraction</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">Keyframe</span></a><span class="symbol">&lt;</span><a href="of.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Constructs a <code><a href="./index.html">Keyframe</a></code> object with the given time. The value at this time will be derived from the target object when the animation first starts. The time defines the time, as a proportion of an overall animation's duration, at which the value will hold true for the animation. The value for the animation between keyframes will be calculated as an interpolation between the values at those keyframes.</p>
+<code><span class="keyword">static</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">!</span><span class="symbol">&gt;</span> <span class="identifier">of</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.Keyframe$of(kotlin.Float, com.github.alexjlockwood.kyrie.Keyframe.of.T)/fraction">fraction</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">, </span><span class="identifier" id="com.github.alexjlockwood.kyrie.Keyframe$of(kotlin.Float, com.github.alexjlockwood.kyrie.Keyframe.of.T)/value">value</span><span class="symbol">:</span>&nbsp;<a href="of.html#T"><span class="identifier">T</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">Keyframe</span></a><span class="symbol">&lt;</span><a href="of.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Constructs a <code><a href="./index.html">Keyframe</a></code> object with the given time and value. The time defines the time, as a proportion of an overall animation's duration, at which the value will hold true for the animation. The value for the animation between keyframes will be calculated as an interpolation between the values at those keyframes.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="value.html">value</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">value</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.Keyframe$value(com.github.alexjlockwood.kyrie.Keyframe.T)/value">value</span><span class="symbol">:</span>&nbsp;<a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">Keyframe</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Sets the value for this <code><a href="./index.html">Keyframe</a></code>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

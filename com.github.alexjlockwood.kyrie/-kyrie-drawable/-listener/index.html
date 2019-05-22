@@ -1,0 +1,91 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>KyrieDrawable.Listener - kyrie</title>
+<link rel="stylesheet" href="../../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../../index.html">kyrie</a>&nbsp;/&nbsp;<a href="../../index.html">com.github.alexjlockwood.kyrie</a>&nbsp;/&nbsp;<a href="../index.html">KyrieDrawable</a>&nbsp;/&nbsp;<a href="./index.html">Listener</a><br/>
+<br/>
+<h1>Listener</h1>
+<code><span class="keyword">interface </span><span class="identifier">Listener</span></code>
+<p>A listener that receives notifications from an animation. Notifications indicate animation
+related events, such as the start or end of the animation.</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="on-animation-cancel.html">onAnimationCancel</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">onAnimationCancel</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.KyrieDrawable.Listener$onAnimationCancel(com.github.alexjlockwood.kyrie.KyrieDrawable)/drawable">drawable</span><span class="symbol">:</span>&nbsp;<a href="../index.html"><span class="identifier">KyrieDrawable</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Notifies the cancellation of the animation.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="on-animation-end.html">onAnimationEnd</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">onAnimationEnd</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.KyrieDrawable.Listener$onAnimationEnd(com.github.alexjlockwood.kyrie.KyrieDrawable)/drawable">drawable</span><span class="symbol">:</span>&nbsp;<a href="../index.html"><span class="identifier">KyrieDrawable</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Notifies the end of the animation. This callback is not invoked for animations with repeat
+count set to INFINITE.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="on-animation-pause.html">onAnimationPause</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">onAnimationPause</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.KyrieDrawable.Listener$onAnimationPause(com.github.alexjlockwood.kyrie.KyrieDrawable)/drawable">drawable</span><span class="symbol">:</span>&nbsp;<a href="../index.html"><span class="identifier">KyrieDrawable</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Notifies that the animation was paused.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="on-animation-resume.html">onAnimationResume</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">onAnimationResume</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.KyrieDrawable.Listener$onAnimationResume(com.github.alexjlockwood.kyrie.KyrieDrawable)/drawable">drawable</span><span class="symbol">:</span>&nbsp;<a href="../index.html"><span class="identifier">KyrieDrawable</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Notifies that the animation was resumed, after being previously paused.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="on-animation-start.html">onAnimationStart</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">onAnimationStart</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.KyrieDrawable.Listener$onAnimationStart(com.github.alexjlockwood.kyrie.KyrieDrawable)/drawable">drawable</span><span class="symbol">:</span>&nbsp;<a href="../index.html"><span class="identifier">KyrieDrawable</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Notifies the start of the animation.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="on-animation-update.html">onAnimationUpdate</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">onAnimationUpdate</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.KyrieDrawable.Listener$onAnimationUpdate(com.github.alexjlockwood.kyrie.KyrieDrawable)/drawable">drawable</span><span class="symbol">:</span>&nbsp;<a href="../index.html"><span class="identifier">KyrieDrawable</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Notifies the occurrence of another frame of the animation.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-listener-adapter/index.html">ListenerAdapter</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">ListenerAdapter</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">KyrieDrawable.Listener</span></a></code>
+<p>This adapter class provides empty implementations of the methods from <a href="./index.html">Listener</a>. Any
+custom listener that cares only about a subset of the methods of this listener can simply
+subclass this adapter class instead of implementing the interface directly.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>
