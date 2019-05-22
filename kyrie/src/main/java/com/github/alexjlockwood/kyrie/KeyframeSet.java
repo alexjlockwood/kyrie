@@ -36,11 +36,11 @@ abstract class KeyframeSet<T> {
     final List<Keyframe<T>> keyframes = new ArrayList<>(Math.max(numKeyframes, 2));
     if (numKeyframes == 1) {
       keyframes.add(Keyframe.<T>of(0f));
-      keyframes.add(Keyframe.of(1f, values[0]));
+      keyframes.add(Keyframe.<T>of(1f, values[0]));
     } else {
-      keyframes.add(Keyframe.of(0f, values[0]));
+      keyframes.add(Keyframe.<T>of(0f, values[0]));
       for (int i = 1; i < numKeyframes; i++) {
-        keyframes.add(Keyframe.of((float) i / (numKeyframes - 1), values[i]));
+        keyframes.add(Keyframe.<T>of((float) i / (numKeyframes - 1), values[i]));
       }
     }
     return new ObjectKeyframeSet<>(evaluator, keyframes);
