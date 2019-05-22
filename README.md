@@ -43,6 +43,8 @@ We can also build `KyrieDrawable`s at runtime using the builder pattern. `KyrieD
 
 Here is a snippet of code from the [sample app][progressfragment] that shows how we can programatically create a circular progress indicator:
 
+Here is a snippet of code from the [sample app][progressfragment] that shows how we can programatically create a circular progress indicator:
+
 ```java
 KyrieDrawable drawable =
     KyrieDrawable.builder()
@@ -84,10 +86,52 @@ KyrieDrawable drawable =
         .build();
 ```
 
+Or more succinctly in Kotlin:
+
+```kotlin
+val drawable =
+    kyrieDrawable {
+        viewport = size(48f, 48f)
+        tint = Color.RED
+        group {
+            translateX(24f)
+            translateY(24f)
+            rotation(
+                Animation.ofFloat(0f, 720f)
+                    .duration(4444)
+                    .repeatCount(Animation.INFINITE)
+            )
+            path {
+                strokeColor(Color.WHITE)
+                strokeWidth(4f)
+                trimPathStart(
+                    Animation.ofFloat(0f, 0.75f)
+                        .duration(1333)
+                        .repeatCount(Animation.INFINITE)
+                        .interpolator("M0 0h.5C.7 0 .6 1 1 1".asPathInterpolator())
+                )
+                trimPathEnd(
+                    Animation.ofFloat(0.03f, 0.78f)
+                        .duration(1333)
+                        .repeatCount(Animation.INFINITE)
+                        .interpolator("M0 0c.2 0 .1 1 .5.96C.966.96.993 1 1 1".asPathInterpolator())
+                )
+                trimPathOffset(
+                    Animation.ofFloat(0f, 0.25f)
+                        .duration(1333)
+                        .repeatCount(Animation.INFINITE)
+                )
+                strokeLineCap(StrokeLineCap.SQUARE)
+                pathData("M0-18a18 18 0 1 1 0 36 18 18 0 1 1 0-36")
+            }
+        }
+    }
+```
+
 ## Further reading
 
 - Check out [this blog post][adp-blog-post] for more on the motivation behind the library.
-- Check out [the sample app][sample-app-source-code] for example usages in Java.
+- Check out [the sample app][sample-app-source-code] for example usages in both Java and Kotlin.
 - Check out [the documentation][documentation] for a complete listing of all supported `Animation`s and `Node`s that can be used when constructing `KyrieDrawable`s programatically.
 
 ## Dependency
@@ -108,28 +152,26 @@ Then add the library to your module's `build.gradle` file:
 ```gradle
 dependencies {
     // ...
-    implementation 'com.github.alexjlockwood:kyrie:0.1.3'
+    implementation 'com.github.alexjlockwood:kyrie:0.1.5'
 }
 ```
 
 ## Compatibility
 
 - **Minimum Android SDK**: Kyrie requires a minimum API level of 14.
-- **Compile Android SDK**: Kyrie requires you to compile against API 27 or later.
+- **Compile Android SDK**: Kyrie requires you to compile against API 28 or later.
 
 [travis-badge]: https://travis-ci.org/alexjlockwood/kyrie.svg?branch=master
 [travis-badge-url]: https://travis-ci.org/alexjlockwood/kyrie
-[kyriedrawable]: https://alexjlockwood.github.io/kyrie/com/github/alexjlockwood/kyrie/KyrieDrawable.html
-[node]: https://alexjlockwood.github.io/kyrie/com/github/alexjlockwood/kyrie/Node.html
-[animation]: https://alexjlockwood.github.io/kyrie/com/github/alexjlockwood/kyrie/Animation.html
+[kyriedrawable]:https://alexjlockwood.github.io/kyrie/com.github.alexjlockwood.kyrie/-kyrie-drawable/index.html
+[node]: https://alexjlockwood.github.io/kyrie/com.github.alexjlockwood.kyrie/-node/index.html
+[animation]: https://alexjlockwood.github.io/kyrie/com.github.alexjlockwood.kyrie/-animation/index.html
 [progressfragment]: https://github.com/alexjlockwood/kyrie/blob/master/sample/src/main/java/com/example/kyrie/ProgressFragment.kt
-[kyriedrawable#setcurrentplaytime]: https://alexjlockwood.github.io/kyrie/com/github/alexjlockwood/kyrie/KyrieDrawable.html#setCurrentPlayTime-long-
-[kyriedrawable#pause]: https://alexjlockwood.github.io/kyrie/com/github/alexjlockwood/kyrie/KyrieDrawable.html#pause--
-[kyriedrawable#resume]: https://alexjlockwood.github.io/kyrie/com/github/alexjlockwood/kyrie/KyrieDrawable.html#resume--
-[kyriedrawable#addlistener]: https://alexjlockwood.github.io/kyrie/com/github/alexjlockwood/kyrie/KyrieDrawable.html#addListener-com.github.alexjlockwood.kyrie.KyrieDrawable.Listener-
-[kyriedrawable#builder]: https://alexjlockwood.github.io/kyrie/com/github/alexjlockwood/kyrie/KyrieDrawable.Builder.html
-[documentation]: https://alexjlockwood.github.io/kyrie
-[kotlin-dsl-source-code]: https://github.com/alexjlockwood/kyrie/tree/master/kyrie-kotlin-dsl/src/main/java/com/github/alexjlockwood/kyrie
-[david-blanc-twitter]: https://twitter.com/speekha
+[kyriedrawable#setcurrentplaytime]: https://alexjlockwood.github.io/kyrie/com.github.alexjlockwood.kyrie/-kyrie-drawable/current-play-time.html
+[kyriedrawable#pause]: https://alexjlockwood.github.io/kyrie/com.github.alexjlockwood.kyrie/-kyrie-drawable/pause.html
+[kyriedrawable#resume]: https://alexjlockwood.github.io/kyrie/com.github.alexjlockwood.kyrie/-kyrie-drawable/resume.html
+[kyriedrawable#addlistener]: https://alexjlockwood.github.io/kyrie/com.github.alexjlockwood.kyrie/-kyrie-drawable/add-listener.html
+[kyriedrawable#builder]: https://alexjlockwood.github.io/kyrie/com.github.alexjlockwood.kyrie/-kyrie-drawable/-builder/index.html
+[documentation]: https://alexjlockwood.github.io/kyrie/com.github.alexjlockwood.kyrie/index.html
 [sample-app-source-code]: https://github.com/alexjlockwood/kyrie/tree/master/sample/src/main/java/com/example/kyrie
 [adp-blog-post]: https://www.androiddesignpatterns.com/2018/03/introducing-kyrie-animated-vector-drawables.html
