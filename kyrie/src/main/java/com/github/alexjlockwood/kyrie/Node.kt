@@ -4,7 +4,7 @@ import android.graphics.Canvas
 import android.graphics.Matrix
 import android.graphics.PointF
 import androidx.annotation.ColorInt
-import java.util.*
+import java.util.Collections
 
 /** Base class for all [Node]s used to construct and animate a [KyrieDrawable]. */
 abstract class Node internal constructor() {

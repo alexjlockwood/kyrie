@@ -1,6 +1,10 @@
 package com.github.alexjlockwood.kyrie
 
-import android.graphics.*
+import android.graphics.Canvas
+import android.graphics.Matrix
+import android.graphics.Path
+import android.graphics.PointF
+import android.graphics.Region
 
 /**
  * A [Node] that defines a region to be clipped. Note that a [ClipPathNode] only clips

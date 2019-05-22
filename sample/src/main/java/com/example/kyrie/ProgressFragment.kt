@@ -7,8 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
-import com.github.alexjlockwood.kyrie.*
-import kotlinx.android.synthetic.main.fragment_two_pane.*
 
 class ProgressFragment : Fragment() {
 

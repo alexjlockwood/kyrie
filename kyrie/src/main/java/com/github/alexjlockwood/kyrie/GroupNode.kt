@@ -3,7 +3,6 @@ package com.github.alexjlockwood.kyrie
 import android.graphics.Canvas
 import android.graphics.Matrix
 import android.graphics.PointF
-import java.util.*
 
 /** A [Node] that holds a group of children [Node]s. */
 class GroupNode private constructor(

@@ -1,7 +1,17 @@
 package com.github.alexjlockwood.kyrie
 
 import android.content.res.ColorStateList
-import android.graphics.*
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.DashPathEffect
+import android.graphics.LinearGradient
+import android.graphics.Matrix
+import android.graphics.Paint
+import android.graphics.Path
+import android.graphics.PathMeasure
+import android.graphics.PointF
+import android.graphics.RadialGradient
+import android.graphics.SweepGradient
 import androidx.annotation.ColorInt
 import androidx.annotation.FloatRange
 
