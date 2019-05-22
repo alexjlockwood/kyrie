@@ -19,17 +19,15 @@ before_install:
   - yes | sdkmanager "docs"
 
 after_success:
-  - ./gradlew javadocRelease
+  - ./gradlew dokka
+  - mv kyrie/build/javadoc/style.css kyrie/build/javadoc/kyrie
+  - for f in `find . -name "*.html"`; do sed -i '' 's/..\/style.css/style.css/g' $f; done
 
 deploy:
-  # Fix broken deployment due to
-  # https://github.com/travis-ci/travis-ci/issues/9312
-  edge:
-    branch: v1.8.47
   provider: pages
   skip-cleanup: true
   github-token: $GITHUB_TOKEN
   keep-history: true
-  local-dir: kyrie/build/docs/javadoc/release
+  local-dir: kyrie/build/javadoc/kyrie
   on:
     branch: master

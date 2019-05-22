@@ -33,9 +33,9 @@ KyrieDrawable drawable = KyrieDrawable.create(context, R.drawable.my_vd_or_avd);
 
 Once we do this, we can perform several actions that are currently not possible using `AnimatedVectorDrawable`s, such as:
 
-1.  Seek the animation using [`setCurrentPlayTime(long)`][kyriedrawable#setcurrentplaytime].
-2.  Pause and resume the animation using [`pause()`][kyriedrawable#pause] and [`resume()`][kyriedrawable#resume].
-3.  Listen for animation events using [`addListener(KyrieDrawable.Listener)`][kyriedrawable#addlistener].
+1. Seek the animation using [`setCurrentPlayTime(long)`][kyriedrawable#setcurrentplaytime].
+2. Pause and resume the animation using [`pause()`][kyriedrawable#pause] and [`resume()`][kyriedrawable#resume].
+3. Listen for animation events using [`addListener(KyrieDrawable.Listener)`][kyriedrawable#addlistener].
 
 ### Option #2: programatically using a [`KyrieDrawable.Builder`][kyriedrawable#builder]
 
