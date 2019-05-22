@@ -21,7 +21,7 @@ before_install:
 after_success:
   - ./gradlew dokka
   - mv kyrie/build/javadoc/style.css kyrie/build/javadoc/kyrie
-  - for f in `find . -name "*.html"`; do sed -i '' 's/..\/style.css/style.css/g' $f; done
+  - for f in `find kyrie/build/javadoc/kyrie/ -name "*.html"`; do sed -i s/..\/style.css/style.css/g' $f; done
 
 deploy:
   provider: pages
