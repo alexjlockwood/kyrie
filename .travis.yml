@@ -3,20 +3,20 @@ language: android
 jdk:
   - oraclejdk8
 
-# android:
-#   components:
-#     - tools
-#     - platform-tools
-#     - build-tools-27.0.2
-#     - android-27
-#     - extra-android-support
-#   licenses:
-#     - android-sdk-license-.+
+android:
+  components:
+    - tools
+    - platform-tools
+    - build-tools-27.0.2
+    - android-27
+    - extra-android-support
+  licenses:
+    - android-sdk-license-.+
 
-# before_install:
-#   - yes | sdkmanager "platforms;android-27"
-#   - yes | sdkmanager "sources;android-27"
-#   - yes | sdkmanager "docs"
+before_install:
+  - yes | sdkmanager "platforms;android-27"
+  - yes | sdkmanager "sources;android-27"
+  - yes | sdkmanager "docs"
 
 after_success:
   - ./gradlew dokka
