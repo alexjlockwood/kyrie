@@ -69,8 +69,13 @@ its sibling <a href="-node/index.html">Node</a>s.</p>
 <p><a href="-keyframe/index.html">Keyframe</a></p>
 </td>
 <td>
-<code><span class="keyword">class </span><span class="identifier">Keyframe</span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">!</span><span class="symbol">&gt;</span></code>
-<p>This class holds a time/value pair for an animation. A <code><a href="-keyframe/index.html">Keyframe</a></code> is used to define the values that the animation target will have over the course of the animation. As the time proceeds from one keyframe to the other, the value of the target will animate between the value at the previous keyframe and the value at the next keyframe. Each keyframe also holds an optional object, which defines the time interpolation over the inter-value preceding the keyframe.</p>
+<code><span class="keyword">class </span><span class="identifier">Keyframe</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>This class holds a time/value pair for an animation. A <a href="-keyframe/index.html">Keyframe</a> is used to define the
+values that the animation target will have over the course of the animation. As the time proceeds
+from one keyframe to the other, the value of the target will animate between the value at the
+previous keyframe and the value at the next keyframe. Each keyframe also holds an optional
+<a href="https://developer.android.com/reference/android/animation/TimeInterpolator.html">TimeInterpolator</a> object, which defines the time interpolation over the inter-value preceding
+the keyframe.</p>
 </td>
 </tr>
 <tr>
