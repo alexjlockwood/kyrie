@@ -38,7 +38,7 @@ ext {
     siteUrl = 'https://github.com/alexjlockwood/kyrie'
     gitUrl = 'https://github.com/alexjlockwood/kyrie.git'
 
-    libraryVersion = '0.1.5'
+    libraryVersion = '0.2.0-alpha01'
 
     developerId = 'alexjlockwood'
     developerName = 'Alex Lockwood'
@@ -50,6 +50,5 @@ ext {
 }
 
 if (project.rootProject.file('local.properties').exists()) {
-    apply from: '../scripts/install.gradle'
-    apply from: '../scripts/bintray.gradle'
+    apply from: '../scripts/publish.gradle'
 }

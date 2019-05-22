@@ -43,8 +43,6 @@ We can also build `KyrieDrawable`s at runtime using the builder pattern. `KyrieD
 
 Here is a snippet of code from the [sample app][progressfragment] that shows how we can programatically create a circular progress indicator:
 
-Here is a snippet of code from the [sample app][progressfragment] that shows how we can programatically create a circular progress indicator:
-
 ```java
 KyrieDrawable drawable =
     KyrieDrawable.builder()
@@ -152,7 +150,7 @@ Then add the library to your module's `build.gradle` file:
 ```gradle
 dependencies {
     // ...
-    implementation 'com.github.alexjlockwood:kyrie:0.1.5'
+    implementation 'com.github.alexjlockwood:kyrie:0.2.0'
 }
 ```
 

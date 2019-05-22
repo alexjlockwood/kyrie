@@ -1,0 +1,15 @@
+apply plugin: 'com.novoda.bintray-release'
+
+publish {
+    def groupProjectID = publishedGroupId
+    def artifactProjectID = artifact
+    def publishVersionID = libraryVersion
+
+    userOrg = developerId
+    repoName = bintrayRepo
+    groupId = groupProjectID
+    artifactId = artifactProjectID
+    publishVersion = publishVersionID
+    desc = libraryDescription
+    website = siteUrl
+}
