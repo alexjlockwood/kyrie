@@ -10,7 +10,7 @@ buildscript {
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.0'
-        classpath "org.jetbrains.dokka:dokka-android-gradle-plugin:$dokkaVersion"
+        classpath 'org.jetbrains.dokka:dokka-android-gradle-plugin:0.9.18'
    }
 }
 
@@ -24,5 +24,4 @@ allprojects {
 ext {
     minSdkVersion = 14
     targetSdkVersion = 28
-    dokkaVersion = '0.9.18'
 }
