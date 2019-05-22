@@ -1,9 +1,10 @@
 package com.github.alexjlockwood.kyrie;
 
 import android.graphics.Path;
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -1,10 +1,11 @@
 package com.example.kyrie;
 
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity implements DemoListFragment.Callbacks,
     FragmentManager.OnBackStackChangedListener {

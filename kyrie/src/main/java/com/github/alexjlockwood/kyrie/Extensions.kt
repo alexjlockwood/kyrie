@@ -1,7 +1,7 @@
 package com.github.alexjlockwood.kyrie
 
-import androidx.core.view.animation.PathInterpolatorCompat
 import android.view.animation.Interpolator
+import androidx.core.view.animation.PathInterpolatorCompat
 
 inline fun kyrieDrawable(init: KyrieDrawable.Builder.() -> Unit): KyrieDrawable =
         KyrieDrawable.builder().apply(init).build()

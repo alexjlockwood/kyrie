@@ -1,6 +1,7 @@
 package com.github.alexjlockwood.kyrie;
 
 import android.graphics.Path;
+
 import androidx.annotation.NonNull;
 
 import java.util.Arrays;

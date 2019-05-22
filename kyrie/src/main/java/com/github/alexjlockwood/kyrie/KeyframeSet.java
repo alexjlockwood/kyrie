@@ -2,6 +2,7 @@ package com.github.alexjlockwood.kyrie;
 
 import android.graphics.Path;
 import android.graphics.PointF;
+
 import androidx.annotation.NonNull;
 
 import com.github.alexjlockwood.kyrie.Animation.ValueEvaluator;
