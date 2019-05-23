@@ -16,7 +16,7 @@ import androidx.annotation.IntRange
  */
 class Animation<T, V> private constructor(
         private val keyframeSet: KeyframeSet<T>,
-        private val transformer: ValueTransformer<T, out V>
+        private val transformer: ValueTransformer<T, V>
 ) {
 
     /**
