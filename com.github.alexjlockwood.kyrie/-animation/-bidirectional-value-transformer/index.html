@@ -8,8 +8,15 @@
 <a href="../../../index.html">kyrie</a>&nbsp;/&nbsp;<a href="../../index.html">com.github.alexjlockwood.kyrie</a>&nbsp;/&nbsp;<a href="../index.html">Animation</a>&nbsp;/&nbsp;<a href="./index.html">BidirectionalValueTransformer</a><br/>
 <br/>
 <h1>BidirectionalValueTransformer</h1>
-<code><span class="keyword">interface </span><span class="identifier">BidirectionalValueTransformer</span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">!</span><span class="symbol">, </span><span class="identifier">V</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">!</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-value-transformer/index.html"><span class="identifier">Animation.ValueTransformer</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="index.html#V"><span class="identifier">V</span></a><span class="symbol">&gt;</span></code>
-<p>Interface that can transform type <code>T</code> to another type <code>V</code> and back again. This is necessary when the value types of in animation are different from the property type. This interface is only needed when working with an <code><a href="../index.html">Animation</a></code> with no explicitly set start value and that has been transformed using <code><a href="../-value-transformer/transform.html">#transform(Object)</a></code>.</p>
+<code><span class="keyword">interface </span><span class="identifier">BidirectionalValueTransformer</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">V</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-value-transformer/index.html"><span class="identifier">Animation.ValueTransformer</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="index.html#V"><span class="identifier">V</span></a><span class="symbol">&gt;</span></code>
+<p>Interface that can transform type <code>T</code> to another type <code>V</code> and back again.
+This is necessary when the value types of in animation are different from the property type.
+This interface is only needed when working with an <a href="../index.html">Animation</a> with no explicitly set
+start value and that has been transformed using <a href="../-value-transformer/transform.html">transform</a>.</p>
+<p><strong>Parameters</strong><br/>
+</p>
+<p><strong>Parameters</strong><br/>
+</p>
 <h3>Functions</h3>
 <table>
 <tbody>
