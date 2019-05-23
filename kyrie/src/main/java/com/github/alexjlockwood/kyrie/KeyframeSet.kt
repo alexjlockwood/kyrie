@@ -13,8 +13,7 @@ import java.util.Arrays
  */
 internal abstract class KeyframeSet<T> {
 
-    /** @return The list of keyframes contained by this keyframe set.
-     */
+    /** @return The list of keyframes contained by this keyframe set. */
     abstract val keyframes: List<Keyframe<T>>
 
     /**
@@ -35,7 +34,6 @@ internal abstract class KeyframeSet<T> {
         private val KEYFRAME_COMPARATOR = Comparator<Keyframe<*>> { k1, k2 -> java.lang.Float.compare(k1.fraction, k2.fraction) }
 
         /** @return An [ObjectKeyframeSet] with evenly distributed keyframe values. */
-        @JvmStatic
         fun <T> ofObject(evaluator: ValueEvaluator<T>, values: Array<T>): KeyframeSet<T> {
             val numKeyframes = values.size
             val keyframes = ArrayList<Keyframe<T>>(Math.max(numKeyframes, 2))
@@ -52,7 +50,6 @@ internal abstract class KeyframeSet<T> {
         }
 
         /** @return An [ObjectKeyframeSet] with the given keyframe values. */
-        @JvmStatic
         fun <T> ofObject(evaluator: ValueEvaluator<T>, values: Array<Keyframe<T>>): KeyframeSet<T> {
             Arrays.sort(values, KEYFRAME_COMPARATOR)
             val list = ArrayList<Keyframe<T>>(values.size)
@@ -68,7 +65,6 @@ internal abstract class KeyframeSet<T> {
         }
 
         /** @return A [PathKeyframeSet] that estimates motion along the given path. */
-        @JvmStatic
         fun ofPath(path: Path): KeyframeSet<PointF> {
             return PathKeyframeSet(path)
         }
