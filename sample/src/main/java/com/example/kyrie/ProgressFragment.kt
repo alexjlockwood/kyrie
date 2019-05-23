@@ -7,6 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
+import com.github.alexjlockwood.kyrie.Animation
+import com.github.alexjlockwood.kyrie.KyrieDrawable
+import com.github.alexjlockwood.kyrie.StrokeLineCap
+import com.github.alexjlockwood.kyrie.asPath
+import com.github.alexjlockwood.kyrie.asPathInterpolator
+import com.github.alexjlockwood.kyrie.group
+import com.github.alexjlockwood.kyrie.kyrieDrawable
+import com.github.alexjlockwood.kyrie.path
+import kotlinx.android.synthetic.main.fragment_two_pane.*
 
 class ProgressFragment : Fragment() {
 
