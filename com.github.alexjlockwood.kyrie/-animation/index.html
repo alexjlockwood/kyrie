@@ -33,6 +33,15 @@ start value and that has been transformed using <a href="-value-transformer/tran
 </tr>
 <tr>
 <td>
+<p><a href="-repeat-mode/index.html">RepeatMode</a></p>
+</td>
+<td>
+<code><span class="keyword">enum</span> <span class="keyword">class </span><span class="identifier">RepeatMode</span></code>
+<p>Repeat mode determines how a repeating animation should behave once it completes.</p>
+</td>
+</tr>
+<tr>
+<td>
 <p><a href="-value-transformer/index.html">ValueTransformer</a></p>
 </td>
 <td>
@@ -40,20 +49,6 @@ start value and that has been transformed using <a href="-value-transformer/tran
 <p>Interface that can transform type <code>T</code> to another type <code>V</code>. This is
 necessary when the original value type of an animation is different than the desired value
 type.</p>
-</td>
-</tr>
-</tbody>
-</table>
-<h3>Annotations</h3>
-<table>
-<tbody>
-<tr>
-<td>
-<p><a href="-repeat-mode/index.html">RepeatMode</a></p>
-</td>
-<td>
-<code><span class="keyword">annotation</span> <span class="keyword">class </span><span class="identifier">RepeatMode</span></code>
-<p>Repeat mode determines how a repeating animation should behave once it completes.</p>
 </td>
 </tr>
 </tbody>
@@ -94,7 +89,7 @@ will be used by default.</p>
 <p><a href="repeat-mode.html">repeatMode</a></p>
 </td>
 <td>
-<code><span class="keyword">var </span><span class="identifier">repeatMode</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<code><span class="keyword">var </span><span class="identifier">repeatMode</span><span class="symbol">: </span><a href="-repeat-mode/index.html"><span class="identifier">Animation.RepeatMode</span></a></code>
 <p>Defines what this animation should do when it reaches the end.</p>
 </td>
 </tr>
@@ -167,7 +162,7 @@ will be taken into account. The repeat count is 0 by default.</p>
 <p><a href="repeat-mode.html">repeatMode</a></p>
 </td>
 <td>
-<code><span class="keyword">fun </span><span class="identifier">repeatMode</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.Animation$repeatMode(kotlin.Int)/repeatMode">repeatMode</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="index.html#V"><span class="identifier">V</span></a><span class="symbol">&gt;</span></code>
+<code><span class="keyword">fun </span><span class="identifier">repeatMode</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.Animation$repeatMode(com.github.alexjlockwood.kyrie.Animation.RepeatMode)/repeatMode">repeatMode</span><span class="symbol">:</span>&nbsp;<a href="-repeat-mode/index.html"><span class="identifier">Animation.RepeatMode</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="index.html#V"><span class="identifier">V</span></a><span class="symbol">&gt;</span></code>
 <p>Defines what this animation should do when it reaches the end. This setting is applied only
 when the repeat count is either greater than 0 or <a href="-i-n-f-i-n-i-t-e.html">INFINITE</a>. Defaults to <a href="-repeat-mode/-r-e-s-t-a-r-t.html">RepeatMode.RESTART</a>.</p>
 </td>

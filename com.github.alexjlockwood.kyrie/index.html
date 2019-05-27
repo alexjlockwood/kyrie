@@ -49,11 +49,29 @@ its sibling <a href="-node/index.html">Node</a>s.</p>
 </tr>
 <tr>
 <td>
+<p><a href="-clip-type/index.html">ClipType</a></p>
+</td>
+<td>
+<code><span class="keyword">enum</span> <span class="keyword">class </span><span class="identifier">ClipType</span></code>
+<p>Determines the clipping strategy of a <a href="-clip-path-node/index.html">ClipPathNode</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
 <p><a href="-ellipse-node/index.html">EllipseNode</a></p>
 </td>
 <td>
 <code><span class="keyword">class </span><span class="identifier">EllipseNode</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-render-node/index.html"><span class="identifier">RenderNode</span></a></code>
 <p>A <a href="-node/index.html">Node</a> that paints an ellipse.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-fill-type/index.html">FillType</a></p>
+</td>
+<td>
+<code><span class="keyword">enum</span> <span class="keyword">class </span><span class="identifier">FillType</span></code>
+<p>Fill type determines how a shape should be filled when painted.</p>
 </td>
 </tr>
 <tr>
@@ -140,35 +158,12 @@ the keyframe.</p>
 <td>
 <code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">RenderNode</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-base-node/index.html"><span class="identifier">BaseNode</span></a></code></td>
 </tr>
-</tbody>
-</table>
-<h3>Annotations</h3>
-<table>
-<tbody>
-<tr>
-<td>
-<p><a href="-clip-type/index.html">ClipType</a></p>
-</td>
-<td>
-<code><span class="keyword">class </span><span class="identifier">ClipType</span></code>
-<p>Determines the clipping strategy of a <code><a href="-clip-path-node/index.html">ClipPathNode</a></code>.</p>
-</td>
-</tr>
-<tr>
-<td>
-<p><a href="-fill-type/index.html">FillType</a></p>
-</td>
-<td>
-<code><span class="keyword">class </span><span class="identifier">FillType</span></code>
-<p>Fill type determines how a shape should be filled when painted.</p>
-</td>
-</tr>
 <tr>
 <td>
 <p><a href="-stroke-line-cap/index.html">StrokeLineCap</a></p>
 </td>
 <td>
-<code><span class="keyword">class </span><span class="identifier">StrokeLineCap</span></code>
+<code><span class="keyword">enum</span> <span class="keyword">class </span><span class="identifier">StrokeLineCap</span></code>
 <p>Stroke line cap determines the shape that should be used at the corners of stroked paths.</p>
 </td>
 </tr>
@@ -177,7 +172,7 @@ the keyframe.</p>
 <p><a href="-stroke-line-join/index.html">StrokeLineJoin</a></p>
 </td>
 <td>
-<code><span class="keyword">class </span><span class="identifier">StrokeLineJoin</span></code>
+<code><span class="keyword">enum</span> <span class="keyword">class </span><span class="identifier">StrokeLineJoin</span></code>
 <p>Stroke line join determines the shape that should be used at the ends of a stroked sub-path.</p>
 </td>
 </tr>
