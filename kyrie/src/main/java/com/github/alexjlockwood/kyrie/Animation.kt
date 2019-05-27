@@ -275,7 +275,7 @@ class Animation<T, V> private constructor(
 
     /**
      * Interface that can transform type `T` to another type `V` and back again.
-     * This is necessary when the value types of in animation are different from the property type.
+     * This is necessary when the value types of an animation are different from the property type.
      * This interface is only needed when working with an [Animation] with no explicitly set
      * start value and that has been transformed using [transform].
      *
