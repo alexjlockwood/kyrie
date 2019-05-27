@@ -99,12 +99,7 @@ internal class Property<V>(animations: List<Animation<*, V>>) {
     }
 
     private fun notifyListeners() {
-        var i = 0
-        val size = listeners.size
-        while (i < size) {
-            listeners[i].onCurrentPlayTimeChanged(this)
-            i++
-        }
+        listeners.forEach { it.onCurrentPlayTimeChanged(this) }
     }
 
     /**

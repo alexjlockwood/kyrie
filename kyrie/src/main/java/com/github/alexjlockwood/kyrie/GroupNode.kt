@@ -38,12 +38,7 @@ class GroupNode private constructor(
 
         override fun onDraw(canvas: Canvas, parentMatrix: Matrix, viewportScale: PointF) {
             canvas.save()
-            var i = 0
-            val size = children.size
-            while (i < size) {
-                children[i].draw(canvas, parentMatrix, viewportScale)
-                i++
-            }
+            children.forEach { it.draw(canvas, parentMatrix, viewportScale) }
             canvas.restore()
         }
 

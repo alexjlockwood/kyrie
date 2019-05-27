@@ -133,8 +133,7 @@ final class ComplexColor {
     XmlPullParser parser = context.getResources().getXml(resId);
     final AttributeSet attrs = Xml.asAttributeSet(parser);
     int type;
-    while ((type = parser.next()) != XmlPullParser.START_TAG
-        && type != XmlPullParser.END_DOCUMENT) {
+    while ((type = parser.next()) != XmlPullParser.START_TAG && type != XmlPullParser.END_DOCUMENT) {
       // Empty loop
     }
     if (type != XmlPullParser.START_TAG) {

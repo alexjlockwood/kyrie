@@ -22,21 +22,16 @@ internal class PropertyTimeline(private val drawable: KyrieDrawable) {
         property.addListener(listener)
         if (totalDuration != Animation.INFINITE) {
             val currTotalDuration = property.totalDuration
-            if (currTotalDuration == Animation.INFINITE) {
-                totalDuration = Animation.INFINITE
+            totalDuration = if (currTotalDuration == Animation.INFINITE) {
+                Animation.INFINITE
             } else {
-                totalDuration = Math.max(currTotalDuration, totalDuration)
+                Math.max(currTotalDuration, totalDuration)
             }
         }
         return property
     }
 
     fun setCurrentPlayTime(@IntRange(from = 0) currentPlayTime: Long) {
-        var i = 0
-        val size = properties.size
-        while (i < size) {
-            properties[i].setCurrentPlayTime(currentPlayTime)
-            i++
-        }
+        properties.forEach { it.setCurrentPlayTime(currentPlayTime) }
     }
 }

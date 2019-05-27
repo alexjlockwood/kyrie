@@ -183,24 +183,17 @@ class Animation<T, V> private constructor(
      */
     internal fun setupStartValue(startValue: V) {
         isInitialized = true
-        val keyframes = keyframeSet.keyframes
-        var i = 0
-        val size = keyframes.size
-        while (i < size) {
-            val kf = keyframes[i]
-            if (kf.value == null) {
-                kf.value(transformBack(startValue))
+        keyframeSet.keyframes.forEach {
+            if (it.value == null) {
+                it.value(transformBack(startValue))
             }
-            i++
         }
     }
 
     private fun transformBack(value: V): T {
         if (transformer !is BidirectionalValueTransformer<*, *>) {
             throw IllegalArgumentException(
-                    "Transformer "
-                            + transformer.javaClass.name
-                            + " must be a BidirectionalValueTransformer")
+                    "Transformer ${transformer.javaClass.name} must be a BidirectionalValueTransformer")
         }
         @Suppress("UNCHECKED_CAST")
         return (transformer as BidirectionalValueTransformer<T, V>).transformBack(value)

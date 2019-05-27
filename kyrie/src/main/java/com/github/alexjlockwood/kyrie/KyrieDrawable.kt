@@ -91,7 +91,7 @@ class KyrieDrawable private constructor(
             var playTime = currentPlayTime
             playTime = Math.max(0, playTime)
             val totalDuration = totalDuration
-            if (totalDuration != Animation.INFINITE.toLong()) {
+            if (totalDuration != Animation.INFINITE) {
                 playTime = Math.min(totalDuration, playTime)
             }
             animator.currentPlayTime = playTime
@@ -298,12 +298,7 @@ class KyrieDrawable private constructor(
         offscreenBitmap!!.eraseColor(Color.TRANSPARENT)
         viewportScale.set(scaledWidth / viewportWidth, scaledHeight / viewportHeight)
         val offscreenCanvas = Canvas(offscreenBitmap!!)
-        var i = 0
-        val size = childrenLayers.size
-        while (i < size) {
-            childrenLayers[i].draw(offscreenCanvas, IDENTITY_MATRIX, viewportScale)
-            i++
-        }
+        childrenLayers.forEach { it.draw(offscreenCanvas, IDENTITY_MATRIX, viewportScale) }
 
         // Draw the offscreen bitmap.
         var paint: Paint? = null
@@ -441,30 +436,15 @@ class KyrieDrawable private constructor(
 
         private val listenerAdapter = object : AnimatorListenerAdapter() {
             override fun onAnimationStart(animation: Animator) {
-                var i = 0
-                val size = listeners.size
-                while (i < size) {
-                    listeners[i].onAnimationStart(drawable)
-                    i++
-                }
+                listeners.forEach { it.onAnimationStart(drawable) }
             }
 
             override fun onAnimationCancel(animation: Animator) {
-                var i = 0
-                val size = listeners.size
-                while (i < size) {
-                    listeners[i].onAnimationCancel(drawable)
-                    i++
-                }
+                listeners.forEach { it.onAnimationCancel(drawable) }
             }
 
             override fun onAnimationEnd(animation: Animator) {
-                var i = 0
-                val size = listeners.size
-                while (i < size) {
-                    listeners[i].onAnimationEnd(drawable)
-                    i++
-                }
+                listeners.forEach { it.onAnimationEnd(drawable) }
             }
         }
 
@@ -476,15 +456,10 @@ class KyrieDrawable private constructor(
             addUpdateListener { animation ->
                 playTime = animation.currentPlayTime
                 timeline.setCurrentPlayTime(playTime)
-                var i = 0
-                val size = listeners.size
-                while (i < size) {
-                    listeners[i].onAnimationUpdate(drawable)
-                    i++
-                }
+                listeners.forEach { it.onAnimationUpdate(drawable) }
             }
             val totalDuration = timeline.totalDuration
-            duration = if (totalDuration == Animation.INFINITE.toLong()) java.lang.Long.MAX_VALUE else totalDuration
+            duration = if (totalDuration == Animation.INFINITE) Long.MAX_VALUE else totalDuration
         }
 
         override fun pause() {
@@ -493,12 +468,7 @@ class KyrieDrawable private constructor(
                 val currentPlayTime = this.playTime
                 cancelWithoutNotify()
                 setCurrentPlayTime(currentPlayTime)
-                var i = 0
-                val size = listeners.size
-                while (i < size) {
-                    listeners[i].onAnimationPause(drawable)
-                    i++
-                }
+                listeners.forEach { it.onAnimationPause(drawable) }
             }
         }
 
@@ -514,12 +484,7 @@ class KyrieDrawable private constructor(
                 val currentPlayTime = this.playTime
                 startWithoutNotify()
                 setCurrentPlayTime(currentPlayTime)
-                var i = 0
-                val size = listeners.size
-                while (i < size) {
-                    listeners[i].onAnimationResume(drawable)
-                    i++
-                }
+                listeners.forEach { it.onAnimationResume(drawable) }
             }
         }
 

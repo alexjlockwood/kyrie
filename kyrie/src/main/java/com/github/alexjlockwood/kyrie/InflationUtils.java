@@ -573,7 +573,6 @@ final class InflationUtils {
     } catch (XmlPullParserException | IOException ex) {
       final NotFoundException rnf =
           new NotFoundException("Can't load animation resource ID #0x" + Integer.toHexString(id));
-      //noinspection UnnecessaryInitCause
       rnf.initCause(ex);
       throw rnf;
     } finally {
@@ -1503,7 +1502,6 @@ final class InflationUtils {
     } catch (XmlPullParserException | IOException e) {
       final NotFoundException rnf =
           new NotFoundException("Can't load animation resource ID #0x" + Integer.toHexString(id));
-      //noinspection UnnecessaryInitCause
       rnf.initCause(e);
       throw rnf;
     } finally {
