@@ -7,8 +7,7 @@ import android.view.animation.LinearInterpolator
 import androidx.annotation.IntRange
 
 /**
- * An [Animation] encapsulates the information required to animate a single property of a
- * [Node].
+ * An [Animation] encapsulates the information required to animate a single property of a [Node].
  *
  * @param T The animation's original value type.
  * @param V The animation's transformed value type.
@@ -35,6 +34,7 @@ class Animation<T, V> private constructor(
     @IntRange(from = 0L)
     var duration: Long = 300
         private set
+
     /**
      * Returns the timing interpolator that this animation uses. If null, a [LinearInterpolator]
      * will be used by default.
@@ -115,19 +115,6 @@ class Animation<T, V> private constructor(
         throwIfInitialized()
         this.duration = duration
         return this
-    }
-
-    /**
-     * Sets how many times the animation should be repeated. If the repeat count is 0, the animation
-     * is never repeated. If the repeat count is greater than 0 or [INFINITE], the repeat mode
-     * will be taken into account. The repeat count is 0 by default.
-     *
-     * @param repeatCount The number of times the animation should be repeated.
-     * @return This [Animation] object (to allow for chaining of calls to setter methods).
-     */
-    @Deprecated("use the overloaded method that takes a Long instead", ReplaceWith("repeatCount(repeatCount.toLong())"))
-    fun repeatCount(repeatCount: Int): Animation<T, V> {
-        return repeatCount(repeatCount.toLong())
     }
 
     /**
@@ -416,14 +403,14 @@ class Animation<T, V> private constructor(
         }
 
         /**
-         * Constructs and returns an [Animation] that animates between float[] values. A single
+         * Constructs and returns an [Animation] that animates between `float[]` values. A single
          * value implies that the value is the one being animated to, in which case the start value will
          * be derived from the property being animated and the target object when the animation is
          * started. Two values imply starting and ending values. More than two values imply a starting
          * value, values to animate through along the way, and an ending value (these values will be
          * distributed evenly across the duration of the animation).
          *
-         * @param values A set of values that the animation will animate through over time. The float[]
+         * @param values A set of values that the animation will animate through over time. The `float[]`
          * values should all have the same length.
          * @return A new [Animation].
          */
@@ -433,7 +420,7 @@ class Animation<T, V> private constructor(
         }
 
         /**
-         * Same as [ofFloatArray] except with [Keyframe]s instead of float[]
+         * Same as [ofFloatArray] except with [Keyframe]s instead of `float[]`
          * values.
          *
          * @param values A set of [Keyframe]s that the animation will animate through over time.
@@ -463,8 +450,7 @@ class Animation<T, V> private constructor(
         }
 
         /**
-         * Same as [ofPathMorph] except with [Keyframe]s instead of float[]
-         * values.
+         * Same as [ofPathMorph] except with [Keyframe]s instead of `float[]` values.
          *
          * @param values A set of [Keyframe]s that the animation will animate through over time.
          * @return A new [Animation].
