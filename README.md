@@ -41,7 +41,7 @@ Once we do this, we can perform several actions that are currently not possible 
 
 We can also build `KyrieDrawable`s at runtime using the builder pattern. `KyrieDrawable`s are similar to SVGs and `VectorDrawable`s in that they are tree-like structures built of [`Node`][node]s. As we build the tree, we can optionally assign [`Animation`][animation]s to the properties of each `Node` to create a more elaborate animation.
 
-Here is a snippet of code from the [sample app][progressfragment] that shows how we can programatically create a circular progress indicator:
+Here is a snippet of code that shows how we can programatically create a circular progress indicator (see the [sample app][progressfragment] for examples in both Kotlin and Java):
 
 ```kotlin
 val drawable =
@@ -81,49 +81,6 @@ val drawable =
             }
         }
     }
-```
-
-Or in Java:
-
-```java
-KyrieDrawable drawable =
-    KyrieDrawable.builder()
-        .viewport(48f, 48f)
-        .tint(Color.RED)
-        .child(
-            GroupNode.builder()
-                .translateX(24f)
-                .translateY(24f)
-                .rotation(
-                    Animation.ofFloat(0f, 720f)
-                        .duration(4444)
-                        .repeatCount(Animation.INFINITE))
-                .child(
-                    PathNode.builder()
-                        .strokeColor(Color.WHITE)
-                        .strokeWidth(4f)
-                        .trimPathStart(
-                            Animation.ofFloat(0f, 0.75f)
-                                .duration(1333)
-                                .repeatCount(Animation.INFINITE)
-                                .interpolator(
-                                    PathInterpolatorCompat.create(
-                                        PathData.toPath("M0 0h.5C.7 0 .6 1 1 1"))))
-                        .trimPathEnd(
-                            Animation.ofFloat(0.03f, 0.78f)
-                                .duration(1333)
-                                .repeatCount(Animation.INFINITE)
-                                .interpolator(
-                                    PathInterpolatorCompat.create(
-                                        PathData.toPath(
-                                            "M0 0c.2 0 .1 1 .5.96C.966.96.993 1 1 1"))))
-                        .trimPathOffset(
-                            Animation.ofFloat(0f, 0.25f)
-                                .duration(1333)
-                                .repeatCount(Animation.INFINITE))
-                        .strokeLineCap(StrokeLineCap.SQUARE)
-                        .pathData("M0-18a18 18 0 1 1 0 36 18 18 0 1 1 0-36")))
-        .build();
 ```
 
 ## Further reading
