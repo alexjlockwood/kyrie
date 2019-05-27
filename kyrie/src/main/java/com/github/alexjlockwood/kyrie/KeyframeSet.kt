@@ -9,7 +9,7 @@ import java.util.Arrays
  * Abstracts a collection of [Keyframe] objects and is used to calculate values between those
  * keyframes for a given [Animation].
  *
- * @param <T> The keyframe value type.
+ * @param T The keyframe value type.
  */
 internal abstract class KeyframeSet<T> {
 

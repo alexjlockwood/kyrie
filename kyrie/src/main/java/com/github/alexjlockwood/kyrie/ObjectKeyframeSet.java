@@ -13,7 +13,7 @@ import java.util.List;
  * Abstracts a collection of {@link Keyframe} objects and is used to calculate values between those
  * keyframes for a given {@link Animation}.
  *
- * @param <T> The keyframe value type.
+ * @param T The keyframe value type.
  */
 final class ObjectKeyframeSet<T> extends KeyframeSet<T> {
 

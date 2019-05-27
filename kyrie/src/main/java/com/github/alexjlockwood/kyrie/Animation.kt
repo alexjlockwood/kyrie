@@ -11,8 +11,8 @@ import androidx.annotation.IntRange
  * An [Animation] encapsulates the information required to animate a single property of a
  * [Node].
  *
- * @param <T> The animation's original value type.
- * @param <V> The animation's transformed value type.
+ * @param T The animation's original value type.
+ * @param V The animation's transformed value type.
  */
 class Animation<T, V> private constructor(
         private val keyframeSet: KeyframeSet<T>,
@@ -221,7 +221,7 @@ class Animation<T, V> private constructor(
      * Creates a new animation with original value type `T` and a new transformed value
      * type `W`.
      *
-     * @param <W> The animation's new transformed value type.
+     * @param W The animation's new transformed value type.
      * @param transformer The value transformer to use to transform the animation's original type
      * `T` to a new transformed value type `W`.
      * @return A new animation with the same original value type `T` and transformed value
@@ -240,7 +240,7 @@ class Animation<T, V> private constructor(
      * Creates a new animation with original value type `T` and a new transformed value
      * type `W`.
      *
-     * @param <W> The animation's new transformed value type.
+     * @param W The animation's new transformed value type.
      * @param transformer The value transformer to use to transform the animation's original type
      * `T` to a new transformed value type `W`.
      * @return A new animation with the same original value type `T` and transformed value
@@ -260,8 +260,8 @@ class Animation<T, V> private constructor(
      * necessary when the original value type of an animation is different than the desired value
      * type.
      *
-     * @param <T> The animation's original value type.
-     * @param <V> The animation's transformed value type.
+     * @param T The animation's original value type.
+     * @param V The animation's transformed value type.
      */
     interface ValueTransformer<T, V> {
         /**
@@ -279,8 +279,8 @@ class Animation<T, V> private constructor(
      * This interface is only needed when working with an [Animation] with no explicitly set
      * start value and that has been transformed using [transform].
      *
-     * @param <T> The animation's original value type.
-     * @param <V> The animation's transformed value type.
+     * @param T The animation's original value type.
+     * @param V The animation's transformed value type.
      */
     interface BidirectionalValueTransformer<T, V> : ValueTransformer<T, V> {
         /**

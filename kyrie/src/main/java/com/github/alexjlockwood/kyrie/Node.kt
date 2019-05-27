@@ -33,7 +33,7 @@ abstract class Node internal constructor() {
     /**
      * Base class for all [Node.Builder]s used to construct new [Node] instances.
      *
-     * @param <B> The concrete builder subclass type.
+     * @param B The concrete builder subclass type.
      */
     @NodeMarker
     abstract class Builder<B : Builder<B>> internal constructor() {
