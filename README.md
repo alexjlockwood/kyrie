@@ -57,13 +57,13 @@ val drawable =
                     Animation.ofFloat(0f, 0.75f)
                         .duration(1333)
                         .repeatCount(Animation.INFINITE)
-                        .interpolator("M0 0h.5C.7 0 .6 1 1 1".asPathInterpolator())
+                        .interpolator("M 0 0 h .5 C .7 0 .6 1 1 1".asPathInterpolator())
                 )
                 trimPathEnd(
                     Animation.ofFloat(0.03f, 0.78f)
                         .duration(1333)
                         .repeatCount(Animation.INFINITE)
-                        .interpolator("M0 0c.2 0 .1 1 .5.96C.966.96.993 1 1 1".asPathInterpolator())
+                        .interpolator("M 0 0 c .2 0 .1 1 .5 1 C 1 1 1 1 1 1".asPathInterpolator())
                 )
                 trimPathOffset(
                     Animation.ofFloat(0f, 0.25f)
@@ -71,7 +71,7 @@ val drawable =
                         .repeatCount(Animation.INFINITE)
                 )
                 strokeLineCap(StrokeLineCap.SQUARE)
-                pathData("M0-18a18 18 0 1 1 0 36 18 18 0 1 1 0-36")
+                pathData("M 0 -18 a 18 18 0 1 1 0 36 18 18 0 1 1 0 -36")
             }
         }
     }
@@ -95,6 +95,8 @@ In addition to supporting 100% of the features that `VectorDrawable`s and `Anima
   - Similar to `vector-effect="non-scaling-stroke"` in SVG.
 - Path `strokeDashArray` and `strokeDashOffset`.
   - Similar to `stroke-dasharray` and `stroke-dashoffset` in SVG.
+- `strokeMiterLimit` is animatable.
+  - This is an animatable property in SVG but not in `VectorDrawable`s.
 
 ### `AnimatedVectorDrawable`s
 
