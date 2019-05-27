@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="indigo500">#3f51b5</color>
-    <color name="indigo700">#303f9f</color>
-    <color name="pinkA200">#ff4081</color>
+    <color name="colorPrimary">#007a33</color>
+    <color name="colorPrimaryDark">#004d08</color>
+    <color name="colorAccent">#007a33</color>
+
+    <color name="ic_launcher_background">@color/colorPrimary</color>
 </resources>
