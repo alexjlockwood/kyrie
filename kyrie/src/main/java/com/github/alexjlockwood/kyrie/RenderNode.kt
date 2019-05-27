@@ -41,13 +41,13 @@ abstract class RenderNode internal constructor(
         private val strokeDashOffset: List<Animation<*, Float>>,
         private val fillType: FillType,
         private val isScalingStroke: Boolean
-) : BaseNode(rotation, pivotX, pivotY, scaleX, scaleY, translateX, translateY) {
+) : TransformNode(rotation, pivotX, pivotY, scaleX, scaleY, translateX, translateY) {
 
     // <editor-fold desc="Layer">
 
     abstract override fun toLayer(timeline: PropertyTimeline): RenderLayer
 
-    internal abstract class RenderLayer(timeline: PropertyTimeline, node: RenderNode) : BaseNode.BaseLayer(timeline, node) {
+    internal abstract class RenderLayer(timeline: PropertyTimeline, node: RenderNode) : TransformNode.TransformLayer(timeline, node) {
         private val fillColor = registerAnimatableProperty(node.fillColor)
         private val fillColorComplex = node.fillColorComplex
         private val fillAlpha = registerAnimatableProperty(node.fillAlpha)
@@ -267,7 +267,7 @@ abstract class RenderNode internal constructor(
 
     // <editor-fold desc="Builder">
 
-    abstract class Builder<B : Builder<B>> internal constructor() : BaseNode.Builder<B>() {
+    abstract class Builder<B : Builder<B>> internal constructor() : TransformNode.Builder<B>() {
         internal val fillColor = asAnimations(Color.TRANSPARENT)
         internal var fillColorComplex: ComplexColor? = null
         internal val fillAlpha = asAnimations(1f)

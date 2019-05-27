@@ -14,7 +14,7 @@ class GroupNode private constructor(
         translateX: List<Animation<*, Float>>,
         translateY: List<Animation<*, Float>>,
         private val children: List<Node>
-) : BaseNode(rotation, pivotX, pivotY, scaleX, scaleY, translateX, translateY) {
+) : TransformNode(rotation, pivotX, pivotY, scaleX, scaleY, translateX, translateY) {
 
     // <editor-fold desc="Layer">
 
@@ -22,7 +22,7 @@ class GroupNode private constructor(
         return GroupLayer(timeline, this)
     }
 
-    internal class GroupLayer(timeline: PropertyTimeline, node: GroupNode) : BaseNode.BaseLayer(timeline, node) {
+    internal class GroupLayer(timeline: PropertyTimeline, node: GroupNode) : TransformNode.TransformLayer(timeline, node) {
         private val children: ArrayList<Layer>
 
         init {
@@ -69,7 +69,7 @@ class GroupNode private constructor(
 
     /** Builder class used to create [GroupNode]s. */
     @GroupNodeMarker
-    class Builder internal constructor() : BaseNode.Builder<Builder>() {
+    class Builder internal constructor() : TransformNode.Builder<Builder>() {
         private val children = ArrayList<Node>()
 
         // Children.

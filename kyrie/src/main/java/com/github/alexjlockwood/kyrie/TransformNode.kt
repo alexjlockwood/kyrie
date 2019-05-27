@@ -5,7 +5,8 @@ import android.graphics.Matrix
 import android.graphics.PointF
 import androidx.annotation.Size
 
-abstract class BaseNode internal constructor(
+/** Abstract base [Node] for all node types that can be transformed. */
+abstract class TransformNode internal constructor(
         val rotation: List<Animation<*, Float>>,
         val pivotX: List<Animation<*, Float>>,
         val pivotY: List<Animation<*, Float>>,
@@ -17,9 +18,9 @@ abstract class BaseNode internal constructor(
 
     // <editor-fold desc="Layer">
 
-    abstract override fun toLayer(timeline: PropertyTimeline): BaseLayer
+    abstract override fun toLayer(timeline: PropertyTimeline): TransformLayer
 
-    internal abstract class BaseLayer(private val timeline: PropertyTimeline, node: BaseNode) : Layer {
+    internal abstract class TransformLayer(private val timeline: PropertyTimeline, node: TransformNode) : Layer {
         private val rotation: Property<Float> = registerAnimatableProperty(node.rotation)
         private val pivotX: Property<Float>
         private val pivotY: Property<Float>
@@ -103,9 +104,9 @@ abstract class BaseNode internal constructor(
     // <editor-fold desc="Builder">
 
     @DslMarker
-    private annotation class BaseNodeMarker
+    private annotation class TransformNodeMarker
 
-    @BaseNodeMarker
+    @TransformNodeMarker
     abstract class Builder<B : Builder<B>> internal constructor() : Node.Builder<B>() {
         val rotation: MutableList<Animation<*, Float>> = asAnimations(0f)
         val pivotX: MutableList<Animation<*, Float>> = asAnimations(0f)
@@ -220,7 +221,7 @@ abstract class BaseNode internal constructor(
             return replaceAnimations(translateY, animations)
         }
 
-        abstract override fun build(): BaseNode
+        abstract override fun build(): TransformNode
     }
 
     // </editor-fold>

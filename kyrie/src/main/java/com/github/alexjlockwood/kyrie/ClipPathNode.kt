@@ -21,7 +21,7 @@ class ClipPathNode private constructor(
         private val pathData: List<Animation<*, PathData>>,
         private val fillType: FillType,
         private val clipType: ClipType
-) : BaseNode(rotation, pivotX, pivotY, scaleX, scaleY, translateX, translateY) {
+) : TransformNode(rotation, pivotX, pivotY, scaleX, scaleY, translateX, translateY) {
 
     // <editor-fold desc="Layer">
 
@@ -29,7 +29,7 @@ class ClipPathNode private constructor(
         return ClipPathLayer(timeline, this)
     }
 
-    internal class ClipPathLayer(timeline: PropertyTimeline, node: ClipPathNode) : BaseNode.BaseLayer(timeline, node) {
+    internal class ClipPathLayer(timeline: PropertyTimeline, node: ClipPathNode) : TransformNode.TransformLayer(timeline, node) {
         private val pathData = registerAnimatableProperty(node.pathData)
         private val fillType = node.fillType
         private val clipType = node.clipType
@@ -88,7 +88,7 @@ class ClipPathNode private constructor(
 
     /** Builder class used to create [ClipPathNode]s. */
     @ClipPathNodeMarker
-    class Builder internal constructor() : BaseNode.Builder<Builder>() {
+    class Builder internal constructor() : TransformNode.Builder<Builder>() {
         private val pathData = asAnimations(PathData())
         private var fillType = FillType.NON_ZERO
         private var clipType = ClipType.INTERSECT
