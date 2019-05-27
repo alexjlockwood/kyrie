@@ -9,8 +9,7 @@
 <br/>
 <h1>Animation</h1>
 <code><span class="keyword">class </span><span class="identifier">Animation</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">V</span><span class="symbol">&gt;</span></code>
-<p>An <a href="./index.html">Animation</a> encapsulates the information required to animate a single property of a
-<a href="../-node/index.html">Node</a>.</p>
+<p>An <a href="./index.html">Animation</a> encapsulates the information required to animate a single property of a <a href="../-node/index.html">Node</a>.</p>
 <h3>Parameters</h3>
 <p><a name="T"></a>
 <code>T</code> - The animation's original value type.</p>
@@ -150,7 +149,6 @@ will be used by default.</p>
 <p><a href="repeat-count.html">repeatCount</a></p>
 </td>
 <td>
-<code><span class="keyword">fun </span><s><span class="identifier">repeatCount</span></s><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.Animation$repeatCount(kotlin.Int)/repeatCount">repeatCount</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="index.html#V"><span class="identifier">V</span></a><span class="symbol">&gt;</span></code><br/>
 <code><span class="keyword">fun </span><span class="identifier">repeatCount</span><span class="symbol">(</span><span class="identifier" id="com.github.alexjlockwood.kyrie.Animation$repeatCount(kotlin.Long)/repeatCount">repeatCount</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="index.html#V"><span class="identifier">V</span></a><span class="symbol">&gt;</span></code>
 <p>Sets how many times the animation should be repeated. If the repeat count is 0, the animation
 is never repeated. If the repeat count is greater than 0 or <a href="-i-n-f-i-n-i-t-e.html">INFINITE</a>, the repeat mode
@@ -245,14 +243,14 @@ evenly across the duration of the animation).</p>
 </td>
 <td>
 <code><span class="keyword">fun </span><span class="identifier">ofFloatArray</span><span class="symbol">(</span><span class="keyword">vararg</span> <span class="identifier" id="com.github.alexjlockwood.kyrie.Animation.Companion$ofFloatArray(kotlin.Array((kotlin.FloatArray)))/values">values</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float-array/index.html"><span class="identifier">FloatArray</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float-array/index.html"><span class="identifier">FloatArray</span></a><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float-array/index.html"><span class="identifier">FloatArray</span></a><span class="symbol">&gt;</span></code>
-<p>Constructs and returns an <a href="./index.html">Animation</a> that animates between float[] values. A single
+<p>Constructs and returns an <a href="./index.html">Animation</a> that animates between <code>float[]</code> values. A single
 value implies that the value is the one being animated to, in which case the start value will
 be derived from the property being animated and the target object when the animation is
 started. Two values imply starting and ending values. More than two values imply a starting
 value, values to animate through along the way, and an ending value (these values will be
 distributed evenly across the duration of the animation).</p>
 <code><span class="keyword">fun </span><span class="identifier">ofFloatArray</span><span class="symbol">(</span><span class="keyword">vararg</span> <span class="identifier" id="com.github.alexjlockwood.kyrie.Animation.Companion$ofFloatArray(kotlin.Array((com.github.alexjlockwood.kyrie.Keyframe((kotlin.FloatArray)))))/values">values</span><span class="symbol">:</span>&nbsp;<a href="../-keyframe/index.html"><span class="identifier">Keyframe</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float-array/index.html"><span class="identifier">FloatArray</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float-array/index.html"><span class="identifier">FloatArray</span></a><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float-array/index.html"><span class="identifier">FloatArray</span></a><span class="symbol">&gt;</span></code>
-<p>Same as <a href="of-float-array.html">ofFloatArray</a> except with <a href="../-keyframe/index.html">Keyframe</a>s instead of float[]
+<p>Same as <a href="of-float-array.html">ofFloatArray</a> except with <a href="../-keyframe/index.html">Keyframe</a>s instead of <code>float[]</code>
 values.</p>
 </td>
 </tr>
@@ -269,8 +267,7 @@ started. Two values imply starting and ending values. More than two values imply
 value, values to animate through along the way, and an ending value (these values will be
 distributed evenly across the duration of the animation).</p>
 <code><span class="keyword">fun </span><span class="identifier">ofPathMorph</span><span class="symbol">(</span><span class="keyword">vararg</span> <span class="identifier" id="com.github.alexjlockwood.kyrie.Animation.Companion$ofPathMorph(kotlin.Array((com.github.alexjlockwood.kyrie.Keyframe((com.github.alexjlockwood.kyrie.PathData)))))/values">values</span><span class="symbol">:</span>&nbsp;<a href="../-keyframe/index.html"><span class="identifier">Keyframe</span></a><span class="symbol">&lt;</span><a href="../-path-data/index.html"><span class="identifier">PathData</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><a href="../-path-data/index.html"><span class="identifier">PathData</span></a><span class="symbol">,</span>&nbsp;<a href="../-path-data/index.html"><span class="identifier">PathData</span></a><span class="symbol">&gt;</span></code>
-<p>Same as <a href="of-path-morph.html">ofPathMorph</a> except with <a href="../-keyframe/index.html">Keyframe</a>s instead of float[]
-values.</p>
+<p>Same as <a href="of-path-morph.html">ofPathMorph</a> except with <a href="../-keyframe/index.html">Keyframe</a>s instead of <code>float[]</code> values.</p>
 </td>
 </tr>
 <tr>

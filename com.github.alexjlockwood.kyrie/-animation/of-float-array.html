@@ -10,7 +10,7 @@
 <h1>ofFloatArray</h1>
 <a name="com.github.alexjlockwood.kyrie.Animation.Companion$ofFloatArray(kotlin.Array((kotlin.FloatArray)))"></a>
 <code><span class="identifier">@JvmStatic</span> <span class="keyword">fun </span><span class="identifier">ofFloatArray</span><span class="symbol">(</span><span class="keyword">vararg</span> <span class="identifier" id="com.github.alexjlockwood.kyrie.Animation.Companion$ofFloatArray(kotlin.Array((kotlin.FloatArray)))/values">values</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float-array/index.html"><span class="identifier">FloatArray</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float-array/index.html"><span class="identifier">FloatArray</span></a><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float-array/index.html"><span class="identifier">FloatArray</span></a><span class="symbol">&gt;</span></code>
-<p>Constructs and returns an <a href="index.html">Animation</a> that animates between float[] values. A single
+<p>Constructs and returns an <a href="index.html">Animation</a> that animates between <code>float[]</code> values. A single
 value implies that the value is the one being animated to, in which case the start value will
 be derived from the property being animated and the target object when the animation is
 started. Two values imply starting and ending values. More than two values imply a starting
@@ -18,13 +18,13 @@ value, values to animate through along the way, and an ending value (these value
 distributed evenly across the duration of the animation).</p>
 <h3>Parameters</h3>
 <p><a name="values"></a>
-<code>values</code> - A set of values that the animation will animate through over time. The float[]
+<code>values</code> - A set of values that the animation will animate through over time. The <code>float[]</code>
 values should all have the same length.</p>
 <p><strong>Return</strong><br/>
 A new <a href="index.html">Animation</a>.</p>
 <a name="com.github.alexjlockwood.kyrie.Animation.Companion$ofFloatArray(kotlin.Array((com.github.alexjlockwood.kyrie.Keyframe((kotlin.FloatArray)))))"></a>
 <code><span class="identifier">@JvmStatic</span> <span class="identifier">@SafeVarargs</span> <span class="keyword">fun </span><span class="identifier">ofFloatArray</span><span class="symbol">(</span><span class="keyword">vararg</span> <span class="identifier" id="com.github.alexjlockwood.kyrie.Animation.Companion$ofFloatArray(kotlin.Array((com.github.alexjlockwood.kyrie.Keyframe((kotlin.FloatArray)))))/values">values</span><span class="symbol">:</span>&nbsp;<a href="../-keyframe/index.html"><span class="identifier">Keyframe</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float-array/index.html"><span class="identifier">FloatArray</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float-array/index.html"><span class="identifier">FloatArray</span></a><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float-array/index.html"><span class="identifier">FloatArray</span></a><span class="symbol">&gt;</span></code>
-<p>Same as <a href="./of-float-array.html">ofFloatArray</a> except with <a href="../-keyframe/index.html">Keyframe</a>s instead of float[]
+<p>Same as <a href="./of-float-array.html">ofFloatArray</a> except with <a href="../-keyframe/index.html">Keyframe</a>s instead of <code>float[]</code>
 values.</p>
 <h3>Parameters</h3>
 <p><a name="values"></a>
