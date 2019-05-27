@@ -19,10 +19,8 @@ class ClipPathNode private constructor(
         translateX: List<Animation<*, Float>>,
         translateY: List<Animation<*, Float>>,
         private val pathData: List<Animation<*, PathData>>,
-        @param:FillType @field:FillType @get:FillType
-        private val fillType: Int,
-        @param:ClipType @field:ClipType @get:ClipType
-        private val clipType: Int
+        private val fillType: FillType,
+        private val clipType: ClipType
 ) : BaseNode(rotation, pivotX, pivotY, scaleX, scaleY, translateX, translateY) {
 
     // <editor-fold desc="Layer">
@@ -33,9 +31,7 @@ class ClipPathNode private constructor(
 
     internal class ClipPathLayer(timeline: PropertyTimeline, node: ClipPathNode) : BaseNode.BaseLayer(timeline, node) {
         private val pathData = registerAnimatableProperty(node.pathData)
-        @FillType
         private val fillType = node.fillType
-        @ClipType
         private val clipType = node.clipType
 
         private val tempMatrix = Matrix()
@@ -67,11 +63,10 @@ class ClipPathNode private constructor(
             }
         }
 
-        private fun getPaintFillType(@FillType fillType: Int): Path.FillType {
+        private fun getPaintFillType(fillType: FillType): Path.FillType {
             return when (fillType) {
                 FillType.NON_ZERO -> Path.FillType.WINDING
                 FillType.EVEN_ODD -> Path.FillType.EVEN_ODD
-                else -> throw IllegalArgumentException("Invalid fill type: $fillType")
             }
         }
 
@@ -95,9 +90,7 @@ class ClipPathNode private constructor(
     @ClipPathNodeMarker
     class Builder internal constructor() : BaseNode.Builder<Builder>() {
         private val pathData = asAnimations(PathData())
-        @FillType
         private var fillType = FillType.NON_ZERO
-        @ClipType
         private var clipType = ClipType.INTERSECT
 
         // Path data.
@@ -121,14 +114,14 @@ class ClipPathNode private constructor(
 
         // Fill type.
 
-        fun fillType(@FillType fillType: Int): Builder {
+        fun fillType(fillType: FillType): Builder {
             this.fillType = fillType
             return self
         }
 
         // Clip type.
 
-        fun clipType(@ClipType clipType: Int): Builder {
+        fun clipType(clipType: ClipType): Builder {
             this.clipType = clipType
             return self
         }

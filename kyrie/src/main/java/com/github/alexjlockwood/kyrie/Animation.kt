@@ -4,7 +4,6 @@ import android.animation.TimeInterpolator
 import android.graphics.Path
 import android.graphics.PointF
 import android.view.animation.LinearInterpolator
-import androidx.annotation.IntDef
 import androidx.annotation.IntRange
 
 /**
@@ -58,8 +57,6 @@ class Animation<T, V> private constructor(
      *
      * @return Either one of [RepeatMode.RESTART] or [RepeatMode.REVERSE].
      */
-    @RepeatMode
-    @get:RepeatMode
     var repeatMode = RepeatMode.RESTART
         private set
 
@@ -75,22 +72,18 @@ class Animation<T, V> private constructor(
     val totalDuration: Long
         get() = if (repeatCount == INFINITE) INFINITE else startDelay + duration * (repeatCount + 1)
 
-    /** Repeat mode determines how a repeating animation should behave once it completes.  */
-    @Retention(AnnotationRetention.SOURCE)
-    @IntDef(RepeatMode.RESTART, RepeatMode.REVERSE)
-    annotation class RepeatMode {
-        companion object {
-            /**
-             * When the animation reaches the end and `repeatCount` is [INFINITE] or a
-             * positive value, the animation restarts from the beginning.
-             */
-            const val RESTART = 1
-            /**
-             * When the animation reaches the end and `repeatCount` is [INFINITE] or a
-             * positive value, the animation reverses direction on every iteration.
-             */
-            const val REVERSE = 2
-        }
+    /** Repeat mode determines how a repeating animation should behave once it completes. */
+    enum class RepeatMode {
+        /**
+         * When the animation reaches the end and `repeatCount` is [INFINITE] or a
+         * positive value, the animation restarts from the beginning.
+         */
+        RESTART,
+        /**
+         * When the animation reaches the end and `repeatCount` is [INFINITE] or a
+         * positive value, the animation reverses direction on every iteration.
+         */
+        REVERSE
     }
 
     private fun throwIfInitialized() {
@@ -158,7 +151,7 @@ class Animation<T, V> private constructor(
      * @param repeatMode [RepeatMode.RESTART] or [RepeatMode.REVERSE].
      * @return This [Animation] object (to allow for chaining of calls to setter methods).
      */
-    fun repeatMode(@RepeatMode repeatMode: Int): Animation<T, V> {
+    fun repeatMode(repeatMode: RepeatMode): Animation<T, V> {
         throwIfInitialized()
         this.repeatMode = repeatMode
         return this

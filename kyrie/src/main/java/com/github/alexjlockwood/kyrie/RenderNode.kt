@@ -33,15 +33,12 @@ abstract class RenderNode internal constructor(
         private val trimPathStart: List<Animation<*, Float>>,
         private val trimPathEnd: List<Animation<*, Float>>,
         private val trimPathOffset: List<Animation<*, Float>>,
-        @param:StrokeLineCap @field:StrokeLineCap @get:StrokeLineCap
-        private val strokeLineCap: Int,
-        @param:StrokeLineJoin @field:StrokeLineJoin @get:StrokeLineJoin
-        private val strokeLineJoin: Int,
+        private val strokeLineCap: StrokeLineCap,
+        private val strokeLineJoin: StrokeLineJoin,
         private val strokeMiterLimit: List<Animation<*, Float>>,
         private val strokeDashArray: List<Animation<*, FloatArray>>,
         private val strokeDashOffset: List<Animation<*, Float>>,
-        @param:FillType @field:FillType @get:FillType
-        private val fillType: Int,
+        private val fillType: FillType,
         private val isScalingStroke: Boolean
 ) : BaseNode(rotation, pivotX, pivotY, scaleX, scaleY, translateX, translateY) {
 
@@ -60,14 +57,11 @@ abstract class RenderNode internal constructor(
         private val trimPathStart = registerAnimatableProperty(node.trimPathStart)
         private val trimPathEnd = registerAnimatableProperty(node.trimPathEnd)
         private val trimPathOffset = registerAnimatableProperty(node.trimPathOffset)
-        @StrokeLineCap
         private val strokeLineCap = node.strokeLineCap
-        @StrokeLineJoin
         private val strokeLineJoin = node.strokeLineJoin
         private val strokeMiterLimit = registerAnimatableProperty(node.strokeMiterLimit)
         private val strokeDashArray = registerAnimatableProperty(node.strokeDashArray)
         private val strokeDashOffset = registerAnimatableProperty(node.strokeDashOffset)
-        @FillType
         private val fillType = node.fillType
         private val isStrokeScaling = node.isScalingStroke
 
@@ -233,29 +227,26 @@ abstract class RenderNode internal constructor(
             return c
         }
 
-        private fun getPaintStrokeLineCap(@StrokeLineCap strokeLineCap: Int): Paint.Cap {
+        private fun getPaintStrokeLineCap(strokeLineCap: StrokeLineCap): Paint.Cap {
             return when (strokeLineCap) {
                 StrokeLineCap.BUTT -> Paint.Cap.BUTT
                 StrokeLineCap.ROUND -> Paint.Cap.ROUND
                 StrokeLineCap.SQUARE -> Paint.Cap.SQUARE
-                else -> throw IllegalArgumentException("Invalid stroke line cap: $strokeLineCap")
             }
         }
 
-        private fun getPaintStrokeLineJoin(@StrokeLineJoin strokeLineJoin: Int): Paint.Join {
+        private fun getPaintStrokeLineJoin(strokeLineJoin: StrokeLineJoin): Paint.Join {
             return when (strokeLineJoin) {
                 StrokeLineJoin.MITER -> Paint.Join.MITER
                 StrokeLineJoin.ROUND -> Paint.Join.ROUND
                 StrokeLineJoin.BEVEL -> Paint.Join.BEVEL
-                else -> throw IllegalArgumentException("Invalid stroke line join: $strokeLineJoin")
             }
         }
 
-        private fun getPaintFillType(@FillType fillType: Int): Path.FillType {
+        private fun getPaintFillType(fillType: FillType): Path.FillType {
             return when (fillType) {
                 FillType.NON_ZERO -> Path.FillType.WINDING
                 FillType.EVEN_ODD -> Path.FillType.EVEN_ODD
-                else -> throw IllegalArgumentException("Invalid fill type: $fillType")
             }
         }
 
@@ -286,14 +277,11 @@ abstract class RenderNode internal constructor(
         internal val trimPathStart = asAnimations(0f)
         internal val trimPathEnd = asAnimations(1f)
         internal val trimPathOffset = asAnimations(0f)
-        @StrokeLineCap
         internal var strokeLineCap = StrokeLineCap.BUTT
-        @StrokeLineJoin
         internal var strokeLineJoin = StrokeLineJoin.MITER
         internal val strokeMiterLimit = asAnimations(4f)
         internal val strokeDashArray = asAnimations(FloatArray(0))
         internal val strokeDashOffset = asAnimations(0f)
-        @FillType
         internal var fillType = FillType.NON_ZERO
         internal var isScalingStroke = true
 
@@ -461,14 +449,14 @@ abstract class RenderNode internal constructor(
 
         // Stroke line cap.
 
-        fun strokeLineCap(@StrokeLineCap strokeLineCap: Int): B {
+        fun strokeLineCap(strokeLineCap: StrokeLineCap): B {
             this.strokeLineCap = strokeLineCap
             return self
         }
 
         // Stroke line join.
 
-        fun strokeLineJoin(@StrokeLineJoin strokeLineJoin: Int): B {
+        fun strokeLineJoin(strokeLineJoin: StrokeLineJoin): B {
             this.strokeLineJoin = strokeLineJoin
             return self
         }
@@ -524,7 +512,7 @@ abstract class RenderNode internal constructor(
 
         // Fill type.
 
-        fun fillType(@FillType fillType: Int): B {
+        fun fillType(fillType: FillType): B {
             this.fillType = fillType
             return self
         }

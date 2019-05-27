@@ -21,12 +21,12 @@ class PathNode private constructor(
         trimPathStart: List<Animation<*, Float>>,
         trimPathEnd: List<Animation<*, Float>>,
         trimPathOffset: List<Animation<*, Float>>,
-        @StrokeLineCap strokeLineCap: Int,
-        @StrokeLineJoin strokeLineJoin: Int,
+        strokeLineCap: StrokeLineCap,
+        strokeLineJoin: StrokeLineJoin,
         strokeMiterLimit: List<Animation<*, Float>>,
         strokeDashArray: List<Animation<*, FloatArray>>,
         strokeDashOffset: List<Animation<*, Float>>,
-        @FillType fillType: Int,
+        fillType: FillType,
         isStrokeScaling: Boolean,
         private val pathData: List<Animation<*, PathData>>
 ) : RenderNode(

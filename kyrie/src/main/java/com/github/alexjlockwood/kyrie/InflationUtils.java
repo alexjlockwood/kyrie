@@ -464,27 +464,22 @@ final class InflationUtils {
     if (animationMap != null && animationMap.containsKey("trimPathOffset")) {
       builder.trimPathOffset((Animation<?, Float>[]) animationMap.get("trimPathOffset"));
     }
-    @StrokeLineCap
     final int lineCap =
-        TypedArrayUtils.getNamedInt(
-            a, parser, "strokeLineCap", Styleable.Path.STROKE_LINE_CAP, StrokeLineCap.BUTT);
-    builder.strokeLineCap(lineCap);
-    @StrokeLineJoin
+        TypedArrayUtils.getNamedInt(a, parser, "strokeLineCap", Styleable.Path.STROKE_LINE_CAP, 0);
+    builder.strokeLineCap(StrokeLineCap.values()[lineCap]);
     final int lineJoin =
         TypedArrayUtils.getNamedInt(
-            a, parser, "strokeLineJoin", Styleable.Path.STROKE_LINE_JOIN, StrokeLineJoin.MITER);
-    builder.strokeLineJoin(lineJoin);
+            a, parser, "strokeLineJoin", Styleable.Path.STROKE_LINE_JOIN, 0);
+    builder.strokeLineJoin(StrokeLineJoin.values()[lineJoin]);
     builder.strokeMiterLimit(
         TypedArrayUtils.getNamedFloat(
             a, parser, "strokeMiterLimit", Styleable.Path.STROKE_MITER_LIMIT, 4));
     if (animationMap != null && animationMap.containsKey("strokeMiterLimit")) {
       builder.strokeMiterLimit((Animation<?, Float>[]) animationMap.get("strokeMiterLimit"));
     }
-    @FillType
     final int fillType =
-        TypedArrayUtils.getNamedInt(
-            a, parser, "fillType", Styleable.Path.FILL_TYPE, FillType.NON_ZERO);
-    builder.fillType(fillType);
+        TypedArrayUtils.getNamedInt(a, parser, "fillType", Styleable.Path.FILL_TYPE, 0);
+    builder.fillType(FillType.values()[fillType]);
   }
 
   private static void inflateClipPath(
@@ -525,11 +520,9 @@ final class InflationUtils {
       }
     }
 
-    @FillType
     final int fillType =
-        TypedArrayUtils.getNamedInt(
-            a, parser, "fillType", Styleable.ClipPath.FILL_TYPE, FillType.NON_ZERO);
-    builder.fillType(fillType);
+        TypedArrayUtils.getNamedInt(a, parser, "fillType", Styleable.ClipPath.FILL_TYPE, 0);
+    builder.fillType(FillType.values()[fillType]);
   }
 
   // </editor-fold>
@@ -727,7 +720,17 @@ final class InflationUtils {
     anim.setDuration(duration);
     anim.setStartDelay(startDelay);
     anim.setRepeatCount(arrayAnimator.getInt(Styleable.Animator.REPEAT_COUNT, 0));
-    anim.setRepeatMode(arrayAnimator.getInt(Styleable.Animator.REPEAT_MODE, ValueAnimator.RESTART));
+    final int repeatModeInt =
+        arrayAnimator.getInt(Styleable.Animator.REPEAT_MODE, ValueAnimator.RESTART);
+    final RepeatMode repeatMode;
+    if (repeatModeInt == ValueAnimator.RESTART) {
+      repeatMode = RepeatMode.RESTART;
+    } else if (repeatModeInt == ValueAnimator.REVERSE) {
+      repeatMode = RepeatMode.REVERSE;
+    } else {
+      throw new InflateException("Invalid repeatMode: " + repeatModeInt);
+    }
+    anim.setRepeatMode(repeatMode);
 
     // Setup the object animator.
     final String pathData =
@@ -1152,12 +1155,12 @@ final class InflationUtils {
     private MyAnimator[] animators = {};
     private boolean isOrderingSequential = true;
 
-    public void playTogether(MyAnimator[] animators) {
+    void playTogether(MyAnimator[] animators) {
       this.animators = animators;
       isOrderingSequential = false;
     }
 
-    public void playSequentially(MyAnimator[] animators) {
+    void playSequentially(MyAnimator[] animators) {
       this.animators = animators;
       isOrderingSequential = true;
     }
@@ -1193,8 +1196,8 @@ final class InflationUtils {
   private static class MyObjectAnimator extends MyAnimator {
     private long startDelay;
     private long duration;
-    @RepeatMode private int repeatMode;
-    private int repeatCount;
+    private RepeatMode repeatMode;
+    private long repeatCount;
     @Nullable private TimeInterpolator interpolator;
     private MyPropertyValuesHolder[] values = {};
 
@@ -1214,19 +1217,19 @@ final class InflationUtils {
       return duration;
     }
 
-    public void setRepeatCount(int repeatCount) {
+    public void setRepeatCount(long repeatCount) {
       this.repeatCount = repeatCount;
     }
 
-    public int getRepeatCount() {
+    public long getRepeatCount() {
       return repeatCount;
     }
 
-    public void setRepeatMode(@RepeatMode int repeatMode) {
+    public void setRepeatMode(RepeatMode repeatMode) {
       this.repeatMode = repeatMode;
     }
 
-    public int getRepeatMode() {
+    public RepeatMode getRepeatMode() {
       return repeatMode;
     }
 
@@ -1267,8 +1270,8 @@ final class InflationUtils {
         long startTime,
         long endTime,
         TimeInterpolator interpolator,
-        int repeatCount,
-        @RepeatMode int repeatMode);
+        long repeatCount,
+        RepeatMode repeatMode);
   }
 
   private static class MySimplePropertyValuesHolder extends MyPropertyValuesHolder {
@@ -1277,7 +1280,7 @@ final class InflationUtils {
     @NonNull private final Object toValue;
     @ValueType private final int valueType;
 
-    public MySimplePropertyValuesHolder(
+    MySimplePropertyValuesHolder(
         String propertyName, @Nullable Object fromValue, Object toValue, @ValueType int valueType) {
       this.propertyName = propertyName;
       this.fromValue = fromValue;
@@ -1291,8 +1294,8 @@ final class InflationUtils {
         long startTime,
         long endTime,
         @Nullable TimeInterpolator interpolator,
-        int repeatCount,
-        @RepeatMode int repeatMode) {
+        long repeatCount,
+        RepeatMode repeatMode) {
       Animation<?, ?> anim;
       switch (valueType) {
         case VALUE_TYPE_FLOAT:
@@ -1318,7 +1321,6 @@ final class InflationUtils {
           } else {
             anim = Animation.ofPathMorph((PathData) fromValue, (PathData) toValue);
           }
-
           break;
         default:
           throw new IllegalStateException("Invalid value type: " + valueType);
@@ -1344,7 +1346,7 @@ final class InflationUtils {
     @Nullable private final String propertyNameX;
     @Nullable private final String propertyNameY;
 
-    public MyPathMotionPropertyValuesHolder(
+    MyPathMotionPropertyValuesHolder(
         Path path, @Nullable String propertyNameX, @Nullable String propertyNameY) {
       this.path = path;
       this.propertyNameX = propertyNameX;
@@ -1357,8 +1359,8 @@ final class InflationUtils {
         long startTime,
         long endTime,
         @Nullable TimeInterpolator interpolator,
-        int repeatCount,
-        @RepeatMode int repeatMode) {
+        long repeatCount,
+        RepeatMode repeatMode) {
       final Map<String, List<Animation<?, ?>>> map = new ArrayMap<>();
       if (interpolator == null) {
         interpolator = new AccelerateDecelerateInterpolator();
@@ -1418,8 +1420,8 @@ final class InflationUtils {
         long startTime,
         long endTime,
         @Nullable TimeInterpolator interpolator,
-        int repeatCount,
-        @RepeatMode int repeatMode) {
+        long repeatCount,
+        RepeatMode repeatMode) {
       final Map<String, List<Animation<?, ?>>> map = new ArrayMap<>();
       Animation<?, ?> anim;
       switch (valueType) {

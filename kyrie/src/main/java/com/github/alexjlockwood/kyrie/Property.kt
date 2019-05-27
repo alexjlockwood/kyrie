@@ -121,10 +121,10 @@ internal class Property<V>(animations: List<Animation<*, V>>) {
         val fraction = (currentPlayTime - startTime) / duration
         val currentIteration = getCurrentIteration(fraction)
         val repeatCount = animation.repeatCount
-        val repeatMode = animation.repeatMode.toLong()
+        val repeatMode = animation.repeatMode
         var currentFraction = fraction - currentIteration
         if (0 < currentIteration
-                && repeatMode == RepeatMode.REVERSE.toLong()
+                && repeatMode == RepeatMode.REVERSE
                 && (currentIteration < repeatCount + 1 || repeatCount == Animation.INFINITE)) {
             // TODO: when reversing, check if currentIteration % 2 == 0 instead
             if (currentIteration % 2 != 0) {
