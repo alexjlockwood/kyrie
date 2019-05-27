@@ -31,12 +31,6 @@ With Kyrie, we can convert an existing VD/AVD resource into a `KyrieDrawable` wi
 val drawable = KyrieDrawable.create(context, R.drawable.my_vd_or_avd);
 ```
 
-Once we do this, we can perform several actions that are currently not possible using `AnimatedVectorDrawable`s, such as:
-
-1. Seek the animation using [`setCurrentPlayTime(long)`][kyriedrawable#setcurrentplaytime].
-2. Pause and resume the animation using [`pause()`][kyriedrawable#pause] and [`resume()`][kyriedrawable#resume].
-3. Listen for animation events using [`addListener(KyrieDrawable.Listener)`][kyriedrawable#addlistener].
-
 ### Option #2: programatically using a [`KyrieDrawable.Builder`][kyriedrawable#builder]
 
 We can also build `KyrieDrawable`s at runtime using the builder pattern. `KyrieDrawable`s are similar to SVGs and `VectorDrawable`s in that they are tree-like structures built of [`Node`][node]s. As we build the tree, we can optionally assign [`Animation`][animation]s to the properties of each `Node` to create a more elaborate animation.
@@ -82,6 +76,33 @@ val drawable =
         }
     }
 ```
+
+## Features
+
+In addition to supporting 100% of the features that `VectorDrawable`s and `AnimatedVectorDrawable`s support natively, Kyrie also supports a number of extra features that make building animations more convenient and powerful.
+
+### `VectorDrawable`s
+
+- Convenience nodes: `CircleNode`, `EllipseNode`, `LineNode`, and `RectangleNode`.
+  - Similar to the `<circle>`, `<ellipse>`, `<line>`, and `<rect>` nodes in SVG.
+- Clip path `fillType`.
+  - Similar to `clip-rule` in SVG.
+- Clip path `clipType`.
+  - Can specify either "intersect" or "difference" as the clip path clip type.
+- Transformations can be set on any node.
+  - `VectorDrawable`s only support transformations on `<group>` nodes.
+- Path `scalingStroke`.
+  - Similar to `vector-effect="non-scaling-stroke"` in SVG.
+- Path `strokeDashArray` and `strokeDashOffset`.
+  - Similar to `stroke-dasharray` and `stroke-dashoffset` in SVG.
+
+### `AnimatedVectorDrawable`s
+
+Once we create a `KyrieDrawable`, we can perform several actions that are not possible using `AnimatedVectorDrawable`s:
+
+- Seek the animation using [`setCurrentPlayTime(long)`][kyriedrawable#setcurrentplaytime].
+- Pause and resume the animation using [`pause()`][kyriedrawable#pause] and [`resume()`][kyriedrawable#resume].
+- Listen for animation events using [`addListener(KyrieDrawable.Listener)`][kyriedrawable#addlistener].
 
 ## Further reading
 
