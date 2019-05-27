@@ -11,7 +11,6 @@ internal object PathDataUtils {
 
     private val EMPTY_PARAMS = floatArrayOf()
 
-    @JvmStatic
     fun toPath(pathData: String?): Path {
         var pathData = pathData
         if (pathData == null) {
@@ -29,7 +28,6 @@ internal object PathDataUtils {
         return path
     }
 
-    @JvmStatic
     fun parse(pathData: String?): PathData {
         var pathData = pathData
         if (pathData == null) {
@@ -53,7 +51,6 @@ internal object PathDataUtils {
         return PathData(list.toTypedArray())
     }
 
-    @JvmStatic
     fun canMorph(fromPathData: PathData?, toPathData: PathData?): Boolean {
         if (fromPathData == null || toPathData == null) {
             return false
@@ -71,7 +68,6 @@ internal object PathDataUtils {
         return true
     }
 
-    @JvmStatic
     fun toPath(pathData: PathData, path: Path) {
         val nodes = pathData.pathDatums
         val current = FloatArray(6)

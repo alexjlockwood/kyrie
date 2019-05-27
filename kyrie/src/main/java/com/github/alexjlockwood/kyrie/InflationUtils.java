@@ -989,8 +989,8 @@ final class InflationUtils {
     if (valueType == VALUE_TYPE_PATH) {
       final String fromString = styledAttributes.getString(valueFromId);
       final String toString = styledAttributes.getString(valueToId);
-      final PathData nodesFrom = PathData.parse(fromString);
-      final PathData nodesTo = PathData.parse(toString);
+      final PathData nodesFrom = PathData.parse(fromString == null ? "" : fromString);
+      final PathData nodesTo = PathData.parse(toString == null ? "" : toString);
       if (!nodesFrom.canMorphWith(nodesTo)) {
         throw new InflateException("Can't morph from " + fromString + " to " + toString);
       }
@@ -1579,7 +1579,7 @@ final class InflationUtils {
       final String pathData =
           TypedArrayUtils.getNamedString(
               a, parser, "pathData", Styleable.PathInterpolator.PATH_DATA);
-      final Path path = PathData.toPath(pathData);
+      final Path path = PathData.toPath(pathData == null ? "" : pathData);
       if (path.isEmpty()) {
         throw new InflateException("The path cannot be empty");
       }
