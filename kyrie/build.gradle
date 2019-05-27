@@ -20,7 +20,8 @@ android {
 
 dependencies {
     api "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
-    implementation 'androidx.appcompat:appcompat-resources:1.1.0-alpha05'
+    // TODO: depend on appcompat-resources v1.1.0 once it graduates from alpha
+    implementation 'androidx.appcompat:appcompat:1.0.2'
     compileOnly 'com.google.code.findbugs:jsr305:3.0.2'
 }
 
