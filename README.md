@@ -27,8 +27,8 @@ To create an animation using Kyrie, we first need to build a [`KyrieDrawable`][k
 
 With Kyrie, we can convert an existing VD/AVD resource into a `KyrieDrawable` with a single line:
 
-```java
-KyrieDrawable drawable = KyrieDrawable.create(context, R.drawable.my_vd_or_avd);
+```kotlin
+val drawable = KyrieDrawable.create(context, R.drawable.my_vd_or_avd);
 ```
 
 Once we do this, we can perform several actions that are currently not possible using `AnimatedVectorDrawable`s, such as:
