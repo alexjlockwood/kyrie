@@ -8,7 +8,7 @@
 <a href="../../index.html">kyrie</a>&nbsp;/&nbsp;<a href="../index.html">com.github.alexjlockwood.kyrie</a>&nbsp;/&nbsp;<a href="./index.html">GroupNode</a><br/>
 <br/>
 <h1>GroupNode</h1>
-<code><span class="keyword">class </span><span class="identifier">GroupNode</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-base-node/index.html"><span class="identifier">BaseNode</span></a></code>
+<code><span class="keyword">class </span><span class="identifier">GroupNode</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-transform-node/index.html"><span class="identifier">TransformNode</span></a></code>
 <p>A <a href="../-node/index.html">Node</a> that holds a group of children <a href="../-node/index.html">Node</a>s.</p>
 <h3>Types</h3>
 <table>
@@ -18,7 +18,7 @@
 <p><a href="-builder/index.html">Builder</a></p>
 </td>
 <td>
-<code><span class="keyword">class </span><span class="identifier">Builder</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-base-node/-builder/index.html"><span class="identifier">BaseNode.Builder</span></a><span class="symbol">&lt;</span><a href="-builder/index.html"><span class="identifier">GroupNode.Builder</span></a><span class="symbol">&gt;</span></code>
+<code><span class="keyword">class </span><span class="identifier">Builder</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-transform-node/-builder/index.html"><span class="identifier">TransformNode.Builder</span></a><span class="symbol">&lt;</span><a href="-builder/index.html"><span class="identifier">GroupNode.Builder</span></a><span class="symbol">&gt;</span></code>
 <p>Builder class used to create <a href="./index.html">GroupNode</a>s.</p>
 </td>
 </tr>
@@ -29,49 +29,49 @@
 <tbody>
 <tr>
 <td>
-<p><a href="../-base-node/pivot-x.html">pivotX</a></p>
+<p><a href="../-transform-node/pivot-x.html">pivotX</a></p>
 </td>
 <td>
 <code><span class="keyword">val </span><span class="identifier">pivotX</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
 </tr>
 <tr>
 <td>
-<p><a href="../-base-node/pivot-y.html">pivotY</a></p>
+<p><a href="../-transform-node/pivot-y.html">pivotY</a></p>
 </td>
 <td>
 <code><span class="keyword">val </span><span class="identifier">pivotY</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
 </tr>
 <tr>
 <td>
-<p><a href="../-base-node/rotation.html">rotation</a></p>
+<p><a href="../-transform-node/rotation.html">rotation</a></p>
 </td>
 <td>
 <code><span class="keyword">val </span><span class="identifier">rotation</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
 </tr>
 <tr>
 <td>
-<p><a href="../-base-node/scale-x.html">scaleX</a></p>
+<p><a href="../-transform-node/scale-x.html">scaleX</a></p>
 </td>
 <td>
 <code><span class="keyword">val </span><span class="identifier">scaleX</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
 </tr>
 <tr>
 <td>
-<p><a href="../-base-node/scale-y.html">scaleY</a></p>
+<p><a href="../-transform-node/scale-y.html">scaleY</a></p>
 </td>
 <td>
 <code><span class="keyword">val </span><span class="identifier">scaleY</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
 </tr>
 <tr>
 <td>
-<p><a href="../-base-node/translate-x.html">translateX</a></p>
+<p><a href="../-transform-node/translate-x.html">translateX</a></p>
 </td>
 <td>
 <code><span class="keyword">val </span><span class="identifier">translateX</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
 </tr>
 <tr>
 <td>
-<p><a href="../-base-node/translate-y.html">translateY</a></p>
+<p><a href="../-transform-node/translate-y.html">translateY</a></p>
 </td>
 <td>
 <code><span class="keyword">val </span><span class="identifier">translateY</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../-animation/index.html"><span class="identifier">Animation</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>

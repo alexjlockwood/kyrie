@@ -22,13 +22,6 @@
 </tr>
 <tr>
 <td>
-<p><a href="-base-node/index.html">BaseNode</a></p>
-</td>
-<td>
-<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">BaseNode</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-node/index.html"><span class="identifier">Node</span></a></code></td>
-</tr>
-<tr>
-<td>
 <p><a href="-circle-node/index.html">CircleNode</a></p>
 </td>
 <td>
@@ -41,7 +34,7 @@
 <p><a href="-clip-path-node/index.html">ClipPathNode</a></p>
 </td>
 <td>
-<code><span class="keyword">class </span><span class="identifier">ClipPathNode</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-base-node/index.html"><span class="identifier">BaseNode</span></a></code>
+<code><span class="keyword">class </span><span class="identifier">ClipPathNode</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-transform-node/index.html"><span class="identifier">TransformNode</span></a></code>
 <p>A <a href="-node/index.html">Node</a> that defines a region to be clipped. Note that a <a href="-clip-path-node/index.html">ClipPathNode</a> only clips
 its sibling <a href="-node/index.html">Node</a>s.</p>
 </td>
@@ -78,7 +71,7 @@ its sibling <a href="-node/index.html">Node</a>s.</p>
 <p><a href="-group-node/index.html">GroupNode</a></p>
 </td>
 <td>
-<code><span class="keyword">class </span><span class="identifier">GroupNode</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-base-node/index.html"><span class="identifier">BaseNode</span></a></code>
+<code><span class="keyword">class </span><span class="identifier">GroupNode</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-transform-node/index.html"><span class="identifier">TransformNode</span></a></code>
 <p>A <a href="-node/index.html">Node</a> that holds a group of children <a href="-node/index.html">Node</a>s.</p>
 </td>
 </tr>
@@ -155,7 +148,7 @@ the keyframe.</p>
 <p><a href="-render-node/index.html">RenderNode</a></p>
 </td>
 <td>
-<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">RenderNode</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-base-node/index.html"><span class="identifier">BaseNode</span></a></code>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">RenderNode</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-transform-node/index.html"><span class="identifier">TransformNode</span></a></code>
 <p>Abstract base <a href="-node/index.html">Node</a> for all node types that paint to the canvas.</p>
 </td>
 </tr>
@@ -175,6 +168,15 @@ the keyframe.</p>
 <td>
 <code><span class="keyword">enum</span> <span class="keyword">class </span><span class="identifier">StrokeLineJoin</span></code>
 <p>Stroke line join determines the shape that should be used at the ends of a stroked sub-path.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-transform-node/index.html">TransformNode</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">TransformNode</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-node/index.html"><span class="identifier">Node</span></a></code>
+<p>Abstract base <a href="-node/index.html">Node</a> for all node types that can be transformed.</p>
 </td>
 </tr>
 </tbody>
