@@ -15,6 +15,7 @@ import android.graphics.SweepGradient
 import androidx.annotation.ColorInt
 import androidx.annotation.FloatRange
 
+/** Abstract base [Node] for all node types that paint to the canvas. */
 abstract class RenderNode internal constructor(
         rotation: List<Animation<*, Float>>,
         pivotX: List<Animation<*, Float>>,
