@@ -21,36 +21,27 @@ abstract class TransformNode internal constructor(
     abstract override fun toLayer(timeline: PropertyTimeline): TransformLayer
 
     internal abstract class TransformLayer(private val timeline: PropertyTimeline, node: TransformNode) : Layer {
-        private val rotation: Property<Float> = registerAnimatableProperty(node.rotation)
-        private val pivotX: Property<Float>
-        private val pivotY: Property<Float>
-        private val scaleX: Property<Float>
-        private val scaleY: Property<Float>
-        private val translateX: Property<Float>
-        private val translateY: Property<Float>
+        private val rotation = registerAnimatableProperty(node.rotation)
+        private val pivotX = registerAnimatableProperty(node.pivotX)
+        private val pivotY = registerAnimatableProperty(node.pivotY)
+        private val scaleX = registerAnimatableProperty(node.scaleX)
+        private val scaleY = registerAnimatableProperty(node.scaleY)
+        private val translateX = registerAnimatableProperty(node.translateX)
+        private val translateY = registerAnimatableProperty(node.translateY)
 
         private val tempMatrix = Matrix()
 
         @Size(value = 4)
         private val tempUnitVectors = FloatArray(4)
 
-        init {
-            pivotX = registerAnimatableProperty(node.pivotX)
-            pivotY = registerAnimatableProperty(node.pivotY)
-            scaleX = registerAnimatableProperty(node.scaleX)
-            scaleY = registerAnimatableProperty(node.scaleY)
-            translateX = registerAnimatableProperty(node.translateX)
-            translateY = registerAnimatableProperty(node.translateY)
-        }
-
         fun <V> registerAnimatableProperty(animations: List<Animation<*, V>>): Property<V> {
             return timeline.registerAnimatableProperty(animations)
         }
 
         override fun draw(canvas: Canvas, parentMatrix: Matrix, viewportScale: PointF) {
+            val rotation = this.rotation.animatedValue
             val pivotX = this.pivotX.animatedValue
             val pivotY = this.pivotY.animatedValue
-            val rotation = this.rotation.animatedValue
             val scaleX = this.scaleX.animatedValue
             val scaleY = this.scaleY.animatedValue
             val translateX = this.translateX.animatedValue
@@ -108,13 +99,13 @@ abstract class TransformNode internal constructor(
 
     @TransformNodeMarker
     abstract class Builder<B : Builder<B>> internal constructor() : Node.Builder<B>() {
-        val rotation: MutableList<Animation<*, Float>> = asAnimations(0f)
-        val pivotX: MutableList<Animation<*, Float>> = asAnimations(0f)
-        val pivotY: MutableList<Animation<*, Float>> = asAnimations(0f)
-        val scaleX: MutableList<Animation<*, Float>> = asAnimations(1f)
-        val scaleY: MutableList<Animation<*, Float>> = asAnimations(1f)
-        val translateX: MutableList<Animation<*, Float>> = asAnimations(0f)
-        val translateY: MutableList<Animation<*, Float>> = asAnimations(0f)
+        val rotation = asAnimations(0f)
+        val pivotX = asAnimations(0f)
+        val pivotY = asAnimations(0f)
+        val scaleX = asAnimations(1f)
+        val scaleY = asAnimations(1f)
+        val translateX = asAnimations(0f)
+        val translateY = asAnimations(0f)
 
         // Rotation.
 

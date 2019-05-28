@@ -160,9 +160,7 @@ class EllipseNode private constructor(
             return replaceAnimations(radiusY, animations)
         }
 
-        override fun self(): Builder {
-            return this
-        }
+        override val self = this
 
         override fun build(): EllipseNode {
             return EllipseNode(

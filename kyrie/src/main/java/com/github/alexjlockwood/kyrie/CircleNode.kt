@@ -141,9 +141,7 @@ class CircleNode private constructor(
             return replaceAnimations(radius, animations)
         }
 
-        override fun self(): Builder {
-            return this
-        }
+        override val self = this
 
         override fun build(): CircleNode {
             return CircleNode(

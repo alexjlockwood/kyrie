@@ -126,9 +126,7 @@ class ClipPathNode private constructor(
             return self
         }
 
-        override fun self(): Builder {
-            return this
-        }
+        override val self = this
 
         override fun build(): ClipPathNode {
             return ClipPathNode(

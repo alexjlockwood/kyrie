@@ -37,13 +37,7 @@ abstract class Node internal constructor() {
      */
     @NodeMarker
     abstract class Builder<B : Builder<B>> internal constructor() {
-        internal val self: B
-
-        init {
-            this.self = self()
-        }
-
-        internal abstract fun self(): B
+        internal abstract val self: B
 
         internal abstract fun build(): Node
 
@@ -86,32 +80,25 @@ abstract class Node internal constructor() {
         }
 
         internal fun asAnimations(initialValue: Float): MutableList<Animation<*, Float>> {
-            return asList(asAnimation(initialValue))
+            return mutableListOf(asAnimation(initialValue))
         }
 
         internal fun asAnimations(initialValue: Int): MutableList<Animation<*, Int>> {
-            return asList(asAnimation(initialValue))
+            return mutableListOf(asAnimation(initialValue))
         }
 
         internal fun asAnimations(initialValue: FloatArray): MutableList<Animation<*, FloatArray>> {
-            return asList(asAnimation(initialValue))
+            return mutableListOf(asAnimation(initialValue))
         }
 
         internal fun asAnimations(initialValue: PathData): MutableList<Animation<*, PathData>> {
-            return asList(asAnimation(initialValue))
-        }
-
-        private fun <T> asList(animation: Animation<*, T>): MutableList<Animation<*, T>> {
-            val animations = ArrayList<Animation<*, T>>(1)
-            animations.add(animation)
-            return animations
+            return mutableListOf(asAnimation(initialValue))
         }
 
         internal fun <T> replaceFirstAnimation(animations: MutableList<Animation<*, T>>, animation: Animation<*, T>) {
             animations[0] = animation
         }
 
-        @SafeVarargs
         internal fun <T> replaceAnimations(animations: MutableList<Animation<*, T>>, vararg newAnimations: Animation<*, T>) {
             for (i in animations.size - 1 downTo 1) {
                 animations.removeAt(i)

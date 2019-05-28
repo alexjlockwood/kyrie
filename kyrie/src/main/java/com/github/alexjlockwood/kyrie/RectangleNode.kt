@@ -198,9 +198,7 @@ class RectangleNode private constructor(
             return replaceAnimations(cornerRadiusY, animations)
         }
 
-        override fun self(): Builder {
-            return this
-        }
+        override val self = this
 
         override fun build(): RectangleNode {
             return RectangleNode(

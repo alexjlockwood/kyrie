@@ -156,9 +156,7 @@ class LineNode private constructor(
             return replaceAnimations(endY, animations)
         }
 
-        override fun self(): Builder {
-            return this
-        }
+        override val self = this
 
         override fun build(): LineNode {
             return LineNode(

@@ -101,9 +101,7 @@ class PathNode private constructor(
             return replaceAnimations(pathData, animations)
         }
 
-        override fun self(): Builder {
-            return this
-        }
+        override val self = this
 
         override fun build(): PathNode {
             return PathNode(

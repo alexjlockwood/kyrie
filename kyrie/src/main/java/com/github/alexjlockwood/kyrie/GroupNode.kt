@@ -83,9 +83,7 @@ class GroupNode private constructor(
             return child(builder.build())
         }
 
-        override fun self(): Builder {
-            return this
-        }
+        override val self = this
 
         override fun build(): GroupNode {
             return GroupNode(rotation, pivotX, pivotY, scaleX, scaleY, translateX, translateY, children)
