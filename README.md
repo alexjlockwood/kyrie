@@ -81,26 +81,31 @@ val drawable =
 
 Kyrie supports 100% of the features that `VectorDrawable`s and `AnimatedVectorDrawable`s provide. It also extends the functionality of `VectorDrawable`s and `AnimatedVectorDrawable`s in a number of ways, making it possible to create even more powerful and elaborate scalable assets and animations.
 
-### Advantages of Kyrie over `VectorDrawable`
+### `VectorDrawable` features
 
 In addition to the features supported by `VectorDrawable`, Kyrie provides the following:
 
-- Extra `<path>` features:
-  - `CircleNode`. Equivalent to the `<circle>` node in SVG.
-  - `EllipseNode`. Equivalent to the `<ellipse>` node in SVG.
-  - `LineNode`. Equivalent to the `<line>` node in SVG.
-  - `RectangleNode`. Equivalent to the `<rect>` node in SVG.
-  - `strokeDashArray` (`FloatArray`). Equivalent to the `stroke-dasharray` attribute in SVG.
-  - `strokeDashOffset` (`Float`). Equivalent to the `stroke-dashoffset` attribute in SVG.
-  - `isScalingStroke` (`Boolean`). Equivalent to `vector-effect="non-scaling-stroke"` in SVG. Allows you to control whether a path's stroke width will be affected by transformations.
-  - The `strokeMiterLimit` attribute is animatable.
-- Extra `clip-path` features:
-  - `FillType` (either `NON_ZERO` or `EVEN_ODD`). Equivalent to the `clip-rule` attribute in SVG.
-  - `ClipType` (either `INTERSECT` or `DIFFERENCE`). Defines whether the clipping region is additive or subtractive.
-- Extra `<group>` features:
-  - Transformations (`pivot`, `scale`, `rotation`, and `translation`) can be set on _any_ `Node`, not just `GroupNode`s.
+#### `<path>` features
 
-### Advantages of Kyrie over `AnimatedVectorDrawable`
+- `CircleNode`. Equivalent to the `<circle>` node in SVG.
+- `EllipseNode`. Equivalent to the `<ellipse>` node in SVG.
+- `LineNode`. Equivalent to the `<line>` node in SVG.
+- `RectangleNode`. Equivalent to the `<rect>` node in SVG.
+- `strokeDashArray` (`FloatArray`). Equivalent to the `stroke-dasharray` attribute in SVG.
+- `strokeDashOffset` (`Float`). Equivalent to the `stroke-dashoffset` attribute in SVG.
+- `isScalingStroke` (`Boolean`). Equivalent to `vector-effect="non-scaling-stroke"` in SVG. Defines whether a path's stroke width will be affected by scaling transformations.
+- The `strokeMiterLimit` attribute is animatable.
+
+#### `clip-path` features
+
+- `FillType` (either `NON_ZERO` or `EVEN_ODD`). Equivalent to the `clip-rule` attribute in SVG.
+- `ClipType` (either `INTERSECT` or `DIFFERENCE`). Defines whether the clipping region is additive or subtractive.
+
+#### `<group>` features
+
+- Transformations (`pivot`, `scale`, `rotation`, and `translation`) can be set on _any_ `Node`, not just `GroupNode`s.
+
+### `AnimatedVectorDrawable` features
 
 In addition to the features supported by `AnimatedVectorDrawable`, Kyrie provides the following:
 
