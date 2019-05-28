@@ -11,21 +11,21 @@ Kyrie is a superset of Android's `VectorDrawable` and `AnimatedVectorDrawable` c
 
 `VectorDrawable`s are great because they provide density independence—they can be scaled arbitrarily on any device without loss of quality. `AnimatedVectorDrawable`s make them even more awesome, allowing us to animate specific properties of a `VectorDrawable` in a variety of ways.
 
-However, these two classes also have some limitations:
+However, these two classes have three main limitations:
 
-- They can't be paused, resumed, or seeked.
-- They can't be dynamically created at runtime (they must be inflated from a drawable resource).
-- They only support a small subset of features that SVGs provide on the web.
+1. They can't be paused, resumed, or seeked.
+2. They can't be dynamically created at runtime (they must be inflated from a drawable resource).
+3. They only support a small subset of features that SVGs provide on the web.
 
 Kyrie was created in order to address these problems.
 
 ## Getting started
 
-To create an animation using Kyrie, we first need to build a [`KyrieDrawable`][kyriedrawable]. There are two ways to do this:
+To create an animation using Kyrie, you first need to build a [`KyrieDrawable`][kyriedrawable]. There are two ways to do this:
 
 ### Option #1: from an existing VD/AVD resource
 
-With Kyrie, we can convert an existing VD/AVD resource into a `KyrieDrawable` with a single line:
+With Kyrie, you can convert an existing `VectorDrawable` or `AnimatedVectorDrawable` resource into a `KyrieDrawable` with a single line:
 
 ```kotlin
 val drawable = KyrieDrawable.create(context, R.drawable.my_vd_or_avd);
@@ -33,9 +33,9 @@ val drawable = KyrieDrawable.create(context, R.drawable.my_vd_or_avd);
 
 ### Option #2: programatically using a [`KyrieDrawable.Builder`][kyriedrawable#builder]
 
-We can also build `KyrieDrawable`s at runtime using the builder pattern. `KyrieDrawable`s are similar to SVGs and `VectorDrawable`s in that they are tree-like structures built of [`Node`][node]s. As we build the tree, we can optionally assign [`Animation`][animation]s to the properties of each `Node` to create a more elaborate animation.
+You can also build `KyrieDrawable`s at runtime using the builder pattern. `KyrieDrawable`s are similar to SVGs and `VectorDrawable`s in that they are tree-like structures built of [`Node`][node]s. As you build the tree, you can optionally assign [`Animation`][animation]s to the properties of each `Node` to create an animatable `KyrieDrawable`.
 
-Here is a snippet of code that shows how we can programatically create a circular progress indicator (see the [sample app][progressfragment] for examples in both Kotlin and Java):
+Here is a snippet of code from the [sample app][sample-app-source-code] that builds a material design circular progress indicator:
 
 ```kotlin
 val drawable =
@@ -79,32 +79,37 @@ val drawable =
 
 ## Features
 
-In addition to supporting 100% of the features that `VectorDrawable`s and `AnimatedVectorDrawable`s support natively, Kyrie also supports a number of extra features that make building animations more convenient and powerful.
+Kyrie supports 100% of the features that `VectorDrawable`s and `AnimatedVectorDrawable`s provide. It also extends the functionality of `VectorDrawable`s and `AnimatedVectorDrawable`s in a number of ways, making it possible to create even more powerful and elaborate scalable assets and animations.
 
-### `VectorDrawable`s
+### Advantages of Kyrie over `VectorDrawable`
 
-- Convenience nodes: `CircleNode`, `EllipseNode`, `LineNode`, and `RectangleNode`.
-  - Similar to the `<circle>`, `<ellipse>`, `<line>`, and `<rect>` nodes in SVG.
-- Clip path `fillType`.
-  - Similar to `clip-rule` in SVG.
-- Clip path `clipType`.
-  - Can specify either "intersect" or "difference" as the clip path clip type.
-- Transformations can be set on any node.
-  - `VectorDrawable`s only support transformations on `<group>` nodes.
-- Path `scalingStroke`.
-  - Similar to `vector-effect="non-scaling-stroke"` in SVG.
-- Path `strokeDashArray` and `strokeDashOffset`.
-  - Similar to `stroke-dasharray` and `stroke-dashoffset` in SVG.
-- `strokeMiterLimit` is animatable.
-  - This is an animatable property in SVG but not in `VectorDrawable`s.
+In addition to the features supported by `VectorDrawable`, Kyrie provides the following:
 
-### `AnimatedVectorDrawable`s
+- Extra `<path>` features:
+  - `CircleNode`. Equivalent to the `<circle>` node in SVG.
+  - `EllipseNode`. Equivalent to the `<ellipse>` node in SVG.
+  - `LineNode`. Equivalent to the `<line>` node in SVG.
+  - `RectangleNode`. Equivalent to the `<rect>` node in SVG.
+  - `strokeDashArray` (`FloatArray`). Equivalent to the `stroke-dasharray` attribute in SVG.
+  - `strokeDashOffset` (`Float`). Equivalent to the `stroke-dashoffset` attribute in SVG.
+  - `isScalingStroke` (`Boolean`). Equivalent to `vector-effect="non-scaling-stroke"` in SVG. Allows you to control whether a path's stroke width will be affected by transformations.
+  - The `strokeMiterLimit` attribute is animatable.
+- Extra `clip-path` features:
+  - `FillType` (either `NON_ZERO` or `EVEN_ODD`). Equivalent to the `clip-rule` attribute in SVG.
+  - `ClipType` (either `INTERSECT` or `DIFFERENCE`). Defines whether the clipping region is additive or subtractive.
+- Extra `<group>` features:
+  - Transformations (`pivot`, `scale`, `rotation`, and `translation`) can be set on _any_ `Node`, not just `GroupNode`s.
 
-Once we create a `KyrieDrawable`, we can perform several actions that are not possible using `AnimatedVectorDrawable`s:
+### Advantages of Kyrie over `AnimatedVectorDrawable`
 
-- Seek the animation using [`setCurrentPlayTime(long)`][kyriedrawable#setcurrentplaytime].
-- Pause and resume the animation using [`pause()`][kyriedrawable#pause] and [`resume()`][kyriedrawable#resume].
-- Listen for animation events using [`addListener(KyrieDrawable.Listener)`][kyriedrawable#addlistener].
+In addition to the features supported by `AnimatedVectorDrawable`, Kyrie provides the following:
+
+- [`setCurrentPlayTime(long)`][kyriedrawable#setcurrentplaytime].
+  - Allows you to manually scrub the animation.
+- [`pause()`][kyriedrawable#pause] and [`resume()`][kyriedrawable#resume].
+  - Allows you to pause and resume the animation.
+- [`addListener(KyrieDrawable.Listener)`][kyriedrawable#addlistener].
+  - Allows you to listen for the following animation events: start, update, pause, resume, cancel, and end.
 
 ## Further reading
 
