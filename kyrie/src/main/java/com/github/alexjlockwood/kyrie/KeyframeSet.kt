@@ -31,7 +31,7 @@ internal abstract class KeyframeSet<T> {
     abstract fun getAnimatedValue(fraction: Float): T
 
     companion object {
-        private val KEYFRAME_COMPARATOR = Comparator<Keyframe<*>> { k1, k2 -> java.lang.Float.compare(k1.fraction, k2.fraction) }
+        private val KEYFRAME_COMPARATOR = Comparator<Keyframe<*>> { k1, k2 -> k1.fraction.compareTo(k2.fraction) }
 
         /** @return An [ObjectKeyframeSet] with evenly distributed keyframe values. */
         fun <T> ofObject(evaluator: ValueEvaluator<T>, values: Array<T>): KeyframeSet<T> {

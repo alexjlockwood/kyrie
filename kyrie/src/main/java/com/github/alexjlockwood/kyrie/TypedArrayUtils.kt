@@ -15,7 +15,6 @@ import org.xmlpull.v1.XmlPullParser
 /**
  * Compat methods for accessing TypedArray values.
  *
- *
  * All the `getNamed*()` functions added the attribute name match, to take care of potential ID
  * collision between the private attributes in older OS version (OEM) and the attributes existed in
  * the newer OS version. For example, if an private attribute named `"abcdefg"` in Kitkat has the same
