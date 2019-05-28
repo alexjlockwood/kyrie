@@ -96,7 +96,7 @@ In addition to the features supported by `VectorDrawable`, Kyrie provides the fo
 - `isScalingStroke` (`Boolean`). Equivalent to `vector-effect="non-scaling-stroke"` in SVG. Defines whether a path's stroke width will be affected by scaling transformations.
 - The `strokeMiterLimit` attribute is animatable.
 
-#### `clip-path` features
+#### `<clip-path>` features
 
 - `FillType` (either `NON_ZERO` or `EVEN_ODD`). Equivalent to the `clip-rule` attribute in SVG.
 - `ClipType` (either `INTERSECT` or `DIFFERENCE`). Defines whether the clipping region is additive or subtractive.
