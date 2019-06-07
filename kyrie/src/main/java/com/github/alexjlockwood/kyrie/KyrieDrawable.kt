@@ -236,9 +236,6 @@ class KyrieDrawable private constructor(
     }
 
     override fun draw(canvas: Canvas) {
-        if (!isVisible) {
-            return
-        }
         val bounds = tempBounds
         copyBounds(bounds)
         if (bounds.width() <= 0 || bounds.height() <= 0) {
