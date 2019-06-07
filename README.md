@@ -140,7 +140,7 @@ Then add the library to your module's `build.gradle` file:
 ```gradle
 dependencies {
     // ...
-    implementation 'com.github.alexjlockwood:kyrie:0.2.0'
+    implementation 'com.github.alexjlockwood:kyrie:0.2.1'
 }
 ```
 
