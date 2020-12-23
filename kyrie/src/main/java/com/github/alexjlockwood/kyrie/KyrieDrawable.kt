@@ -334,6 +334,11 @@ class KyrieDrawable private constructor(
         animator.resume()
     }
 
+    /** Resets the animation. */
+    fun reset() {
+        animator.currentPlayTime = 0
+    }
+
     /** Returns true if the animation is running. */
     override fun isRunning(): Boolean {
         return animator.isRunning
